@@ -53,7 +53,7 @@
             </div>
         </div>
     
-        <!-- ワークフローバッジ -->
+        <!-- メインステータスバッジ（右寄せ） -->
         <div class="d-flex justify-content-end mb-3">
             <span class="badge bg-light text-dark me-2">案件登録済</span>
             <span class="badge bg-primary me-2">現地調査済</span>
@@ -61,134 +61,246 @@
             <span class="badge bg-light text-dark me-2">契約完了</span>
             <span class="badge bg-light text-dark me-2">他決完了</span>
         </div>
-
-        <!-- ナビゲーションタブ -->
+        <!-- メインタブ（nav-tabs） -->
         <ul class="nav nav-tabs mb-4">
-        <li class="nav-item"><a class="nav-link"      href="user_project_detail.html">概要</a></li>
-        <li class="nav-item"><a class="nav-link active" href="user_project_detail_investigate.html">現地調査</a></li>
-        <li class="nav-item"><a class="nav-link"      href="user_project_detail_designlist.html">プラン一覧</a></li>
-        <li class="nav-item"><a class="nav-link"      href="user_project_detail_doc.html">お客様資料</a></li>
-        <li class="nav-item"><a class="nav-link"      href="user_project_detail_chat.html">チャット <span class="badge bg-danger">5</span></a></li>
-        <li class="nav-item"><a class="nav-link"      href="user_project_detail_expartner.html">外部業務依頼</a></li>
+            <li class="nav-item"><a class="nav-link"      href="user_project_detail.html">概要</a></li>
+            <li class="nav-item"><a class="nav-link active" href="user_project_detail_investigate.html">現地調査</a></li>
+            <li class="nav-item"><a class="nav-link"      href="user_project_detail_designlist.html">プラン一覧</a></li>
+            <li class="nav-item"><a class="nav-link"      href="user_project_detail_doc.html">お客様資料</a></li>
+            <li class="nav-item"><a class="nav-link"      href="user_project_detail_chat.html">チャット <span class="badge bg-danger">5</span></a></li>
+            <li class="nav-item"><a class="nav-link"      href="user_project_detail_expartner.html">外部業務依頼</a></li>
         </ul>
-
-        <!-- セクション1: お客様調整 -->
-        <div class="card mb-5">
-            <div class="card-header">
-                <h5 class="mb-0">お客様調整</h5>
-            </div>
-            <div class="card-body" style="padding-top: 0.5rem;">
-                <div class="row g-3">
-                    <!-- 1. お客様システム登録案内 -->
-                    <div class="col-md-4">
-                        <div class="card border card-project h-100" style="margin-top: -3px;">
-                            <div class="card-body text-center">
-                                <h6 class="mb-2">
-                                    お客様システム登録案内
-                                    <span class="badge bg-danger text-light">お客様登録前</span>
-                                </h6>
-                                <button class="btn btn-primary btn-sm" onclick="openRegistrationModal()">お客様へメール送信</button>
-                            </div>
-                        </div>
+        <!-- サブタブ用バッジ（右寄せ） -->
+        <div class="d-flex justify-content-end align-items-center mb-2" style="gap:0.5rem;">
+            <span class="badge bg-light text-dark">案件登録済</span>
+            <span class="badge bg-light text-dark">お客様調整済</span>
+            <span class="badge bg-light text-dark">図面作成済</span>
+            <span class="badge bg-light text-dark">調査済</span>
+            <span class="badge bg-light text-dark">調査報告書作成済</span>
+        </div>
+        <!-- サブタブ nav-pills（右寄せ） -->
+        <ul class="nav nav-pills justify-content-end mb-4" id="investigateSubTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="sub-cust-tab" data-bs-toggle="tab" data-bs-target="#sub-cust" type="button" role="tab">
+                    <i class="bi bi-person-lines-fill"></i> お客様調整
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sub-drawing-tab" data-bs-toggle="tab" data-bs-target="#sub-drawing" type="button" role="tab">
+                    <i class="bi bi-pencil-square"></i> 図面作成
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sub-edit-tab" data-bs-toggle="tab" data-bs-target="#sub-edit" type="button" role="tab">
+                    <i class="bi bi-clipboard-data"></i> 調査・編集
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sub-result-tab" data-bs-toggle="tab" data-bs-target="#sub-result" type="button" role="tab">
+                    <i class="bi bi-clipboard-check"></i> 調査結果
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sub-images-tab" data-bs-toggle="tab" data-bs-target="#sub-images" type="button" role="tab">
+                    <i class="bi bi-images"></i> 画像一覧
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sub-report-tab" data-bs-toggle="tab" data-bs-target="#sub-report" type="button" role="tab">
+                    <i class="bi bi-file-earmark-text"></i> 報告書プレビュー
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <!-- お客様調整タブ -->
+            <div class="tab-pane fade show active" id="sub-cust" role="tabpanel">
+                <!-- 既存お客様調整カードをここに移動 -->
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h5 class="mb-0">お客様調整</h5>
                     </div>
-
-                    <!-- 2. 現地調査日程調整 -->
-                    <div class="col-md-4">
-                        <div class="card border card-project h-100" style="margin-top: -3px;">
-                            <div class="card-body text-center">
-                                <h6 class="mb-2">
-                                    現地調査日程調整
-                                    <span class="badge bg-warning text-dark">現調日程調整前</span>
-                                </h6>
-                                <div class="mb-3">
-                                    <input type="date" class="form-control form-control-sm d-inline-block me-2" style="width:auto;" value="2025-05-20">
-                                    <input type="time" class="form-control form-control-sm d-inline-block" style="width:auto;" value="10:00">
+                    <div class="card-body" style="padding-top: 0.5rem;">
+                        <div class="row g-3">
+                            <!-- 1. お客様システム登録案内 -->
+                            <div class="col-md-4">
+                                <div class="card border card-project h-100" style="margin-top: -3px;">
+                                    <div class="card-body text-center">
+                                        <h6 class="mb-2">
+                                            お客様システム登録案内
+                                            <span class="badge bg-danger text-light">お客様登録前</span>
+                                        </h6>
+                                        <button class="btn btn-primary btn-sm" onclick="openRegistrationModal()">お客様へメール送信</button>
+                                    </div>
                                 </div>
-                                <button class="btn btn-primary btn-sm" onclick="location.href='user_project_detail_investigate_schedule.html'">日程調整</button>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- 3. お客様アンケート -->
-                    <div class="col-md-4">
-                        <div class="card border card-project h-100" style="margin-top: -3px;">
-                            <div class="card-body text-center">
-                                <h6 class="mb-2">
-                                    お客様アンケート
-                                    <span class="badge bg-danger text-light">未送信</span>
-                                </h6>
-                                <button class="btn btn-primary btn-sm" onclick="location.href='user_project_detail_investigate_questionnaire.html'">アンケート送信</button>
+                            <!-- 2. 現地調査日程調整 -->
+                            <div class="col-md-4">
+                                <div class="card border card-project h-100" style="margin-top: -3px;">
+                                    <div class="card-body text-center">
+                                        <h6 class="mb-2">
+                                            現地調査日程調整
+                                            <span class="badge bg-warning text-dark">現調日程調整前</span>
+                                        </h6>
+                                        <div class="mb-3">
+                                            <input type="date" class="form-control form-control-sm d-inline-block me-2" style="width:auto;" value="2025-05-20">
+                                            <input type="time" class="form-control form-control-sm d-inline-block" style="width:auto;" value="10:00">
+                                        </div>
+                                        <button class="btn btn-primary btn-sm" onclick="location.href='user_project_detail_investigate_schedule.html'">日程調整</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 3. お客様アンケート -->
+                            <div class="col-md-4">
+                                <div class="card border card-project h-100" style="margin-top: -3px;">
+                                    <div class="card-body text-center">
+                                        <h6 class="mb-2">
+                                            お客様アンケート
+                                            <span class="badge bg-danger text-light">未送信</span>
+                                        </h6>
+                                        <button class="btn btn-primary btn-sm" onclick="location.href='user_project_detail_investigate_questionnaire.html'">アンケート送信</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- 図面作成タブ -->
+            <div class="tab-pane fade" id="sub-drawing" role="tabpanel">
+                <div class="card mb-4">
+                    <div class="card-header"><h5 class="mb-0">図面作成</h5></div>
+                    <div class="card-body">
+                        <!-- 物件情報表示 -->
+                        <div class="mb-3">
+                            <div>物件名：河本直己邸</div>
+                            <div>物件種別：一戸建て住宅</div>
+                            <div>物件構造：木造</div>
+                            <div>戸建て階数：２階建て</div>
+                            <div>地下室有無：無し</div>
+                        </div>
+                        <div class="d-flex flex-wrap gap-3">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDrawing1F">1F図面作成開始</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDrawing2F">2F図面開始</button>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDrawingSite">敷地図面作成開始</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 1F/2F/敷地 モーダル -->
+                <div class="modal fade" id="modalDrawing1F" tabindex="-1" aria-labelledby="modalDrawing1FLabel" aria-hidden="true">
+                    <div class="modal-dialog"><div class="modal-content">
+                        <div class="modal-header"><h5 class="modal-title" id="modalDrawing1FLabel">1F図面作成</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                        <div class="modal-body d-grid gap-2">
+                            <button class="btn btn-outline-primary">フリー制作</button>
+                            <button class="btn btn-outline-primary">スキャン開始</button>
+                            <button class="btn btn-outline-primary">写真取込</button>
+                            <button class="btn btn-outline-primary">CAD取込</button>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">閉じる</button></div>
+                    </div></div>
+                </div>
+                <div class="modal fade" id="modalDrawing2F" tabindex="-1" aria-labelledby="modalDrawing2FLabel" aria-hidden="true">
+                    <div class="modal-dialog"><div class="modal-content">
+                        <div class="modal-header"><h5 class="modal-title" id="modalDrawing2FLabel">2F図面作成</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                        <div class="modal-body d-grid gap-2">
+                            <button class="btn btn-outline-primary">フリー制作</button>
+                            <button class="btn btn-outline-primary">スキャン開始</button>
+                            <button class="btn btn-outline-primary">写真取込</button>
+                            <button class="btn btn-outline-primary">CAD取込</button>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">閉じる</button></div>
+                    </div></div>
+                </div>
+                <div class="modal fade" id="modalDrawingSite" tabindex="-1" aria-labelledby="modalDrawingSiteLabel" aria-hidden="true">
+                    <div class="modal-dialog"><div class="modal-content">
+                        <div class="modal-header"><h5 class="modal-title" id="modalDrawingSiteLabel">敷地図面作成</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                        <div class="modal-body d-grid gap-2">
+                            <button class="btn btn-outline-primary">フリー制作</button>
+                            <button class="btn btn-outline-primary">スキャン開始</button>
+                            <button class="btn btn-outline-primary">写真取込</button>
+                            <button class="btn btn-outline-primary">CAD取込</button>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">閉じる</button></div>
+                    </div></div>
+                </div>
+            </div>
+            <!-- 調査・編集タブ -->
+            <div class="tab-pane fade" id="sub-edit" role="tabpanel">
+                <h5 class="mb-3">現地調査</h5>
+                <div id="floorView" class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3 mb-5">
+                    <!-- 1F カード -->
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card card-project h-100 text-center" onclick="location.href='user_project_detail_investigate_1f.html'">
+                            <div class="card-header">1F</div>
+                            <img src="../images/1f.webp" class="card-img-top" alt="1F画像">
+                        </div>
+                    </div>
+                    <!-- 2F カード（モーダルを呼び出し） -->
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
+                            <div class="card-header">2F</div>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <button class="btn btn-primary">現地調査開始</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 敷地図 カード（モーダルを呼び出し） -->
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modalSite">
+                            <div class="card-header">敷地</div>
+                            <img src="../images/2f.webp" class="card-img-top" alt="敷地画像">
+                        </div>
+                    </div>
+                    <!-- 東面 カード（モーダルを呼び出し） -->
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
+                            <div class="card-header">東面</div>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <button class="btn btn-primary">現地調査開始</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 西面 カード（同様モーダル） -->
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
+                            <div class="card-header">西面</div>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <button class="btn btn-primary">現地調査開始</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 南面 カード（同様モーダル） -->
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
+                            <div class="card-header">南面</div>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <button class="btn btn-primary">現地調査開始</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 北面 カード（同様モーダル） -->
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
+                            <div class="card-header">北面</div>
+                            <div class="card-body d-flex justify-content-center align-items-center">
+                                <button class="btn btn-primary">現地調査開始</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 調査結果タブ -->
+            <div class="tab-pane fade" id="sub-result" role="tabpanel">
+                <!-- 空コンテンツ -->
+            </div>
+            <!-- 画像一覧タブ -->
+            <div class="tab-pane fade" id="sub-images" role="tabpanel">
+                <!-- 空コンテンツ -->
+            </div>
+            <!-- 報告書プレビューダブ -->
+            <div class="tab-pane fade" id="sub-report" role="tabpanel">
+                <!-- 空コンテンツ -->
             </div>
         </div>
-
-        <!-- セクション2: 現地調査 -->
-        <h5 class="mb-3">現地調査</h5>
-        <div id="floorView" class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3 mb-5">
-        <!-- 1F カード -->
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-project h-100 text-center" onclick="location.href='user_project_detail_investigate_1f.html'">
-                <div class="card-header">1F</div>
-                <img src="../images/1f.webp" class="card-img-top" alt="1F画像">
-                </div>
-            </div>
-            <!-- 2F カード（モーダルを呼び出し） -->
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
-                <div class="card-header">2F</div>
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <button class="btn btn-primary">現地調査開始</button>
-                </div>
-                </div>
-            </div>
-        
-            <!-- 敷地図 カード（モーダルを呼び出し） -->
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modalSite">
-                <div class="card-header">敷地</div>
-                <img src="../images/2f.webp" class="card-img-top" alt="敷地画像">
-                </div>
-            </div>
-            <!-- 東面 カード（モーダルを呼び出し） -->
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
-                <div class="card-header">東面</div>
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <button class="btn btn-primary">現地調査開始</button>
-                </div>
-                </div>
-            </div>
-            <!-- 西面 カード（同様モーダル） -->
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
-                <div class="card-header">西面</div>
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <button class="btn btn-primary">現地調査開始</button>
-                </div>
-                </div>
-            </div>
-            <!-- 南面 カード（同様モーダル） -->
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
-                <div class="card-header">南面</div>
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <button class="btn btn-primary">現地調査開始</button>
-                </div>
-                </div>
-            </div>
-            <!-- 北面 カード（同様モーダル） -->
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card card-project h-100 text-center" data-bs-toggle="modal" data-bs-target="#modal2F">
-                <div class="card-header">北面</div>
-                <div class="card-body d-flex justify-content-center align-items-center">
-                    <button class="btn btn-primary">現地調査開始</button>
-                </div>
-                </div>
-            </div>
-    </div>
 
     <!-- 2F モーダル -->
     <div class="modal fade" id="modal2F" tabindex="-1" aria-labelledby="modal2FLabel" aria-hidden="true">

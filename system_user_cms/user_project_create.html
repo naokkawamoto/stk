@@ -1409,5 +1409,45 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+  <script>
+    // 物件種別による動的表示制御
+    document.addEventListener('DOMContentLoaded', function() {
+      const propertyType = document.getElementById('property_type');
+      const houseFloorsGroup = document.getElementById('house_floors_group');
+      const houseBasementGroup = document.getElementById('house_basement_group');
+      const mansionTotalFloorsGroup = document.getElementById('mansion_total_floors_group');
+      const mansionFloorNumberGroup = document.getElementById('mansion_floor_number_group');
+      const apartmentFloorsGroup = document.getElementById('apartment_floors_group');
+      const apartmentUnitsGroup = document.getElementById('apartment_units_group');
+      function updatePropertyTypeVisibility() {
+        // すべて非表示
+        if(houseFloorsGroup) houseFloorsGroup.style.display = 'none';
+        if(houseBasementGroup) houseBasementGroup.style.display = 'none';
+        if(mansionTotalFloorsGroup) mansionTotalFloorsGroup.style.display = 'none';
+        if(mansionFloorNumberGroup) mansionFloorNumberGroup.style.display = 'none';
+        if(apartmentFloorsGroup) apartmentFloorsGroup.style.display = 'none';
+        if(apartmentUnitsGroup) apartmentUnitsGroup.style.display = 'none';
+        // 戸建て
+        if (propertyType && (propertyType.value === '一戸建て住宅' || propertyType.value === '一戸建ての店舗併用住宅')) {
+          if(houseFloorsGroup) houseFloorsGroup.style.display = '';
+          if(houseBasementGroup) houseBasementGroup.style.display = '';
+        }
+        // マンション
+        if (propertyType && propertyType.value === 'マンション') {
+          if(mansionTotalFloorsGroup) mansionTotalFloorsGroup.style.display = '';
+          if(mansionFloorNumberGroup) mansionFloorNumberGroup.style.display = '';
+        }
+        // アパート
+        if (propertyType && propertyType.value === 'アパート') {
+          if(apartmentFloorsGroup) apartmentFloorsGroup.style.display = '';
+          if(apartmentUnitsGroup) apartmentUnitsGroup.style.display = '';
+        }
+      }
+      if (propertyType) {
+        propertyType.addEventListener('change', updatePropertyTypeVisibility);
+        updatePropertyTypeVisibility();
+      }
+    });
+  </script>
 </body>
 </html>
