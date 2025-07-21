@@ -21,102 +21,147 @@
     <h5 class="text-muted mb-4">メンバー登録(システム管理者のみ）</h5>
 
     <div class="card m-3">
-      <div class="card-header">
+      <div class="card-header d-flex justify-content-between align-items-center">
         <span>メンバー管理</span>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#bulkAddModal">一括登録</button>
       </div>
       <div class="card-body">
-        <!-- 操作ボタン -->
-        <div class="d-flex justify-content-end mb-3">
-          <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addMemberModal">新規登録</button>
-          <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#bulkAddModal">一括登録</button>
+        <!-- タブ -->
+        <ul class="nav nav-tabs mb-3" id="memberTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="tab-staff" data-bs-toggle="tab" data-bs-target="#tab-content-staff" type="button" role="tab">社内担当者</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-coop" data-bs-toggle="tab" data-bs-target="#tab-content-coop" type="button" role="tab">協力業者</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tab-expert" data-bs-toggle="tab" data-bs-target="#tab-content-expert" type="button" role="tab">外部専門家</button>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <!-- 社内担当者タブ -->
+          <div class="tab-pane fade show active" id="tab-content-staff" role="tabpanel">
+            <div class="d-flex justify-content-end mb-3">
+              <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addMemberModal">新規登録</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered small-text">
+                <thead class="table-light">
+                  <tr>
+                    <th>支店名</th>
+                    <th>名前</th>
+                    <th>カナ</th>
+                    <th>職種</th>
+                    <th>建築士</th>
+                    <th>登録</th>
+                    <th>登録番号</th>
+                    <th>電話番号</th>
+                    <th>メール</th>
+                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>松江支店</td><td>山本 太郎</td><td>ヤマモト タロウ</td><td>システム管理者</td><td>一級</td><td>島根県</td><td>123456</td><td>090-1111-1111</td><td>yamamoto.taro@example.com</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>広島支店</td><td>佐藤 花子</td><td>サトウ ハナコ</td><td>管理職</td><td>二級</td><td>広島県</td><td>234567</td><td>090-2222-2222</td><td>satou.hanako@example.com</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>松江支店</td><td>田中 一郎</td><td>タナカ イチロウ</td><td>事務</td><td>無し</td><td></td><td></td><td>090-3333-3333</td><td>tanaka.ichirou@example.com</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>広島支店</td><td>高橋 美咲</td><td>タカハシ ミサキ</td><td>営業</td><td>一級</td><td>広島県</td><td>456789</td><td>090-4444-4444</td><td>takahashi.misaki@example.com</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>松江支店</td><td>中村 健</td><td>ナカムラ ケン</td><td>設計</td><td>二級</td><td>島根県</td><td>567890</td><td>090-5555-5555</td><td>nakamura.ken@example.com</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>広島支店</td><td>小林 愛</td><td>コバヤシ アイ</td><td>インテリアコーディネーター</td><td>無し</td><td></td><td></td><td>090-6666-6666</td><td>kobayashi.ai@example.com</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>松江支店</td><td>伊藤 翔</td><td>イトウ ショウ</td><td>現場監督</td><td>一級</td><td>島根県</td><td>789012</td><td>090-7777-7777</td><td>itou.sho@example.com</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>広島支店</td><td>渡辺 智子</td><td>ワタナベ トモコ</td><td>積算</td><td>二級</td><td>広島県</td><td>890123</td><td>090-8888-8888</td><td>watanabe.tomoko@example.com</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ページネーション -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mt-4">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+          <!-- 協力業者タブ -->
+          <div class="tab-pane fade" id="tab-content-coop" role="tabpanel">
+            <div class="d-flex justify-content-end mb-3">
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addCoopModal">新規登録</button>
+            </div>
+            <div class="table-responsive m-3">
+              <table class="table table-hover table-bordered small-text">
+                <thead class="table-light">
+                  <tr>
+                    <th>会社名</th>
+                    <th>名前</th>
+                    <th>名前（カナ）</th>
+                    <th>職種</th>
+                    <th>メール</th>
+                    <th>電話番号</th>
+                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>株式会社協力一</td><td>佐藤 健</td><td>サトウ ケン</td><td>積算</td><td>ken.sato@example.com</td><td>090-1234-0001</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社協力二</td><td>鈴木 彩</td><td>スズキ アヤ</td><td>事務</td><td>aya.suzuki@example.com</td><td>090-1234-0002</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社協力三</td><td>高橋 大輔</td><td>タカハシ ダイスケ</td><td>管理職</td><td>daisuke.takahashi@example.com</td><td>090-1234-0003</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社協力四</td><td>田中 礼子</td><td>タナカ レイコ</td><td>職人</td><td>reiko.tanaka@example.com</td><td>090-1234-0004</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社協力五</td><td>伊藤 翔太</td><td>イトウ ショウタ</td><td>営業</td><td>shota.ito@example.com</td><td>090-1234-0005</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社協力六</td><td>山本 浩</td><td>ヤマモト ヒロシ</td><td>代表者</td><td>hiroshi.yamamoto@example.com</td><td>090-1234-0006</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ページネーション -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mt-4">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+          <!-- 外部専門家タブ -->
+          <div class="tab-pane fade" id="tab-content-expert" role="tabpanel">
+            <div class="d-flex justify-content-end mb-3">
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addExpertModal">新規登録</button>
+            </div>
+            <div class="table-responsive m-3">
+              <table class="table table-hover table-bordered small-text">
+                <thead class="table-light">
+                  <tr>
+                    <th>会社名</th>
+                    <th>名前</th>
+                    <th>名前（カナ）</th>
+                    <th>職種</th>
+                    <th>メール</th>
+                    <th>電話番号</th>
+                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>株式会社専門一</td><td>松本 桜</td><td>マツモト サクラ</td><td>家屋調査士</td><td>sakura.matsumoto@example.com</td><td>090-2345-0001</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社専門二</td><td>小川 翔</td><td>オガワ ショウ</td><td>司法書士</td><td>sho.ogawa@example.com</td><td>090-2345-0002</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社専門三</td><td>中山 理恵</td><td>ナカヤマ リエ</td><td>建築士</td><td>rie.nakayama@example.com</td><td>090-2345-0003</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社専門四</td><td>橋本 健太</td><td>ハシモト ケンタ</td><td>インテリアコーディネーター</td><td>kenta.hashimoto@example.com</td><td>090-2345-0004</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社専門五</td><td>佐々木 亮</td><td>ササキ リョウ</td><td>土地家屋調査士</td><td>ryo.sasaki@example.com</td><td>090-2345-0005</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                  <tr><td>株式会社専門六</td><td>山田 美咲</td><td>ヤマダ ミサキ</td><td>測量士</td><td>misaki.yamada@example.com</td><td>090-2345-0006</td><td><button class="btn btn-danger btn-sm">削除</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ページネーション -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mt-4">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
         </div>
-
-        <!-- テーブル -->
-        <div class="table-responsive">
-          <table class="table table-hover table-bordered small-text">
-            <thead class="table-light">
-              <tr>
-                <th>区分</th>
-                <th>会社名</th>
-                <th>支店名</th>
-                <th>名前</th>
-                <th>カナ</th>
-                <th>職種</th>
-                <th>電話番号</th>
-                <th>メール</th>
-                <th>編集</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>社内</td>
-                <td>クライアント株式会社</td>
-                <td>東京支店</td>
-                <td>佐藤 真</td>
-                <td>サトウ マコト</td>
-                <td>営業</td>
-                <td>090-1111-2222</td>
-                <td>makoto.sato@client.co.jp</td>
-                <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">削除</button></td>
-              </tr>
-              <tr>
-                <td>協力業者</td>
-                <td>協力会社A</td>
-                <td>-</td>
-                <td>鈴木 花子</td>
-                <td>スズキ ハナコ</td>
-                <td>積算</td>
-                <td>090-2222-3333</td>
-                <td>hanako.suzuki@coop-a.co.jp</td>
-                <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">削除</button></td>
-              </tr>
-              <tr>
-                <td>外部専門家</td>
-                <td>専門家事務所B</td>
-                <td>-</td>
-                <td>高橋 次郎</td>
-                <td>タカハシ ジロウ</td>
-                <td>建築士</td>
-                <td>090-3333-4444</td>
-                <td>jiro.takahashi@expert-b.jp</td>
-                <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">削除</button></td>
-              </tr>
-              <tr>
-                <td>社内</td>
-                <td>クライアント株式会社</td>
-                <td>大阪支店</td>
-                <td>田中 美咲</td>
-                <td>タナカ ミサキ</td>
-                <td>設計</td>
-                <td>090-4444-5555</td>
-                <td>misaki.tanaka@client.co.jp</td>
-                <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">削除</button></td>
-              </tr>
-              <tr>
-                <td>協力業者</td>
-                <td>協力会社B</td>
-                <td>-</td>
-                <td>山田 太郎</td>
-                <td>ヤマダ タロウ</td>
-                <td>職人</td>
-                <td>090-5555-6666</td>
-                <td>taro.yamada@coop-b.co.jp</td>
-                <td><button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">削除</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- ページネーション -->
-        <nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center mt-4">
-            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
-        </nav>
       </div>
     </div>
   </div>
@@ -126,53 +171,15 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addMemberModalLabel">メンバー追加</h5>
+          <h5 class="modal-title" id="addMemberModalLabel">社内担当者 追加</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label class="form-label">区分</label>
-            <select class="form-select" id="memberTypeSelect">
-              <option value="社内">社内</option>
-              <option value="協力業者">協力業者</option>
-              <option value="外部専門家">外部専門家</option>
-            </select>
-          </div>
-          <div class="mb-3" id="branchSelectContainer">
             <label class="form-label">支店名</label>
             <select class="form-select">
-              <option>東京支店</option>
-              <option>大阪支店</option>
-              <option>名古屋支店</option>
-            </select>
-          </div>
-          <div class="mb-3 d-none" id="coopCompanyContainer">
-            <label class="form-label">会社名</label>
-            <select class="form-select">
-              <option>協力会社A</option>
-              <option>協力会社B</option>
-              <option>協力会社C</option>
-            </select>
-          </div>
-          <div class="mb-3 d-none" id="expertCompanyContainer">
-            <label class="form-label">会社名</label>
-            <select class="form-select">
-              <option>専門家事務所A</option>
-              <option>専門家事務所B</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">職種</label>
-            <select class="form-select" id="positionSelect">
-              <!-- 動的に切り替える用。初期は社内一覧 -->
-              <option>営業</option>
-              <option>現場監督</option>
-              <option>設計</option>
-              <option>インテリアコーディネーター</option>
-              <option>職人</option>
-              <option>管理職</option>
-              <option>事務</option>
-              <option>積算</option>
+              <option>松江支店</option>
+              <option>広島支店</option>
             </select>
           </div>
           <div class="mb-3">
@@ -182,6 +189,51 @@
           <div class="mb-3">
             <label class="form-label">カナ</label>
             <input type="text" class="form-control" placeholder="ヤマダ タロウ">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">職種</label>
+            <select class="form-select">
+              <option>システム管理者</option>
+              <option>管理職</option>
+              <option>事務</option>
+              <option>営業</option>
+              <option>設計</option>
+              <option>インテリアコーディネーター</option>
+              <option>現場監督</option>
+              <option>積算</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">建築士</label><br>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="has_license" id="license_yes" value="有">
+              <label class="form-check-label" for="license_yes">有り</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="has_license" id="license_no" value="無">
+              <label class="form-check-label" for="license_no">無し</label>
+            </div>
+            <div class="mt-2">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="license_type" id="license_1" value="一級建築士">
+                <label class="form-check-label" for="license_1">一級</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="license_type" id="license_2" value="二級建築士">
+                <label class="form-check-label" for="license_2">二級</label>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">登録（都道府県）</label>
+            <select class="form-select">
+              <option>島根県</option>
+              <option>広島県</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">登録番号（6桁）</label>
+            <input type="text" class="form-control" maxlength="6" placeholder="123456">
           </div>
           <div class="mb-3">
             <label class="form-label">電話番号</label>

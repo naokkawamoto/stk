@@ -60,13 +60,16 @@
       <!-- 支店情報 -->
       <div class="tab-pane fade" id="tab-branch-info" role="tabpanel" aria-labelledby="tab-branch-info-tab">
         <div class="text-end mb-2">
-          <button class="btn btn-primary btn-sm">支店追加</button>
+          <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addBranchModal">支店追加</button>
         </div>
         <table class="table table-bordered small">
           <thead class="table-light">
             <tr>
               <td class="fw-normal">支店ID</td>
-              <td class="fw-normal">支店名／部門</td>
+              <td class="fw-normal">支店名/部門</td>
+              <td class="fw-normal">事務所登録</td>
+              <td class="fw-normal">登録場所</td>
+              <td class="fw-normal">登録番号</td>
               <td class="fw-normal">郵便番号</td>
               <td class="fw-normal">住所</td>
               <td class="fw-normal">担当者名</td>
@@ -78,10 +81,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>001</td><td>東京支店</td><td>1500001</td><td>東京都渋谷区神南1-1-1</td><td>佐藤 太郎</td><td>サトウ タロウ</td><td>03-1111-2222</td><td>03-3333-4444</td><td>sato.taro@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
-            <tr><td>002</td><td>大阪支店</td><td>5300001</td><td>大阪府大阪市北区梅田2-2-2</td><td>鈴木 次郎</td><td>スズキ ジロウ</td><td>06-2222-3333</td><td>06-4444-5555</td><td>suzuki.jiro@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
-            <tr><td>003</td><td>名古屋支店</td><td>4600002</td><td>愛知県名古屋市中区丸の内3-3-3</td><td>高橋 三郎</td><td>タカハシ サブロウ</td><td>052-3333-4444</td><td>052-5555-6666</td><td>takahashi.saburo@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
-            <tr><td>004</td><td>福岡支店</td><td>8100001</td><td>福岡県福岡市中央区天神4-4-4</td><td>伊藤 四郎</td><td>イトウ シロウ</td><td>092-4444-5555</td><td>092-6666-7777</td><td>ito.shiro@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
+            <tr><td>001</td><td>東京支店</td><td>一級建築士事務所</td><td>大臣</td><td>123456</td><td>1500001</td><td>東京都渋谷区神南1-1-1</td><td>佐藤 太郎</td><td>サトウ タロウ</td><td>03-1111-2222</td><td>03-3333-4444</td><td>sato.taro@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
+            <tr><td>002</td><td>大阪支店</td><td>二級建築士事務所</td><td>大阪府</td><td>234567</td><td>5300001</td><td>大阪府大阪市北区梅田2-2-2</td><td>鈴木 次郎</td><td>スズキ ジロウ</td><td>06-2222-3333</td><td>06-4444-5555</td><td>suzuki.jiro@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
+            <tr><td>003</td><td>名古屋支店</td><td>一級建築士事務所</td><td>大臣</td><td>345678</td><td>4600002</td><td>愛知県名古屋市中区丸の内3-3-3</td><td>高橋 三郎</td><td>タカハシ サブロウ</td><td>052-3333-4444</td><td>052-5555-6666</td><td>takahashi.saburo@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
+            <tr><td>004</td><td>福岡支店</td><td>二級建築士事務所</td><td>福岡県</td><td>456789</td><td>8100001</td><td>福岡県福岡市中央区天神4-4-4</td><td>伊藤 四郎</td><td>イトウ シロウ</td><td>092-4444-5555</td><td>092-6666-7777</td><td>ito.shiro@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
+            <tr><td>005</td><td>松江支店</td><td>一級建築士事務所</td><td>大臣</td><td>567890</td><td>6900001</td><td>島根県松江市朝日町1-1-1</td><td>山田 五郎</td><td>ヤマダ ゴロウ</td><td>0852-11-2222</td><td>0852-33-4444</td><td>yamada.gorou@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
+            <tr><td>006</td><td>広島支店</td><td>二級建築士事務所</td><td>広島県</td><td>678901</td><td>7300001</td><td>広島県広島市中区紙屋町2-2-2</td><td>佐々木 六郎</td><td>ササキ ロクロウ</td><td>082-22-3333</td><td>082-44-5555</td><td>sasaki.rokurou@example.com</td><td><button class="btn btn-warning btn-sm">編集</button></td></tr>
           </tbody>
         </table>
       </div>
@@ -196,6 +201,70 @@
 
   <!-- フッター -->
   <div id="footer-container"></div>
+
+  <!-- 支店追加モーダル -->
+  <div class="modal fade" id="addBranchModal" tabindex="-1" aria-labelledby="addBranchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addBranchModalLabel">支店追加</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">支店名</label>
+            <input type="text" class="form-control" placeholder="例：松江支店">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">事務所登録</label>
+            <select class="form-select" id="officeTypeSelect">
+              <option value="一級">一級建築士事務所</option>
+              <option value="二級">二級建築士事務所</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">登録場所</label>
+            <input type="text" class="form-control" id="registerPlaceInput" placeholder="一級は大臣、二級は都道府県名">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">登録番号（6桁）</label>
+            <input type="text" class="form-control" maxlength="6" placeholder="123456">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">郵便番号</label>
+            <input type="text" class="form-control" placeholder="6900001">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">住所</label>
+            <input type="text" class="form-control" placeholder="島根県松江市朝日町1-1-1">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">担当者名</label>
+            <input type="text" class="form-control" placeholder="山田 五郎">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">担当者名（カナ）</label>
+            <input type="text" class="form-control" placeholder="ヤマダ ゴロウ">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">担当者電話番号</label>
+            <input type="text" class="form-control" placeholder="0852-11-2222">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">FAX</label>
+            <input type="text" class="form-control" placeholder="0852-33-4444">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">担当者メール</label>
+            <input type="email" class="form-control" placeholder="yamada.gorou@example.com">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">追加</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

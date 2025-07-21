@@ -17,12 +17,6 @@
 
     <div class="container mt-4">
         <!-- パンくずリスト -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb small-text">
-            <li class="breadcrumb-item"><a href="user_dashboard.html">ダッシュボード</a></li>
-            <li class="breadcrumb-item active" aria-current="page">マイプロフィール</li>
-            </ol>
-        </nav>
 
     <h2 class="mb-3">マイプロフィール</h2>
     <div class="card">
@@ -30,26 +24,27 @@
         <div class="row">
             <!-- ユーザー写真 -->
             <div class="col-md-3 text-center">
-            <img src="../images/user_photo.png" alt="User Photo" class="rounded-circle mb-3" width="150" height="150">
+            <img src="../images/nk_icon.gif" alt="User Photo" class="rounded-circle mb-3" width="150" height="150">
             </div>
             <!-- ユーザー情報 -->
             <div class="col-md-9">
-            <h4 class="small-text">ユーザー名: kawamoto</h4>
-            <p class="small-text">氏名: 河本直己</p>
-            <p class="small-text">メール: kawamoto@example.com</p>
+            <table class="table table-bordered small-text w-auto">
+              <tbody>
+                <tr><th>支店名</th><td>松江支店</td></tr>
+                <tr><th>名前</th><td>河本 直己</td></tr>
+                <tr><th>カナ</th><td>カワモト ナオキ</td></tr>
+                <tr><th>職種</th><td>設計</td></tr>
+                <tr><th>建築士</th><td>一級</td></tr>
+                <tr><th>登録</th><td>島根県</td></tr>
+                <tr><th>登録番号</th><td>123456</td></tr>
+                <tr><th>電話番号</th><td>090-1234-5678</td></tr>
+                <tr><th>メール</th><td>kawamoto@example.com</td></tr>
+              </tbody>
+            </table>
             <p class="small-text">
                 パスワード: ******** 
                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#changePasswordModal">変更</button>
             </p>
-            <!-- 言語プルダウン -->
-            <div class="mb-3">
-                <label for="languageSelect" class="form-label small-text">言語</label>
-                <select id="languageSelect" class="form-select form-select-sm" style="width: auto;">
-                <option value="ja" selected>日本語</option>
-                <option value="vi">ベトナム語</option>
-                <option value="en">英語</option>
-                </select>
-            </div>
             </div>
         </div>
         </div>
