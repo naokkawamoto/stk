@@ -141,59 +141,22 @@
             >
           </div>
     
-          <!-- 右側：調査項目テーブルカラム（幅 1/5 相当）-->
+          <!-- 右側：調査項目タブ＋フォーム -->
           <div class="table-col">
-            <table class="table table-bordered small-text">
-              <thead class="table-light">
-                <tr>
-                  <th>調査項目</th>
-                  <th>検査数</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>[1] 基礎（構造）</td>
-                  <td class="text-center">
-                    <button class="btn btn-sm btn-outline-primary" onclick="showDetails()">
-                      5
-                    </button>
-                  </td>
-                </tr>
-                <tr><td>[2] 土台・床組（構造）</td><td></td></tr>
-                <tr><td>[3] 床（構造）</td><td></td></tr>
-                <tr><td>[4] 柱及び梁（構造）</td><td></td></tr>
-                <tr><td>[5] 外壁及び軒裏（構造）</td><td></td></tr>
-                <tr><td>[6] バルコニー（及び共用廊下）（構造）</td><td></td></tr>
-                <tr><td>[7] 内壁（構造）</td><td></td></tr>
-                <tr><td>[8] 天井（構造）</td><td></td></tr>
-                <tr><td>[9] 小屋組（下屋部分を含む）（構造）</td><td></td></tr>
-                <tr><td>[10] 蟻害（構造）</td><td></td></tr>
-                <tr><td>[11] 腐朽等（構造）</td><td></td></tr>
-                <tr><td>[12] 配筋調査（構造）</td><td></td></tr>
-                <tr><td>[13] コンクリート圧縮強度（構造）</td><td></td></tr>
-                <tr><td>[14] 外壁（雨水）</td><td></td></tr>
-                <tr><td>[15] 軒裏（雨水）</td><td></td></tr>
-                <tr><td>[16] バルコニー（及び共用廊下）（雨水）</td><td></td></tr>
-                <tr><td>[17] 内壁（雨水）</td><td></td></tr>
-                <tr><td>[18] 天井（雨水）</td><td></td></tr>
-                <tr><td>[19] 小屋組（雨水）</td><td></td></tr>
-                <tr><td>[20] 屋根（雨水）</td><td></td></tr>
-                <tr><td>[21] 耐震性に関する書類の確認</td><td></td></tr>
-                <tr><td>[22] オプション設備配管（給水・給湯管）、（排水管）、（換気ダクト）</td><td></td></tr>
-                <tr><td>[23] オプション給排水設備・電気設備・ガス設備</td><td></td></tr>
-              </tbody>
-            </table>
-            <!-- 詳細表示用エリア -->
-            <div id="detailSection" class="mt-2 d-none">
-              <div class="card card-body p-2 small-text">
-                <h6 class="mb-2">仕上げの種類の確認</h6>
-                <ol class="ps-3 mb-0">
-                  <li>幅0.5mm以上のひび割れ</li>
-                  <li>深さ20mm以上の欠損</li>
-                  <li>コンクリートの著しい劣化</li>
-                  <li>さび汁を伴うひび割れ又は欠損（白華を含む）</li>
-                  <li>鉄筋の露出</li>
-                </ol>
+            <ul class="nav nav-tabs mb-2" id="inspectionTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-current" data-bs-toggle="tab" data-bs-target="#tab-current-pane" type="button" role="tab">現地調査</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-prepost" data-bs-toggle="tab" data-bs-target="#tab-prepost-pane" type="button" role="tab">事前・事後調査</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="inspectionTabContent">
+              <div class="tab-pane fade show active" id="tab-current-pane" role="tabpanel">
+                <form id="inspectionFormCurrent"></form>
+              </div>
+              <div class="tab-pane fade" id="tab-prepost-pane" role="tabpanel">
+                <form id="inspectionFormPrepost"></form>
               </div>
             </div>
           </div>
@@ -215,6 +178,25 @@
         function showDetails() {
           document.getElementById('detailSection').classList.toggle('d-none');
         }
+
+        // 調査項目名リスト
+        const surveyItemsCurrent = [
+          "柱","天井","窓","部屋","階段","採光","室内傷の調査","給排気設備","キッチン","レンジフード","キッチン壁天井","シンク","トイレ","分電盤","電気設備・配線箇所","建具とびら","洗面化粧台","お風呂","段差","基礎","土台","筋交い","床下断熱材","床下排気口","床防湿措置","面材","小屋裏断熱材","梁・横架材","継手又は仕口","トイレ浄化槽","床傾斜","柱傾斜","給排水設備","給湯設備","水道メーター","ガスメーター","電気設備・引込等","道路との高低差","敷地の湿潤状況","出水履歴"
+        ];
+        const surveyItemsPrepost = [
+          "土地条件等; 盛土、地盤改良等","敷地の排水状況","がけ崩れ対策","用途地域","斜線制限","接道","防火地域","屋根","外壁材","外壁（雨水）","軒裏（雨水）","基礎：配筋、コンクリート強度","塀：配筋、コンクリート強度","増築部分","基礎のコンクリート、鉄筋JIS適","石綿","クロルピリホス","ホルムアルデヒド","地階における居室","壁面線の指定状況","道路内建築","外壁後退距離","高度地区内の建築物","地方公共団体の条例による制限","仮設計画"
+        ];
+        function createInspectionForm(items, formId) {
+          const form = document.getElementById(formId);
+          form.innerHTML = items.map((name, idx) => `
+            <div class="mb-3">
+              <label class="form-label">${idx+1}. ${name}</label>
+              <input type="text" class="form-control" name="item${idx+1}" placeholder="入力してください">
+            </div>
+          `).join("");
+        }
+        createInspectionForm(surveyItemsCurrent, "inspectionFormCurrent");
+        createInspectionForm(surveyItemsPrepost, "inspectionFormPrepost");
     </script>
 </body>
 </html>
