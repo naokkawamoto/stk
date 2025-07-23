@@ -215,11 +215,11 @@
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="lead_source_hq_homepage" id="lead_source_hq_homepage">
                             <label class="form-check-label" for="lead_source_hq_homepage">本部ホームページ</label>
-                          </div>
+                        </div>
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="lead_source_own_homepage" id="lead_source_own_homepage">
                             <label class="form-check-label" for="lead_source_own_homepage">自社ホームページ</label>
-                          </div>
+                        </div>
                         </div>
                         <div class="mb-1">
                           <span class="me-2">その他のWEBページ</span>
@@ -340,15 +340,15 @@
                     <div class="row g-3">
                       <div class="col-md-12">
                         <label class="form-label">物件住所種別 <span class="text-danger">*</span></label><br>
-                        <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline">
                           <input class="form-check-input" type="radio" name="property_address_type" value="施主住所と同じ" required>
                           <label class="form-check-label">施主住所と同じ</label>
-                        </div>
-                        <div class="form-check form-check-inline">
+                      </div>
+                      <div class="form-check form-check-inline">
                           <input class="form-check-input" type="radio" name="property_address_type" value="新住所" required>
                           <label class="form-check-label">新住所</label>
-                        </div>
                       </div>
+                    </div>
                       <div class="col-md-4">
                         <label class="form-label">物件郵便番号</label>
                         <input type="text" class="form-control" name="property_postal_code" maxlength="7" pattern="[0-9]{7}" placeholder="例: 1600022">
@@ -409,7 +409,7 @@
                       <div class="col-md-4">
                         <label class="form-label">物件住所</label>
                         <input type="text" class="form-control" name="property_address" maxlength="200" placeholder="郵便番号から自動取得可">
-                      </div>
+                    </div>
                       <div class="col-md-12">
                         <button type="button" class="btn btn-outline-secondary my-2"><i class="bi bi-geo-alt"></i> 周辺地図をGoogleMapで取得</button>
                       </div>
@@ -425,14 +425,14 @@
                           <option value="賃貸物件">賃貸物件</option>
                           <option value="その他">その他</option>
                         </select>
-                      </div>
+                    </div>
                       <div class="col-md-6">
                         <label class="form-label">計画時期</label><br>
-                        <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline">
                           <input class="form-check-input" type="radio" name="plan_timing" value="１年以内">
                           <label class="form-check-label">１年以内</label>
-                        </div>
-                        <div class="form-check form-check-inline">
+                      </div>
+                      <div class="form-check form-check-inline">
                           <input class="form-check-input" type="radio" name="plan_timing" value="２年以内">
                           <label class="form-check-label">２年以内</label>
                         </div>
@@ -442,7 +442,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" type="radio" name="plan_timing" value="未定">
-                          <label class="form-check-label">未定</label>
+                        <label class="form-check-label">未定</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input class="form-check-input" type="radio" name="plan_timing" value="不明">
@@ -484,8 +484,8 @@
                             <option value="マンション">マンション</option>
                             <option value="アパート">アパート</option>
                             <option value="店舗">店舗</option>
-                          </select>
-                        </div>
+                      </select>
+                    </div>
                         <div class="col-md-6">
                           <label class="form-label">物件構造</label>
                           <select class="form-select" name="property_structure" id="property_structure">
@@ -495,7 +495,7 @@
                             <option value="鉄筋コンクリート造">鉄筋コンクリート造</option>
                             <option value="軽量鉄骨造">軽量鉄骨造</option>
                           </select>
-                        </div>
+                      </div>
                         <!-- 戸建て用項目 -->
                         <div class="col-md-4" id="house_floors_group" style="display:none;">
                           <label class="form-label">戸建て階数</label>
@@ -505,7 +505,7 @@
                             <option value="２階建て">２階建て</option>
                             <option value="３階建て">３階建て</option>
                           </select>
-                        </div>
+                    </div>
                         <div class="col-md-4" id="house_basement_group" style="display:none;">
                           <label class="form-label">地下室有無</label>
                           <select class="form-select" name="house_basement">
@@ -513,16 +513,16 @@
                             <option value="地下室あり">地下室あり</option>
                             <option value="地下室なし">地下室なし</option>
                           </select>
-                        </div>
+                    </div>
                         <!-- マンション用項目 -->
                         <div class="col-md-4" id="mansion_total_floors_group" style="display:none;">
                           <label class="form-label">マンション全体階数</label>
                           <input type="number" class="form-control" name="mansion_total_floors" min="1" max="99" placeholder="1～99">
-                        </div>
+                      </div>
                         <div class="col-md-4" id="mansion_floor_number_group" style="display:none;">
                           <label class="form-label">マンション所在階</label>
                           <input type="number" class="form-control" name="mansion_floor_number" min="1" max="99" placeholder="1～99">
-                        </div>
+                    </div>
                         <!-- アパート用項目 -->
                         <div class="col-md-4" id="apartment_floors_group" style="display:none;">
                           <label class="form-label">アパート階数</label>
@@ -532,14 +532,14 @@
                             <option value="２階建て">２階建て</option>
                             <option value="３階建て">３階建て</option>
                           </select>
-                        </div>
+                    </div>
                         <div class="col-md-4" id="apartment_units_group" style="display:none;">
                           <label class="form-label">アパート部屋数</label>
                           <input type="number" class="form-control" name="apartment_units" min="1" max="99" placeholder="1～99">
-                        </div>
+                      </div>
                         <div class="col-12">
                           <h6 class="fw-bold mt-4 mb-2">建築用途地域</h6>
-                        </div>
+                    </div>
                         <div class="col-md-6">
                           <label class="form-label">都市計画区域 <span class="text-danger">*</span></label>
                           <select class="form-select" name="city_planning_zone" id="city_planning_zone" required>
@@ -548,7 +548,7 @@
                             <option value="市街化調整区域">市街化調整区域</option>
                             <option value="非線引き区域">非線引き区域</option>
                           </select>
-                        </div>
+                  </div>
                         <div class="col-md-6" id="zoning_type_group" style="display:none;">
                           <label class="form-label">用途地域 <span class="text-danger" id="zoning_type_req" style="display:none;">*</span></label>
                           <select class="form-select" name="zoning_type" id="zoning_type">
@@ -612,33 +612,33 @@
                       <div class="row">
                         <div class="col-md-6 mb-3">
                           <label class="form-label">1. 主要構造部を改修しますか？
-                            <button type="button" class="btn btn-link p-0 ms-1" data-bs-toggle="modal" data-bs-target="#mainStructureModal">
-                              <i class="bi bi-question-circle"></i>
-                            </button>
-                          </label>
-                          <div>
-                            <div class="form-check form-check-inline">
+                        <button type="button" class="btn btn-link p-0 ms-1" data-bs-toggle="modal" data-bs-target="#mainStructureModal">
+                          <i class="bi bi-question-circle"></i>
+                        </button>
+                      </label>
+                      <div>
+                        <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="q1" id="q1_yes" value="はい">
                               <label class="form-check-label" for="q1_yes">はい</label>
-                            </div>
-                            <div class="form-check form-check-inline">
+                        </div>
+                        <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="q1" id="q1_no" value="いいえ">
                               <label class="form-check-label" for="q1_no">いいえ</label>
-                            </div>
-                          </div>
                         </div>
+                      </div>
+                    </div>
                         <div class="col-md-6 mb-3">
                           <label class="form-label">2. 改修部分が過半となる
-                            <button type="button" class="btn btn-link p-0 ms-1" data-bs-toggle="modal" data-bs-target="#overHalfModal">
-                              <i class="bi bi-question-circle"></i>
-                            </button>
-                          </label>
-                          <div>
-                            <div class="form-check form-check-inline">
+                        <button type="button" class="btn btn-link p-0 ms-1" data-bs-toggle="modal" data-bs-target="#overHalfModal">
+                          <i class="bi bi-question-circle"></i>
+                        </button>
+                      </label>
+                      <div>
+                        <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="q2" id="q2_yes" value="はい">
                               <label class="form-check-label" for="q2_yes">はい</label>
-                            </div>
-                            <div class="form-check form-check-inline">
+                        </div>
+                        <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="q2" id="q2_no" value="いいえ">
                               <label class="form-check-label" for="q2_no">いいえ</label>
                             </div>
@@ -670,16 +670,16 @@
                               <input class="form-check-input" type="radio" name="q4" id="q4_no" value="いいえ">
                               <label class="form-check-label" for="q4_no">いいえ</label>
                             </div>
-                          </div>
                         </div>
                       </div>
-                      <div class="mb-3">
+                    </div>
+                    <div class="mb-3">
                         <label class="form-label">5. お客様が通常検査を希望</label>
                         <div>
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="q5" id="q5_yes" value="はい">
                             <label class="form-check-label" for="q5_yes">はい</label>
-                          </div>
+                    </div>
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="q5" id="q5_no" value="いいえ">
                             <label class="form-check-label" for="q5_no">いいえ</label>
@@ -784,71 +784,71 @@
                   <div class="card-header">建築等の工事に係る登記簿謄本の交付</div>
                   <div class="card-body">
                     <form id="inspection-form">
-                      <div class="mb-3">
+                    <div class="mb-3">
                         <label class="form-label">直近の建築等の工事に係る登記簿謄本の交付の有無</label>
-                        <div>
-                          <div class="form-check form-check-inline">
+                      <div>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="reg_cert" id="reg_cert_yes" value="あり">
                             <label class="form-check-label" for="reg_cert_yes">あり</label>
-                          </div>
-                          <div class="form-check form-check-inline">
+                        </div>
+                        <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="reg_cert" id="reg_cert_no" value="なし">
                             <label class="form-check-label" for="reg_cert_no">なし</label>
-                          </div>
+                        </div>
                         </div>
                         <div class="mt-2" id="reg_cert_date_group" style="display:none;">
                           <label class="form-label">【新築】登記年月日（登記簿謄本）</label>
                           <input type="date" class="form-control" name="reg_cert_date">
                         </div>
-                      </div>
+                        </div>
                       <div class="row mb-3">
                         <div class="col-md-6">
                           <label class="form-label">直近の建築等の工事に係る確認済証の交付の有無</label>
                           <div>
-                            <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="conf_cert" id="conf_cert_yes" value="あり">
                               <label class="form-check-label" for="conf_cert_yes">あり</label>
-                            </div>
-                            <div class="form-check form-check-inline">
+                        </div>
+                        <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="conf_cert" id="conf_cert_no" value="なし">
                               <label class="form-check-label" for="conf_cert_no">なし</label>
-                            </div>
-                          </div>
+                        </div>
+                      </div>
                           <div class="mt-2" id="conf_cert_date_group" style="display:none;">
                             <label class="form-label">【新築】確認済証交付年月日（確認済証）</label>
                             <input type="date" class="form-control" name="conf_cert_date">
-                          </div>
+                    </div>
                         </div>
                         <div class="col-md-6">
-                          <label class="form-label">直近の建築等の工事に係る検査済証の交付の有無</label>
-                          <div>
-                            <div class="form-check form-check-inline">
+                      <label class="form-label">直近の建築等の工事に係る検査済証の交付の有無</label>
+                      <div>
+                        <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="insp_cert" id="insp_cert_yes" value="あり">
                               <label class="form-check-label" for="insp_cert_yes">あり</label>
-                            </div>
-                            <div class="form-check form-check-inline">
+                        </div>
+                        <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="insp_cert" id="insp_cert_no" value="なし">
                               <label class="form-check-label" for="insp_cert_no">なし</label>
-                            </div>
-                          </div>
+                        </div>
+                      </div>
                           <div class="mt-2" id="insp_cert_date_group" style="display:none;">
                             <label class="form-label">【新築】検査済年月日（検査済証）</label>
                             <input type="date" class="form-control" name="insp_cert_date">
-                          </div>
-                        </div>
-                      </div>
+                    </div>
+                    </div>
+                  </div>
                       <div class="mb-3">
                         <label class="form-label">増築の有無</label>
                         <div>
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="extension" id="extension_yes" value="あり">
                             <label class="form-check-label" for="extension_yes">あり</label>
-                          </div>
+                </div>
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="extension" id="extension_no" value="なし">
                             <label class="form-check-label" for="extension_no">なし</label>
-                          </div>
-                        </div>
+              </div>
+                  </div>
                       </div>
                       <div class="mb-3" id="extension_detail_group" style="display:none;">
                         <label class="form-label">確認申請が必要となる増築</label>
@@ -856,22 +856,22 @@
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="extension_conf" id="extension_conf_yes" value="はい">
                             <label class="form-check-label" for="extension_conf_yes">はい</label>
-                          </div>
+                      </div>
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="extension_conf" id="extension_conf_no" value="いいえ">
                             <label class="form-check-label" for="extension_conf_no">いいえ</label>
-                          </div>
+                      </div>
                         </div>
                         <div class="mt-2" id="extension_conf_detail_group" style="display:none;">
                           <label class="form-label">直近の建築等の工事に係る確認済証・検査済証の交付の有無</label>
                           <div class="mb-2">
                             <label class="form-label">【増築】登記年月日（登記簿謄本）</label>
                             <input type="date" class="form-control" name="extension_reg_cert_date">
-                          </div>
+                      </div>
                           <div class="mb-2">
                             <label class="form-label">【増築】確認済証交付年月日（確認済証）</label>
                             <input type="date" class="form-control" name="extension_conf_cert_date">
-                          </div>
+                        </div>
                           <div class="mb-2">
                             <label class="form-label">【増築】検査済年月日（検査済証）</label>
                             <input type="date" class="form-control" name="extension_insp_cert_date">
