@@ -78,18 +78,9 @@
         <div class="container-fluid mt-4 px-3">
             <div class="d-flex justify-content-between align-items-center mb-3">
               <h3 class="mb-0">プラン一覧</h3>
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="newPlanBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                  ＋ 新規プラン作成
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="newPlanBtn">
-                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#createModal">現地調査から作成</a></li>
-                  <li><a class="dropdown-item" href="user_project_detail_design_create.html">プラン１から作成</a></li>
-                </ul>
-              </div>
             </div>
         
-            <!-- モーダル -->
+            <!-- 既存図作成モーダル -->
             <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -112,6 +103,33 @@
                 </div>
               </div>
             </div>
+
+            <!-- プラン新規作成モーダル -->
+            <div class="modal fade" id="newPlanModal" tabindex="-1" aria-labelledby="newPlanModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="newPlanModalLabel">プラン新規作成</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="d-grid gap-3">
+                      <button type="button" class="btn btn-outline-primary btn-lg" onclick="location.href='user_project_detail_create_exsitdrawing.html'">
+                        <i class="bi bi-file-earmark-plus me-2"></i>
+                        既存図から作成
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary btn-lg" onclick="location.href='user_project_detail_design_create.html'">
+                        <i class="bi bi-copy me-2"></i>
+                        既存プランからコピーして作成
+                      </button>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         
             <!-- 切り替えボタン -->
             <div class="d-flex justify-content-end mb-3">
@@ -121,6 +139,21 @@
         
             <!-- パネル表示 -->
             <div id="panelView" class="row g-3 px-3">
+              <!-- 既存図作成カード -->
+              <div class="col-6 col-md-4 col-lg-3">
+                <div class="card card-project h-100">
+                  <div class="card-header text-center">
+                    <span>既存図作成</span>
+                  </div>
+                  <div class="card-body d-flex align-items-center justify-content-center" style="min-height: 150px;">
+                    <button class="btn btn-outline-primary btn-lg" onclick="location.href='user_project_detail_create_exsitdrawing.html'">
+                      <i class="bi bi-plus-circle fs-1"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- プラン1 -->
               <div class="col-6 col-md-4 col-lg-3">
                 <a href="user_project_detail_design.html" class="text-decoration-none text-reset">
                   <div class="card card-project h-100">
@@ -133,6 +166,8 @@
                   </div>
                 </a>
               </div>
+              
+              <!-- プラン2 -->
               <div class="col-6 col-md-4 col-lg-3">
                 <a href="user_project_detail_design.html" class="text-decoration-none text-reset">
                   <div class="card card-project h-100">
@@ -144,6 +179,20 @@
                     <img src="../images/plan2.webp" class="card-img-top" alt="案件画像">
                   </div>
                 </a>
+              </div>
+              
+              <!-- プラン新規作成カード -->
+              <div class="col-6 col-md-4 col-lg-3">
+                <div class="card card-project h-100">
+                  <div class="card-header text-center">
+                    <span>プラン新規作成</span>
+                  </div>
+                  <div class="card-body d-flex align-items-center justify-content-center" style="min-height: 150px;">
+                    <button class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#newPlanModal">
+                      <i class="bi bi-plus-circle fs-1"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
         

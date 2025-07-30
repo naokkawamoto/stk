@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>案件管理（既存図作成）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <style>
+    .container-fluid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    /* テーブル文字サイズ */
+    .info-table td,
+    .info-table th,
+    .estimate-table td,
+    .estimate-table th {
+      font-size: 0.7rem;
+    }
+    /* フロアカードの余白調整 */
+    #floorView .col-6 {
+      margin-top: 0;
+      padding-top: 0;
+    }
+    /* カラムの幅指定 */
+    .tool-col {
+      width: 15%;
+      padding-right: 0.5rem;
+    }
+    .img-col {
+      width: 65%;
+      padding-right: 0.5rem;
+      position: relative;
+    }
+    .spec-col {
+      width: 20%;
+      padding-left: 0.5rem;
+    }
+    /* クリックで切り替わる画像 */
+    #planImage {
+      cursor: pointer;
+      width: 100%;
+      height: auto;
+    }
+    /* 画像上のボタン */
+    .room-button {
+      position: absolute;
+      background: rgba(0, 123, 255, 0.6);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      width: 80px;
+      height: 90px;
+      opacity: 0.8;
+    }
+    .room-button:hover {
+      background: rgba(0, 123, 255, 0.9);
+      opacity: 1;
+    }
+    /* 仕様テーブル */
+    .spec-table {
+      font-size: 0.7rem;
+    }
+    .spec-table th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <div id="header-container"></div>
+
+  <div class="container-fluid mt-4 px-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="text-start">
+        <h5 class="mb-0">会社名</h5>
+        <!-- タイトルをクリックすると user_project_detail_design.html に戻る -->
+        <h4 class="mb-0 d-inline">
+          <a href="user_project_detail_design.html" class="text-decoration-none text-dark">
+            既存図作成 <i class="bi bi-pencil-square"></i>
+          </a>
+        </h4>
+      </div>
+      <button class="btn btn-primary" type="button" onclick="location.href='user_project_detail_designlist.html'">
+        <i class="bi bi-arrow-return-left"></i> プラン一覧に戻る
+      </button>
+    </div>
+
+    <!-- Pill タブ -->
+    <ul class="nav nav-pills mb-3">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">1F/配置図</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">2F</a>
+      </li>
+
+    </ul>
+
+    <!-- コンテンツエリア -->
+    <div class="d-flex">
+      <!-- 左側：ツールカラム（幅 15%）-->
+      <div class="tool-col">
+        <div class="d-grid gap-2">
+          <button class="btn btn-outline-secondary btn-sm">敷地</button>
+          <button class="btn btn-outline-primary btn-sm">部屋</button>
+          <button class="btn btn-outline-secondary btn-sm">階段</button>
+          <button class="btn btn-outline-secondary btn-sm">建具</button>
+          <button class="btn btn-outline-secondary btn-sm">住設</button>
+        </div>
+      </div>
+
+      <!-- 中央：画像カラム（幅 65%）-->
+      <div class="img-col">
+        <!-- 初期表示 plan_edit.webp。クリックすると plan_edit3d.webp に切り替える -->
+        <img
+          id="planImage"
+          src="../images/plan_edit.webp"
+          alt="プラン編集イメージ"
+          onclick="
+            const img = document.getElementById('planImage');
+            img.src = (img.src.includes('plan_edit.webp') ? '../images/plan_edit3d.webp' : '../images/plan_edit.webp');
+          "
+        >
+        <!-- 洋室ボタン -->
+        <button class="room-button" style="top: 230px; left: 280px;" data-bs-toggle="modal" data-bs-target="#roomModal">
+          洋室1
+        </button>
+      </div>
+
+      <!-- 右側：外部仕様選択カラム（幅 20%）-->
+      <div class="spec-col">
+        <!-- タブナビゲーション -->
+        <ul class="nav nav-tabs mb-3" id="specTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="external-tab" data-bs-toggle="tab" data-bs-target="#external" type="button" role="tab" aria-controls="external" aria-selected="true">外部仕様</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="internal-tab" data-bs-toggle="tab" data-bs-target="#internal" type="button" role="tab" aria-controls="internal" aria-selected="false">内部仕様</button>
+          </li>
+        </ul>
+
+        <!-- タブコンテンツ -->
+        <div class="tab-content" id="specTabsContent">
+          <!-- 外部仕様タブ -->
+          <div class="tab-pane fade show active" id="external" role="tabpanel" aria-labelledby="external-tab">
+            <!-- 屋根仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">屋根仕様</label>
+              <select class="form-select form-select-sm">
+                <option>スレート：コロニアル：18000円</option>
+                <option>ガルバリウム鋼板：立平葺き：17000円</option>
+                <option>和瓦：和形瓦：20000円</option>
+                <option>木造トラス：小屋束＋母屋＋垂木：16000円</option>
+              </select>
+            </div>
+
+            <!-- 軒仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">軒仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+
+            <!-- 破風・鼻隠仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">破風・鼻隠仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+
+            <!-- 外壁仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">外壁仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+
+            <!-- 樋仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">樋仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+
+            <!-- ポーチ仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">ポーチ仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+
+            <!-- 基礎巾木仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">基礎巾木仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+
+            <!-- 玄関ドア仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">玄関ドア仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+
+            <!-- 窓仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">窓仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+
+            <!-- 断熱材仕様 -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold">断熱材仕様</label>
+              <select class="form-select form-select-sm">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 内部仕様タブ -->
+          <div class="tab-pane fade" id="internal" role="tabpanel" aria-labelledby="internal-tab">
+            <div class="d-grid gap-2">
+              <!-- 1F -->
+              <h6 class="mt-2 mb-2 small fw-bold">1F</h6>
+              <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#roomModal1F1">1F：洋室1</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：洋室2</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：LDK</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：収納1</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：収納2</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：トイレ</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：洗面所</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：浴室</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：玄関</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：階段</button>
+              
+              <!-- 2F -->
+              <h6 class="mt-3 mb-2 small fw-bold">2F</h6>
+              <button class="btn btn-outline-secondary btn-sm">2F：洋室1</button>
+              <button class="btn btn-outline-secondary btn-sm">2F：洋室2</button>
+              <button class="btn btn-outline-secondary btn-sm">2F：収納1</button>
+              <button class="btn btn-outline-secondary btn-sm">2F：収納2</button>
+              <button class="btn btn-outline-secondary btn-sm">2F：トイレ</button>
+              <button class="btn btn-outline-secondary btn-sm">2F：洗面所</button>
+              <button class="btn btn-outline-secondary btn-sm">2F：階段</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.d-flex -->
+  </div>
+  <!-- /.container-fluid -->
+
+  <!-- 部屋詳細モーダル -->
+  <div class="modal fade" id="roomModal" tabindex="-1" aria-labelledby="roomModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="roomModalLabel">部屋詳細</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- 案件名 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">案件名</label>
+            <input type="text" class="form-control" value="リノベーション案件A" readonly>
+          </div>
+
+          <!-- 部屋名 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">部屋名</label>
+            <input type="text" class="form-control" value="洋室" readonly>
+          </div>
+
+          <!-- 面積 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">面積</label>
+            <input type="text" class="form-control" value="9帖" readonly>
+          </div>
+
+          <!-- 既存部屋 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">既存部屋</label>
+            <input type="text" class="form-control" value="既存の洋室" readonly>
+          </div>
+
+          <!-- 部屋の位置 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">部屋の位置</label>
+            <input type="text" class="form-control" value='{"x": 120.3,"y": 200.5,"width": 40.0,"height": 40.0}' readonly>
+          </div>
+
+          <!-- 天井の高さ -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">天井の高さ</label>
+            <input type="text" class="form-control" value="2.4m" readonly>
+          </div>
+
+          <!-- 仕上げ、下地 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">仕上げ、下地</label>
+            <textarea class="form-control" rows="3" readonly>壁：クロス仕上げ
+床：フローリング
+天井：クロス仕上げ</textarea>
+          </div>
+
+          <!-- 備考 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">備考</label>
+            <textarea class="form-control" rows="2" readonly>南向きの明るい部屋です。</textarea>
+          </div>
+
+          <!-- 木製建具 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">木製建具</label>
+            <table class="table table-bordered table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>種類</th>
+                  <th>メーカー名</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>片開きドア</td>
+                  <td>メーカーA</td>
+                </tr>
+                <tr>
+                  <td>引違い2枚</td>
+                  <td>メーカーB</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 住設機器 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">住設機器</label>
+            <table class="table table-bordered table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>機器名</th>
+                  <th>メーカー名</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">編集</button>
+          <button type="button" class="btn btn-success">更新</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1F：洋室1詳細モーダル -->
+  <div class="modal fade" id="roomModal1F1" tabindex="-1" aria-labelledby="roomModal1F1Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="roomModal1F1Label">1F：洋室1詳細</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- 案件名 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">案件名</label>
+            <input type="text" class="form-control" value="リノベーション案件A" readonly>
+          </div>
+
+          <!-- 部屋名 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">部屋名</label>
+            <input type="text" class="form-control" value="1F：洋室1" readonly>
+          </div>
+
+          <!-- 面積 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">面積</label>
+            <input type="text" class="form-control" value="8帖" readonly>
+          </div>
+
+          <!-- 既存部屋 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">既存部屋</label>
+            <input type="text" class="form-control" value="既存の1F洋室" readonly>
+          </div>
+
+          <!-- 部屋の位置 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">部屋の位置</label>
+            <input type="text" class="form-control" value='{"x": 100.0,"y": 150.0,"width": 35.0,"height": 35.0}' readonly>
+          </div>
+
+          <!-- 天井の高さ -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">天井の高さ</label>
+            <input type="text" class="form-control" value="2.4m" readonly>
+          </div>
+
+          <!-- 仕上げ、下地 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">仕上げ、下地</label>
+            <textarea class="form-control" rows="3" readonly>壁：クロス仕上げ
+床：フローリング
+天井：クロス仕上げ</textarea>
+          </div>
+
+          <!-- 備考 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">備考</label>
+            <textarea class="form-control" rows="2" readonly>1階の南側にある洋室です。</textarea>
+          </div>
+
+          <!-- 木製建具 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">木製建具</label>
+            <table class="table table-bordered table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>種類</th>
+                  <th>メーカー名</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>片開きドア</td>
+                  <td>メーカーA</td>
+                </tr>
+                <tr>
+                  <td>引違い2枚</td>
+                  <td>メーカーB</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 住設機器 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">住設機器</label>
+            <table class="table table-bordered table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>機器名</th>
+                  <th>メーカー名</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">編集</button>
+          <button type="button" class="btn btn-success">更新</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <div id="footer-container"></div>
+
+  <!-- Bootstrap & Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../style.js"></script>
+  <script>
+    fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
+    fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+  </script>
+</body>
+</html> 
