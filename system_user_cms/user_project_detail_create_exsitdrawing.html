@@ -64,6 +64,24 @@
       background: rgba(0, 123, 255, 0.9);
       opacity: 1;
     }
+    /* 仕様ボタン */
+    .spec-button {
+      position: absolute;
+      background: rgba(220, 53, 69, 0.8);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .spec-button:hover {
+      background: rgba(220, 53, 69, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
     /* 仕様テーブル */
     .spec-table {
       font-size: 0.7rem;
@@ -102,20 +120,31 @@
       <li class="nav-item">
         <a class="nav-link" href="#">2F</a>
       </li>
-
+      <li class="nav-item">
+        <a class="nav-link" href="user_project_detail_create_exsitdrawing_east.html">立面東</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">立面西</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">立面南</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">立面北</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">屋根1F</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="user_project_detail_create_exsitdrawing_roofplan.html">屋根2F</a>
+      </li>
     </ul>
 
     <!-- コンテンツエリア -->
     <div class="d-flex">
       <!-- 左側：ツールカラム（幅 15%）-->
       <div class="tool-col">
-        <div class="d-grid gap-2">
-          <button class="btn btn-outline-secondary btn-sm">敷地</button>
-          <button class="btn btn-outline-primary btn-sm">部屋</button>
-          <button class="btn btn-outline-secondary btn-sm">階段</button>
-          <button class="btn btn-outline-secondary btn-sm">建具</button>
-          <button class="btn btn-outline-secondary btn-sm">住設</button>
-        </div>
+        <!-- 左側のボタンを削除 -->
       </div>
 
       <!-- 中央：画像カラム（幅 65%）-->
@@ -133,6 +162,18 @@
         <!-- 洋室ボタン -->
         <button class="room-button" style="top: 230px; left: 280px;" data-bs-toggle="modal" data-bs-target="#roomModal">
           洋室1
+        </button>
+        <!-- ポーチ仕様ボタン -->
+        <button class="spec-button" style="top: 20px; left: 20px;" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
+          ポーチ仕様
+        </button>
+        <!-- 窓仕様ボタン -->
+        <button class="spec-button" style="top: 20px; left: 150px;" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
+          窓仕様
+        </button>
+        <!-- 玄関仕様ボタン -->
+        <button class="spec-button" style="top: 20px; left: 280px;" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
+          玄関仕様
         </button>
       </div>
 
@@ -152,119 +193,44 @@
         <div class="tab-content" id="specTabsContent">
           <!-- 外部仕様タブ -->
           <div class="tab-pane fade show active" id="external" role="tabpanel" aria-labelledby="external-tab">
-            <!-- 屋根仕様 -->
+            <!-- 外部仕様一括ボタン -->
             <div class="mb-3">
-              <label class="form-label small fw-bold">屋根仕様</label>
-              <select class="form-select form-select-sm">
-                <option>スレート：コロニアル：18000円</option>
-                <option>ガルバリウム鋼板：立平葺き：17000円</option>
-                <option>和瓦：和形瓦：20000円</option>
-                <option>木造トラス：小屋束＋母屋＋垂木：16000円</option>
-              </select>
+              <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_external_spec.html'">
+                <i class="bi bi-gear-wide-connected me-2"></i>外部仕様一括設定
+              </button>
             </div>
 
-            <!-- 軒仕様 -->
+            <!-- ポーチ仕様ボタン -->
             <div class="mb-3">
-              <label class="form-label small fw-bold">軒仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
+                ポーチ仕様
+              </button>
             </div>
 
-            <!-- 破風・鼻隠仕様 -->
+            <!-- 窓仕様ボタン -->
             <div class="mb-3">
-              <label class="form-label small fw-bold">破風・鼻隠仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
+                窓仕様
+              </button>
             </div>
 
-            <!-- 外壁仕様 -->
+            <!-- 玄関ドア仕様ボタン -->
             <div class="mb-3">
-              <label class="form-label small fw-bold">外壁仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 樋仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">樋仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- ポーチ仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">ポーチ仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 基礎巾木仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">基礎巾木仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 玄関ドア仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">玄関ドア仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 窓仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">窓仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 断熱材仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">断熱材仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
+                玄関ドア仕様
+              </button>
             </div>
           </div>
 
           <!-- 内部仕様タブ -->
           <div class="tab-pane fade" id="internal" role="tabpanel" aria-labelledby="internal-tab">
+            <!-- 内部仕様一括設定ボタン -->
+            <div class="mb-3">
+              <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_internal_spec.html'">
+                <i class="bi bi-gear-wide-connected me-2"></i>内部仕様一括設定
+              </button>
+            </div>
+            
             <div class="d-grid gap-2">
               <!-- 1F -->
               <h6 class="mt-2 mb-2 small fw-bold">1F</h6>
@@ -864,6 +830,177 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
           <button type="button" class="btn btn-primary">編集</button>
           <button type="button" class="btn btn-success">更新</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ポーチ仕様モーダル -->
+  <div class="modal fade" id="porchSpecModal" tabindex="-1" aria-labelledby="porchSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="porchSpecModalLabel">
+            <i class="bi bi-house-gear me-2"></i>ポーチ仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">ポーチ材</label>
+              <select class="form-select">
+                <option>コンクリート</option>
+                <option>タイル</option>
+                <option>石</option>
+                <option>木材</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">ポーチサイズ</label>
+              <select class="form-select">
+                <option>1.5m × 1.5m</option>
+                <option>2.0m × 1.5m</option>
+                <option>2.0m × 2.0m</option>
+                <option>3.0m × 2.0m</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">ポーチ高</label>
+              <select class="form-select">
+                <option>150mm</option>
+                <option>200mm</option>
+                <option>300mm</option>
+                <option>450mm</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">ポーチ色</label>
+              <select class="form-select">
+                <option>グレー</option>
+                <option>ベージュ</option>
+                <option>ブラウン</option>
+                <option>その他</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 窓仕様モーダル -->
+  <div class="modal fade" id="windowSpecModal" tabindex="-1" aria-labelledby="windowSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="windowSpecModalLabel">
+            <i class="bi bi-window me-2"></i>窓の種類を選択
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-window me-2 fs-3"></i>
+                <span class="fw-bold">引違い窓</span>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-window me-2 fs-3"></i>
+                <span class="fw-bold">片開き窓</span>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-window me-2 fs-3"></i>
+                <span class="fw-bold">両開き窓</span>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-window me-2 fs-3"></i>
+                <span class="fw-bold">固定窓</span>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-window me-2 fs-3"></i>
+                <span class="fw-bold">出窓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 玄関ドア仕様モーダル -->
+  <div class="modal fade" id="entranceSpecModal" tabindex="-1" aria-labelledby="entranceSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="entranceSpecModalLabel">
+            <i class="bi bi-door-open me-2"></i>玄関ドア仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">ドア材質</label>
+              <select class="form-select">
+                <option>木製</option>
+                <option>アルミ</option>
+                <option>スチール</option>
+                <option>樹脂</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">ドアサイズ</label>
+              <select class="form-select">
+                <option>900mm × 2000mm</option>
+                <option>1000mm × 2000mm</option>
+                <option>1200mm × 2000mm</option>
+                <option>1500mm × 2000mm</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">ドア色</label>
+              <select class="form-select">
+                <option>ブラウン</option>
+                <option>ホワイト</option>
+                <option>ブラック</option>
+                <option>その他</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">ドアタイプ</label>
+              <select class="form-select">
+                <option>片開き</option>
+                <option>両開き</option>
+                <option>引き戸</option>
+                <option>折れ戸</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
         </div>
       </div>
     </div>

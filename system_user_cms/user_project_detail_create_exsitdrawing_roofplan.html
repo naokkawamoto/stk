@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>案件管理（既存図作成 - 屋根平面図）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <style>
+    .container-fluid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    /* テーブル文字サイズ */
+    .info-table td,
+    .info-table th,
+    .estimate-table td,
+    .estimate-table th {
+      font-size: 0.7rem;
+    }
+    /* フロアカードの余白調整 */
+    #floorView .col-6 {
+      margin-top: 0;
+      padding-top: 0;
+    }
+    /* カラムの幅指定 */
+    .tool-col {
+      width: 15%;
+      padding-right: 0.5rem;
+    }
+    .img-col {
+      width: 65%;
+      padding-right: 0.5rem;
+      position: relative;
+    }
+    .spec-col {
+      width: 20%;
+      padding-left: 0.5rem;
+    }
+    /* クリックで切り替わる画像 */
+    #planImage {
+      cursor: pointer;
+      width: 100%;
+      height: auto;
+    }
+    /* 画像上のボタン */
+    .room-button {
+      position: absolute;
+      background: rgba(0, 123, 255, 0.6);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      width: 80px;
+      height: 90px;
+      opacity: 0.8;
+    }
+    .room-button:hover {
+      background: rgba(0, 123, 255, 0.9);
+      opacity: 1;
+    }
+    /* 屋根作成開始ボタン */
+    .roof-create-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(220, 53, 69, 0.8);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .roof-create-button:hover {
+      background: rgba(220, 53, 69, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    /* 樋作成開始ボタン */
+    .gutter-create-button {
+      position: absolute;
+      top: 80px;
+      left: 20px;
+      background: rgba(40, 167, 69, 0.8);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .gutter-create-button:hover {
+      background: rgba(40, 167, 69, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    /* 仕様テーブル */
+    .spec-table {
+      font-size: 0.7rem;
+    }
+    .spec-table th {
+      background-color: #f8f9fa;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <div id="header-container"></div>
+
+  <div class="container-fluid mt-4 px-3">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="text-start">
+        <h5 class="mb-0">会社名</h5>
+        <!-- タイトルをクリックすると user_project_detail_design.html に戻る -->
+        <h4 class="mb-0 d-inline">
+          <a href="user_project_detail_design.html" class="text-decoration-none text-dark">
+            既存図作成 <i class="bi bi-pencil-square"></i>
+          </a>
+        </h4>
+      </div>
+      <button class="btn btn-primary" type="button" onclick="location.href='user_project_detail_designlist.html'">
+        <i class="bi bi-arrow-return-left"></i> プラン一覧に戻る
+      </button>
+    </div>
+
+    <!-- Pill タブ -->
+    <ul class="nav nav-pills mb-3">
+      <li class="nav-item">
+        <a class="nav-link" href="user_project_detail_create_exsitdrawing.html">1F/配置図</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">2F</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="user_project_detail_create_exsitdrawing_east.html">立面東</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">立面西</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">立面南</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">立面北</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">屋根1F</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="user_project_detail_create_exsitdrawing_roofplan.html">屋根2F</a>
+      </li>
+    </ul>
+
+    <!-- コンテンツエリア -->
+    <div class="d-flex">
+      <!-- 左側：ツールカラム（幅 15%）-->
+      <div class="tool-col">
+        <!-- 左側のボタンを削除 -->
+      </div>
+
+      <!-- 中央：画像カラム（幅 65%）-->
+      <div class="img-col">
+        <!-- 屋根平面図の画像 -->
+        <img
+          id="planImage"
+          src="../images/roofplan.webp"
+          alt="屋根平面図"
+          onclick="
+            const img = document.getElementById('planImage');
+            img.src = (img.src.includes('roofplan.webp') ? '../images/roofplan.webp' : '../images/roofplan.webp');
+          "
+        >
+        <!-- 屋根作成開始ボタン -->
+        <button class="roof-create-button" data-bs-toggle="modal" data-bs-target="#roofCreateModal">
+          <i class="bi bi-plus-circle me-2"></i>屋根を作成開始
+        </button>
+        <!-- 樋作成開始ボタン -->
+        <button class="gutter-create-button" data-bs-toggle="modal" data-bs-target="#gutterCreateModal">
+          <i class="bi bi-plus-circle me-2"></i>樋を作成開始
+        </button>
+      </div>
+
+      <!-- 右側：外部仕様選択カラム（幅 20%）-->
+      <div class="spec-col">
+        <!-- タブナビゲーション -->
+        <ul class="nav nav-tabs mb-3" id="specTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="external-tab" data-bs-toggle="tab" data-bs-target="#external" type="button" role="tab" aria-controls="external" aria-selected="true">外部仕様</button>
+          </li>
+        </ul>
+
+        <!-- タブコンテンツ -->
+        <div class="tab-content" id="specTabsContent">
+          <!-- 外部仕様タブ -->
+          <div class="tab-pane fade show active" id="external" role="tabpanel" aria-labelledby="external-tab">
+            <!-- 屋根仕様ボタン -->
+            <div class="mb-3">
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#roofSpecModal">
+                屋根仕様
+              </button>
+            </div>
+
+            <!-- 軒仕様ボタン -->
+            <div class="mb-3">
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#eavesSpecModal">
+                軒仕様
+              </button>
+            </div>
+
+            <!-- 破風・鼻隠仕様ボタン -->
+            <div class="mb-3">
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#gableSpecModal">
+                破風・鼻隠仕様
+              </button>
+            </div>
+
+            <!-- 樋仕様ボタン -->
+            <div class="mb-3">
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#gutterSpecModal">
+                樋仕様
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.d-flex -->
+  </div>
+  <!-- /.container-fluid -->
+
+  <!-- 屋根作成開始モーダル -->
+  <div class="modal fade" id="roofCreateModal" tabindex="-1" aria-labelledby="roofCreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="roofCreateModalLabel">
+            <i class="bi bi-house-gear me-2"></i>屋根の形状を選択
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-4">作成する屋根の形状を選択してください：</p>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-house me-2 fs-3"></i>
+                <span class="fw-bold">寄棟屋根</span>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-house me-2 fs-3"></i>
+                <span class="fw-bold">切妻屋根</span>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-house me-2 fs-3"></i>
+                <span class="fw-bold">入母屋屋根</span>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-house me-2 fs-3"></i>
+                <span class="fw-bold">片流れ屋根</span>
+              </button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-outline-primary btn-lg w-100 h-100 d-flex flex-column align-items-center justify-content-center" style="min-height: 120px;">
+                <i class="bi bi-house me-2 fs-3"></i>
+                <span class="fw-bold">陸屋根</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 屋根仕様モーダル -->
+  <div class="modal fade" id="roofSpecModal" tabindex="-1" aria-labelledby="roofSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="roofSpecModalLabel">
+            <i class="bi bi-house-gear me-2"></i>屋根仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">屋根材</label>
+              <select class="form-select">
+                <option>スレート：コロニアル：18000円</option>
+                <option>ガルバリウム鋼板：立平葺き：17000円</option>
+                <option>和瓦：和形瓦：20000円</option>
+                <option>木造トラス：小屋束＋母屋＋垂木：16000円</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">屋根勾配</label>
+              <select class="form-select">
+                <option>3寸勾配</option>
+                <option>4寸勾配</option>
+                <option>5寸勾配</option>
+                <option>6寸勾配</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 軒仕様モーダル -->
+  <div class="modal fade" id="eavesSpecModal" tabindex="-1" aria-labelledby="eavesSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="eavesSpecModalLabel">
+            <i class="bi bi-house-gear me-2"></i>軒仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">軒の出</label>
+              <select class="form-select">
+                <option>300mm</option>
+                <option>450mm</option>
+                <option>600mm</option>
+                <option>900mm</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">軒天井</label>
+              <select class="form-select">
+                <option>石膏ボード</option>
+                <option>化粧合板</option>
+                <option>金属板</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 破風・鼻隠仕様モーダル -->
+  <div class="modal fade" id="gableSpecModal" tabindex="-1" aria-labelledby="gableSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gableSpecModalLabel">
+            <i class="bi bi-house-gear me-2"></i>破風・鼻隠仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">破風板</label>
+              <select class="form-select">
+                <option>木製</option>
+                <option>金属製</option>
+                <option>樹脂製</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">鼻隠し</label>
+              <select class="form-select">
+                <option>木製</option>
+                <option>金属製</option>
+                <option>樹脂製</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 樋作成開始モーダル -->
+  <div class="modal fade" id="gutterCreateModal" tabindex="-1" aria-labelledby="gutterCreateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gutterCreateModalLabel">
+            <i class="bi bi-droplet me-2"></i>樋作成開始
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>樋の作成を開始しますか？</p>
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle me-2"></i>
+            樋の作成を開始すると、既存の樋データが初期化されます。
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-primary">樋作成開始</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 樋仕様モーダル -->
+  <div class="modal fade" id="gutterSpecModal" tabindex="-1" aria-labelledby="gutterSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gutterSpecModalLabel">
+            <i class="bi bi-droplet me-2"></i>樋仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">樋材質</label>
+              <select class="form-select">
+                <option>塩化ビニル</option>
+                <option>ガルバリウム鋼板</option>
+                <option>ステンレス鋼板</option>
+                <option>アルミニウム</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">樋サイズ</label>
+              <select class="form-select">
+                <option>100mm</option>
+                <option>125mm</option>
+                <option>150mm</option>
+                <option>200mm</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">樋形状</label>
+              <select class="form-select">
+                <option>半円形</option>
+                <option>角形</option>
+                <option>丸形</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">樋色</label>
+              <select class="form-select">
+                <option>白</option>
+                <option>グレー</option>
+                <option>ブラウン</option>
+                <option>ブラック</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <div id="footer-container"></div>
+
+  <!-- Bootstrap & Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../style.js"></script>
+  <script>
+    fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
+    fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+  </script>
+</body>
+</html>
