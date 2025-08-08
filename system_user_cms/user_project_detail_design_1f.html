@@ -144,13 +144,7 @@
     <div class="d-flex">
       <!-- 左側：ツールカラム（幅 15%）-->
       <div class="tool-col">
-        <div class="d-grid gap-2">
-          <button class="btn btn-outline-secondary btn-sm">敷地</button>
-          <button class="btn btn-outline-primary btn-sm">部屋</button>
-          <button class="btn btn-outline-secondary btn-sm">階段</button>
-          <button class="btn btn-outline-secondary btn-sm">建具</button>
-          <button class="btn btn-outline-secondary btn-sm">住設</button>
-        </div>
+        <!-- 左側のボタンは削除 -->
       </div>
 
       <!-- 中央：画像カラム（幅 65%）-->
@@ -190,120 +184,59 @@
         <div class="tab-content" id="specTabsContent">
           <!-- 外部仕様タブ -->
           <div class="tab-pane fade show active" id="external" role="tabpanel" aria-labelledby="external-tab">
-            <!-- 屋根仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">屋根仕様</label>
-              <select class="form-select form-select-sm">
-                <option>スレート：コロニアル：18000円</option>
-                <option>ガルバリウム鋼板：立平葺き：17000円</option>
-                <option>和瓦：和形瓦：20000円</option>
-                <option>木造トラス：小屋束＋母屋＋垂木：16000円</option>
-              </select>
-            </div>
-
-            <!-- 軒仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">軒仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 破風・鼻隠仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">破風・鼻隠仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 外壁仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">外壁仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 樋仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">樋仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- ポーチ仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">ポーチ仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 基礎巾木仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">基礎巾木仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 玄関ドア仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">玄関ドア仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 窓仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">窓仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
-            </div>
-
-            <!-- 断熱材仕様 -->
-            <div class="mb-3">
-              <label class="form-label small fw-bold">断熱材仕様</label>
-              <select class="form-select form-select-sm">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-              </select>
+            <div class="d-grid gap-2">
+              <!-- 外部仕様一括ボタン -->
+              <button class="btn btn-primary btn-sm" onclick="location.href='user_project_detail_design_external_spec.html'">
+                <i class="bi bi-gear-wide-connected"></i> 外部仕様一括設定
+              </button>
+              
+              <!-- 屋根仕様ボタン（モーダル） -->
+              <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#roofSpecModal">
+                <i class="bi bi-house-roof"></i> 屋根仕様
+              </button>
+              
+              <!-- 軒仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">軒仕様</button>
+              
+              <!-- 破風・鼻隠仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">破風・鼻隠仕様</button>
+              
+              <!-- 外壁仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">外壁仕様</button>
+              
+              <!-- 樋仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">樋仕様</button>
+              
+              <!-- ポーチ仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">ポーチ仕様</button>
+              
+              <!-- 基礎巾木仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">基礎巾木仕様</button>
+              
+              <!-- 玄関ドア仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">玄関ドア仕様</button>
+              
+              <!-- 窓仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">窓仕様</button>
+              
+              <!-- 断熱材仕様ボタン -->
+              <button class="btn btn-outline-secondary btn-sm">断熱材仕様</button>
             </div>
           </div>
 
           <!-- 内部仕様タブ -->
           <div class="tab-pane fade" id="internal" role="tabpanel" aria-labelledby="internal-tab">
             <div class="d-grid gap-2">
+              <!-- 内部仕様一括ボタン -->
+              <button class="btn btn-primary btn-sm" onclick="location.href='user_project_detail_design_internal_spec.html'">
+                <i class="bi bi-gear-wide-connected"></i> 内部仕様一括設定
+              </button>
+              
+              <!-- 解体一括設定ボタン -->
+              <button class="btn btn-warning btn-sm" onclick="location.href='user_project_detail_design_demolition_spec.html'">
+                <i class="bi bi-trash"></i> 解体一括設定
+              </button>
+              
               <!-- 1F -->
               <h6 class="mt-2 mb-2 small fw-bold">1F</h6>
               <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#roomModal1F1">1F：洋室1</button>
@@ -331,6 +264,13 @@
 
           <!-- 積算タブ -->
           <div class="tab-pane fade" id="estimate" role="tabpanel" aria-labelledby="estimate-tab">
+            <!-- 積算詳細ボタン -->
+            <div class="mb-3">
+              <button class="btn btn-info btn-sm" onclick="location.href='user_project_detail_design_estimate_detail.html'">
+                <i class="bi bi-calculator"></i> 積算詳細
+              </button>
+            </div>
+            
             <table class="table table-bordered estimate-table mb-4">
               <thead class="table-light">
                 <tr>
@@ -1504,6 +1444,76 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
           <button type="button" class="btn btn-primary">編集</button>
           <button type="button" class="btn btn-success">更新</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 屋根仕様モーダル -->
+  <div class="modal fade" id="roofSpecModal" tabindex="-1" aria-labelledby="roofSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="roofSpecModalLabel">屋根仕様</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- 屋根仕様選択 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">屋根仕様</label>
+            <select class="form-select">
+              <option>スレート：コロニアル：18000円</option>
+              <option>ガルバリウム鋼板：立平葺き：17000円</option>
+              <option>和瓦：和形瓦：20000円</option>
+              <option>木造トラス：小屋束＋母屋＋垂木：16000円</option>
+            </select>
+          </div>
+
+          <!-- 屋根の詳細情報 -->
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">屋根の種類</label>
+              <select class="form-select">
+                <option>切妻屋根</option>
+                <option>寄棟屋根</option>
+                <option>片流れ屋根</option>
+                <option>陸屋根</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">勾配</label>
+              <select class="form-select">
+                <option>3寸勾配</option>
+                <option>4寸勾配</option>
+                <option>5寸勾配</option>
+                <option>6寸勾配</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">軒の出</label>
+              <div class="input-group">
+                <input type="number" class="form-control" value="600">
+                <span class="input-group-text">mm</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">棟高</label>
+              <div class="input-group">
+                <input type="number" class="form-control" value="3000">
+                <span class="input-group-text">mm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 備考 -->
+          <div class="mb-3">
+            <label class="form-label fw-bold">備考</label>
+            <textarea class="form-control" rows="3" placeholder="屋根に関する特記事項があれば入力してください"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
         </div>
       </div>
     </div>
