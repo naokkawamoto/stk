@@ -297,35 +297,72 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="roofSpecModalLabel">
-            <i class="bi bi-house-gear me-2"></i>屋根仕様
+            <i class="bi bi-house-roof me-2"></i>屋根仕様
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row">
+          <div class="row g-3">
             <div class="col-md-6">
-              <label class="form-label fw-bold">屋根材</label>
-              <select class="form-select">
-                <option>スレート：コロニアル：18000円</option>
-                <option>ガルバリウム鋼板：立平葺き：17000円</option>
-                <option>和瓦：和形瓦：20000円</option>
-                <option>木造トラス：小屋束＋母屋＋垂木：16000円</option>
+              <label class="form-label fw-bold">材質</label>
+              <select class="form-select" id="roofMaterial">
+                <option value="">材質を選択</option>
+                <option value="瓦">瓦</option>
+                <option value="金属">金属</option>
+                <option value="スレート">スレート</option>
+                <option value="防水">防水</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">部材タイプ</label>
+              <select class="form-select" id="roofType">
+                <option value="">部材タイプを選択</option>
+                <!-- 瓦の部材タイプ -->
+                <option value="和瓦　空葺き" data-material="瓦">和瓦　空葺き</option>
+                <option value="和瓦　泥入り葺き" data-material="瓦">和瓦　泥入り葺き</option>
+                <option value="洋瓦　Ｓ型瓦葺き" data-material="瓦">洋瓦　Ｓ型瓦葺き</option>
+                <option value="洋瓦　セメント瓦葺き" data-material="瓦">洋瓦　セメント瓦葺き</option>
+                <!-- 金属の部材タイプ -->
+                <option value="瓦棒葺き" data-material="金属">瓦棒葺き</option>
+                <option value="立平葺き" data-material="金属">立平葺き</option>
+                <option value="横葺き" data-material="金属">横葺き</option>
+                <option value="折半葺き" data-material="金属">折半葺き</option>
+                <!-- スレートの部材タイプ -->
+                <option value="コロニアル" data-material="スレート">コロニアル</option>
+                <!-- 防水の部材タイプ -->
+                <option value="シート防水" data-material="防水">シート防水</option>
+                <option value="ウレタン防水" data-material="防水">ウレタン防水</option>
+                <option value="FRP防水" data-material="防水">FRP防水</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">下地</label>
+              <select class="form-select" id="roofSubstrate">
+                <option value="">下地を選択</option>
+                <option value="野地板、アスファルトルーフィング">野地板、アスファルトルーフィング</option>
+                <option value="泥、杉皮張張り">泥、杉皮張張り</option>
+                <option value="なし">なし</option>
+                <option value="モルタル下地">モルタル下地</option>
               </select>
             </div>
             <div class="col-md-6">
               <label class="form-label fw-bold">屋根勾配</label>
-              <select class="form-select">
-                <option>3寸勾配</option>
-                <option>4寸勾配</option>
-                <option>5寸勾配</option>
-                <option>6寸勾配</option>
-              </select>
+              <div class="input-group">
+                <input type="number" class="form-control" value="3" min="0" step="0.5">
+                <span class="input-group-text">寸</span>
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-bold">備考</label>
+              <textarea class="form-control" rows="3" placeholder="屋根仕様に関する備考を入力してください"></textarea>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-          <button type="button" class="btn btn-primary">保存</button>
+          <button type="button" class="btn btn-success">
+            <i class="bi bi-check-circle me-2"></i>保存
+          </button>
         </div>
       </div>
     </div>
@@ -502,6 +539,35 @@
   <script>
     fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
     fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+
+    // 屋根仕様モーダルの材質と部材タイプの連動
+    document.addEventListener('DOMContentLoaded', function() {
+      const roofMaterial = document.getElementById('roofMaterial');
+      const roofType = document.getElementById('roofType');
+      
+      if (roofMaterial && roofType) {
+        // 材質が変更された時の処理
+        roofMaterial.addEventListener('change', function() {
+          const selectedMaterial = this.value;
+          
+          // 部材タイプの選択肢をリセット
+          roofType.innerHTML = '<option value="">部材タイプを選択</option>';
+          
+          if (selectedMaterial) {
+            // 選択された材質に応じて部材タイプの選択肢を表示
+            const options = roofType.querySelectorAll('option[data-material]');
+            options.forEach(option => {
+              if (option.getAttribute('data-material') === selectedMaterial) {
+                const newOption = document.createElement('option');
+                newOption.value = option.value;
+                newOption.textContent = option.textContent;
+                roofType.appendChild(newOption);
+              }
+            });
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>

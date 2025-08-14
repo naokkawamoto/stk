@@ -319,7 +319,419 @@
         </div>
         <!-- 資金計画設定 -->
         <div class="tab-pane fade" id="tab-finance" role="tabpanel" aria-labelledby="tab-finance-tab">
-          <p>資金計画設定が入ります</p>
+          <div class="p-4">
+            <h5 class="mb-4">資金計画名称マスタ</h5>
+            
+            <!-- サブタイトル1: 付帯工事見積 -->
+            <div class="mb-5">
+              <h6 class="mb-3 text-primary">付帯工事見積</h6>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover small">
+                  <thead class="table-light">
+                    <tr>
+                      <th style="width: 80px;">番号</th>
+                      <th>項目名</th>
+                      <th style="width: 120px;">表示のON/OFF</th>
+                      <th style="width: 100px;">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>仮設工事費用</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>屋外給排水工事費</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>建築造作工事</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-primary btn-sm">
+                  <i class="bi bi-plus-circle"></i> 追加
+                </button>
+              </div>
+            </div>
+            
+            <!-- サブタイトル2: 付帯工事見積費 -->
+            <div class="mb-5">
+              <h6 class="mb-3 text-primary">付帯工事見積費</h6>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover small">
+                  <thead class="table-light">
+                    <tr>
+                      <th style="width: 80px;">番号</th>
+                      <th>項目名</th>
+                      <th style="width: 120px;">表示のON/OFF</th>
+                      <th style="width: 100px;">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>地盤改良費</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>外構工事予算</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>カーテン予算</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>エアコン予算</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>ポスト表札予算</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>照明器具予算</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>太陽光発電システム(ソーラーメイト)</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-primary btn-sm">
+                  <i class="bi bi-plus-circle"></i> 追加
+                </button>
+              </div>
+            </div>
+            
+            <!-- サブタイトル3: 諸費用 -->
+            <div class="mb-5">
+              <h6 class="mb-3 text-primary">諸費用</h6>
+              <div class="table-responsive">
+                <table class="table table-striped table-hover small">
+                  <thead class="table-light">
+                    <tr>
+                      <th style="width: 80px;">番号</th>
+                      <th>項目名</th>
+                      <th style="width: 120px;">表示のON/OFF</th>
+                      <th style="width: 100px;">操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>プラン申込料</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>実施設計作図料</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>家価値サポート費用</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>確認申請料</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>気密測定費用</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>JIO検査・保険料</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>温熱計算料(Zeh対応)</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>地鎮祭費用・上棟費用</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>9</td>
+                      <td>敷地調査料</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>10</td>
+                      <td>地盤調査料・保証料</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>11</td>
+                      <td>民間金融機関手数料</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>12</td>
+                      <td>登記費用</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>13</td>
+                      <td>火災保険費用(概算)</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>14</td>
+                      <td>つなぎ融資金利(概算)</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>15</td>
+                      <td>印紙代</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>16</td>
+                      <td>上水道負担金</td>
+                      <td>
+                        <div class="form-check form-switch m-0">
+                          <input class="form-check-input" type="checkbox" checked>
+                        </div>
+                      </td>
+                      <td>
+                        <i class="bi bi-pencil text-primary me-2" role="button" title="編集"></i>
+                        <i class="bi bi-trash text-danger" role="button" title="削除"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-primary btn-sm">
+                  <i class="bi bi-plus-circle"></i> 追加
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- 通知設定 -->
         <div class="tab-pane fade" id="tab-notify" role="tabpanel" aria-labelledby="tab-notify-tab">
