@@ -54,8 +54,10 @@
 project_detail_design.html"><i class="bi bi-sticky"></i>概要</a>
               </li>
               <li class="nav-item">
-              <a class="nav-link active" href="user_
-project_detail_design_estimate.html"><i class="bi bi-calculator"></i> 見積もり</a>
+              <a class="nav-link active" href="user_project_detail_design_estimate.html"><i class="bi bi-calculator"></i> 業者見積もり</a>
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="user_project_detail_design_owner_estimate.html"><i class="bi bi-calculator"></i> お客様見積もり</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="user_
@@ -71,7 +73,7 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
     
         <div class="p-3">
           <!-- ヘッダー情報 -->
-          <a href="user_project_detail_design_detail_estimate.html">見積詳細管理</a> ＞仮設工事
+          <h4>業者見積もり ＞仮設工事</h4>
     
           <!-- 見積もり新規依頼ボタン -->
           <div class="mt-3 mb-4">
@@ -79,31 +81,66 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
               <i class="bi bi-plus-lg"></i> 見積もり新規依頼
             </button>
           </div>
-          これはプラン１の見積もり詳細管理です。
+
+          <!-- 見積もり依頼一覧テーブル -->
+          <div class="table-responsive mb-4">
+            <table class="table table-hover table-bordered small-text">
+              <thead class="table-light">
+                <tr>
+                  <th>依頼業者名</th>
+                  <th>提出期限</th>
+                  <th>提出金額（税抜き）</th>
+                  <th>状況</th>
+                  <th>チャット</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ABC建設</td>
+                  <td>2024年3月15日</td>
+                  <td>¥167,600</td>
+                  <td><span class="badge bg-warning">依頼中</span></td>
+                  <td><span class="badge bg-danger">3</span></td>
+                  <td><button class="btn btn-sm btn-outline-success">見積もり確定</button></td>
+                </tr>
+                <tr>
+                  <td>EFG工務店</td>
+                  <td>2024年3月20日</td>
+                  <td>¥180,000</td>
+                  <td><span class="badge bg-success">提出済み</span></td>
+                  <td><span class="badge bg-secondary">0</span></td>
+                  <td><button class="btn btn-sm btn-outline-success">見積もり確定</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
     
     
           <ul class="nav nav-tabs mb-3">
             <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-abc">ABC建設</button></li>
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-efg">EFG工務店</button></li>
           </ul>
-          <div class="tab-pane fade show active" id="tab-abc">
+                    <div class="tab-pane fade show active" id="tab-abc">
             
     
-          <h5>ABC建設</h5><span class="badge bg-danger">見積もり依頼中</span>
-          <table class="tabele-responsive mb-3 small-text text text-end">
-            <tbody>
-              <tr>
-                <th class="table-light">電話番号</th>
-                <td>03-3444-5555</td>
-                <th class="table-light">担当者名</th>
-                <td>山田太郎</td>
-                <th class="table-light">email</th>
-                <td>yamada@def_con.com</td>
-              </tr>
-            </tbody>
-          </table>
-    
-          <!-- サブ2タブ -->
+          <span class="badge bg-danger mb-3">見積もり依頼中</span>
+          <div class="table-responsive mb-3">
+            <table class="table table-bordered small-text">
+              <tbody>
+                <tr>
+                  <th class="table-light">電話番号</th>
+                  <td>03-3444-5555</td>
+                  <th class="table-light">担当者名</th>
+                  <td>山田太郎</td>
+                  <th class="table-light">email</th>
+                  <td>yamada@def_con.com</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      
+            <!-- サブ2タブ -->
           <ul class="nav nav-tabs mb-3">
             <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-create">見積もり作成</button></li>
             <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-supplier">業者見積書</button></li>
@@ -112,43 +149,34 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
           <div class="tab-content">
             <!-- 見積もり作成 -->
             <div class="tab-pane fade show active" id="tab-create">
+              <div class="d-flex justify-content-end mb-3">
+                <button class="btn btn-outline-primary btn-sm">
+                  <i class="bi bi-pencil"></i> 編集
+                </button>
+              </div>
               <div class="table-responsive small-text">
-                <!-- 既存の見積作成テーブルをそのまま配置 -->
-                <div class="table-responsive">
-                  <table class="table table-hover table-bordered small-text align-middle">
-                    <thead class="table-dark text-white text-center">
-                      <tr>
-                        
-                        
-                        <th>摘要</th>
-                        <th>社内適用</th>
-                        <th>数量</th>
-                        <th>ロス</th>
-                        <th>係数</th>
-                        <th>数量</th>
-                        <th>単位</th>
-                        <th>実行単価</th>
-                        <th>実行金額</th>
-                        <th>単価</th>
-                        <th>販売金額</th>
-                        <th>備考</th>
-                      </tr>
-                    </thead>
+                <table class="table table-hover table-bordered small-text align-middle">
+                  <thead class="table-dark text-white text-center">
+                    <tr>
+                      <th>摘要</th>
+                      <th>社内適用</th>
+                      <th>数量定義</th>
+                      <th>数量</th>
+                      <th>単位</th>
+                      <th>実行単価（税抜き）</th>
+                      <th>実行金額（税抜き）</th>
+                      <th>備考</th>
+                    </tr>
+                  </thead>
                     <tbody>
                       <tr>
-                        
-                        
                         <td>足場架払</td>
                         <td>メッシュシート含む</td>
                         <td>(外周＋8M)＊高さ</td>
-                        <td class="text-end">0.00</td>
-                        <td class="text-end">1.00</td>
                         <td class="text-end">1.00</td>
                         <td>㎡</td>
                         <td class="text-end">750</td>
-                        <td class="text-end">0</td>
-                        <td class="text-end">1,300</td>
-                        <td class="text-end">0</td>
+                        <td class="text-end">750</td>
                         <td></td>
                       </tr>
                       <tr>
@@ -156,27 +184,19 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td></td>
                         <td>必須項目</td>
                         <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>式</td>
                         <td class="text-end">20,000</td>
                         <td class="text-end">20,000</td>
-                        <td class="text-end">30,400</td>
-                        <td class="text-end">30,400</td>
                         <td></td>
                       </tr>
                       <tr>
                         <td>内部足場架払</td>
                         <td>吹抜け</td>
                         <td>有りの場合</td>
-                        <td class="text-end">0.00</td>
-                        <td class="text-end">1.00</td>
                         <td class="text-end">1.00</td>
                         <td>式</td>
                         <td class="text-end">25,000</td>
-                        <td class="text-end">0</td>
-                        <td class="text-end">37,900</td>
-                        <td class="text-end">0</td>
+                        <td class="text-end">25,000</td>
                         <td></td>
                       </tr>
                       <tr>
@@ -184,13 +204,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td></td>
                         <td>延床面積</td>
                         <td class="text-end">100.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>㎡</td>
                         <td class="text-end">300</td>
                         <td class="text-end">30,000</td>
-                        <td class="text-end">500</td>
-                        <td class="text-end">50,000</td>
                         <td></td>
                       </tr>
                       <tr>
@@ -198,13 +214,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td>クレーニング</td>
                         <td>延床面積</td>
                         <td class="text-end">100.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>㎡</td>
                         <td class="text-end">650</td>
                         <td class="text-end">65,000</td>
-                        <td class="text-end">1,000</td>
-                        <td class="text-end">100,000</td>
                         <td></td>
                       </tr>
                       <tr>
@@ -212,13 +224,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td>レッカー費用</td>
                         <td>必須項目</td>
                         <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>式</td>
                         <td class="text-end">56,000</td>
                         <td class="text-end">56,000</td>
-                        <td class="text-end">84,900</td>
-                        <td class="text-end">84,900</td>
                         <td></td>
                       </tr>
                       <tr>
@@ -226,13 +234,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td>木部 GL+1000m（外周部）</td>
                         <td>建築面積</td>
                         <td class="text-end">40.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>㎡</td>
                         <td class="text-end">760</td>
                         <td class="text-end">30,400</td>
-                        <td class="text-end">1,200</td>
-                        <td class="text-end">48,000</td>
                         <td>家価値サポート60に含む</td>
                       </tr>
                       <tr>
@@ -240,13 +244,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td>土壌処理(5年保証)</td>
                         <td>建築面積</td>
                         <td class="text-end">40.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>㎡</td>
                         <td class="text-end">760</td>
                         <td class="text-end">30,400</td>
-                        <td class="text-end">1,200</td>
-                        <td class="text-end">48,000</td>
                         <td>家価値サポート60に含む</td>
                       </tr>
                       <tr>
@@ -254,13 +254,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td>設置費・申請含む</td>
                         <td>必須項目</td>
                         <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>式</td>
                         <td class="text-end">40,000</td>
                         <td class="text-end">40,000</td>
-                        <td class="text-end">60,700</td>
-                        <td class="text-end">60,700</td>
                         <td></td>
                       </tr>
                       <tr>
@@ -268,13 +264,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td>本設量水器</td>
                         <td>必須項目</td>
                         <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>式</td>
                         <td class="text-end">25,000</td>
                         <td class="text-end">25,000</td>
-                        <td class="text-end">37,900</td>
-                        <td class="text-end">37,900</td>
                         <td></td>
                       </tr>
                       <tr>
@@ -282,13 +274,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td>4ヶ月、汲取り費用含む</td>
                         <td>必須項目</td>
                         <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>式</td>
                         <td class="text-end">20,000</td>
                         <td class="text-end">20,000</td>
-                        <td class="text-end">30,400</td>
-                        <td class="text-end">30,400</td>
                         <td></td>
                       </tr>
                       <tr>
@@ -296,22 +284,15 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         <td>産業廃棄物処理費用</td>
                         <td>延床坪数</td>
                         <td class="text-end">30.25</td>
-                        <td class="text-end">1.00</td>
-                        <td class="text-end">1.00</td>
                         <td>坪</td>
                         <td class="text-end">5,300</td>
                         <td class="text-end">160,325</td>
-                        <td class="text-end">8,100</td>
-                        <td class="text-end">245,025</td>
                         <td></td>
                       </tr>
                       <tr class="table-light">
-                        <td colspan="7"></td>
+                        <td colspan="6"></td>
                         <td>小計</td>
                         <td class="text-end">477,125</td>
-                        <td></td>
-                        <td class="text-end">735,325</td>
-                        <td></td>
                       </tr>
                     </tbody>
                   </table>
@@ -326,31 +307,22 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
             </div>
             <!-- 業者見積書 -->
             <div class="tab-pane fade" id="tab-supplier">
-              <!-- 表示方法＆検索 -->
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center">
-                  <span class="me-2">表示方法：</span>
-                  <button class="btn btn-outline-primary me-2"><i class="bi bi-folder"></i></button>
-                  <button class="btn btn-outline-secondary me-4"><i class="bi bi-list"></i></button>
-                  <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;"><option value="created">作成日順</option></select>
-                </div>
-                <div class="input-group" style="width:300px;"><input type="text" class="form-control" placeholder="キーワードを入力"><button class="btn btn-outline-secondary" type="button">検索</button></div>
-              </div>
               <div class="card">
                 <div class="card-body p-0">
                   <table class="table table-hover mb-0">
                     <thead class="table-light">
-                      <tr><th>資料名称</th><th>項目数</th><th>既読人数</th><th>公開設定</th><th>作成日時</th><th>アクション</th></tr>
+                      <tr><th>資料名称</th><th>既読人数</th><th>作成日時</th><th>アクション</th></tr>
                     </thead>
                     <tbody>
                       <!-- DEF建設見積書の1行 -->
                       <tr>
                         <td>DEF建設見積書</td>
-                        <td>1</td>
                         <td>0</td>
-                        <td>公開</td>
                         <td>2025/05/16 12:00</td>
-                        <td><button class="btn btn-sm btn-outline-primary">詳細</button></td>
+                        <td>
+                          <button class="btn btn-sm btn-outline-primary me-1">アップロード</button>
+                          <button class="btn btn-sm btn-outline-secondary">ダウンロード</button>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

@@ -76,7 +76,10 @@
             <a class="nav-link" href="user_project_detail_design_1f.html"><i class="bi bi-pencil"></i> プラン作成</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="user_project_detail_design_estimate.html"><i class="bi bi-calculator"></i> 見積もり</a>
+            <a class="nav-link" href="user_project_detail_design_estimate.html"><i class="bi bi-calculator"></i> 業者見積もり</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="user_project_detail_design_owner_estimate.html"><i class="bi bi-calculator"></i> お客様見積もり</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="user_project_detail_design_finance.html"><i class="bi bi-currency-yen"></i> 資金計画</a>
@@ -86,6 +89,8 @@
           </li>
         </ul>
       </div>
+  
+
   
       <!-- 資金計画サブタイトル -->
       <div class="mb-2 px-3">
@@ -185,6 +190,90 @@
             role="tabpanel"
             aria-labelledby="sub-overview-tab"
           >
+            <!-- 進捗インディケーター -->
+            <div class="mb-4">
+              <div class="progress mb-3" style="height: 6px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              
+              <div class="row g-2">
+                <!-- ステップ1: 資金計画を始める -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-success">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-play-circle-fill text-success" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ1</div>
+                      <div class="fw-bold small">資金計画を始める</div>
+                      <span class="badge bg-success small">完了</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- ステップ2: 建築工事 -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-primary">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-1-circle-fill text-primary" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ2</div>
+                      <div class="fw-bold small">①建築工事</div>
+                      <span class="badge bg-primary small">進行中</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- ステップ3: 付帯・諸費用 -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-secondary">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-2-circle-fill text-secondary" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ3</div>
+                      <div class="fw-bold small">②付帯・諸費用</div>
+                      <span class="badge bg-secondary small">未着手</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- ステップ4: 土地関係費用 -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-secondary">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-3-circle-fill text-secondary" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ4</div>
+                      <div class="fw-bold small">③土地関係費用</div>
+                      <span class="badge bg-secondary small">未着手</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- ステップ5: 返済計画 -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-secondary">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-4-circle-fill text-secondary" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ5</div>
+                      <div class="fw-bold small">④返済計画</div>
+                      <span class="badge bg-secondary small">未着手</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- ナビゲーションボタン -->
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <button class="btn btn-outline-secondary btn-sm" onclick="goToOverview()">
+                  <i class="bi bi-arrow-left"></i> 資金概要に戻る
+                </button>
+                <div>
+                  <button class="btn btn-outline-warning btn-sm me-2" onclick="skipCurrentStep()">
+                    <i class="bi bi-skip-forward"></i> スキップ
+                  </button>
+                  <button class="btn btn-primary btn-sm" onclick="goToNextStep()">
+                    次のステップ <i class="bi bi-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+  
             <!-- セクション1：資金計画対象 -->
             <div class="card mb-4 table-small">
               <div class="card-header bg-gray">
@@ -296,6 +385,90 @@
           aria-labelledby="sub-construction-tab"
           >
           <div class="p-3">
+  
+            <!-- 進捗インディケーター -->
+            <div class="mb-4">
+              <div class="progress mb-3" style="height: 6px;">
+                <div class="progress-bar bg-primary" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              
+              <div class="row g-2">
+                <!-- ステップ1: 資金計画を始める -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-success">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-play-circle-fill text-success" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ1</div>
+                      <div class="fw-bold small">資金計画を始める</div>
+                      <span class="badge bg-success small">完了</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- ステップ2: 建築工事 -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-primary">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-1-circle-fill text-primary" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ2</div>
+                      <div class="fw-bold small">①建築工事</div>
+                      <span class="badge bg-primary small">進行中</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- ステップ3: 付帯・諸費用 -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-secondary">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-2-circle-fill text-secondary" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ3</div>
+                      <div class="fw-bold small">②付帯・諸費用</div>
+                      <span class="badge bg-secondary small">未着手</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- ステップ4: 土地関係費用 -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-secondary">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-3-circle-fill text-secondary" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ4</div>
+                      <div class="fw-bold small">③土地関係費用</div>
+                      <span class="badge bg-secondary small">未着手</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- ステップ5: 返済計画 -->
+                <div class="col-md-2 col-4">
+                  <div class="card border-secondary">
+                    <div class="card-body text-center p-1">
+                      <i class="bi bi-4-circle-fill text-secondary" style="font-size: 1rem;"></i>
+                      <div class="small text-muted">ステップ5</div>
+                      <div class="fw-bold small">④返済計画</div>
+                      <span class="badge bg-secondary small">未着手</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- ナビゲーションボタン -->
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <button class="btn btn-outline-secondary btn-sm" onclick="goToOverview()">
+                  <i class="bi bi-arrow-left"></i> 資金概要に戻る
+                </button>
+                <div>
+                  <button class="btn btn-outline-warning btn-sm me-2" onclick="skipCurrentStep()">
+                    <i class="bi bi-skip-forward"></i> スキップ
+                  </button>
+                  <button class="btn btn-primary btn-sm" onclick="goToNextStep()">
+                    次のステップ <i class="bi bi-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
   
             <!-- Card 1 ：①建築工事 -->
             <div class="card table-small mb-4">
@@ -1283,6 +1456,126 @@
     <script>
         fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
         fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+        
+        // 資金計画進捗管理のJavaScript
+        let currentStep = 2; // 現在のステップ（1-5）
+        const totalSteps = 5;
+        
+        // 資金概要に戻る
+        function goToOverview() {
+            // 資金計画概要タブをアクティブにする
+            const overviewTab = document.getElementById('sub-overview-tab');
+            if (overviewTab) {
+                overviewTab.click();
+            }
+            
+            // 進捗インディケーターを非表示にする（オプション）
+            const progressIndicator = document.querySelector('.mb-4');
+            if (progressIndicator) {
+                progressIndicator.style.display = 'none';
+            }
+        }
+        
+        // 次のステップに進む
+        function goToNextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateProgress();
+                
+                // 対応するサブタブに移動
+                const stepTabs = [
+                    'sub-overview-tab',
+                    'sub-construction-tab', 
+                    'sub-incidental-tab',
+                    'sub-land-tab',
+                    'sub-repay-tab'
+                ];
+                
+                if (stepTabs[currentStep - 1]) {
+                    const nextTab = document.getElementById(stepTabs[currentStep - 1]);
+                    if (nextTab) {
+                        nextTab.click();
+                    }
+                }
+            }
+        }
+        
+        // 現在のステップをスキップ
+        function skipCurrentStep() {
+            if (currentStep < totalSteps) {
+                // スキップ確認ダイアログ
+                if (confirm('現在のステップをスキップしますか？後から戻って設定できます。')) {
+                    currentStep++;
+                    updateProgress();
+                    
+                    // 対応するサブタブに移動
+                    const stepTabs = [
+                        'sub-overview-tab',
+                        'sub-construction-tab', 
+                        'sub-incidental-tab',
+                        'sub-land-tab',
+                        'sub-repay-tab'
+                    ];
+                    
+                    if (stepTabs[currentStep - 1]) {
+                        const nextTab = document.getElementById(stepTabs[currentStep - 1]);
+                        if (nextTab) {
+                            nextTab.click();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // 進捗状況を更新
+        function updateProgress() {
+            const progressBar = document.querySelector('.progress-bar');
+            const progressPercentage = (currentStep / totalSteps) * 100;
+            
+            if (progressBar) {
+                progressBar.style.width = progressPercentage + '%';
+                progressBar.setAttribute('aria-valuenow', progressPercentage);
+            }
+            
+            // ステップカードの状態を更新
+            updateStepCards();
+        }
+        
+        // ステップカードの状態を更新
+        function updateStepCards() {
+            const stepCards = document.querySelectorAll('.col-md-2');
+            
+            stepCards.forEach((card, index) => {
+                const cardElement = card.querySelector('.card');
+                const badge = card.querySelector('.badge');
+                const icon = card.querySelector('i');
+                
+                if (index + 1 < currentStep) {
+                    // 完了済み
+                    cardElement.className = 'card h-100 border-success';
+                    badge.className = 'badge bg-success';
+                    badge.textContent = '完了';
+                    icon.className = icon.className.replace('text-secondary', 'text-success');
+                } else if (index + 1 === currentStep) {
+                    // 現在のステップ
+                    cardElement.className = 'card h-100 border-primary';
+                    badge.className = 'badge bg-primary';
+                    badge.textContent = '進行中';
+                    icon.className = icon.className.replace('text-secondary', 'text-primary');
+                } else {
+                    // 未着手
+                    cardElement.className = 'card h-100 border-secondary';
+                    badge.className = 'badge bg-secondary';
+                    badge.textContent = '未着手';
+                    icon.className = icon.className.replace('text-secondary', 'text-secondary');
+                }
+            });
+        }
+        
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+        });
     </script>
 </body>
 </html>
