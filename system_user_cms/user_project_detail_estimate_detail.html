@@ -151,8 +151,14 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                   </div>
                   
                   <!-- 見積もり作成テーブル -->
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="mb-0">見積もり項目一覧</h6>
+                    <button class="btn btn-outline-primary btn-sm" id="editTableBtn" onclick="toggleEditMode()">
+                      <i class="bi bi-pencil"></i> 編集
+                    </button>
+                  </div>
                   <div class="table-responsive small-text">
-                    <table class="table table-hover table-bordered align-middle">
+                    <table class="table table-hover table-bordered align-middle" id="estimateTable">
                       <thead class="table-dark text-white text-center">
                         <tr>
                           <th>No</th>
@@ -161,104 +167,94 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                           <th>社内適用</th>
                           <th>数量</th>
                           <th>単位</th>
-                          <th>実行単価</th>
-                          <th>実行金額</th>
+                          <th>実行単価（税抜き）</th>
+                          <th>実行金額（税抜き）</th>
                           <th>備考</th>
                         </tr>
                       </thead>
                       <tbody>
                         <!-- 仮設トイレ -->
                         <tr>
-                          <td><input type="text" class="form-control form-control-sm" value="1"></td>
+                          <td>1</td>
                           <td>仮設トイレ</td>
-                          <td><input type="text" class="form-control form-control-sm" value="4ヶ月、汲取り費用含む"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="台"></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
+                          <td>4ヶ月、汲取り費用含む</td>
+                          <td>標準仕様</td>
+                          <td>1.00</td>
+                          <td>台</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                         <!-- 備品箱 -->
                         <tr>
-                          <td><input type="text" class="form-control form-control-sm" value="1-1"></td>
+                          <td>1-1</td>
                           <td>備品箱</td>
-                          <td><input type="text" class="form-control form-control-sm" value="ﾍﾙﾒｯﾄ･消火器･清掃用具･ｽﾘｯﾊﾟ･救急箱"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="式"></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
+                          <td>ﾍﾙﾒｯﾄ･消火器･清掃用具･ｽﾘｯﾊﾟ･救急箱</td>
+                          <td>標準仕様</td>
+                          <td>1.00</td>
+                          <td>式</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                         <!-- 仮囲いフェンス -->
                         <tr>
-                          <td><input type="text" class="form-control form-control-sm" value="1-2"></td>
+                          <td>1-2</td>
                           <td>仮囲いフェンス</td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="スパン"></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
+                          <td></td>
+                          <td>標準仕様</td>
+                          <td>1.00</td>
+                          <td>スパン</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                         <!-- 仮囲いネット -->
                         <tr>
-                          <td><input type="text" class="form-control form-control-sm" value="1-3"></td>
+                          <td>1-3</td>
                           <td>仮囲いネット</td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="ｍ"></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
+                          <td></td>
+                          <td>標準仕様</td>
+                          <td>1.00</td>
+                          <td>ｍ</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                         <!-- 仮囲いゲート -->
                         <tr>
-                          <td><input type="text" class="form-control form-control-sm" value="1-4"></td>
+                          <td>1-4</td>
                           <td>仮囲いゲート</td>
-                          <td><input type="text" class="form-control form-control-sm" value="5.5ｍまで"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="基"></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
+                          <td>5.5ｍまで</td>
+                          <td>標準仕様</td>
+                          <td>1.00</td>
+                          <td>基</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                         <!-- ゴムマット -->
                         <tr>
-                          <td><input type="text" class="form-control form-control-sm" value="1-5"></td>
+                          <td>1-5</td>
                           <td>ゴムマット</td>
-                          <td><input type="text" class="form-control form-control-sm" value="１ｍ×2ｍ"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="枚"></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value=""></td>
+                          <td>１ｍ×2ｍ</td>
+                          <td>標準仕様</td>
+                          <td>1.00</td>
+                          <td>枚</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                         <!-- 新規行追加ボタン -->
                         <tr class="table-light">
                           <td colspan="9" class="text-center">
-                            <button class="btn btn-outline-primary btn-sm" onclick="addNewRow()">
+                            <button class="btn btn-outline-primary btn-sm" onclick="addNewRow()" id="addRowBtn" style="display: none;">
                               <i class="bi bi-plus-circle"></i> 新規行追加
                             </button>
                           </td>
                         </tr>
                       </tbody>
                     </table>
-                  </div>
-
-                  <!-- 操作ボタン -->
-                  <div class="mt-3 text-end">
-                    <button class="btn btn-outline-secondary me-2">
-                      <i class="bi bi-save"></i> 保存
-                    </button>
-                    <button class="btn btn-primary">
-                      <i class="bi bi-check-circle"></i> 確定
-                    </button>
                   </div>
                 </div>
               </div>
@@ -335,6 +331,57 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
             const headerCell = document.querySelector('th:contains("確定業者選択")');
             if (headerCell) {
                 headerCell.textContent = `確定業者: ${supplierName}`;
+            }
+        }
+        
+        // テーブル編集モード切り替え機能
+        function toggleEditMode() {
+            const editBtn = document.getElementById('editTableBtn');
+            const table = document.getElementById('estimateTable');
+            const addRowBtn = document.getElementById('addRowBtn');
+            const isEditMode = editBtn.textContent.includes('編集');
+            
+            if (isEditMode) {
+                // 編集モードに切り替え
+                editBtn.innerHTML = '<i class="bi bi-check-circle"></i> 確定';
+                editBtn.className = 'btn btn-success btn-sm';
+                addRowBtn.style.display = 'inline-block';
+                
+                // テーブルを編集可能にする（見出し以外）
+                const rows = table.querySelectorAll('tbody tr:not(.table-light)');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach((cell, index) => {
+                        if (index > 0) { // 見出し（No）以外を編集可能に
+                            const currentText = cell.textContent;
+                            const input = document.createElement('input');
+                            input.type = 'text';
+                            input.className = 'form-control form-control-sm';
+                            input.value = currentText;
+                            cell.textContent = '';
+                            cell.appendChild(input);
+                        }
+                    });
+                });
+            } else {
+                // 表示モードに戻す
+                editBtn.innerHTML = '<i class="bi bi-pencil"></i> 編集';
+                editBtn.className = 'btn btn-outline-primary btn-sm';
+                addRowBtn.style.display = 'none';
+                
+                // テーブルを表示のみに戻す
+                const rows = table.querySelectorAll('tbody tr:not(.table-light)');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach((cell, index) => {
+                        if (index > 0) { // 見出し（No）以外
+                            const input = cell.querySelector('input');
+                            if (input) {
+                                cell.textContent = input.value;
+                            }
+                        }
+                    });
+                });
             }
         }
     </script>
