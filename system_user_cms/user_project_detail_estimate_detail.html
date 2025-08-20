@@ -73,15 +73,15 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
     
         <div class="p-3">
           <!-- ヘッダー情報 -->
-          <h4><a href="user_project_detail_design_estimate.html" class="text-decoration-none">業者見積もり</a> ＞仮設工事</h4>
+          <h4><a href="user_project_detail_design_estimate.html" class="text-decoration-none">業者見積もり</a> ＞仮設工事（トイレ）</h4>
 
           <!-- サブタブ -->
           <ul class="nav nav-tabs mb-3">
             <li class="nav-item">
-              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-estimate-list">業者見積もり管理</button>
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-estimate-list">業者見積もり管理 <span class="badge bg-danger">2</span></button>
             </li>
             <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-estimate-request">業者見積もりテンプレート</button>
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-estimate-request">仮設工事（トイレ）見積もり依頼設定</button>
             </li>
           </ul>
 
@@ -90,8 +90,8 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
             <div class="tab-pane fade show active" id="tab-estimate-list">
               <!-- 見積もり新規依頼ボタン -->
               <div class="mt-3 mb-4">
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newEstimateModal">
-                  <i class="bi bi-plus-lg"></i> 見積もり新規依頼
+                <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#newEstimateModal">
+                  <i class="bi bi-plus-lg"></i> 業者見積もり新規依頼
                 </button>
               </div>
 
@@ -103,9 +103,9 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                       <th>依頼業者名</th>
                       <th>提出期限</th>
                       <th>提出金額（税抜き）</th>
-                      <th>確定業者</th>
+                      <th>確定業者選択</th>
                       <th>状況</th>
-                      <th>チャット</th>
+                      <th>未読チャット</th>
                       <th>操作</th>
                     </tr>
                   </thead>
@@ -114,18 +114,22 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                       <td>ABC建設</td>
                       <td>2024年3月15日</td>
                       <td>¥2,500,000</td>
-                      <td>☑ 確定</td>
+                      <td>
+                        <button class="btn btn-success btn-sm" onclick="selectSupplier('ABC建設', this)">確定</button>
+                      </td>
                       <td><span class="badge bg-warning">依頼中</span></td>
-                      <td><span class="badge bg-info">3</span></td>
+                      <td><span class="badge bg-danger">3</span></td>
                       <td><a href="user_project_detail_estimate_detail_abc.html" class="btn btn-sm btn-outline-primary" role="button">詳細</a></td>
                     </tr>
                     <tr>
                       <td>EFG工務店</td>
                       <td>2024年3月20日</td>
                       <td>¥2,300,000</td>
-                      <td><input type="checkbox" class="form-check-input"></td>
+                      <td>
+                        <button class="btn btn-success btn-sm" onclick="selectSupplier('EFG工務店', this)">確定</button>
+                      </td>
                       <td><span class="badge bg-success">提出済み</span></td>
-                      <td><span class="badge bg-secondary">0</span></td>
+                      <td><span class="badge bg-danger">0</span></td>
                       <td><a href="user_project_detail_estimate_detail_efg.html" class="btn btn-sm btn-outline-primary" role="button">詳細</a></td>
                     </tr>
                   </tbody>
@@ -133,17 +137,17 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
               </div>
             </div>
 
-            <!-- 業者見積もりテンプレート -->
+            <!-- 仮設工事（トイレ）見積もり依頼設定 -->
             <div class="tab-pane fade" id="tab-estimate-request">
               <div class="card">
                 <div class="card-header">
-                  <h6 class="mb-0">業者見積もりテンプレート</h6>
+                  <h6 class="mb-0">仮設工事（トイレ）見積もり依頼設定</h6>
                 </div>
                 <div class="card-body">
                   <!-- 注釈 -->
                   <div class="alert alert-info mb-3">
                     <i class="bi bi-info-circle"></i>
-                    このページで業者への見積もり依頼のテンプレートを編集して確定します。
+                    このページで仮設工事（トイレ）の見積もり依頼設定を編集して確定します。
                   </div>
                   
                   <!-- 見積もり作成テーブル -->
@@ -163,23 +167,23 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                         </tr>
                       </thead>
                       <tbody>
-                        <!-- 見出し行 -->
+                        <!-- 仮設トイレ -->
                         <tr>
                           <td><input type="text" class="form-control form-control-sm" value="1"></td>
-                          <td>基礎　工事</td>
-                          <td><input type="text" class="form-control form-control-sm" value="基礎工事一式"></td>
+                          <td>仮設トイレ</td>
+                          <td><input type="text" class="form-control form-control-sm" value="4ヶ月、汲取り費用含む"></td>
                           <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
                           <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="式"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="台"></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                         </tr>
-                        <!-- 水盛・遣り方 -->
+                        <!-- 備品箱 -->
                         <tr>
                           <td><input type="text" class="form-control form-control-sm" value="1-1"></td>
-                          <td>水盛・遣り方</td>
-                          <td><input type="text" class="form-control form-control-sm" value="水盛・遣り方工事"></td>
+                          <td>備品箱</td>
+                          <td><input type="text" class="form-control form-control-sm" value="ﾍﾙﾒｯﾄ･消火器･清掃用具･ｽﾘｯﾊﾟ･救急箱"></td>
                           <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
                           <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
                           <td><input type="text" class="form-control form-control-sm" value="式"></td>
@@ -187,53 +191,53 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                         </tr>
-                        <!-- 鋤取り -->
+                        <!-- 仮囲いフェンス -->
                         <tr>
                           <td><input type="text" class="form-control form-control-sm" value="1-2"></td>
-                          <td>鋤取り</td>
-                          <td><input type="text" class="form-control form-control-sm" value="鋤取り工事"></td>
+                          <td>仮囲いフェンス</td>
+                          <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="40.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="㎡"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="スパン"></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                         </tr>
-                        <!-- 床付け -->
+                        <!-- 仮囲いネット -->
                         <tr>
                           <td><input type="text" class="form-control form-control-sm" value="1-3"></td>
-                          <td>床付け</td>
-                          <td><input type="text" class="form-control form-control-sm" value="床付け工事"></td>
+                          <td>仮囲いネット</td>
+                          <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="40.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="㎡"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="ｍ"></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                         </tr>
-                        <!-- ベタ基礎（シングル配筋） -->
+                        <!-- 仮囲いゲート -->
                         <tr>
                           <td><input type="text" class="form-control form-control-sm" value="1-4"></td>
-                          <td>ベタ基礎（シングル配筋）</td>
-                          <td><input type="text" class="form-control form-control-sm" value="ベタ基礎工事"></td>
+                          <td>仮囲いゲート</td>
+                          <td><input type="text" class="form-control form-control-sm" value="5.5ｍまで"></td>
                           <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="40.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="㎡"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="基"></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value="鉄筋コンクリート"></td>
+                          <td><input type="text" class="form-control form-control-sm" value=""></td>
                         </tr>
-                        <!-- 防水工事 -->
+                        <!-- ゴムマット -->
                         <tr>
                           <td><input type="text" class="form-control form-control-sm" value="1-5"></td>
-                          <td>防水工事</td>
-                          <td><input type="text" class="form-control form-control-sm" value="防水工事一式"></td>
+                          <td>ゴムマット</td>
+                          <td><input type="text" class="form-control form-control-sm" value="１ｍ×2ｍ"></td>
                           <td><input type="text" class="form-control form-control-sm" value="標準仕様"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="40.00"></td>
-                          <td><input type="text" class="form-control form-control-sm" value="㎡"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="1.00"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="枚"></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
                           <td><input type="text" class="form-control form-control-sm" value=""></td>
-                          <td><input type="text" class="form-control form-control-sm" value="アスファルト防水"></td>
+                          <td><input type="text" class="form-control form-control-sm" value=""></td>
                         </tr>
                         <!-- 新規行追加ボタン -->
                         <tr class="table-light">
@@ -273,8 +277,7 @@ project_detail_design_doc.html"><i class="bi bi-folder"></i> 資料</a>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form id="newEstimateForm" action="user_
-project_detail_estimate_create.html" method="get">
+              <form id="newEstimateForm" action="user_project_detail_estimate_detail_abc.html" method="get">
                 <div class="mb-3">
                   <label for="supplierSelect" class="form-label">依頼先を選択</label>
                   <select id="supplierSelect" name="supplier" class="form-select">
@@ -304,6 +307,36 @@ project_detail_estimate_create.html" method="get">
     <script>
         fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
         fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+        
+        // 確定業者選択機能
+        function selectSupplier(supplierName, button) {
+            // 全ての確定ボタンをリセット
+            const allButtons = document.querySelectorAll('button[onclick^="selectSupplier"]');
+            allButtons.forEach(btn => {
+                btn.textContent = '確定';
+                btn.className = 'btn btn-success btn-sm';
+            });
+            
+            // 選択されたボタンを確定状態に変更
+            button.textContent = '確定済み';
+            button.className = 'btn btn-secondary btn-sm';
+            button.disabled = true;
+            
+            // 他のボタンを却下状態に変更
+            allButtons.forEach(btn => {
+                if (btn !== button) {
+                    btn.textContent = '却下';
+                    btn.className = 'btn btn-danger btn-sm';
+                    btn.disabled = true;
+                }
+            });
+            
+            // 確定業者列のヘッダーを更新
+            const headerCell = document.querySelector('th:contains("確定業者選択")');
+            if (headerCell) {
+                headerCell.textContent = `確定業者: ${supplierName}`;
+            }
+        }
     </script>
 </body>
 </html>
