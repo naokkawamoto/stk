@@ -168,8 +168,9 @@
                         </div>
                     </div>
                     <div id="approvalButtons" style="display: none;" class="d-flex justify-content-end mb-3">
-                        <button class="btn btn-success me-2"><i class="bi bi-check-circle"></i> 承認</button>
-                        <button class="btn btn-warning">却下</button>
+                        <button class="btn btn-success me-2" onclick="showApprovalCompleteModal()"><i class="bi bi-check-circle"></i> 承認</button>
+                        <button class="btn btn-warning me-2">却下</button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#returnModal"><i class="bi bi-arrow-return-left"></i> 差戻し</button>
                     </div>
                     <div class="card mb-3">
                         <div class="card-body position-relative">
@@ -215,6 +216,49 @@
     
 
 
+    <!-- 承認完了モーダル -->
+    <div class="modal fade" id="approvalCompleteModal" tabindex="-1" aria-labelledby="approvalCompleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="approvalCompleteModalLabel">承認完了</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                        <h6 class="mt-3 text-success">承認されました。</h6>
+                        <p class="mt-2">お客様見積書はプラン名のお客様見積書にアップロードされました。</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 差戻しモーダル -->
+    <div class="modal fade" id="returnModal" tabindex="-1" aria-labelledby="returnModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="returnModalLabel">差戻し</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="bi bi-info-circle text-danger" style="font-size: 2.5rem;"></i>
+                        <p class="mt-3 mb-0">お客様見積書は差戻しになりました。新しいお客様見積書を作成してください。</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 新規依頼モーダル -->
     <div class="modal fade" id="newEstimateModal" tabindex="-1" aria-labelledby="newEstimateModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -259,6 +303,12 @@
         function showApprovalButtons() {
             document.getElementById('approvalButtons').style.display = 'flex';
             document.getElementById('submitBtn').style.display = 'none';
+        }
+        
+        // 承認完了モーダル表示
+        function showApprovalCompleteModal() {
+            const modal = new bootstrap.Modal(document.getElementById('approvalCompleteModal'));
+            modal.show();
         }
     </script>
 </body>

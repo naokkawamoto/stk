@@ -32,13 +32,13 @@
           <button class="nav-link" id="tab-plan-tab" data-bs-toggle="tab" data-bs-target="#tab-plan" type="button" role="tab">プラン設定</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="tab-quote-tab" data-bs-toggle="tab" data-bs-target="#tab-quote" type="button" role="tab">見積もり設定</button>
+          <a class="nav-link" id="tab-quote-tab" href="user_settings_quote.html" role="tab">見積もり設定</a>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="tab-finance-tab" data-bs-toggle="tab" data-bs-target="#tab-finance" type="button" role="tab">資金計画設定</button>
+          <a class="nav-link" id="tab-finance-tab" href="user_settings_finance.html" role="tab">資金計画設定</a>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="tab-notify-tab" data-bs-toggle="tab" data-bs-target="#tab-notify" type="button" role="tab">通知設定</button>
+          <a class="nav-link" id="tab-notify-tab" href="user_settings_notify.html" role="tab">通知設定</a>
         </li>
         <li class="nav-item" role="presentation">
           <a class="nav-link" id="tab-userperm-tab" href="user_permission.html" role="tab">ユーザー権限設定</a>
@@ -948,7 +948,7 @@
             </button>
           </div>
         </div>
-      </div>
+        
         <!-- 資金計画設定 -->
         <div class="tab-pane fade" id="tab-finance" role="tabpanel" aria-labelledby="tab-finance-tab">
           <div class="p-4">
@@ -1365,6 +1365,7 @@
             </div>
           </div>
         </div>
+        
         <!-- 通知設定 -->
         <div class="tab-pane fade" id="tab-notify" role="tabpanel" aria-labelledby="tab-notify-tab">
           <div class="p-4">
@@ -1477,12 +1478,7 @@
           </div>
         </div>
       </div>
-
-      <!-- 保存ボタン -->
-      <div class="text-end mt-3">
-        <button class="btn btn-primary btn-sm">設定を保存</button>
-      </div>
-    </div>
+      
 
     <!-- アンケート新規作成モーダル -->
     <div class="modal fade" id="createQuestionnaireModal" tabindex="-1" aria-labelledby="createQuestionnaireModalLabel" aria-hidden="true">
