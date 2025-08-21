@@ -6,6 +6,8 @@
   <title>クライアント詳細</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -170,7 +172,7 @@
               <thead>
                 <tr>
                   <td class="fw-normal">請求日</td>
-                  <td class="fw-normal">金額</td>
+                  <td class="fw-normal">ご請求金額</td>
                   <td class="fw-normal">備考</td>
                 </tr>
               </thead>
@@ -185,12 +187,12 @@
         <table class="table table-striped small">
           <thead>
             <tr>
-              <td class="fw-normal">#</td><td class="fw-normal">日付</td><td class="fw-normal">金額</td><td class="fw-normal">ステータス</td><td class="fw-normal">請求書</td><td class="fw-normal">領収書</td>
+              <td class="fw-normal">#</td><td class="fw-normal">日付</td><td class="fw-normal">ご請求金額</td><td class="fw-normal">ステータス</td><td class="fw-normal">請求書</td>
             </tr>
           </thead>
           <tbody>
-            <tr><td>1</td><td>2025-01-01</td><td>¥10,000</td><td><span class="badge bg-success">支払済</span></td><td><a href="#">請求書</a></td><td><a href="#">領収書</a></td></tr>
-            <tr><td>2</td><td>2025-02-01</td><td>¥10,000</td><td><span class="badge bg-warning">未払</span></td><td><a href="#">請求書</a></td><td><a href="#">領収書</a></td></tr>
+            <tr><td>1</td><td>2025-01-01</td><td>¥11,000</td><td><span class="badge bg-success">支払済</span></td><td><a href="#" data-bs-toggle="modal" data-bs-target="#invoicePreviewModal" data-invoice-id="1" data-invoice-date="2025-01-01" data-invoice-amount="10000">請求書</a></td></tr>
+            <tr><td>2</td><td>2025-02-01</td><td>¥11,000</td><td><span class="fw-normal">未払</span></td><td><a href="#" data-bs-toggle="modal" data-bs-target="#invoicePreviewModal" data-invoice-id="2" data-invoice-date="2025-02-01" data-invoice-amount="10000">請求書</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -201,6 +203,28 @@
 
   <!-- フッター -->
   <div id="footer-container"></div>
+
+  <!-- 請求書プレビューモーダル -->
+  <div class="modal fade" id="invoicePreviewModal" tabindex="-1" aria-labelledby="invoicePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="invoicePreviewModalLabel">請求書</h5>
+          <div class="ms-auto">
+            <button type="button" class="btn btn-outline-primary btn-sm me-2" onclick="printInvoice()">
+              <i class="bi bi-printer"></i> プリント
+            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div id="invoiceContent">
+            <!-- 請求書の内容がここに表示されます -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- 支店追加モーダル -->
   <div class="modal fade" id="addBranchModal" tabindex="-1" aria-labelledby="addBranchModalLabel" aria-hidden="true">
@@ -274,6 +298,197 @@
     // ヘッダー＆フッター読み込み
     fetch('user_header.html').then(r=>r.text()).then(html=>document.getElementById('header-container').innerHTML=html);
     fetch('user_footer.html').then(r=>r.text()).then(html=>document.getElementById('footer-container').innerHTML=html);
+    
+    // 請求書プレビューモーダルの表示処理
+    document.addEventListener('DOMContentLoaded', function() {
+      const invoiceModal = document.getElementById('invoicePreviewModal');
+      if (invoiceModal) {
+        invoiceModal.addEventListener('show.bs.modal', function(event) {
+          const button = event.relatedTarget;
+          const invoiceId = button.getAttribute('data-invoice-id');
+          const invoiceDate = button.getAttribute('data-invoice-date');
+          const invoiceAmount = button.getAttribute('data-invoice-amount');
+          
+          displayInvoice(invoiceId, invoiceDate, invoiceAmount);
+        });
+      }
+    });
+    
+    // 請求書の内容を表示
+    function displayInvoice(invoiceId, invoiceDate, invoiceAmount) {
+      const invoiceContent = document.getElementById('invoiceContent');
+      const taxAmount = Math.floor(Number(invoiceAmount) * 0.1);
+      const totalAmount = Number(invoiceAmount) + taxAmount;
+      
+      const invoiceHTML = `
+        <div class="invoice-container p-4">
+          <!-- 請求書タイトル -->
+          <div class="text-center mb-4">
+            <h3 class="text-primary fw-bold">請求書</h3>
+          </div>
+          
+          <!-- 請求元・請求先情報 -->
+          <div class="row mb-4">
+            <div class="col-6">
+              <h6 class="fw-bold text-primary">【請求元】</h6>
+              <p class="mb-1">〒690-0011 島根県松江市東津田町453-2</p>
+              <p class="mb-1 fw-bold">ハウジング・スタッフ 株式会社</p>
+              <p class="mb-1">代表取締役 平儀野好美</p>
+              <p class="mb-1">登録番号: T8280001005871</p>
+              <p class="mb-1">TEL: 0852-67-5713</p>
+            </div>
+            <div class="col-6 text-end">
+              <h6 class="fw-bold text-primary">【請求先】</h6>
+              <p class="mb-1 fw-bold">ZERO×STYLE</p>
+              <p class="mb-1">〒1234567</p>
+              <p class="mb-1">東京都渋谷区〇〇1-1-1</p>
+              <p class="mb-1">担当者 田中 一郎</p>
+              <p class="mb-1">TEL: 03-1234-5678</p>
+            </div>
+          </div>
+          
+          <!-- ご請求金額 -->
+          <div class="text-center mb-4 p-3 bg-light rounded">
+            <h5 class="text-primary fw-bold mb-2">ご請求金額</h5>
+            <h3 class="text-danger fw-bold">¥${totalAmount.toLocaleString()} <small class="text-muted">(税込)</small></h3>
+          </div>
+          
+          <!-- 請求メッセージ -->
+          <div class="text-center mb-4">
+            <p class="text-muted">上記のとおり請求申し上げます。よろしくお取り計らいのほどご依頼申し上げます。</p>
+          </div>
+          
+          <!-- ご請求内容 -->
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">【ご請求内容】</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th class="text-center">日付</th>
+                    <th class="text-center">内容</th>
+                    <th class="text-center">税率</th>
+                    <th class="text-center">金額(税込)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center">${formatShortDate(invoiceDate)}</td>
+                    <td>HAUSECAN利用料 ${getMonthName(invoiceDate)}分</td>
+                    <td class="text-center">10%</td>
+                    <td class="text-end">¥${totalAmount.toLocaleString()}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr class="table-light">
+                    <th colspan="3" class="text-end">小計</th>
+                    <th class="text-end">¥${Number(invoiceAmount).toLocaleString()}</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 税率区分 -->
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">【税率区分】</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th class="text-center">税率区分</th>
+                    <th class="text-center">消費税</th>
+                    <th class="text-center">金額(税込)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center">10%対象</td>
+                    <td class="text-end">¥${taxAmount.toLocaleString()}</td>
+                    <td class="text-end">¥${totalAmount.toLocaleString()}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">非課税</td>
+                    <td class="text-end">¥0</td>
+                    <td class="text-end">¥0</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- お支払い期限 -->
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">【お支払い期限】</h6>
+            <p class="text-danger fw-bold">${getPaymentDueDate(invoiceDate)} までにお支払いお願い致します。</p>
+          </div>
+          
+          <!-- お振込先 -->
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">【お振込先】</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td><strong>銀行名:</strong> 山陰合同銀行</td>
+                    <td><strong>支店名:</strong> 津田支店</td>
+                    <td><strong>口座種別:</strong> 普通預金</td>
+                    <td><strong>口座番号:</strong> 4509370</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4"><strong>口座名義:</strong> ハウジング・スタッフ株式会社 代表取締役 平儀野好美</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 振込手数料の注意 -->
+          <div class="text-center">
+            <p class="text-muted small">恐れ入りますが振込手数料はお客様の負担でお願いいたします</p>
+          </div>
+        </div>
+      `;
+      
+      invoiceContent.innerHTML = invoiceHTML;
+    }
+    
+    // 日本語の日付形式に変換
+    function formatJapaneseDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${year}年${month}月${day}日`;
+    }
+    
+    // 短縮日付形式（YYYY/M/D）
+    function formatShortDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${year}/${month}/${day}`;
+    }
+    
+    // 月名を取得
+    function getMonthName(dateString) {
+      const date = new Date(dateString);
+      const month = date.getMonth() + 1;
+      return month + '月';
+    }
+    
+    // 支払期限を計算（請求日から30日後）
+    function getPaymentDueDate(invoiceDate) {
+      const date = new Date(invoiceDate);
+      date.setDate(date.getDate() + 30);
+      return date.toISOString().split('T')[0];
+    }
+    
+    // プリント機能
+    function printInvoice() {
+      window.print();
+    }
   </script>
 </body>
 </html>
