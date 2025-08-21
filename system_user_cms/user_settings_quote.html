@@ -996,6 +996,43 @@
     <script>
         fetch('user_header.html').then(r=>r.text()).then(html=>document.getElementById('header-container').innerHTML=html);
         fetch('user_footer.html').then(r=>r.text()).then(html=>document.getElementById('footer-container').innerHTML=html);
+        
+        // ページ離脱時のアラート機能
+        let hasUnsavedChanges = true; // ダミーで常にtrueに設定
+        
+        // ページ離脱時の確認
+        window.addEventListener('beforeunload', function(e) {
+            if (hasUnsavedChanges) {
+                e.preventDefault();
+                e.returnValue = '保存されていない変更があります。このページを離れますか？';
+                return '保存されていない変更があります。このページを離れますか？';
+            }
+        });
+        
+        // リンククリック時の確認
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.href && !e.target.href.includes('#')) {
+                if (hasUnsavedChanges) {
+                    if (!confirm('保存されていない変更があります。このページを離れますか？')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+            }
+        });
+        
+        // 設定保存ボタンクリック時の処理（ダミー）
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.btn-success') && e.target.closest('.btn-success').textContent.includes('設定保存')) {
+                hasUnsavedChanges = false;
+                alert('設定が保存されました。');
+                
+                // 3秒後に再度変更がある状態に戻す（ダミー用）
+                setTimeout(() => {
+                    hasUnsavedChanges = true;
+                }, 3000);
+            }
+        });
     </script>
 </body>
 </html>
