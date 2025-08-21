@@ -1365,21 +1365,37 @@
                     <span>登記資料</span>
                   </div>
                   <div class="card-body">
-                    <!-- 表示方法＆検索 -->
-                    <div class="d-flex justify-content-between align-items-center mb-3">
+                    <!-- 外部サービスリンク -->
+                    <div class="alert alert-info mb-3">
                       <div class="d-flex align-items-center">
-                        <span class="me-2">表示方法：</span>
-                        <button class="btn btn-outline-primary me-2"><i class="bi bi-folder"></i></button>
-                        <button class="btn btn-outline-secondary me-4"><i class="bi bi-list"></i></button>
-                        <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-                          <option value="created">作成日順</option>
-                        </select>
-                      </div>
-                      <div class="input-group" style="width:300px;">
-                        <input type="text" class="form-control" placeholder="キーワードを入力">
-                        <button class="btn btn-outline-secondary" type="button">検索</button>
+                        <i class="bi bi-link-45deg me-2"></i>
+                        <div class="flex-grow-1">
+                          <strong>外部サービス：</strong>
+                          <a href="https://www1.touki.or.jp/" target="_blank" class="alert-link">
+                            登記情報提供サービス
+                          </a>
+                          <small class="d-block text-muted mt-1">
+                            不動産および法人登記情報をインターネット上で閲覧できる有料サービスです
+                          </small>
+                        </div>
                       </div>
                     </div>
+                    
+                    <div class="alert alert-success mb-3">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-building me-2"></i>
+                        <div class="flex-grow-1">
+                          <strong>不動産情報：</strong>
+                          <a href="https://www.reinfolib.mlit.go.jp/" target="_blank" class="alert-link">
+                            不動産情報ライブラリ
+                          </a>
+                          <small class="d-block text-muted mt-1">
+                            不動産の取引価格、地価公示等の価格情報や防災情報、都市計画情報、周辺施設情報等を閲覧できる国土交通省のWEBサイトです
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+
                     <!-- 公図テーブル -->
                     <div class="card">
                       <div class="card-body p-0">
@@ -1387,8 +1403,10 @@
                           <thead class="table-light">
                             <tr>
                               <th>資料名称</th>
+                              <th>項目数</th>
                               <th>購読数</th>
-                              <th>公開設定</th>
+                              <th>社内公開設定</th>
+                              <th>外部専門家公開</th>
                               <th>取得日時</th>
                               <th>アクション</th>
                             </tr>
@@ -1396,45 +1414,147 @@
                           <tbody>
                             <tr>
                               <td>公図</td>
+                              <td>1</td>
                               <td><a href="#">10</a></td>
-                              <td>公開</td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-primary" onclick="openPrivacyModal('公図', 'internal')">
+                                  公開
+                                </button>
+                              </td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-primary" onclick="openPrivacyModal('公図', 'external')">
+                                  公開
+                                </button>
+                              </td>
                               <td>2025/05/01 09:00</td>
-                              <td><button class="btn btn-sm btn-outline-primary">取得済みダウンロード</button></td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="uploadDocument('公図')">
+                                  <i class="bi bi-upload"></i> アップロード
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewDocument('公図')">
+                                  <i class="bi bi-eye"></i> 表示
+                                </button>
+                              </td>
                             </tr>
                             <tr>
                               <td>地籍測量図</td>
+                              <td>1</td>
                               <td><a href="#">5</a></td>
-                              <td>限定公開</td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('地籍測量図', 'internal')">
+                                  非公開
+                                </button>
+                              </td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-primary" onclick="openPrivacyModal('地籍測量図', 'external')">
+                                  公開
+                                </button>
+                              </td>
                               <td>2025/05/02 10:00</td>
-                              <td><button class="btn btn-sm btn-outline-primary">APIで取得</button></td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="uploadDocument('地籍測量図')">
+                                  <i class="bi bi-upload"></i> アップロード
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewDocument('地籍測量図')">
+                                  <i class="bi bi-eye"></i> 表示
+                                </button>
+                              </td>
                             </tr>
                             <tr>
                               <td>登記簿謄本（土地）</td>
+                              <td>1</td>
                               <td><a href="#">8</a></td>
-                              <td>非公開</td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('登記簿謄本（土地）', 'internal')">
+                                  非公開
+                                </button>
+                              </td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('登記簿謄本（土地）', 'external')">
+                                  非公開
+                                </button>
+                              </td>
                               <td>2025/05/03 11:00</td>
-                              <td><button class="btn btn-sm btn-outline-primary">取得済みダウンロード</button></td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="uploadDocument('登記簿謄本（土地）')">
+                                  <i class="bi bi-upload"></i> アップロード
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewDocument('登記簿謄本（土地）')">
+                                  <i class="bi bi-eye"></i> 表示
+                                </button>
+                              </td>
                             </tr>
                             <tr>
                               <td>登記簿謄本（建物）</td>
+                              <td>1</td>
                               <td><a href="#">7</a></td>
-                              <td>公開</td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-primary" onclick="openPrivacyModal('登記簿謄本（建物）', 'internal')">
+                                  公開
+                                </button>
+                              </td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-primary" onclick="openPrivacyModal('登記簿謄本（建物）', 'external')">
+                                  公開
+                                </button>
+                              </td>
                               <td>2025/05/04 12:00</td>
-                              <td><button class="btn btn-sm btn-outline-primary">APIで取得</button></td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="uploadDocument('登記簿謄本（建物）')">
+                                  <i class="bi bi-upload"></i> アップロード
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewDocument('登記簿謄本（建物）')">
+                                  <i class="bi bi-eye"></i> 表示
+                                </button>
+                              </td>
                             </tr>
                             <tr>
                               <td>前面道路要約書</td>
+                              <td>1</td>
                               <td><a href="#">4</a></td>
-                              <td>限定公開</td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('前面道路要約書', 'internal')">
+                                  非公開
+                                </button>
+                              </td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('前面道路要約書', 'external')">
+                                  非公開
+                                </button>
+                              </td>
                               <td>2025/05/05 13:00</td>
-                              <td><button class="btn btn-sm btn-outline-primary">APIで取得</button></td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="uploadDocument('前面道路要約書')">
+                                  <i class="bi bi-upload"></i> アップロード
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewDocument('前面道路要約書')">
+                                  <i class="bi bi-eye"></i> 表示
+                                </button>
+                              </td>
                             </tr>
                             <tr>
                               <td>建物図面</td>
+                              <td>1</td>
                               <td><a href="#">6</a></td>
-                              <td>非公開</td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('建物図面', 'internal')">
+                                  非公開
+                                </button>
+                              </td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('建物図面', 'external')">
+                                  非公開
+                                </button>
+                              </td>
                               <td>2025/05/06 14:00</td>
-                              <td><button class="btn btn-sm btn-outline-primary">取得済みダウンロード</button></td>
+                              <td>
+                                <button class="btn btn-sm btn-outline-success me-1" onclick="uploadDocument('建物図面')">
+                                  <i class="bi bi-upload"></i> アップロード
+                                </button>
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewDocument('建物図面')">
+                                  <i class="bi bi-eye"></i> 表示
+                                </button>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -1700,5 +1820,151 @@
       }
     });
   </script>
+  <script>
+    // 登記資料のアップロード機能（ダミー）
+    function uploadDocument(documentName) {
+      // ファイル選択ダイアログを表示（ダミー）
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.pdf,.jpg,.jpeg,.png,.doc,.docx';
+      input.style.display = 'none';
+      
+      input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          alert(`${documentName}のアップロードが完了しました。\nファイル名: ${file.name}\nサイズ: ${(file.size / 1024).toFixed(2)} KB`);
+        }
+      };
+      
+      document.body.appendChild(input);
+      input.click();
+      document.body.removeChild(input);
+    }
+    
+    // 登記資料の表示機能（ダミー）
+    function viewDocument(documentName) {
+      alert(`${documentName}の表示機能です。\n実際の実装では、PDFビューアーや画像ビューアーが開きます。`);
+    }
+    
+    // 公開設定変更モーダルの制御
+    let currentDocument = '';
+    let currentPrivacyType = '';
+    let selectedPrivacy = '';
+    
+    function openPrivacyModal(documentName, privacyType) {
+      currentDocument = documentName;
+      currentPrivacyType = privacyType;
+      selectedPrivacy = '';
+      
+      // モーダルのタイトルと説明を設定
+      document.getElementById('modalDocumentName').textContent = documentName;
+      document.getElementById('modalPrivacyType').textContent = 
+        privacyType === 'internal' ? '社内公開設定' : '外部専門家公開設定';
+      
+      // 公開設定オプションを動的に生成
+      generatePrivacyOptions(privacyType);
+      
+      // 保存ボタンを無効化
+      document.getElementById('savePrivacyBtn').disabled = true;
+      
+      // モーダルを表示
+      const modal = new bootstrap.Modal(document.getElementById('privacyModal'));
+      modal.show();
+    }
+    
+    function generatePrivacyOptions(privacyType) {
+      const optionsContainer = document.getElementById('privacyOptions');
+      optionsContainer.innerHTML = '';
+      
+      if (privacyType === 'internal') {
+        // 社内公開設定：公開と非公開のみ
+        optionsContainer.innerHTML = `
+          <button type="button" class="btn btn-outline-primary text-start" onclick="selectPrivacy('公開')">
+            <i class="bi bi-eye me-2"></i>
+            <strong>公開</strong>
+            <div class="small text-muted">すべての社内ユーザーが閲覧可能</div>
+          </button>
+          <button type="button" class="btn btn-outline-secondary text-start" onclick="selectPrivacy('非公開')">
+            <i class="bi bi-lock me-2"></i>
+            <strong>非公開</strong>
+            <div class="small text-muted">閲覧不可</div>
+          </button>
+        `;
+             } else {
+         // 外部専門家公開設定：公開、非公開
+         optionsContainer.innerHTML = `
+           <button type="button" class="btn btn-outline-primary text-start" onclick="selectPrivacy('公開')">
+             <i class="bi bi-eye me-2"></i>
+             <strong>公開</strong>
+             <div class="small text-muted">すべての外部専門家が閲覧可能</div>
+           </button>
+           <button type="button" class="btn btn-outline-secondary text-start" onclick="selectPrivacy('非公開')">
+             <i class="bi bi-lock me-2"></i>
+             <strong>非公開</strong>
+             <div class="small text-muted">閲覧不可</div>
+           </button>
+         `;
+       }
+    }
+    
+    function selectPrivacy(privacy) {
+      selectedPrivacy = privacy;
+      
+      // 保存ボタンを有効化
+      document.getElementById('savePrivacyBtn').disabled = false;
+      
+      // 選択されたボタンのスタイルを更新
+      document.querySelectorAll('#privacyModal .btn-outline-primary, #privacyModal .btn-outline-warning, #privacyModal .btn-outline-secondary').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // クリックされたボタンをアクティブにする
+      event.target.closest('.btn').classList.add('active');
+    }
+    
+    function savePrivacy() {
+      if (!selectedPrivacy) {
+        alert('公開設定を選択してください。');
+        return;
+      }
+      
+      // 保存処理（ダミー）
+      alert(`${currentDocument}の${currentPrivacyType === 'internal' ? '社内公開設定' : '外部専門家公開設定'}を「${selectedPrivacy}」に変更しました。`);
+      
+      // モーダルを閉じる
+      const modal = bootstrap.Modal.getInstance(document.getElementById('privacyModal'));
+      modal.hide();
+      
+      // 実際の実装では、ここでサーバーに設定を保存し、ボタンの表示を更新する
+    }
+  </script>
+  
+  <!-- 公開設定変更モーダル -->
+  <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="privacyModalLabel">公開設定の変更</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label"><strong id="modalDocumentName"></strong></label>
+            <div class="text-muted small" id="modalPrivacyType"></div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">公開設定を選択してください：</label>
+            <div class="d-grid gap-2" id="privacyOptions">
+              <!-- オプションはJavaScriptで動的に生成 -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-primary" id="savePrivacyBtn" onclick="savePrivacy()" disabled>保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
