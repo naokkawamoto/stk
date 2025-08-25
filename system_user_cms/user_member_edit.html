@@ -23,7 +23,6 @@
     <div class="card m-3">
       <div class="card-header d-flex justify-content-between align-items-center">
         <span>メンバー管理</span>
-        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#bulkAddModal">一括登録</button>
       </div>
       <div class="card-body">
         <!-- タブ -->
@@ -41,8 +40,26 @@
         <div class="tab-content">
           <!-- 社内担当者タブ -->
           <div class="tab-pane fade show active" id="tab-content-staff" role="tabpanel">
+            <!-- 登録件数と検索ボックス -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <span class="text-muted me-2">登録件数:</span>
+                  <span class="fs-6">8件</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="staffSearchInput" placeholder="名前等で検索" aria-label="検索">
+                  <button class="btn btn-outline-secondary" type="button" onclick="searchStaff()">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
             <div class="d-flex justify-content-end mb-3">
               <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addMemberModal">新規登録</button>
+              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#csvUploadModal" onclick="setCsvType('staff')">CSV一括登録</button>
             </div>
             <div class="table-responsive">
               <table class="table table-hover table-bordered small-text">
@@ -85,8 +102,26 @@
           </div>
           <!-- 協力業者タブ -->
           <div class="tab-pane fade" id="tab-content-coop" role="tabpanel">
+            <!-- 登録件数と検索ボックス -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <span class="text-muted me-2">登録件数:</span>
+                  <span class="fs-6">6件</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="coopSearchInput" placeholder="名前等で検索" aria-label="検索">
+                  <button class="btn btn-outline-secondary" type="button" onclick="searchCoop()">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
             <div class="d-flex justify-content-end mb-3">
-              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addCoopModal">新規登録</button>
+              <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addCoopModal">新規登録</button>
+              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#csvUploadModal" onclick="setCsvType('coop')">CSV一括登録</button>
             </div>
             <div class="table-responsive m-3">
               <table class="table table-hover table-bordered small-text">
@@ -124,8 +159,26 @@
           </div>
           <!-- 外部専門家タブ -->
           <div class="tab-pane fade" id="tab-content-expert" role="tabpanel">
+            <!-- 登録件数と検索ボックス -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <span class="text-muted me-2">登録件数:</span>
+                  <span class="fs-6">6件</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="expertSearchInput" placeholder="名前等で検索" aria-label="検索">
+                  <button class="btn btn-outline-secondary" type="button" onclick="searchExpert()">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
             <div class="d-flex justify-content-end mb-3">
-              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addExpertModal">新規登録</button>
+              <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addExpertModal">新規登録</button>
+              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#csvUploadModal" onclick="setCsvType('expert')">CSV一括登録</button>
             </div>
             <div class="table-responsive m-3">
               <table class="table table-hover table-bordered small-text">
@@ -563,6 +616,528 @@
       // ページをリロード（実際の実装では不要）
       // location.reload();
     }
+    
+    // CSV一括登録の制御
+    let currentCsvType = '';
+    
+    // CSVタイプを設定
+    function setCsvType(type) {
+      currentCsvType = type;
+      // ファイル入力をクリア
+      document.getElementById('csvFileInput').value = '';
+      // マッピングセクションを非表示
+      document.getElementById('mappingSection').style.display = 'none';
+    }
+    
+    // CSV読み込みボタンを押した時の処理
+    function showMappingTable() {
+      const fileInput = document.getElementById('csvFileInput');
+      const file = fileInput.files[0];
+      
+      if (!file) {
+        alert('CSVファイルを選択してください。');
+        return;
+      }
+      
+      // マッピングセクションを表示
+      document.getElementById('mappingSection').style.display = 'block';
+      
+      // ファイル名を表示（オプション）
+      console.log('選択されたファイル:', file.name);
+    }
+    
+    // マッピング状況を更新する関数
+    function updateMappingStatus(selectElement) {
+      const row = selectElement.closest('tr');
+      const statusBadge = row.querySelector('.badge');
+      const selectedValue = selectElement.value;
+      
+      if (selectedValue === '') {
+        statusBadge.className = 'badge bg-secondary';
+        statusBadge.textContent = '未定義';
+      } else {
+        statusBadge.className = 'badge bg-success';
+        statusBadge.textContent = 'マッピング済み';
+      }
+    }
+    
+    // CSV更新ボタンを押した時の処理
+    function proceedToConfirm() {
+      // 確認モーダルを表示
+      const confirmMessage = `340件が登録されました。よろしいですか？`;
+      document.getElementById('confirmMessage').textContent = confirmMessage;
+      
+      const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+      confirmModal.show();
+    }
+    
+    // 登録を確認
+    function confirmRegistration() {
+      // 確認モーダルを閉じる
+      const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+      confirmModal.hide();
+      
+      // CSVアップロードモーダルを閉じる
+      const csvModal = bootstrap.Modal.getInstance(document.getElementById('csvUploadModal'));
+      csvModal.hide();
+      
+      // 完了モーダルを表示
+      const completionModal = new bootstrap.Modal(document.getElementById('completionModal'));
+      completionModal.show();
+    }
+    
+    // 社内担当者検索機能
+    function searchStaff() {
+      const searchInput = document.getElementById('staffSearchInput');
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const tableBody = document.querySelector('#tab-content-staff tbody');
+      const rows = tableBody.querySelectorAll('tr');
+      
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const nameCell = row.querySelector('td:nth-child(2)'); // 名前の列
+        const kanaCell = row.querySelector('td:nth-child(3)'); // カナの列
+        const positionCell = row.querySelector('td:nth-child(4)'); // 職種の列
+        const branchCell = row.querySelector('td:nth-child(1)'); // 支店名の列
+        
+        if (nameCell && kanaCell && positionCell && branchCell) {
+          const name = nameCell.textContent.toLowerCase();
+          const kana = kanaCell.textContent.toLowerCase();
+          const position = positionCell.textContent.toLowerCase();
+          const branch = branchCell.textContent.toLowerCase();
+          
+          const isMatch = name.includes(searchTerm) || 
+                         kana.includes(searchTerm) || 
+                         position.includes(searchTerm) || 
+                         branch.includes(searchTerm);
+          
+          row.style.display = isMatch ? '' : 'none';
+          if (isMatch) visibleCount++;
+        }
+      });
+      
+      // 検索結果件数を更新
+      const countElement = document.querySelector('#tab-content-staff .fs-6');
+      if (countElement) {
+        countElement.textContent = `${visibleCount}件`;
+      }
+      
+      // 検索結果が0件の場合のメッセージ表示
+      if (visibleCount === 0 && searchTerm !== '') {
+        if (!document.getElementById('noResultsMessage')) {
+          const noResultsRow = document.createElement('tr');
+          noResultsRow.id = 'noResultsMessage';
+          noResultsRow.innerHTML = '<td colspan="10" class="text-center text-muted py-4">検索結果が見つかりませんでした</td>';
+          tableBody.appendChild(noResultsRow);
+        }
+      } else {
+        const noResultsRow = document.getElementById('noResultsMessage');
+        if (noResultsRow) {
+          noResultsRow.remove();
+        }
+      }
+    }
+    
+    // 協力業者検索機能
+    function searchCoop() {
+      const searchInput = document.getElementById('coopSearchInput');
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const tableBody = document.querySelector('#tab-content-coop tbody');
+      const rows = tableBody.querySelectorAll('tr');
+      
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const companyCell = row.querySelector('td:nth-child(1)'); // 会社名の列
+        const nameCell = row.querySelector('td:nth-child(2)'); // 名前の列
+        const kanaCell = row.querySelector('td:nth-child(3)'); // カナの列
+        const positionCell = row.querySelector('td:nth-child(4)'); // 職種の列
+        
+        if (companyCell && nameCell && kanaCell && positionCell) {
+          const company = companyCell.textContent.toLowerCase();
+          const name = nameCell.textContent.toLowerCase();
+          const kana = kanaCell.textContent.toLowerCase();
+          const position = positionCell.textContent.toLowerCase();
+          
+          const isMatch = company.includes(searchTerm) || 
+                         name.includes(searchTerm) || 
+                         kana.includes(searchTerm) || 
+                         position.includes(searchTerm);
+          
+          row.style.display = isMatch ? '' : 'none';
+          if (isMatch) visibleCount++;
+        }
+      });
+      
+      // 検索結果件数を更新
+      const countElement = document.querySelector('#tab-content-coop .fs-6');
+      if (countElement) {
+        countElement.textContent = `${visibleCount}件`;
+      }
+      
+      // 検索結果が0件の場合のメッセージ表示
+      if (visibleCount === 0 && searchTerm !== '') {
+        if (!document.getElementById('coopNoResultsMessage')) {
+          const noResultsRow = document.createElement('tr');
+          noResultsRow.id = 'coopNoResultsMessage';
+          noResultsRow.innerHTML = '<td colspan="7" class="text-center text-muted py-4">検索結果が見つかりませんでした</td>';
+          tableBody.appendChild(noResultsRow);
+        }
+      } else {
+        const noResultsRow = document.getElementById('coopNoResultsMessage');
+        if (noResultsRow) {
+          noResultsRow.remove();
+        }
+      }
+    }
+    
+    // 外部専門家検索機能
+    function searchExpert() {
+      const searchInput = document.getElementById('expertSearchInput');
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const tableBody = document.querySelector('#tab-content-expert tbody');
+      const rows = tableBody.querySelectorAll('tr');
+      
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const companyCell = row.querySelector('td:nth-child(1)'); // 会社名の列
+        const nameCell = row.querySelector('td:nth-child(2)'); // 名前の列
+        const kanaCell = row.querySelector('td:nth-child(3)'); // カナの列
+        const positionCell = row.querySelector('td:nth-child(4)'); // 職種の列
+        
+        if (companyCell && nameCell && kanaCell && positionCell) {
+          const company = companyCell.textContent.toLowerCase();
+          const name = nameCell.textContent.toLowerCase();
+          const kana = kanaCell.textContent.toLowerCase();
+          const position = positionCell.textContent.toLowerCase();
+          
+          const isMatch = company.includes(searchTerm) || 
+                         name.includes(searchTerm) || 
+                         kana.includes(searchTerm) || 
+                         position.includes(searchTerm);
+          
+          row.style.display = isMatch ? '' : 'none';
+          if (isMatch) visibleCount++;
+        }
+      });
+      
+      // 検索結果件数を更新
+      const countElement = document.querySelector('#tab-content-expert .fs-6');
+      if (countElement) {
+        countElement.textContent = `${visibleCount}件`;
+      }
+      
+      // 検索結果が0件の場合のメッセージ表示
+      if (visibleCount === 0 && searchTerm !== '') {
+        if (!document.getElementById('expertNoResultsMessage')) {
+          const noResultsRow = document.createElement('tr');
+          noResultsRow.id = 'expertNoResultsMessage';
+          noResultsRow.innerHTML = '<td colspan="7" class="text-center text-muted py-4">検索結果が見つかりませんでした</td>';
+          tableBody.appendChild(noResultsRow);
+        }
+      } else {
+        const noResultsRow = document.getElementById('expertNoResultsMessage');
+        if (noResultsRow) {
+          noResultsRow.remove();
+        }
+      }
+    }
+    
+    // 検索ボックスのEnterキー対応
+    document.addEventListener('DOMContentLoaded', function() {
+      const staffSearchInput = document.getElementById('staffSearchInput');
+      const coopSearchInput = document.getElementById('coopSearchInput');
+      const expertSearchInput = document.getElementById('expertSearchInput');
+      
+      if (staffSearchInput) {
+        staffSearchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            searchStaff();
+          }
+        });
+      }
+      
+      if (coopSearchInput) {
+        coopSearchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            searchCoop();
+          }
+        });
+      }
+      
+      if (expertSearchInput) {
+        expertSearchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            searchExpert();
+          }
+        });
+      }
+    });
+    
+    // ページ読み込み時の初期化
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('ページが読み込まれました');
+      console.log('showMappingTable関数の存在確認:', typeof showMappingTable);
+      console.log('setCsvType関数の存在確認:', typeof setCsvType);
+      
+      // CSVファイル入力を確認
+      const csvFileInput = document.getElementById('csvFileInput');
+      console.log('CSVファイル入力要素:', csvFileInput);
+      
+      // CSVアップロードモーダルを確認
+      const csvUploadModal = document.getElementById('csvUploadModal');
+      if (csvUploadModal) {
+        console.log('CSVアップロードモーダルが見つかりました');
+      }
+    });
   </script>
+  
+  <!-- CSVアップロード・マッピングモーダル -->
+  <div class="modal fade" id="csvUploadModal" tabindex="-1" aria-labelledby="csvUploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="csvUploadModalLabel">CSV一括登録</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- CSVファイルアップロード -->
+          <div class="mb-4">
+            <label class="form-label">CSVファイルを選択してください：</label>
+            <input type="file" class="form-control" id="csvFileInput" accept=".csv">
+            <div class="form-text">CSVファイルの文字コードはUTF-8で保存してください。</div>
+            <div class="d-flex justify-content-end mt-2">
+              <button type="button" class="btn btn-primary" onclick="showMappingTable()">CSV読み込み</button>
+            </div>
+          </div>
+          
+          <!-- マッピング設定テーブル -->
+          <div id="mappingSection" style="display: none;">
+            <h6 class="mb-3">CSV列とテーブル項目のマッピング</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                  <tr>
+                    <th style="width: 30%;">CSV列（読み込まれた見出し）</th>
+                    <th style="width: 40%;">登録先のテーブル見出し</th>
+                    <th style="width: 30%;">マッピング状況</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>支店名</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                  <tr>
+                    <td>名前</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                  <tr>
+                    <td>カナ</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                  <tr>
+                    <td>職種</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                  <tr>
+                    <td>建築士</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                  <tr>
+                    <td>登録</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                  <tr>
+                    <td>登録番号</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                  <tr>
+                    <td>電話番号</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                  <tr>
+                    <td>メール</td>
+                    <td>
+                      <select class="form-select form-select-sm mapping-select" onchange="updateMappingStatus(this)">
+                        <option value="">選択してください</option>
+                        <option value="branch">支店名</option>
+                        <option value="name">名前</option>
+                        <option value="kana">カナ</option>
+                        <option value="position">職種</option>
+                        <option value="architect">建築士</option>
+                        <option value="registration">登録</option>
+                        <option value="reg_number">登録番号</option>
+                        <option value="phone">電話番号</option>
+                        <option value="email">メール</option>
+                      </select>
+                    </td>
+                    <td><span class="badge bg-secondary">未定義</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+              <button type="button" class="btn btn-primary" onclick="proceedToConfirm()">CSV更新</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 登録完了確認モーダル -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">登録確認</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="confirmMessage"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">いいえ</button>
+          <button type="button" class="btn btn-primary" onclick="confirmRegistration()">はい</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 登録完了モーダル -->
+  <div class="modal fade" id="completionModal" tabindex="-1" aria-labelledby="completionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="completionModalLabel">登録完了</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center">
+            <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+            <h6 class="mt-3">登録が完了されました。</h6>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
