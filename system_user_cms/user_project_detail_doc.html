@@ -80,7 +80,12 @@
       <!-- フォルダリンク (カード) -->
       <div class="row g-4 px-3 mb-5">
         <div class="col-6 col-md-4">
-          <div class="card folder-card h-100 text-center" onclick="location.href='user_project_detail_doc_investigate.html'">
+          <div class="card folder-card h-100 text-center position-relative" onclick="location.href='user_project_detail_doc_investigate.html'">
+            <!-- 右上にバッジとロックアイコンを配置 -->
+            <div class="position-absolute top-0 end-0 m-2 d-flex align-items-center">
+              <span class="badge bg-success">確定</span>
+              <i class="bi bi-lock-fill ms-1"></i>
+            </div>
             <div class="card-body py-4">
               <i class="bi bi-folder2-open fs-1 mb-2"></i>
               <h5 class="card-title">現地調査</h5>
@@ -102,7 +107,11 @@
         </div>
         
         <div class="col-6 col-md-4">
-          <div class="card folder-card h-100 text-center" onclick="location.href='user_project_detail_doc_plan2.html'">
+          <div class="card folder-card h-100 text-center position-relative" onclick="location.href='user_project_detail_doc_plan2.html'">
+            <!-- 右上にバッジを配置 -->
+            <div class="position-absolute top-0 end-0 m-2">
+              <span class="badge bg-warning">未確定</span>
+            </div>
             <div class="card-body py-4">
               <i class="bi bi-folder2-open fs-1 mb-2"></i>
               <h5 class="card-title">プラン２</h5>
