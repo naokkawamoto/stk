@@ -90,32 +90,40 @@
           <thead class="table-light">
             <tr>
               <th>資料名称</th>
+              <th>項目数</th>
               <th>社内（購読）</th>
               <th>協力業者（購読）</th>
-              <th>専門業者（購読）</th>
-              <th>作成日時</th>
+              <th>施主（購読）</th>
+              <th>作成者</th>
+              <th>更新日時</th>
               <th>アクション</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>案件名_現地調査報告書_20250507</td>
+              <td>1</td>
               <td>
-                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#publishSettingModalStaff">公開</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('案件名_現地調査報告書_20250507', 'staff')">公開</button>
                 <button class="btn btn-link p-0 small-text align-baseline" data-bs-toggle="modal" data-bs-target="#subscribersModalStaff">（3）</button>
               </td>
               <td>
-                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#publishSettingModalPartner">公開</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('案件名_現地調査報告書_20250507', 'partner')">公開</button>
                 <button class="btn btn-link p-0 small-text align-baseline" data-bs-toggle="modal" data-bs-target="#subscribersModalPartner">（3）</button>
               </td>
+
               <td>
-                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#publishSettingModalExpert">非公開</button>
-                <button class="btn btn-link p-0 small-text align-baseline" data-bs-toggle="modal" data-bs-target="#subscribersModalExpert">（0）</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="openPrivacyModal('案件名_現地調査報告書_20250507', 'client')">公開</button>
+                <button class="btn btn-link p-0 small-text align-baseline" data-bs-toggle="modal" data-bs-target="#subscribersModalClient">（2）</button>
               </td>
+              <td>山田 太郎</td>
               <td>2025/05/07 15:00</td>
               <td>
-                <button class="btn btn-sm btn-outline-primary">
+                <button class="btn btn-sm btn-outline-primary me-1">
                   <i class="bi bi-file-earmark-arrow-down"></i> ダウンロード
+                </button>
+                <button class="btn btn-sm btn-outline-info" onclick="openViewModal('案件名_現地調査報告書_20250507')">
+                  <i class="bi bi-eye"></i> 表示
                 </button>
               </td>
             </tr>
@@ -165,17 +173,20 @@
           </div>
         </div>
       </div>
-      <!-- 専門業者購読者モーダル -->
-      <div class="modal fade" id="subscribersModalExpert" tabindex="-1" aria-labelledby="subscribersModalExpertLabel" aria-hidden="true">
+
+
+      <!-- 施主購読者モーダル -->
+      <div class="modal fade" id="subscribersModalClient" tabindex="-1" aria-labelledby="subscribersModalClientLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="subscribersModalExpertLabel">専門業者購読者一覧</h5>
+              <h5 class="modal-title" id="subscribersModalClientLabel">施主購読者一覧</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body small-text">
               <ul class="list-unstyled mb-0">
-                <li>購読者はいません</li>
+                <li>1. 田中 太郎（代表者）</li>
+                <li>2. 田中 花子（担当者）</li>
               </ul>
             </div>
             <div class="modal-footer">
@@ -185,140 +196,77 @@
         </div>
       </div>
 
-      <!-- 社内公開設定モーダル（チェックボックス） -->
-      <div class="modal fade" id="publishSettingModalStaff" tabindex="-1" aria-labelledby="publishSettingModalStaffLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+      <!-- 公開設定変更モーダル -->
+      <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="publishSettingModalStaffLabel">社内公開設定</h5>
+              <h5 class="modal-title" id="privacyModalLabel">公開設定の変更</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p class="mb-4">この案件を以下の社内メンバーに公開するにはチェックボックスを押してください。</p>
-              <div class="mb-4">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="allStaff">
-                  <label class="form-check-label fw-bold" for="allStaff">
-                    社内担当者全て
-                  </label>
-                </div>
-                <div class="ms-4">
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="staff1">
-                    <label class="form-check-label" for="staff1">
-                      東京本社 営業部 山田 太郎
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="staff2">
-                    <label class="form-check-label" for="staff2">
-                      大阪支店 設計部 鈴木 一郎
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="staff3">
-                    <label class="form-check-label" for="staff3">
-                      名古屋支店 工務部 佐藤 次郎
-                    </label>
-                  </div>
+              <div class="mb-3">
+                <label class="form-label"><strong id="modalDocumentName"></strong></label>
+                <div class="text-muted small" id="modalPrivacyType"></div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">公開設定を選択してください：</label>
+                <div class="d-grid gap-2" id="privacyOptions">
+                  <!-- オプションはJavaScriptで動的に生成 -->
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-              <button type="button" class="btn btn-primary">保存</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+              <button type="button" class="btn btn-primary" id="savePrivacyBtn" onclick="savePrivacy()" disabled>保存</button>
             </div>
           </div>
         </div>
       </div>
-      <!-- 協力業者公開設定モーダル（チェックボックス） -->
-      <div class="modal fade" id="publishSettingModalPartner" tabindex="-1" aria-labelledby="publishSettingModalPartnerLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+
+      <!-- 表示モーダル -->
+      <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="publishSettingModalPartnerLabel">外部協力会社公開設定</h5>
+              <h5 class="modal-title" id="viewModalLabel">資料表示</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <p class="mb-4">この案件を以下の外部協力会社に公開するにはチェックボックスを押してください。</p>
-              <div class="mb-4">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="allPartners">
-                  <label class="form-check-label fw-bold" for="allPartners">
-                    外部協力業者全て
-                  </label>
+              <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 id="viewDocumentName">案件名_現地調査報告書_20250507</h6>
+                  <div>
+                    <button class="btn btn-sm btn-outline-primary me-2">
+                      <i class="bi bi-download"></i> ダウンロード
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary">
+                      <i class="bi bi-printer"></i> 印刷
+                    </button>
+                  </div>
                 </div>
-                <div class="ms-4">
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="partner1">
-                    <label class="form-check-label" for="partner1">
-                      株式会社ABC建設 工事担当 田中 三郎
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="partner2">
-                    <label class="form-check-label" for="partner2">
-                      株式会社XYZ設計 設計担当 高橋 四郎
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="partner3">
-                    <label class="form-check-label" for="partner3">
-                      株式会社123設備 設備担当 伊藤 五郎
-                    </label>
+              </div>
+              <div class="border rounded p-3" style="min-height: 500px; background-color: #f8f9fa;">
+                <div class="text-center py-5">
+                  <i class="bi bi-file-earmark-text display-1 text-muted"></i>
+                  <h5 class="mt-3 text-muted">PDFビューアー</h5>
+                  <p class="text-muted">実際の実装では、ここにPDFビューアーや画像ビューアーが表示されます。</p>
+                  <div class="mt-3">
+                    <button class="btn btn-outline-primary btn-sm me-2">
+                      <i class="bi bi-zoom-in"></i> 拡大
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm me-2">
+                      <i class="bi bi-zoom-out"></i> 縮小
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm">
+                      <i class="bi bi-arrows-fullscreen"></i> 全画面
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-              <button type="button" class="btn btn-primary">保存</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 専門業者公開設定モーダル（チェックボックス） -->
-      <div class="modal fade" id="publishSettingModalExpert" tabindex="-1" aria-labelledby="publishSettingModalExpertLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="publishSettingModalExpertLabel">外部専門業者公開設定</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p class="mb-4">この案件を以下の外部専門業者に公開するにはチェックボックスを押してください。</p>
-              <div class="mb-4">
-                <div class="form-check mb-2">
-                  <input class="form-check-input" type="checkbox" id="allExperts">
-                  <label class="form-check-label fw-bold" for="allExperts">
-                    外部専門家全て
-                  </label>
-                </div>
-                <div class="ms-4">
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="expert1">
-                    <label class="form-check-label" for="expert1">
-                      株式会社建築コンサル 構造設計 渡辺 六郎
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="expert2">
-                    <label class="form-check-label" for="expert2">
-                      株式会社法務事務所 法務担当 中村 七郎
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" id="expert3">
-                    <label class="form-check-label" for="expert3">
-                      株式会社税理士法人 税務担当 小林 八郎
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-              <button type="button" class="btn btn-primary">保存</button>
             </div>
           </div>
         </div>
@@ -334,6 +282,118 @@
     <script>
         fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
         fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
+
+        // 公開設定変更モーダルの制御
+        let currentDocument = '';
+        let currentPrivacyType = '';
+        let selectedPrivacy = '';
+        
+        function openPrivacyModal(documentName, privacyType) {
+          currentDocument = documentName;
+          currentPrivacyType = privacyType;
+          selectedPrivacy = '';
+          
+          // モーダルのタイトルと説明を設定
+          document.getElementById('modalDocumentName').textContent = documentName;
+          
+          let privacyTypeText = '';
+          switch(privacyType) {
+            case 'staff':
+              privacyTypeText = '社内公開設定';
+              break;
+            case 'partner':
+              privacyTypeText = '協力業者公開設定';
+              break;
+            case 'client':
+              privacyTypeText = '施主公開設定';
+              break;
+          }
+          document.getElementById('modalPrivacyType').textContent = privacyTypeText;
+          
+          // 公開設定オプションを動的に生成
+          generatePrivacyOptions(privacyType);
+          
+          // 保存ボタンを無効化
+          document.getElementById('savePrivacyBtn').disabled = true;
+          
+          // モーダルを表示
+          const modal = new bootstrap.Modal(document.getElementById('privacyModal'));
+          modal.show();
+        }
+        
+        function generatePrivacyOptions(privacyType) {
+          const optionsContainer = document.getElementById('privacyOptions');
+          optionsContainer.innerHTML = '';
+          
+          // すべての公開設定で公開と非公開のオプションを提供
+          optionsContainer.innerHTML = `
+            <button type="button" class="btn btn-outline-primary text-start" onclick="selectPrivacy('公開')">
+              <i class="bi bi-eye me-2"></i>
+              <strong>公開</strong>
+              <div class="small text-muted">すべての${getPrivacyTypeText(privacyType)}が閲覧可能</div>
+            </button>
+            <button type="button" class="btn btn-outline-secondary text-start" onclick="selectPrivacy('非公開')">
+              <i class="bi bi-lock me-2"></i>
+              <strong>非公開</strong>
+              <div class="small text-muted">閲覧不可</div>
+            </button>
+          `;
+        }
+        
+        function getPrivacyTypeText(privacyType) {
+          switch(privacyType) {
+            case 'staff':
+              return '社内ユーザー';
+            case 'partner':
+              return '協力業者';
+            case 'client':
+              return '施主';
+            default:
+              return 'ユーザー';
+          }
+        }
+        
+        function selectPrivacy(privacy) {
+          selectedPrivacy = privacy;
+          
+          // 保存ボタンを有効化
+          document.getElementById('savePrivacyBtn').disabled = false;
+          
+          // 選択されたボタンのスタイルを更新
+          document.querySelectorAll('#privacyModal .btn-outline-primary, #privacyModal .btn-outline-warning, #privacyModal .btn-outline-secondary').forEach(btn => {
+            btn.classList.remove('active');
+          });
+          
+          // クリックされたボタンをアクティブにする
+          event.target.closest('.btn').classList.add('active');
+        }
+        
+        function savePrivacy() {
+          if (!selectedPrivacy) {
+            alert('公開設定を選択してください。');
+            return;
+          }
+          
+          // 保存処理（ダミー）
+          let privacyTypeText = getPrivacyTypeText(currentPrivacyType);
+          alert(`${currentDocument}の${privacyTypeText}公開設定を「${selectedPrivacy}」に変更しました。`);
+          
+          // モーダルを閉じる
+          const modal = bootstrap.Modal.getInstance(document.getElementById('privacyModal'));
+          modal.hide();
+          
+          // 実際の実装では、ここでサーバーに設定を保存し、ボタンの表示を更新する
+        }
+        
+        // 表示モーダルを開く関数
+        function openViewModal(documentName) {
+          // モーダルのタイトルを設定
+          document.getElementById('viewDocumentName').textContent = documentName;
+          
+          // モーダルを表示
+          const modal = new bootstrap.Modal(document.getElementById('viewModal'));
+          modal.show();
+        }
     </script>
 </body>
 </html>

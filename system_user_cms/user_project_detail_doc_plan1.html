@@ -69,10 +69,15 @@
         </ul>
 
         <!-- タイトル -->
-    <div class="mb-2">
-        <h4>プラン１</h4>
-      </div>
-  
+        <div class="mb-2">
+            <h4>プラン１</h4>
+        </div>
+        
+        <!-- ステータス -->
+        <div class="mb-3">
+            <span class="badge bg-success fs-6">確定</span>
+        </div>
+    
       <!-- パンくずリスト -->
       <nav aria-label="breadcrumb" class="mb-3">
         <ol class="breadcrumb small-text mb-0">
@@ -87,32 +92,16 @@
       
           <!-- お客様資料 -->
           
-              <!-- 表示方法＆検索 -->
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center">
-                    <span class="me-2">表示方法：</span>
-                    <button class="btn btn-outline-primary me-2"><i class="bi bi-folder"></i></button>
-                    <button class="btn btn-outline-secondary me-4"><i class="bi bi-list"></i></button>
-                    <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-                        <option value="created">作成日順</option>
-                    </select>
-                </div>
-                <div class="input-group" style="width:300px;">
-                    <input type="text" class="form-control" placeholder="キーワードを入力">
-                    <button class="btn btn-outline-secondary" type="button">検索</button>
-                </div>
-            </div>
+
             
-            <div class="mb-2 px-3">
-              <h5 class="mb-0">プラン１</h5>
-            </div>
+
             <div class="table-responsive small-text mb-4">
               <table class="table table-hover table-bordered mb-0">
                 <thead class="table-light">
                   <tr>
                     <th>資料名称</th>
                     <th>項目数</th>
-                    <th>作成日時</th>
+                    <th>更新日時</th>
                     <th>アクション</th>
                   </tr>
                 </thead>
@@ -134,18 +123,18 @@
                     <td>2025/05/09 11:45</td>
                     <td>
                       <button class="btn btn-sm btn-outline-primary"
-                              onclick="location.href='user_project_detail_doc_plan1_detail.html'">
+                              onclick="location.href='user_project_detail_doc_plan1_3d_detail.html'">
                         詳細
                       </button>
                     </td>
                   </tr>
                   <tr>
-                    <td>見積書</td>
+                    <td>お見積書</td>
                     <td>3</td>
                     <td>2025/05/10 14:00</td>
                     <td>
                       <button class="btn btn-sm btn-outline-primary"
-                              onclick="location.href='user_project_detail_doc_plan1_detail.html'">
+                              onclick="location.href='user_project_detail_doc_plan1_estimate_detail.html'">
                         詳細
                       </button>
                     </td>
@@ -156,7 +145,7 @@
                     <td>2025/05/11 09:15</td>
                     <td>
                       <button class="btn btn-sm btn-outline-primary"
-                              onclick="location.href='user_project_detail_doc_plan1_detail.html'">
+                              onclick="location.href='user_project_detail_doc_plan1_finance_detail.html'">
                         詳細
                       </button>
                     </td>
