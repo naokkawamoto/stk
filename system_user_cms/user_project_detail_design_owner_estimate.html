@@ -174,7 +174,12 @@
                     </div>
                     <div class="card mb-3">
                         <div class="card-body position-relative">
-                            <h5 class="text-center mb-3">御　見　積　書</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="text-center mb-0 flex-grow-1">御　見　積　書</h5>
+                                <button class="btn btn-outline-primary btn-sm" id="editEstimateBtn" onclick="toggleEstimateEditMode()">
+                                    <i class="bi bi-pencil"></i> 編集
+                                </button>
+                            </div>
                             <p class="text-end">001-2022-0324</p>
                             <div class="row mb-2">
                                 <div class="col-md-6"><strong>河本直己 様</strong></div>
@@ -197,13 +202,13 @@
                                 <table class="table table-bordered small-text">
                                     <thead class="table-light"><tr><th>番号</th><th>名称</th><th>摘要</th><th>数量</th><th>単位</th><th>単価</th><th>工事金額</th><th>備考</th></tr></thead>
                                     <tbody>
-                                        <tr><td>1</td><td>仮設工事</td><td>仮設トイレ・足場・廃棄・美装・防蟻処理を含む工事準備一式</td><td>4,648,069</td><td>円</td><td>1</td><td>4,648,069</td><td></td></tr>
-                                        <tr><td>2</td><td>解体工事</td><td>既存建物解体工事一式</td><td>2,545,455</td><td>円</td><td>1</td><td>2,545,455</td><td></td></tr>
-                                        <tr><td>3</td><td>基礎・躯体工事</td><td>基礎工事・木工事・断熱工事を含む躯体工事一式</td><td>9,036,364</td><td>円</td><td>1</td><td>9,036,364</td><td></td></tr>
-                                        <tr><td>4</td><td>外装工事</td><td>屋根工事・左官・防水工事・外部建具工事を含む外装工事一式</td><td>4,954,546</td><td>円</td><td>1</td><td>4,954,546</td><td></td></tr>
-                                        <tr><td>5</td><td>内装工事</td><td>内部建具工事・建材工事・内装工事・雑工事を含む内装工事一式</td><td>5,166,818</td><td>円</td><td>1</td><td>5,166,818</td><td></td></tr>
-                                        <tr><td>6</td><td>設備工事</td><td>住宅設備機器工事・電気工事・換気設備工事・給排水工事を含む設備工事一式</td><td>8,227,273</td><td>円</td><td>1</td><td>8,227,273</td><td></td></tr>
-                                        <tr><td>7</td><td>現場諸経費</td><td>現場管理費・諸経費</td><td>1,348,485</td><td>円</td><td>1</td><td>1,348,485</td><td></td></tr>
+                                        <tr><td>1</td><td>仮設工事</td><td><span class="summary-text">仮設トイレ・足場・廃棄・美装・防蟻処理を含む工事準備一式</span><input type="text" class="form-control form-control-sm summary-input" value="仮設トイレ・足場・廃棄・美装・防蟻処理を含む工事準備一式" style="display: none;"></td><td>4,648,069</td><td>円</td><td>1</td><td>4,648,069</td><td></td></tr>
+                                        <tr><td>2</td><td>解体工事</td><td><span class="summary-text">既存建物解体工事一式</span><input type="text" class="form-control form-control-sm summary-input" value="既存建物解体工事一式" style="display: none;"></td><td>2,545,455</td><td>円</td><td>1</td><td>2,545,455</td><td></td></tr>
+                                        <tr><td>3</td><td>基礎・躯体工事</td><td><span class="summary-text">基礎工事・木工事・断熱工事を含む躯体工事一式</span><input type="text" class="form-control form-control-sm summary-input" value="基礎工事・木工事・断熱工事を含む躯体工事一式" style="display: none;"></td><td>9,036,364</td><td>円</td><td>1</td><td>9,036,364</td><td></td></tr>
+                                        <tr><td>4</td><td>外装工事</td><td><span class="summary-text">屋根工事・左官・防水工事・外部建具工事を含む外装工事一式</span><input type="text" class="form-control form-control-sm summary-input" value="屋根工事・左官・防水工事・外部建具工事を含む外装工事一式" style="display: none;"></td><td>4,954,546</td><td>円</td><td>1</td><td>4,954,546</td><td></td></tr>
+                                        <tr><td>5</td><td>内装工事</td><td><span class="summary-text">内部建具工事・建材工事・内装工事・雑工事を含む内装工事一式</span><input type="text" class="form-control form-control-sm summary-input" value="内部建具工事・建材工事・内装工事・雑工事を含む内装工事一式" style="display: none;"></td><td>5,166,818</td><td>円</td><td>1</td><td>5,166,818</td><td></td></tr>
+                                        <tr><td>6</td><td>設備工事</td><td><span class="summary-text">住宅設備機器工事・電気工事・換気設備工事・給排水工事を含む設備工事一式</span><input type="text" class="form-control form-control-sm summary-input" value="住宅設備機器工事・電気工事・換気設備工事・給排水工事を含む設備工事一式" style="display: none;"></td><td>8,227,273</td><td>円</td><td>1</td><td>8,227,273</td><td></td></tr>
+                                        <tr><td>7</td><td>現場諸経費</td><td><span class="summary-text">現場管理費・諸経費</span><input type="text" class="form-control form-control-sm summary-input" value="現場管理費・諸経費" style="display: none;"></td><td>1,348,485</td><td>円</td><td>1</td><td>1,348,485</td><td></td></tr>
                                         <tr class="table-light"><td colspan="6"></td><td><strong>合計</strong></td><td>35,927,010</td></tr>
                                     </tbody>
                                 </table>
@@ -309,6 +314,39 @@
         function showApprovalCompleteModal() {
             const modal = new bootstrap.Modal(document.getElementById('approvalCompleteModal'));
             modal.show();
+        }
+        
+        // 見積書編集モードの切り替え
+        function toggleEstimateEditMode() {
+            const editBtn = document.getElementById('editEstimateBtn');
+            const summaryTexts = document.querySelectorAll('.summary-text');
+            const summaryInputs = document.querySelectorAll('.summary-input');
+            
+            if (editBtn.textContent.includes('編集')) {
+                // 編集モードに切り替え
+                editBtn.innerHTML = '<i class="bi bi-check"></i> 保存';
+                editBtn.className = 'btn btn-success btn-sm';
+                
+                // テキストを非表示、入力フィールドを表示
+                summaryTexts.forEach(text => text.style.display = 'none');
+                summaryInputs.forEach(input => input.style.display = 'block');
+            } else {
+                // 保存モードに切り替え
+                editBtn.innerHTML = '<i class="bi bi-pencil"></i> 編集';
+                editBtn.className = 'btn btn-outline-primary btn-sm';
+                
+                // 入力フィールドの値をテキストに反映
+                summaryInputs.forEach((input, index) => {
+                    summaryTexts[index].textContent = input.value;
+                });
+                
+                // 入力フィールドを非表示、テキストを表示
+                summaryTexts.forEach(text => text.style.display = 'inline');
+                summaryInputs.forEach(input => input.style.display = 'none');
+                
+                // 保存完了のメッセージを表示（オプション）
+                alert('摘要の変更が保存されました。');
+            }
         }
     </script>
 </body>
