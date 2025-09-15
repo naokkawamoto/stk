@@ -52,29 +52,6 @@
             font-size: 0.75rem;
             opacity: 0.7;
         }
-        .inquiry-stats {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            margin: 5px;
-        }
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
     </style>
 </head>
 <body>
@@ -91,33 +68,11 @@
         </div>
 
         <!-- 統計情報 -->
-        <div class="inquiry-stats">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalInquiries">24</div>
-                        <div class="stat-label">総問い合わせ数</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="pendingCount">8</div>
-                        <div class="stat-label">未対応</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="inProgressCount">12</div>
-                        <div class="stat-label">対応中</div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stat-card">
-                        <div class="stat-number" id="completedCount">4</div>
-                        <div class="stat-label">完了</div>
-                    </div>
-                </div>
-            </div>
+        <div class="mb-3">
+            <small class="text-muted">
+                未対応: <span class="badge bg-danger">8件</span> | 
+                対応中: <span class="badge bg-warning">12件</span>
+            </small>
         </div>
 
         <!-- フィルター・検索 -->
