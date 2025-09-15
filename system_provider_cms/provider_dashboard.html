@@ -18,6 +18,9 @@
         .card-value {
         font-size: 1rem; /* 数値表示は少し大きめ */
         }
+        .table-sm td, .table-sm th {
+        font-size: 0.75rem; /* テーブル内の文字を小さく */
+        }
     </style>
     </head>
     <body>
@@ -25,118 +28,211 @@
     <div id="header-container"></div>
     
     <div class="container mt-4">
-        <h2>Dashboard</h2>
+        <h2>ダッシュボード</h2>
         
-        <!-- 1行目：クライアント / ユーザー / アクティブ（3カード） -->
+
+        <!-- KPIカード（1行表示） -->
         <div class="row mb-4">
-        <!-- クライアントカード -->
-        <div class="col-md-3">
-            <div class="card text-white bg-dark h-100">
-            <div class="card-body">
-            <h4 class="card-title-large">売上</h4>
-            <p class="card-value" style="font-size: 1.5rem;">当月売上：10,340,000</p>
-            <p class="card-value" style="font-size: 1.0rem;">当月エージェント売上：8,340,000</p>
-            <div class="mt-3">
-                <a href="provider_kpi.html" class="btn btn-light btn-sm">詳細を見る</a>
-            </div>
-            </div>
-        </div>
-        </div>
-        
-        <div class="col-md-3">
+        <!-- 会社数 -->
+        <div class="col-md-2">
             <div class="card text-white bg-primary h-100">
-            <div class="card-body">
-                <h4 class="card-title-large">クライアント</h4>
-                <p class="card-value" style="font-size: 1.3rem;">クライアント数：150</p>
-                <p class="card-value" style="font-size: 1.3rem;">有料クライアント数：140</p>
-                <p class="card-value">当月新規登録：10</p>
-                <p class="card-value">当月解約数：2</p>
-                <div class="mt-3">
-                <a href="provider_kpi.html" class="btn btn-light btn-sm">詳細を見る</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        
-        <!-- ユーザーカード -->
-        <div class="col-md-3">
-            <div class="card text-white bg-success h-100">
-            <div class="card-body">
-                <h4 class="card-title-large">ユーザー</h4>
-                <p class="card-value" style="font-size: 1.3rem;">ユーザー数：720</p>
-                <p class="card-value" style="font-size: 1.3rem;">有料ユーザー数：640</p>
-                <p class="card-value">当月新規登録：67</p>
-                <p class="card-value">当月解約数：30</p>
-                <div class="mt-3">
-                <a href="provider_kpi.html" class="btn btn-light btn-sm">詳細を見る</a>
-                </div>
-            </div>
-            </div>
-        </div>
-        
-        <!-- アクティブカード -->
-        <div class="col-md-3">
-            <div class="card text-white bg-info h-100">
-            <div class="card-body">
-                <h4 class="card-title-large">アクティブ</h4>
-                <p class="card-value" style="font-size: 1.3rem;">DAU：300</p>
-                <p class="card-value" style="font-size: 1.3rem;">MAU：5000</p>
-                <div class="mt-3">
-                <a href="provider_kpi.html" class="btn btn-light btn-sm">詳細を見る</a>
-                </div>
-            </div>
+            <div class="card-body text-center">
+            <h6 class="mb-1">会社数</h6>
+            <h5 class="mb-1">142</h5>
+            <small>有効テナント数</small>
             </div>
         </div>
         </div>
         
-        <!-- 2行目：請求状況 / アラート・通知（2カラムレイアウト） -->
+        <!-- アクティブユーザー数 -->
+        <div class="col-md-2">
+            <div class="card text-white bg-primary h-100">
+            <div class="card-body text-center">
+                <h6 class="mb-1">アクティブユーザー</h6>
+                <h5 class="mb-1">2,847</h5>
+                <small>今月アクティブ</small>
+            </div>
+            </div>
+        </div>
+        
+        <!-- アクティブ案件数 -->
+        <div class="col-md-2">
+            <div class="card text-white bg-primary h-100">
+            <div class="card-body text-center">
+                <h6 class="mb-1">アクティブ案件</h6>
+                <h5 class="mb-1">1,234</h5>
+                <small>進行中案件</small>
+            </div>
+            </div>
+        </div>
+        
+        <!-- トライアル -->
+        <div class="col-md-2">
+            <div class="card text-white bg-primary h-100">
+            <div class="card-body text-center">
+                <h6 class="mb-1">トライアル</h6>
+                <h6 class="mb-1">新規：23</h6>
+                <small>期限切れ：7</small>
+            </div>
+            </div>
+        </div>
+        
+        <!-- 契約更新 -->
+        <div class="col-md-2">
+            <div class="card text-white bg-primary h-100">
+            <div class="card-body text-center">
+                <h6 class="mb-1">契約更新</h6>
+                <h6 class="mb-1">7日以内：3件</h6>
+                <small>30日以内：12件</small>
+            </div>
+            </div>
+        </div>
+        
+        <!-- 月次経常収益 -->
+        <div class="col-md-2">
+            <div class="card text-white bg-primary h-100">
+            <div class="card-body text-center">
+                <h6 class="mb-1">月次経常収益</h6>
+                <h6 class="mb-1">¥8,450,000</h6>
+                <small>年次経常収益: ¥101,400,000</small>
+            </div>
+            </div>
+        </div>
+        
+        </div>
+        
+        
+        <!-- クライアント一覧セクション -->
         <div class="row mb-4">
-        <!-- 請求状況 -->
-        <div class="col-md-6">
+        <!-- トライアル中 -->
+        <div class="col-md-4">
             <div class="card">
             <div class="card-body">
-                <h4 class="card-title">請求状況</h4>
-                <ul class="list-group">
-                <li class="list-group-item small-text">未請求額: ¥200,000</li>
-                <li class="list-group-item small-text">請求済み額: ¥1,300,000</li>
-                <li class="list-group-item small-text">未払い額: <span class="text-danger">¥50,000</span></li>
-                </ul>
-                <div class="mt-3">
-                <a href="provider_bill_management.html" class="btn btn-primary btn-sm small-text">詳細を見る</a>
+                <h5 class="card-title">トライアル中</h5>
+                <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th>会社名</th>
+                        <th>開始日</th>
+                        <th>終了日</th>
+                        <th>残り日数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社ABC建設</td>
+                        <td>2025/01/15</td>
+                        <td>2025/02/15</td>
+                        <td><span class="badge bg-warning">5日</span></td>
+                    </tr>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社XYZ不動産</td>
+                        <td>2025/01/10</td>
+                        <td>2025/02/10</td>
+                        <td><span class="badge bg-danger">0日</span></td>
+                    </tr>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社DEF工務店</td>
+                        <td>2025/01/05</td>
+                        <td>2025/02/05</td>
+                        <td><span class="badge bg-success">15日</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="mt-2">
+                <a href="provider_company_list.html?filter=trial" class="btn btn-primary btn-sm">すべて見る</a>
                 </div>
             </div>
             </div>
-        </div>
-        <!-- アラート・通知 -->
-        <div class="col-md-6">
-            <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">アラート・通知</h4>
-                <ul class="list-group">
-                <li class="list-group-item small-text">契約更新期限が近い建設会社: 5</li>
-                <li class="list-group-item small-text">未処理のサポートリクエスト: 2</li>
-                <li class="list-group-item small-text">クレジットカード有効期限切れ: 1</li>
-                </ul>
-                <div class="mt-3">
-                <a href="provider_alert.html" class="btn btn-primary btn-sm small-text">詳細を見る</a>
-                </div>
-            </div>
-            </div>
-        </div>
         </div>
         
-        <!-- 3行目：最近のアクティビティ・アクセスログ -->
-        <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">最近のアクティビティ・アクセスログ</h4>
-            <ul class="list-group">
-            <li class="list-group-item small-text">管理者1がログインしました。（2025/03/25）</li>
-            <li class="list-group-item small-text">建設会社Aが新規登録されました。（2025/03/24）</li>
-            <li class="list-group-item small-text">プロジェクト「XXビル調査」が作成されました。（2025/03/24）</li>
-            <li class="list-group-item small-text">アクセスログ: IP xxx.xxx.xxx.xxx（2025/03/25 10:00）</li>
-            </ul>
-            <div class="mt-3">
-                <a href="provider_logs.html" class="btn btn-primary btn-sm small-text">詳細を見る</a>
+        <!-- 30日以内契約更新 -->
+        <div class="col-md-4">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">30日以内契約更新</h5>
+                <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th>会社名</th>
+                        <th>更新日</th>
+                        <th>プラン</th>
+                        <th>残り日数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社GHI建築</td>
+                        <td>2025/02/15</td>
+                        <td>スタンダード</td>
+                        <td><span class="badge bg-danger">15日</span></td>
+                    </tr>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社JKL設計</td>
+                        <td>2025/02/22</td>
+                        <td>プレミアム</td>
+                        <td><span class="badge bg-warning">22日</span></td>
+                    </tr>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社MNO建設</td>
+                        <td>2025/02/28</td>
+                        <td>ベーシック</td>
+                        <td><span class="badge bg-info">28日</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="mt-2">
+                <a href="provider_company_list.html?filter=renewal" class="btn btn-primary btn-sm">すべて見る</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- 問い合わせ -->
+        <div class="col-md-4">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">問い合わせ</h5>
+                <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                    <tr>
+                        <th>会社名</th>
+                        <th>件名</th>
+                        <th>状態</th>
+                        <th>受付日</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社PQR不動産</td>
+                        <td>API連携エラー</td>
+                        <td><span class="badge bg-danger">未対応</span></td>
+                        <td>2025/01/15</td>
+                    </tr>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社STU建築</td>
+                        <td>機能追加要望</td>
+                        <td><span class="badge bg-warning">対応中</span></td>
+                        <td>2025/01/14</td>
+                    </tr>
+                    <tr style="cursor: pointer;" onclick="location.href='provider_company_detail.html'">
+                        <td>株式会社VWX工務店</td>
+                        <td>ログイン不具合</td>
+                        <td><span class="badge bg-success">完了</span></td>
+                        <td>2025/01/13</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="mt-2">
+                <a href="#" class="btn btn-primary btn-sm">すべて見る</a>
+                </div>
+            </div>
             </div>
         </div>
         </div>
@@ -171,3 +267,4 @@
     </script>
 </body>
 </html>
+

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>消費税設定</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .tax-card {
+            border-left: 4px solid #28a745;
+            transition: all 0.3s ease;
+        }
+        .tax-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .rate-badge {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .effective-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .status-active {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .status-inactive {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <div id="header-container"></div>
+
+    <div class="container-fluid mt-4 px-3">
+        <!-- ページタイトル -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0">消費税設定</h4>
+            <button class="btn btn-primary" onclick="openChangeTaxModal()">
+                <i class="bi bi-arrow-repeat"></i> 税率変更
+            </button>
+        </div>
+
+        <!-- 現在の税率表示 -->
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card tax-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title mb-1">現在の税率</h5>
+                                <span class="rate-badge text-success">10%</span>
+                                <p class="effective-date mb-0">2019年10月1日より適用</p>
+                            </div>
+                            <div class="text-end">
+                                <span class="status-active">適用中</span>
+                                <br>
+                                <small class="text-muted">消費税率</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 影響する箇所 -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> 税率変更の影響箇所</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>請求・見積書</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>SaaSの請求書の税率</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>業者見積書の税率</li>
+                            <li><i class="bi bi-check-circle text-success me-2"></i>お客様見積書の税率</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>計画書・資料</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle text-success me-2"></i>資金計画書の税率</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="alert alert-warning mt-3">
+                    <strong>注意:</strong> 税率を変更すると、上記のすべての箇所で新しい税率が適用されます。変更前に必ず関係者に確認してください。
+                </div>
+            </div>
+        </div>
+
+        <!-- 税率履歴 -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">税率履歴</h5>
+                <div class="btn-group btn-group-sm" role="group">
+                    <input type="radio" class="btn-check" name="sortOrder" id="sortNewest" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="sortNewest">新しい順</label>
+                    <input type="radio" class="btn-check" name="sortOrder" id="sortOldest" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="sortOldest">古い順</label>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 15%;">税率</th>
+                                <th style="width: 20%;">適用開始日</th>
+                                <th style="width: 20%;">適用終了日</th>
+                                <th style="width: 15%;">ステータス</th>
+                                <th style="width: 20%;">備考</th>
+                                <th style="width: 10%;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="rate-badge text-success">10%</span></td>
+                                <td>2019-10-01</td>
+                                <td>-</td>
+                                <td><span class="status-active">適用中</span></td>
+                                <td>標準税率</td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="editTaxRate(1)">
+                                        <i class="bi bi-pencil"></i> 編集
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="rate-badge text-secondary">8%</span></td>
+                                <td>2014-04-01</td>
+                                <td>2019-09-30</td>
+                                <td><span class="status-inactive">終了</span></td>
+                                <td>旧税率</td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="editTaxRate(3)">
+                                        <i class="bi bi-pencil"></i> 編集
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="rate-badge text-secondary">5%</span></td>
+                                <td>1997-04-01</td>
+                                <td>2014-03-31</td>
+                                <td><span class="status-inactive">終了</span></td>
+                                <td>旧税率</td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm" onclick="editTaxRate(4)">
+                                        <i class="bi bi-pencil"></i> 編集
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- フッター -->
+    <div id="footer-container"></div>
+
+    <!-- 税率変更モーダル -->
+    <div class="modal fade" id="changeTaxModal" tabindex="-1" aria-labelledby="changeTaxModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changeTaxModalLabel">税率変更</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="taxForm">
+                        <div class="mb-3">
+                            <label class="form-label">現在の税率</label>
+                            <div class="form-control-plaintext">
+                                <span class="rate-badge text-success">10%</span>
+                                <small class="text-muted ms-2">2019年10月1日より適用</small>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newTaxRate" class="form-label">新しい税率 <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="newTaxRate" step="0.1" min="0" max="100" required>
+                                <span class="input-group-text">%</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="effectiveDate" class="form-label">適用開始日 <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="effectiveDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">変更理由</label>
+                            <textarea class="form-control" id="reason" rows="3" placeholder="税率変更の理由を入力してください"></textarea>
+                        </div>
+                        <div class="alert alert-warning">
+                            <strong>影響箇所:</strong><br>
+                            • SaaSの請求書の税率<br>
+                            • 業者見積書の税率<br>
+                            • お客様見積書の税率<br>
+                            • 資金計画書の税率
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary" onclick="changeTaxRate()">税率変更</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../style.js"></script>
+    <script>
+        // ヘッダー＆フッター読み込み
+        fetch('provider_header.html').then(r=>r.text()).then(html=>document.getElementById('header-container').innerHTML=html);
+        fetch('provider_footer.html').then(r=>r.text()).then(html=>document.getElementById('footer-container').innerHTML=html);
+
+        // 税率変更モーダルを開く
+        function openChangeTaxModal() {
+            // フォームをクリア
+            document.getElementById('taxForm').reset();
+            
+            // 今日の日付をデフォルトに設定
+            document.getElementById('effectiveDate').value = new Date().toISOString().split('T')[0];
+            
+            const modal = new bootstrap.Modal(document.getElementById('changeTaxModal'));
+            modal.show();
+        }
+
+        // 税率を変更
+        function changeTaxRate() {
+            const newTaxRate = document.getElementById('newTaxRate').value;
+            const effectiveDate = document.getElementById('effectiveDate').value;
+            const reason = document.getElementById('reason').value;
+
+            if (!newTaxRate || !effectiveDate) {
+                alert('必須項目を入力してください');
+                return;
+            }
+
+            if (confirm(`税率を ${newTaxRate}% に ${effectiveDate} から変更しますか？\n\n影響箇所:\n• SaaSの請求書の税率\n• 業者見積書の税率\n• お客様見積書の税率\n• 資金計画書の税率`)) {
+                alert(`税率を ${newTaxRate}% に ${effectiveDate} から変更しました`);
+                
+                // モーダルを閉じる
+                const modal = bootstrap.Modal.getInstance(document.getElementById('changeTaxModal'));
+                modal.hide();
+            }
+        }
+
+        // 税率を編集
+        function editTaxRate(taxId) {
+            alert(`税率ID ${taxId} を編集します`);
+        }
+    </script>
+</body>
+</html>

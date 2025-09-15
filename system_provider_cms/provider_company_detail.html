@@ -1,704 +1,742 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8" />
-    <title>クライアント詳細</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
-    </head>
-    <body>
-    <!-- ヘッダーの読み込み -->
-    <div id="header-container"></div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>クライアント詳細</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <div id="header-container"></div>
 
-    <div class="container mt-4">
-        <h2 class="mb-3">【会社名詳細】</h2>
-        <!-- パンくずリスト -->
-        <nav aria-label="breadcrumb">
-        <ol class="breadcrumb small-text">
-            <li class="breadcrumb-item"><a href="provider_company_list.html">クライアント一覧</a></li>
-            <li class="breadcrumb-item active" aria-current="page">会社詳細</li>
-        </ol>
-        </nav>
+  <div class="container mt-4 small">
+    <!-- タイトル -->
+    <h2 class="mb-4">ZERO×STYLE</h2>
 
-        <!-- タブナビゲーション -->
-        <ul class="nav nav-tabs small-text" id="detailTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active small-text" id="tab-company-info-tab" data-bs-toggle="tab" data-bs-target="#tab-company-info" type="button" role="tab" aria-controls="tab-company-info" aria-selected="true">会社情報</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link small-text" id="tab-project-tab" data-bs-toggle="tab" data-bs-target="#tab-project" type="button" role="tab" aria-controls="tab-project" aria-selected="false">プロジェクト</button>
-        </li>
-        <!-- 施設タブを検査タブに変更 -->
-        <li class="nav-item" role="presentation">
-            <button class="nav-link small-text" id="tab-inspection-tab" data-bs-toggle="tab" data-bs-target="#tab-inspection" type="button" role="tab" aria-controls="tab-inspection" aria-selected="false">検査</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link small-text" id="tab-user-tab" data-bs-toggle="tab" data-bs-target="#tab-user" type="button" role="tab" aria-controls="tab-user" aria-selected="false">ユーザー</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link small-text" id="tab-contract-tab" data-bs-toggle="tab" data-bs-target="#tab-contract" type="button" role="tab" aria-controls="tab-contract" aria-selected="false">契約</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link small-text" id="tab-billing-tab" data-bs-toggle="tab" data-bs-target="#tab-billing" type="button" role="tab" aria-controls="tab-billing" aria-selected="false">請求</button>
-        </li>
-        </ul>
-
-        <!-- タブコンテンツ -->
-        <div class="tab-content mt-3" id="detailTabContent">
-        <!-- タブ1: 会社情報 -->
-        <div class="tab-pane fade show active" id="tab-company-info" role="tabpanel" aria-labelledby="tab-company-info-tab">
-            <div class="card mt-3">
-            <div class="card-body">
-                <!-- 会社ID -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>会社ID</strong></div>
-                <div class="col-7 value-col small-text">
-                    <span class="small-text">001</span>
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-                <!-- 会社名 -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>会社名</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small" placeholder="株式会社サンプル">
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-                <!-- 管理者名 -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>管理者名</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small" placeholder="山田 太郎">
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-                <!-- メール -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>メール</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small" placeholder="taro@example.com">
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-                <!-- 担当等部署 -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>担当等部署</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small" placeholder="営業部">
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-                <!-- TEL -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>TEL</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small" placeholder="03-1234-5678">
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-                <!-- URL -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>URL</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small" placeholder="http://www.sample.co.jp">
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-                <!-- 登録日 -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>登録日</strong></div>
-                <div class="col-7 value-col small-text">
-                    <span class="small-text">2024-01-10</span>
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-                <!-- 情報更新日 -->
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>情報更新日</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small" placeholder="2024-03-15" readonly>
-                </div>
-                <div class="col-2 change-btn"></div>
-                </div>
-            </div>
-            </div>
+    <!-- ステータスとアクション -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <span class="badge bg-success fs-6">ステータス：契約中（自動更新）</span>
         </div>
-
-        <!-- タブ2: プロジェクト -->
-        <div class="tab-pane fade" id="tab-project" role="tabpanel" aria-labelledby="tab-project-tab">
-            <div class="d-flex justify-content-end mb-2">
-            <a href="user_project_create.html" class="btn btn-primary btn-sm small-text">新規登録</a>
-            </div>
-            <table class="table table-striped small-text">
-            <thead>
-                <tr class="small-text">
-                <th class="small-text">プロジェクト名</th>
-                <th class="small-text">施設数</th>
-                <th class="small-text">担当者</th>
-                <th class="small-text">登録日</th>
-                <th class="small-text">更新日</th>
-                <th class="text-end small-text">操作</th>
-                </tr>
-            </thead>
-            <tbody class="small-text">
-                <tr>
-                <td class="small-text">プロジェクトA</td>
-                <td class="small-text">
-                    <a href="user_facility_list.html" class="small-text text-primary" style="text-decoration: underline;">5</a>
-                </td>
-                <td class="small-text">担当者A</td>
-                <td class="small-text">2024-01-15</td>
-                <td class="small-text">2024-03-10</td>
-                <td class="text-end small-text">
-                    <a href="user_project_detail.html" class="btn btn-primary btn-sm small-text">詳細</a>
-                </td>
-                </tr>
-                <tr>
-                <td class="small-text">プロジェクトB</td>
-                <td class="small-text">
-                    <a href="user_facility_list.html" class="small-text text-primary" style="text-decoration: underline;">3</a>
-                </td>
-                <td class="small-text">担当者B</td>
-                <td class="small-text">2024-02-05</td>
-                <td class="small-text">2024-03-15</td>
-                <td class="text-end small-text">
-                    <a href="user_project_detail.html" class="btn btn-primary btn-sm small-text">詳細</a>
-                </td>
-                </tr>
-            </tbody>
-            </table>
+        <div>
+            <button class="btn btn-primary btn-sm me-2" onclick="openExtensionModal()">
+                <i class="bi bi-calendar-plus"></i> 延長
+            </button>
+            <button class="btn btn-warning btn-sm me-2" onclick="openCancellationModal()">
+                <i class="bi bi-calendar-x"></i> 解約
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="openDataDeletionModal()">
+                <i class="bi bi-trash"></i> データ削除
+            </button>
         </div>
+    </div>
 
-        <!-- タブ3: 検査 -->
-        <div class="tab-pane fade" id="tab-inspection" role="tabpanel" aria-labelledby="tab-inspection-tab">
-            <div class="container mt-4">
-            <h2>検査一覧</h2>
-            <!-- 並べ替え・検索コントロール -->
-            <div class="d-flex flex-wrap align-items-center justify-content-center gap-2 mb-4">
-                <input type="text" class="form-control" placeholder="検索..." style="max-width:200px;" id="searchInput">
-                <select class="form-select" style="max-width:150px;" id="sortDate">
-                <option value="asc">日付順</option>
-                <option value="desc">逆順</option>
+    <!-- ナビゲーションタブ -->
+    <ul class="nav nav-tabs" id="detailTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="tab-company-info-tab" data-bs-toggle="tab" data-bs-target="#tab-company-info" type="button" role="tab" aria-controls="tab-company-info" aria-selected="true">会社情報</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-branch-info-tab" data-bs-toggle="tab" data-bs-target="#tab-branch-info" type="button" role="tab" aria-controls="tab-branch-info" aria-selected="false">支店情報</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-project-list-tab" data-bs-toggle="tab" data-bs-target="#tab-project-list" type="button" role="tab" aria-controls="tab-project-list" aria-selected="false">案件一覧</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-user-list-tab" data-bs-toggle="tab" data-bs-target="#tab-user-list" type="button" role="tab" aria-controls="tab-user-list" aria-selected="false">ユーザー一覧</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-contract-detail-tab" data-bs-toggle="tab" data-bs-target="#tab-contract-detail" type="button" role="tab" aria-controls="tab-contract-detail" aria-selected="false">契約詳細</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="tab-billing-detail-tab" data-bs-toggle="tab" data-bs-target="#tab-billing-detail" type="button" role="tab" aria-controls="tab-billing-detail" aria-selected="false">請求詳細</button>
+      </li>
+    </ul>
+
+    <!-- タブコンテンツ -->
+    <div class="tab-content mt-3" id="detailTabContent">
+
+      <!-- 会社情報 -->
+      <div class="tab-pane fade show active" id="tab-company-info" role="tabpanel" aria-labelledby="tab-company-info-tab">
+        <table class="table table-bordered small">
+          <tbody>
+            <tr><td class="fw-normal">クライアントID</td><td>0000356</td></tr>
+            <tr><td class="fw-normal">エージェントID</td><td>AGT-001</td></tr>
+            <tr><td class="fw-normal">会社名</td><td>ZERO×STYLE</td></tr>
+            <tr><td class="fw-normal">会社名（英語）</td><td>ZERO×STYLE Inc.</td></tr>
+            <tr><td class="fw-normal">HP URL</td><td>http://www.zerostyle.co.jp</td></tr>
+            <tr><td class="fw-normal">代表電話番号</td><td>03-1234-5678</td></tr>
+            <tr><td class="fw-normal">代表者名（肩書き＋姓名）</td><td>代表取締役 山田 太郎</td></tr>
+            <tr><td class="fw-normal">郵便番号</td><td>1234567</td></tr>
+            <tr><td class="fw-normal">住所</td><td>東京都渋谷区〇〇1-1-1</td></tr>
+            <tr><td class="fw-normal">担当者ID（システム管理者）</td><td>0001024</td></tr>
+            <tr><td class="fw-normal">担当者名（システム管理者）</td><td>山田 花子</td></tr>
+            <tr><td class="fw-normal">担当者名（カナ）</td><td>ヤマダ ハナコ</td></tr>
+            <tr><td class="fw-normal">メールアドレス</td><td>hanako@example.com</td></tr>
+            <tr><td class="fw-normal">作成日時</td><td>2024-01-10 09:15</td></tr>
+            <tr><td class="fw-normal">更新日時</td><td>2024-03-15 16:30</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 支店情報 -->
+      <div class="tab-pane fade" id="tab-branch-info" role="tabpanel" aria-labelledby="tab-branch-info-tab">
+        <table class="table table-bordered small">
+          <thead class="table-light">
+            <tr>
+              <td class="fw-normal">支店ID</td>
+              <td class="fw-normal">支店名/部門</td>
+              <td class="fw-normal">事務所登録</td>
+              <td class="fw-normal">登録場所</td>
+              <td class="fw-normal">登録番号</td>
+              <td class="fw-normal">郵便番号</td>
+              <td class="fw-normal">住所</td>
+              <td class="fw-normal">担当者名</td>
+              <td class="fw-normal">担当者名（カナ）</td>
+              <td class="fw-normal">担当者電話番号</td>
+              <td class="fw-normal">FAX</td>
+              <td class="fw-normal">担当者メール</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>001</td><td>東京支店</td><td>一級建築士事務所</td><td>大臣</td><td>123456</td><td>1500001</td><td>東京都渋谷区神南1-1-1</td><td>佐藤 太郎</td><td>サトウ タロウ</td><td>03-1111-2222</td><td>03-3333-4444</td><td>sato.taro@example.com</td></tr>
+            <tr><td>002</td><td>大阪支店</td><td>二級建築士事務所</td><td>大阪府</td><td>234567</td><td>5300001</td><td>大阪府大阪市北区梅田2-2-2</td><td>鈴木 次郎</td><td>スズキ ジロウ</td><td>06-2222-3333</td><td>06-4444-5555</td><td>suzuki.jiro@example.com</td></tr>
+            <tr><td>003</td><td>名古屋支店</td><td>一級建築士事務所</td><td>大臣</td><td>345678</td><td>4600002</td><td>愛知県名古屋市中区丸の内3-3-3</td><td>高橋 三郎</td><td>タカハシ サブロウ</td><td>052-3333-4444</td><td>052-5555-6666</td><td>takahashi.saburo@example.com</td></tr>
+            <tr><td>004</td><td>福岡支店</td><td>二級建築士事務所</td><td>福岡県</td><td>456789</td><td>8100001</td><td>福岡県福岡市中央区天神4-4-4</td><td>伊藤 四郎</td><td>イトウ シロウ</td><td>092-4444-5555</td><td>092-6666-7777</td><td>ito.shiro@example.com</td></tr>
+            <tr><td>005</td><td>松江支店</td><td>一級建築士事務所</td><td>大臣</td><td>567890</td><td>6900001</td><td>島根県松江市朝日町1-1-1</td><td>山田 五郎</td><td>ヤマダ ゴロウ</td><td>0852-11-2222</td><td>0852-33-4444</td><td>yamada.gorou@example.com</td></tr>
+            <tr><td>006</td><td>広島支店</td><td>二級建築士事務所</td><td>広島県</td><td>678901</td><td>7300001</td><td>広島県広島市中区紙屋町2-2-2</td><td>佐々木 六郎</td><td>ササキ ロクロウ</td><td>082-22-3333</td><td>082-44-5555</td><td>sasaki.rokurou@example.com</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 案件一覧 -->
+      <div class="tab-pane fade" id="tab-project-list" role="tabpanel" aria-labelledby="tab-project-list-tab">
+        <table class="table table-striped small">
+          <thead>
+            <tr>
+              <th>プロジェクト名</th>
+              <th>施設数</th>
+              <th>担当者</th>
+              <th>登録日</th>
+              <th>更新日</th>
+              <th class="text-end">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>プロジェクトA</td>
+              <td>
+                <a href="user_facility_list.html" class="text-primary" style="text-decoration: underline;">5</a>
+              </td>
+              <td>担当者A</td>
+              <td>2024-01-15</td>
+              <td>2024-03-10</td>
+              <td class="text-end">
+                <a href="user_project_detail.html" class="btn btn-primary btn-sm">詳細</a>
+              </td>
+            </tr>
+            <tr>
+              <td>プロジェクトB</td>
+              <td>
+                <a href="user_facility_list.html" class="text-primary" style="text-decoration: underline;">3</a>
+              </td>
+              <td>担当者B</td>
+              <td>2024-02-05</td>
+              <td>2024-03-15</td>
+              <td class="text-end">
+                <a href="user_project_detail.html" class="btn btn-primary btn-sm">詳細</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ユーザー一覧 -->
+      <div class="tab-pane fade" id="tab-user-list" role="tabpanel" aria-labelledby="tab-user-list-tab">
+        <table class="table table-striped small">
+          <thead>
+            <tr>
+              <th>ユーザー管理ID</th>
+              <th>メール（ユーザー名）</th>
+              <th>パスワード</th>
+              <th>権限</th>
+              <th>講習情報<br>(講習機関・修了証明書番号)</th>
+              <th>建築士資格種別</th>
+              <th>建築士登録番号</th>
+              <th>所属事務所名</th>
+              <th>事務所登録番号</th>
+              <th>登録日</th>
+              <th class="text-center">状態</th>
+              <th class="text-end">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>taro@example.com</td>
+              <td>******</td>
+              <td>一般</td>
+              <td>講習A / CERT-001</td>
+              <td>一級</td>
+              <td>ARCH-1001</td>
+              <td>株式会社建築研究所</td>
+              <td>OFF-1001</td>
+              <td>2024-01-10</td>
+              <td class="text-center">
+                <span class="badge bg-success">有効</span>
+              </td>
+              <td class="text-end">
+                <a href="user_user_detail.html" class="btn btn-primary btn-sm">詳細</a>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>hanako@example.com</td>
+              <td>******</td>
+              <td>外部</td>
+              <td>講習B / CERT-002</td>
+              <td>二級</td>
+              <td>ARCH-1002</td>
+              <td>有限会社設計工房</td>
+              <td>OFF-1002</td>
+              <td>2024-02-05</td>
+              <td class="text-center">
+                <span class="badge bg-success">有効</span>
+              </td>
+              <td class="text-end">
+                <a href="user_user_detail.html" class="btn btn-primary btn-sm">詳細</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 契約詳細 -->
+      <div class="tab-pane fade" id="tab-contract-detail" role="tabpanel" aria-labelledby="tab-contract-detail-tab">
+        <!-- セクション1: 契約担当者情報 -->
+        <h5 class="mb-2">契約担当者情報</h5>
+        <table class="table table-bordered small">
+          <tbody>
+            <tr><td class="fw-normal">担当者名（契約担当者）</td><td>契約 担当</td></tr>
+            <tr><td class="fw-normal">担当者名（カナ）</td><td>ケイヤク タントウ</td></tr>
+            <tr><td class="fw-normal">メールアドレス</td><td>contract@example.com</td></tr>
+            <tr><td class="fw-normal">電話番号</td><td>03-3333-4444</td></tr>
+          </tbody>
+        </table>
+
+        <!-- セクション2: ご契約プラン -->
+        <h5 class="mt-4 mb-2">ご契約プラン</h5>
+        <table class="table table-bordered small">
+          <tbody>
+            <tr>
+              <td class="fw-normal">契約プラン選択</td>
+              <td><span class="badge bg-success">プラン１</span>
+                <select class="form-select form-select-sm w-auto d-inline-block">
+                  <option selected>プラン1</option>
+                  <option>プラン2</option>
+                  <option>プラン3</option>
                 </select>
-                <select class="form-select" style="max-width:150px;" id="sortStatus">
-                <option value="">ステータス別</option>
-                <option value="in_progress">検査中</option>
-                <!-- 「検査待ち」は検査前と同等 -->
-                <option value="not_started">検査待ち</option>
-                <option value="internal_pending">内部承認待ち</option>
-                <option value="client_pending">依頼主承認待ち</option>
-                <option value="completed">検査終了</option>
-                <option value="new_adjusting">新規調整中</option>
-                </select>
-                <select class="form-select" style="max-width:150px;" id="sortAssignee">
-                <option value="">担当者別</option>
-                <option value="担当者1">担当者1</option>
-                <option value="担当者2">担当者2</option>
-                <option value="担当者3">担当者3</option>
-                </select>
-                <button type="button" class="btn btn-primary" style="min-width:100px;">検索</button>
-            </div>
-            <!-- 検査新規作成ボタン（検索の下、テーブルカードの上） -->
-            <div class="text-end mb-3">
-                <a href="user_inspection_create.html" class="btn btn-primary">検査新規作成</a>
-            </div>
-            <!-- 検査一覧テーブル -->
-            <div class="card mt-4">
-                <div class="card-body">
-                <!-- カードタイトル「検査一覧」は削除 -->
-                <table class="table table-hover table-striped">
-                    <thead>
-                    <tr class="small-text">
-                        <th scope="col">#</th>
-                        <th scope="col">検査名</th>
-                        <th scope="col">プロジェクト名</th>
-                        <th scope="col">検査日時</th>
-                        <th scope="col">検査予定日</th>
-                        <th scope="col">検査担当者</th>
-                        <th scope="col">チャット</th>
-                        <th scope="col">状況</th>
-                        <th scope="col" class="text-end">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody class="small-text">
-                    <!-- 検査中の場合：検査日時と検査予定日に同じ日時を表示 -->
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>山田邸</td>
-                        <td>ハウスインスペクション（戸建て）</td>
-                        <td>2025-03-10 10:00</td>
-                        <td>2025-03-10 10:00</td>
-                        <td>担当者1</td>
-                        <td><span>💬 <span class="badge bg-danger">1</span></span></td>
-                        <td><span class="badge bg-primary fs-6">検査中</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 検査待ち（＝検査前）の場合：検査日時は空欄、検査予定日は設定 -->
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>佐藤邸</td>
-                        <td>ハウスインスペクション（アパート）</td>
-                        <td></td>
-                        <td>2025-03-10 11:30</td>
-                        <td>担当者2</td>
-                        <td><span>💬 <span class="badge bg-danger">0</span></span></td>
-                        <td><span class="badge bg-warning text-dark fs-6">検査待ち</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 内部承認待ち：通常は検査日時・予定日に同じ日時 -->
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>高橋邸</td>
-                        <td>ハウスインスペクション（集合住宅）</td>
-                        <td>2025-03-09 14:00</td>
-                        <td>2025-03-09 14:00</td>
-                        <td>担当者3</td>
-                        <td><span>💬 <span class="badge bg-danger">2</span></span></td>
-                        <td><span class="badge bg-info text-dark fs-6">内部承認待ち</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 依頼主承認待ち -->
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>伊藤邸</td>
-                        <td>ハウスインスペクション（戸建て）</td>
-                        <td>2025-03-08 09:00</td>
-                        <td>2025-03-08 09:00</td>
-                        <td>担当者1</td>
-                        <td><span>💬 <span class="badge bg-danger">3</span></span></td>
-                        <td><span class="badge bg-secondary fs-6">依頼主承認待ち</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 検査終了 -->
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>渡辺邸</td>
-                        <td>ハウスインスペクション（マンション）</td>
-                        <td>2025-03-07 15:30</td>
-                        <td>2025-03-07 15:30</td>
-                        <td>担当者2</td>
-                        <td><span>💬 <span class="badge bg-danger">0</span></span></td>
-                        <td><span class="badge bg-success fs-6">検査終了</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 検査中 -->
-                    <tr>
-                        <th scope="row">6</th>
-                        <td>中村邸</td>
-                        <td>ハウスインスペクション（戸建て）</td>
-                        <td>2025-03-06 10:30</td>
-                        <td>2025-03-06 10:30</td>
-                        <td>担当者3</td>
-                        <td><span>💬 <span class="badge bg-danger">4</span></span></td>
-                        <td><span class="badge bg-primary fs-6">検査中</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 新規調整中の場合：検査日時も検査予定日も空欄 -->
-                    <tr>
-                        <th scope="row">7</th>
-                        <td>小林邸</td>
-                        <td>ハウスインスペクション（アパート）</td>
-                        <td></td>
-                        <td></td>
-                        <td>担当者1</td>
-                        <td><span>💬 <span class="badge bg-danger">0</span></span></td>
-                        <td><span class="badge bg-dark fs-6">新規調整中</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 内部承認待ち -->
-                    <tr>
-                        <th scope="row">8</th>
-                        <td>加藤邸</td>
-                        <td>ハウスインスペクション（集合住宅）</td>
-                        <td>2025-03-04 11:00</td>
-                        <td>2025-03-04 11:00</td>
-                        <td>担当者2</td>
-                        <td><span>💬 <span class="badge bg-danger">2</span></span></td>
-                        <td><span class="badge bg-info text-dark fs-6">内部承認待ち</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 依頼主承認待ち -->
-                    <tr>
-                        <th scope="row">9</th>
-                        <td>佐々木邸</td>
-                        <td>ハウスインスペクション（マンション）</td>
-                        <td>2025-03-03 14:30</td>
-                        <td>2025-03-03 14:30</td>
-                        <td>担当者3</td>
-                        <td><span>💬 <span class="badge bg-danger">1</span></span></td>
-                        <td><span class="badge bg-secondary fs-6">依頼主承認待ち</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    <!-- 検査終了 -->
-                    <tr>
-                        <th scope="row">10</th>
-                        <td>高木邸</td>
-                        <td>ハウスインスペクション（戸建て）</td>
-                        <td>2025-03-02 09:30</td>
-                        <td>2025-03-02 09:30</td>
-                        <td>担当者1</td>
-                        <td><span>💬 <span class="badge bg-danger">0</span></span></td>
-                        <td><span class="badge bg-success fs-6">検査終了</span></td>
-                        <td class="text-end">
-                        <a href="provider_inspection_detail.html" class="btn btn-success btn-sm">詳細</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
-            <!-- ページネーション -->
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">6</a></li>
-                <li class="page-item"><a class="page-link" href="#">7</a></li>
-                <li class="page-item"><a class="page-link" href="#">8</a></li>
-                <li class="page-item"><a class="page-link" href="#">9</a></li>
-                <li class="page-item"><a class="page-link" href="#">10</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+                <button class="btn btn-outline-secondary btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#planModal">プラン説明</button>
+                <button class="btn btn-warning btn-sm ms-2">アップグレード</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="fw-normal"><span class="badge bg-success">プラン１</span>月額費用</td>
+              <td>¥15,000</td>
+            </tr>
+            <tr>
+              <td class="fw-normal"><span class="badge bg-success">プラン１</span>ユーザー数上限</td>
+              <td><input type="number" class="form-control form-control-sm d-inline-block w-auto" value="35">／50</td>
+            </tr>
+            <tr>
+              <td class="fw-normal"><span class="badge bg-success">プラン１</span>容量上限</td>
+              <td><input type="text" class="form-control form-control-sm d-inline-block w-auto" value="0.56TB">／1TB</td>
+            </tr>
+            <tr><td class="fw-normal">契約開始日</td><td><input type="date" class="form-control form-control-sm"></td></tr>
+            <tr><td class="fw-normal">契約終了日</td><td><input type="date" class="form-control form-control-sm"></td></tr>
+          </tbody>
+        </table>
+
+        <!-- プラン説明モーダル -->
+        <div class="modal fade" id="planModal" tabindex="-1" aria-labelledby="planModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="planModalLabel">プラン説明</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+              </div>
+              <div class="modal-body">
+                <ul class="small">
+                  <li><strong>プラン1:</strong> 基本機能</li>
+                  <li><strong>プラン2:</strong> 標準機能 + サポート</li>
+                  <li><strong>プラン3:</strong> フル機能 + カスタマイズ</li>
                 </ul>
-            </nav>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
 
-        <!-- タブ4: ユーザー -->
-        <div class="tab-pane fade" id="tab-user" role="tabpanel" aria-labelledby="tab-user-tab">
-            <div class="d-flex justify-content-end mb-2">
-            <a href="user_user_create.html" class="btn btn-primary btn-sm small-text">追加</a>
-            </div>
-            <table class="table table-striped small-text">
-            <thead>
+      <!-- 請求詳細 -->
+      <div class="tab-pane fade" id="tab-billing-detail" role="tabpanel" aria-labelledby="tab-billing-detail-tab">
+        <!-- 次回のご請求 -->
+        <div class="card mb-4 small">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-normal">次回のご請求</span>
+            <span class="small">契約: プラン1</span>
+          </div>
+          <div class="card-body p-2">
+            <table class="table table-borderless small mb-0">
+              <thead>
                 <tr>
-                <th class="small-text">ユーザー管理ID</th>
-                <th class="small-text">メール（ユーザー名）</th>
-                <th class="small-text">パスワード</th>
-                <th class="small-text">権限</th>
-                <th class="small-text">講習情報<br>(講習機関・修了証明書番号)</th>
-                <th class="small-text">建築士資格種別</th>
-                <th class="small-text">建築士登録番号</th>
-                <th class="small-text">所属事務所名</th>
-                <th class="small-text">事務所登録番号</th>
-                <th class="small-text">登録日</th>
-                <th class="text-center small-text">状態</th>
-                <th class="text-end small-text">操作</th>
+                  <td class="fw-normal">請求日</td>
+                  <td class="fw-normal">ご請求金額</td>
+                  <td class="fw-normal">備考</td>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td class="small-text">1</td>
-                <td class="small-text">taro@example.com</td>
-                <td class="small-text">******</td>
-                <td class="small-text">一般</td>
-                <td class="small-text">講習A / CERT-001</td>
-                <td class="small-text">一級</td>
-                <td class="small-text">ARCH-1001</td>
-                <td class="small-text">株式会社建築研究所</td>
-                <td class="small-text">OFF-1001</td>
-                <td class="small-text">2024-01-10</td>
-                <td class="text-center small-text">
-                    <span class="badge bg-success">有効</span>
-                </td>
-                <td class="text-end small-text">
-                    <a href="user_user_detail.html" class="btn btn-primary btn-sm small-text">詳細</a>
-                </td>
-                </tr>
-                <tr>
-                <td class="small-text">2</td>
-                <td class="small-text">hanako@example.com</td>
-                <td class="small-text">******</td>
-                <td class="small-text">外部</td>
-                <td class="small-text">講習B / CERT-002</td>
-                <td class="small-text">二級</td>
-                <td class="small-text">ARCH-1002</td>
-                <td class="small-text">有限会社設計工房</td>
-                <td class="small-text">OFF-1002</td>
-                <td class="small-text">2024-02-05</td>
-                <td class="text-center small-text">
-                    <span class="badge bg-success">有効</span>
-                </td>
-                <td class="text-end small-text">
-                    <a href="user_user_detail.html" class="btn btn-primary btn-sm small-text">詳細</a>
-                </td>
-                </tr>
-            </tbody>
+              </thead>
+              <tbody>
+                <tr><td>2025-07-01</td><td>¥15,000</td><td>-</td></tr>
+              </tbody>
             </table>
+          </div>
         </div>
+        <!-- ご請求履歴 -->
+        <h5 class="small">ご請求履歴</h5>
+        <table class="table table-striped small">
+          <thead>
+            <tr>
+              <td class="fw-normal">#</td><td class="fw-normal">日付</td><td class="fw-normal">ご請求金額</td><td class="fw-normal">ステータス</td><td class="fw-normal">請求書</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>2025-01-01</td><td>¥11,000</td><td><span class="badge bg-success">支払済</span></td><td><a href="#" data-bs-toggle="modal" data-bs-target="#invoicePreviewModal" data-invoice-id="1" data-invoice-date="2025-01-01" data-invoice-amount="10000">請求書</a></td></tr>
+            <tr><td>2</td><td>2025-02-01</td><td>¥11,000</td><td><span class="fw-normal">未払</span></td><td><a href="#" data-bs-toggle="modal" data-bs-target="#invoicePreviewModal" data-invoice-id="2" data-invoice-date="2025-02-01" data-invoice-amount="10000">請求書</a></td></tr>
+          </tbody>
+        </table>
+      </div>
 
-        <!-- タブ5: 契約 -->
-        <div class="tab-pane fade" id="tab-contract" role="tabpanel" aria-labelledby="tab-contract-tab">
-            <div class="card mt-3">
-            <div class="card-body">
-                <div class="row mb-2">
-                <div class="col-3 label-col small-text"><strong>契約種類</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small d-inline-block w-auto" placeholder="Free" readonly data-bs-toggle="modal" data-bs-target="#contractModal">
-                </div>
-                </div>
-                <div class="row mb-2 align-items-center">
-                <div class="col-3 label-col small-text"><strong>ユーザー数</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small d-inline-block w-auto" placeholder="12/15人" readonly>
-                </div>
-                <div class="col-2">
-                    <a href="#" class="btn btn-primary btn-sm small-text">追加</a>
-                </div>
-                </div>
-                <div class="row mb-2">
-                <div class="col-3 label-col small-text"><strong>ストレージ</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small d-inline-block w-auto" placeholder="90/100GB" readonly>
-                </div>
-                </div>
-                <div class="row mb-2">
-                <div class="col-3 label-col small-text"><strong>契約日</strong></div>
-                <div class="col-7 value-col small-text">
-                    <span class="small-text">2024-01-10</span>
-                </div>
-                </div>
-                <div class="row mb-2">
-                <div class="col-3 label-col small-text"><strong>契約終了日</strong></div>
-                <div class="col-7 value-col small-text">
-                    <span class="small-text">2024-12-31</span>
-                </div>
-                </div>
-                <div class="row mb-2">
-                <div class="col-3 label-col small-text"><strong>状態</strong></div>
-                <div class="col-7 value-col small-text">
-                    <span class="badge bg-success small-text">有効</span>
-                </div>
-                </div>
-                <div class="row mb-2">
-                <div class="col-3 label-col small-text"><strong>支払い方法</strong></div>
-                <div class="col-7 value-col small-text">
-                    <input type="text" class="form-control form-control-small d-inline-block w-auto" placeholder="クレジットカード：VISA" readonly data-bs-toggle="modal" data-bs-target="#cardModal">
-                </div>
-                </div>
-                <div class="row mb-2">
-                <div class="col-3 label-col small-text"><strong>最新請求日</strong></div>
-                <div class="col-7 value-col small-text">
-                    <span class="small-text">2024-03-15 (決済エラー)</span>
-                </div>
-                </div>
-            </div>
-            </div>
+    </div> <!-- /.tab-content -->
+
+  </div> <!-- /.container -->
+
+  <!-- フッター -->
+  <div id="footer-container"></div>
+
+  <!-- 請求書プレビューモーダル -->
+  <div class="modal fade" id="invoicePreviewModal" tabindex="-1" aria-labelledby="invoicePreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="invoicePreviewModalLabel">請求書</h5>
+          <div class="ms-auto">
+            <button type="button" class="btn btn-outline-primary btn-sm me-2" onclick="printInvoice()">
+              <i class="bi bi-printer"></i> プリント
+            </button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+          </div>
         </div>
+        <div class="modal-body">
+          <div id="invoiceContent">
+            <!-- 請求書の内容がここに表示されます -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- タブ6: 請求 -->
-        <div class="tab-pane fade" id="tab-billing" role="tabpanel" aria-labelledby="tab-billing-tab">
-            <!-- 上部カード: 次回のご請求 -->
-            <div class="card mt-3">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="small-text mb-0">次回のご請求</h5>
-                <div>
-                <span class="small-text me-2">契約名：Lite Plan</span>
-                <button type="button" class="btn btn-primary btn-sm small-text" data-bs-toggle="modal" data-bs-target="#contractModal">契約情報</button>
-                </div>
+  <!-- 延長モーダル -->
+  <div class="modal fade" id="extensionModal" tabindex="-1" aria-labelledby="extensionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="extensionModalLabel">契約延長</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="extensionForm">
+            <div class="mb-3">
+              <label class="form-label">契約名</label>
+              <div class="form-control-plaintext">
+                <strong>ZERO×STYLE 契約</strong>
+              </div>
             </div>
-            <div class="card-body">
-                <table class="table table-borderless small-text mb-0">
-                <thead>
-                    <tr>
-                    <th>請求日</th>
-                    <th>契約名</th>
-                    <th>単価</th>
-                    <th>追加ユーザー数</th>
-                    <th>単価</th>
-                    <th>追加ストレージ</th>
-                    <th>単価</th>
-                    <th>合計</th>
-                    <th>税込み</th>
-                    </tr>
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label">契約開始日</label>
+                <div class="form-control-plaintext">2024-01-01</div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">契約終了日</label>
+                <div class="form-control-plaintext">2024-12-31</div>
+              </div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+              <div class="col-6">
+                <label for="extensionStartDate" class="form-label">延長開始日 <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="extensionStartDate" required>
+              </div>
+              <div class="col-6">
+                <label for="extensionEndDate" class="form-label">延長終了日 <span class="text-danger">*</span></label>
+                <input type="date" class="form-control" id="extensionEndDate" required>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-primary" onclick="saveExtension()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 解約モーダル -->
+  <div class="modal fade" id="cancellationModal" tabindex="-1" aria-labelledby="cancellationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cancellationModalLabel">契約解約</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="cancellationForm">
+            <div class="mb-3">
+              <label class="form-label">契約名</label>
+              <div class="form-control-plaintext">
+                <strong>ZERO×STYLE 契約</strong>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label">契約開始日</label>
+                <div class="form-control-plaintext">2024-01-01</div>
+              </div>
+              <div class="col-6">
+                <label class="form-label">契約終了日</label>
+                <div class="form-control-plaintext">2024-12-31</div>
+              </div>
+            </div>
+            <hr>
+            <div class="mb-3">
+              <label for="cancellationDate" class="form-label">契約終了日（自動延長なし） <span class="text-danger">*</span></label>
+              <input type="date" class="form-control" id="cancellationDate" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-warning" onclick="saveCancellation()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- データ削除モーダル -->
+  <div class="modal fade" id="dataDeletionModal" tabindex="-1" aria-labelledby="dataDeletionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="dataDeletionModalLabel">データ削除</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-danger">
+            <h6><i class="bi bi-exclamation-triangle"></i> 警告</h6>
+            <p class="mb-0">解約したクライアントのデータを削除できます。</p>
+          </div>
+          <p class="mb-3">本当に削除してよいですか？</p>
+          <div class="d-flex justify-content-center gap-3">
+            <button type="button" class="btn btn-success" onclick="confirmDataDeletion('Y')">Y</button>
+            <button type="button" class="btn btn-danger" onclick="confirmDataDeletion('N')">N</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../style.js"></script>
+  <script>
+    // ヘッダー＆フッター読み込み
+    fetch('provider_header.html').then(r=>r.text()).then(html=>document.getElementById('header-container').innerHTML=html);
+    fetch('provider_footer.html').then(r=>r.text()).then(html=>document.getElementById('footer-container').innerHTML=html);
+    
+    // 請求書プレビューモーダルの表示処理
+    document.addEventListener('DOMContentLoaded', function() {
+      const invoiceModal = document.getElementById('invoicePreviewModal');
+      if (invoiceModal) {
+        invoiceModal.addEventListener('show.bs.modal', function(event) {
+          const button = event.relatedTarget;
+          const invoiceId = button.getAttribute('data-invoice-id');
+          const invoiceDate = button.getAttribute('data-invoice-date');
+          const invoiceAmount = button.getAttribute('data-invoice-amount');
+          
+          displayInvoice(invoiceId, invoiceDate, invoiceAmount);
+        });
+      }
+    });
+    
+    // 請求書の内容を表示
+    function displayInvoice(invoiceId, invoiceDate, invoiceAmount) {
+      const invoiceContent = document.getElementById('invoiceContent');
+      const taxAmount = Math.floor(Number(invoiceAmount) * 0.1);
+      const totalAmount = Number(invoiceAmount) + taxAmount;
+      
+      const invoiceHTML = `
+        <div class="invoice-container p-4">
+          <!-- 請求書タイトル -->
+          <div class="text-center mb-4">
+            <h3 class="text-primary fw-bold">請求書</h3>
+          </div>
+          
+          <!-- 請求元・請求先情報 -->
+          <div class="row mb-4">
+            <div class="col-6">
+              <h6 class="fw-bold text-primary">【請求元】</h6>
+              <p class="mb-1">〒690-0011 島根県松江市東津田町453-2</p>
+              <p class="mb-1 fw-bold">ハウジング・スタッフ 株式会社</p>
+              <p class="mb-1">代表取締役 平儀野好美</p>
+              <p class="mb-1">登録番号: T8280001005871</p>
+              <p class="mb-1">TEL: 0852-67-5713</p>
+            </div>
+            <div class="col-6 text-end">
+              <h6 class="fw-bold text-primary">【請求先】</h6>
+              <p class="mb-1 fw-bold">ZERO×STYLE</p>
+              <p class="mb-1">〒1234567</p>
+              <p class="mb-1">東京都渋谷区〇〇1-1-1</p>
+              <p class="mb-1">担当者 田中 一郎</p>
+              <p class="mb-1">TEL: 03-1234-5678</p>
+            </div>
+          </div>
+          
+          <!-- ご請求金額 -->
+          <div class="text-center mb-4 p-3 bg-light rounded">
+            <h5 class="text-primary fw-bold mb-2">ご請求金額</h5>
+            <h3 class="text-danger fw-bold">¥${totalAmount.toLocaleString()} <small class="text-muted">(税込)</small></h3>
+          </div>
+          
+          <!-- 請求メッセージ -->
+          <div class="text-center mb-4">
+            <p class="text-muted">上記のとおり請求申し上げます。よろしくお取り計らいのほどご依頼申し上げます。</p>
+          </div>
+          
+          <!-- ご請求内容 -->
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">【ご請求内容】</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th class="text-center">日付</th>
+                    <th class="text-center">内容</th>
+                    <th class="text-center">税率</th>
+                    <th class="text-center">金額(税込)</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td>2024-04-01</td>
-                    <td>Lite Plan</td>
-                    <td>¥10,000</td>
-                    <td>2</td>
-                    <td>¥2,000</td>
-                    <td>100GB</td>
-                    <td>¥1,000</td>
-                    <td>¥14,000</td>
-                    <td>¥15,400</td>
-                    </tr>
+                  <tr>
+                    <td class="text-center">${formatShortDate(invoiceDate)}</td>
+                    <td>HAUSECAN利用料 ${getMonthName(invoiceDate)}分</td>
+                    <td class="text-center">10%</td>
+                    <td class="text-end">¥${totalAmount.toLocaleString()}</td>
+                  </tr>
                 </tbody>
-                </table>
+                <tfoot>
+                  <tr class="table-light">
+                    <th colspan="3" class="text-end">小計</th>
+                    <th class="text-end">¥${Number(invoiceAmount).toLocaleString()}</th>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
-            </div>
-
-            <!-- 下部テーブル: ご請求履歴 -->
-            <div class="mt-4">
-            <h5 class="small-text">ご請求履歴</h5>
-            <table class="table table-striped small-text">
-                <thead>
-                <tr>
-                    <th>インデックス</th>
-                    <th>ステータス</th>
-                    <th>請求日</th>
-                    <th>契約名</th>
-                    <th>追加ユーザー</th>
-                    <th>追加ストレージ</th>
-                    <th>領収書</th>
-                    <th>請求書</th>
-                </tr>
+          </div>
+          
+          <!-- 税率区分 -->
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">【税率区分】</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th class="text-center">税率区分</th>
+                    <th class="text-center">消費税</th>
+                    <th class="text-center">金額(税込)</th>
+                  </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><span class="badge bg-success">支払済</span></td>
-                    <td>2024-01-15</td>
-                    <td>Lite Plan</td>
-                    <td>10</td>
-                    <td>100GB</td>
-                    <td><a href="#" class="text-primary small-text" style="text-decoration: underline;">領収書</a></td>
-                    <td><a href="#" class="text-primary small-text" style="text-decoration: underline;">請求書</a></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><span class="badge bg-warning">未払</span></td>
-                    <td>2024-02-15</td>
-                    <td>Lite Plan</td>
-                    <td>20</td>
-                    <td>100GB</td>
-                    <td><a href="#" class="text-primary small-text" style="text-decoration: underline;">領収書</a></td>
-                    <td><a href="#" class="text-primary small-text" style="text-decoration: underline;">請求書</a></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><span class="badge bg-warning">未払</span></td>
-                    <td>2024-03-15</td>
-                    <td>Lite Plan</td>
-                    <td>30</td>
-                    <td>100GB</td>
-                    <td><a href="#" class="text-primary small-text" style="text-decoration: underline;">領収書</a></td>
-                    <td><a href="#" class="text-primary small-text" style="text-decoration: underline;">請求書</a></td>
-                </tr>
+                  <tr>
+                    <td class="text-center">10%対象</td>
+                    <td class="text-end">¥${taxAmount.toLocaleString()}</td>
+                    <td class="text-end">¥${totalAmount.toLocaleString()}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">非課税</td>
+                    <td class="text-end">¥0</td>
+                    <td class="text-end">¥0</td>
+                  </tr>
                 </tbody>
-            </table>
+              </table>
             </div>
+          </div>
+          
+          <!-- お支払い期限 -->
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">【お支払い期限】</h6>
+            <p class="text-danger fw-bold">${getPaymentDueDate(invoiceDate)} までにお支払いお願い致します。</p>
+          </div>
+          
+          <!-- お振込先 -->
+          <div class="mb-4">
+            <h6 class="fw-bold text-primary mb-3">【お振込先】</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td><strong>銀行名:</strong> 山陰合同銀行</td>
+                    <td><strong>支店名:</strong> 津田支店</td>
+                    <td><strong>口座種別:</strong> 普通預金</td>
+                    <td><strong>口座番号:</strong> 4509370</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4"><strong>口座名義:</strong> ハウジング・スタッフ株式会社 代表取締役 平儀野好美</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <!-- 振込手数料の注意 -->
+          <div class="text-center">
+            <p class="text-muted small">恐れ入りますが振込手数料はお客様の負担でお願いいたします</p>
+          </div>
         </div>
-        </div> <!-- end tab-content -->
-    </div> <!-- end container -->
+      `;
+      
+      invoiceContent.innerHTML = invoiceHTML;
+    }
+    
+    // 日本語の日付形式に変換
+    function formatJapaneseDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${year}年${month}月${day}日`;
+    }
+    
+    // 短縮日付形式（YYYY/M/D）
+    function formatShortDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${year}/${month}/${day}`;
+    }
+    
+    // 月名を取得
+    function getMonthName(dateString) {
+      const date = new Date(dateString);
+      const month = date.getMonth() + 1;
+      return month + '月';
+    }
+    
+    // 支払期限を計算（請求日から30日後）
+    function getPaymentDueDate(invoiceDate) {
+      const date = new Date(invoiceDate);
+      date.setDate(date.getDate() + 30);
+      return date.toISOString().split('T')[0];
+    }
+    
+    // プリント機能
+    function printInvoice() {
+      window.print();
+    }
 
-    <!-- フッターの読み込み -->
-    <div id="footer-container"></div>
+    // 延長モーダルを開く
+    function openExtensionModal() {
+      const modal = new bootstrap.Modal(document.getElementById('extensionModal'));
+      modal.show();
+    }
 
-    <!-- 契約種類モーダル -->
-    <div class="modal fade" id="contractModal" tabindex="-1" aria-labelledby="contractModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content small-text">
-            <div class="modal-header">
-            <h5 class="modal-title" id="contractModalLabel">契約種類の選択</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-            </div>
-            <div class="modal-body">
-            <p>各プランの説明:</p>
-            <ul>
-                <li><strong>Free:</strong> 基本機能のみ（10GB）</li>
-                <li><strong>Lite:</strong> 追加機能付き（100GB）</li>
-                <li><strong>Pro:</strong> 高度な機能搭載（500GB）</li>
-                <li><strong>EPS:</strong> 大規模向け（1000GB）</li>
-            </ul>
-            <div class="d-grid gap-2">
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal">Free</button>
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal">Lite</button>
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal">Pro</button>
-                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-dismiss="modal">EPS</button>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
+    // 解約モーダルを開く
+    function openCancellationModal() {
+      const modal = new bootstrap.Modal(document.getElementById('cancellationModal'));
+      modal.show();
+    }
 
-    <!-- 支払い方法・カード情報モーダル -->
-    <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content small-text">
-            <div class="modal-header">
-            <h5 class="modal-title" id="cardModalLabel">クレジットカード情報</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-            </div>
-            <div class="modal-body">
-            <p>クレジットカードを登録するためのフォームをここに表示します。</p>
-            <form>
-                <div class="mb-2">
-                <label class="form-label small-text">カード番号</label>
-                <input type="text" class="form-control form-control-small" placeholder="**** **** **** ****">
-                </div>
-                <div class="mb-2">
-                <label class="form-label small-text">有効期限</label>
-                <input type="text" class="form-control form-control-small" placeholder="MM/YY">
-                </div>
-                <div class="mb-2">
-                <label class="form-label small-text">セキュリティコード</label>
-                <input type="text" class="form-control form-control-small" placeholder="CVC">
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm small-text">登録</button>
-            </form>
-            </div>
-        </div>
-        </div>
-    </div>
+    // データ削除モーダルを開く
+    function openDataDeletionModal() {
+      const modal = new bootstrap.Modal(document.getElementById('dataDeletionModal'));
+      modal.show();
+    }
 
-    <!-- フッターの読み込み -->
-    <div id="footer-container"></div>
+    // 延長を保存
+    function saveExtension() {
+      const startDate = document.getElementById('extensionStartDate').value;
+      const endDate = document.getElementById('extensionEndDate').value;
+      
+      if (!startDate || !endDate) {
+        alert('延長開始日と延長終了日を入力してください');
+        return;
+      }
+      
+      if (new Date(startDate) >= new Date(endDate)) {
+        alert('延長開始日は延長終了日より前の日付を入力してください');
+        return;
+      }
+      
+      alert(`契約を延長しました\n延長期間: ${startDate} ～ ${endDate}`);
+      
+      // モーダルを閉じる
+      const modal = bootstrap.Modal.getInstance(document.getElementById('extensionModal'));
+      modal.hide();
+      
+      // フォームをリセット
+      document.getElementById('extensionForm').reset();
+    }
 
-    <!-- Bootstrap JS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../style.js"></script>
+    // 解約を保存
+    function saveCancellation() {
+      const cancellationDate = document.getElementById('cancellationDate').value;
+      
+      if (!cancellationDate) {
+        alert('契約終了日を入力してください');
+        return;
+      }
+      
+      alert(`契約を解約しました\n解約日: ${cancellationDate}`);
+      
+      // モーダルを閉じる
+      const modal = bootstrap.Modal.getInstance(document.getElementById('cancellationModal'));
+      modal.hide();
+      
+      // フォームをリセット
+      document.getElementById('cancellationForm').reset();
+    }
 
-    <script>
-        fetch('provider_header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-container').innerHTML = data;
-        });
-
-        fetch('provider_footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-container').innerHTML = data;
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-        applyCustomSettings();
-        });
-    </script>
+    // データ削除の確認
+    function confirmDataDeletion(choice) {
+      if (choice === 'Y') {
+        if (confirm('本当にデータを削除しますか？この操作は取り消せません。')) {
+          alert('クライアントのデータを削除しました');
+          // 実際の実装では、ここでデータ削除処理を実行
+        }
+      } else {
+        alert('データ削除をキャンセルしました');
+      }
+      
+      // モーダルを閉じる
+      const modal = bootstrap.Modal.getInstance(document.getElementById('dataDeletionModal'));
+      modal.hide();
+    }
+  </script>
 </body>
 </html>

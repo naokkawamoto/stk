@@ -72,7 +72,7 @@
       border: none;
       border-radius: 8px;
       padding: 8px 16px;
-      font-size: 0.9rem;
+      font-size: 0.5rem;
       font-weight: bold;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -163,22 +163,34 @@
         <button class="room-button" style="top: 230px; left: 280px;" data-bs-toggle="modal" data-bs-target="#roomModal">
           洋室1
         </button>
+        <!-- 階高設定ボタン -->
+        <button class="spec-button" style="top: 20px; left: 5px;" data-bs-toggle="modal" data-bs-target="#floorHeightModal">
+          階高設定
+        </button>
         <!-- ポーチ仕様ボタン -->
-        <button class="spec-button" style="top: 20px; left: 20px;" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
+        <button class="spec-button" style="top: 50px; left: 5px;" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
           ポーチ仕様
         </button>
         <!-- 窓仕様ボタン -->
-        <button class="spec-button" style="top: 20px; left: 150px;" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
+        <button class="spec-button" style="top: 80px; left: 5px;" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
           窓仕様
         </button>
         <!-- 玄関仕様ボタン -->
-        <button class="spec-button" style="top: 20px; left: 280px;" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
+        <button class="spec-button" style="top: 110px; left: 5px;" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
           玄関仕様
         </button>
-        <!-- 階高設定ボタン -->
-        <button class="spec-button" style="top: 20px; left: 410px;" data-bs-toggle="modal" data-bs-target="#floorHeightModal">
-          階高設定
-        </button>
+        
+        <!-- 柱カード -->
+        <div class="card" style="position: absolute; top: 150px; left: 5px; width: 20px; font-size: 0.5rem;">
+          <div class="card-body p-2">
+            <div class="d-flex align-items-center justify-content-between">
+              <span class="fw-bold">柱</span>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="structureToggle" checked>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- 右側：外部仕様選択カラム（幅 20%）-->
@@ -961,41 +973,22 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-6">
-              <label class="form-label fw-bold">ポーチ材</label>
+              <label class="form-label fw-bold">材質・部材タイプ</label>
               <select class="form-select">
-                <option>コンクリート</option>
-                <option>タイル</option>
-                <option>石</option>
-                <option>木材</option>
+                <option>磁器タイル張り／100角</option>
+                <option>磁器タイル張り／300角</option>
+                <option>モルタル金コテ</option>
+                <option>石張り／鉄平石</option>
+                <option>クッションフロアー</option>
               </select>
             </div>
             <div class="col-md-6">
-              <label class="form-label fw-bold">ポーチサイズ</label>
-              <select class="form-select">
-                <option>1.5m × 1.5m</option>
-                <option>2.0m × 1.5m</option>
-                <option>2.0m × 2.0m</option>
-                <option>3.0m × 2.0m</option>
-              </select>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-6">
-              <label class="form-label fw-bold">ポーチ高</label>
+              <label class="form-label fw-bold">取り付け高</label>
               <select class="form-select">
                 <option>150mm</option>
                 <option>200mm</option>
                 <option>300mm</option>
                 <option>450mm</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold">ポーチ色</label>
-              <select class="form-select">
-                <option>グレー</option>
-                <option>ベージュ</option>
-                <option>ブラウン</option>
-                <option>その他</option>
               </select>
             </div>
           </div>
@@ -1072,12 +1065,16 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-md-6">
-              <label class="form-label fw-bold">ドア材質</label>
+              <label class="form-label fw-bold">材質・部材タイプ</label>
               <select class="form-select">
-                <option>木製</option>
-                <option>アルミ</option>
-                <option>スチール</option>
-                <option>樹脂</option>
+                <option>アルミ製／引き違い戸／2枚引違戸</option>
+                <option>アルミ製／引き違い戸／3枚引違戸</option>
+                <option>アルミ製／引き違い戸／4枚引違戸</option>
+                <option>アルミ製／引き違い戸欄間／引違戸欄間付</option>
+                <option>アルミサッシ／単板ガラス／片開きドア</option>
+                <option>アルミサッシ／単板ガラス／親子ドア</option>
+                <option>アルミサッシ／単板ガラス／両開きドア</option>
+                <option>アルミサッシ／単板ガラス／片引き戸</option>
               </select>
             </div>
             <div class="col-md-6">
@@ -1087,26 +1084,6 @@
                 <option>1000mm × 2000mm</option>
                 <option>1200mm × 2000mm</option>
                 <option>1500mm × 2000mm</option>
-              </select>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-md-6">
-              <label class="form-label fw-bold">ドア色</label>
-              <select class="form-select">
-                <option>ブラウン</option>
-                <option>ホワイト</option>
-                <option>ブラック</option>
-                <option>その他</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-bold">ドアタイプ</label>
-              <select class="form-select">
-                <option>片開き</option>
-                <option>両開き</option>
-                <option>引き戸</option>
-                <option>折れ戸</option>
               </select>
             </div>
           </div>
@@ -1985,4 +1962,5 @@
 
   </script>
 </body>
+</html> 
 </html> 

@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+    <title>ユーザー設定</title>
 
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
 
     <!-- Optional custom CSS -->
     <link rel="stylesheet" href="../style.css">
@@ -17,72 +20,79 @@
 
     <!-- コンテンツエリア -->
     <div class="container mt-4">
-        <h2>User Management</h2>
+        <h2>ユーザー設定</h2>
 
-        <!-- 検索窓 -->
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Search Users" aria-label="Search Users" aria-describedby="button-search">
-            <button class="btn btn-primary" type="button" id="button-search">Search</button>
+        <!-- 検索窓と新規登録ボタン -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="input-group" style="width: 300px;">
+                <input type="text" class="form-control" placeholder="ユーザー検索" aria-label="Search Users" aria-describedby="button-search">
+                <button class="btn btn-primary" type="button" id="button-search">検索</button>
+            </div>
+            <button class="btn btn-success" onclick="openAddUserModal()">
+                <i class="bi bi-plus-circle"></i> 新規登録
+            </button>
         </div>
 
         <!-- ユーザー管理テーブル -->
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Index</th>
-                    <th scope="col">UserID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Prefecture</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" class="text-end">Actions</th>
+                    <th scope="col">名前</th>
+                    <th scope="col">メール</th>
+                    <th scope="col">ステータス</th>
+                    <th scope="col" class="text-end">アクション</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>U001</td>
                     <td>John Doe</td>
                     <td>john@example.com</td>
-                    <td>Tokyo</td>
-                    <td>Active</td>
-                    <td class="text-end"><button class="btn btn-primary btn-sm">Details</button></td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-warning btn-sm" onclick="toggleStatus(1)">
+                            <i class="bi bi-pause"></i> Inactive
+                        </button>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row">2</th>
-                    <td>U002</td>
                     <td>Jane Smith</td>
                     <td>jane@example.com</td>
-                    <td>Osaka</td>
-                    <td>Inactive</td>
-                    <td class="text-end"><button class="btn btn-primary btn-sm">Details</button></td>
+                    <td><span class="badge bg-secondary">Inactive</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-success btn-sm" onclick="toggleStatus(2)">
+                            <i class="bi bi-play"></i> Active
+                        </button>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row">3</th>
-                    <td>U003</td>
                     <td>Tom Brown</td>
                     <td>tom@example.com</td>
-                    <td>Hokkaido</td>
-                    <td>Active</td>
-                    <td class="text-end"><button class="btn btn-primary btn-sm">Details</button></td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-warning btn-sm" onclick="toggleStatus(3)">
+                            <i class="bi bi-pause"></i> Inactive
+                        </button>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row">4</th>
-                    <td>U004</td>
                     <td>Alice Johnson</td>
                     <td>alice@example.com</td>
-                    <td>Fukuoka</td>
-                    <td>Active</td>
-                    <td class="text-end"><button class="btn btn-primary btn-sm">Details</button></td>
+                    <td><span class="badge bg-success">Active</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-warning btn-sm" onclick="toggleStatus(4)">
+                            <i class="bi bi-pause"></i> Inactive
+                        </button>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row">5</th>
-                    <td>U005</td>
                     <td>Bob Lee</td>
                     <td>bob@example.com</td>
-                    <td>Kyoto</td>
-                    <td>Inactive</td>
-                    <td class="text-end"><button class="btn btn-primary btn-sm">Details</button></td>
+                    <td><span class="badge bg-secondary">Inactive</span></td>
+                    <td class="text-end">
+                        <button class="btn btn-success btn-sm" onclick="toggleStatus(5)">
+                            <i class="bi bi-play"></i> Active
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -101,6 +111,45 @@
                 </li>
             </ul>
         </nav>
+    </div>
+
+    <!-- 新規登録モーダル -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserModalLabel">新規ユーザー登録</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addUserForm">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">名前</label>
+                            <input type="text" class="form-control" id="userName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">メールアドレス</label>
+                            <input type="email" class="form-control" id="userEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userPassword" class="form-label">パスワード</label>
+                            <input type="password" class="form-control" id="userPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userStatus" class="form-label">初期ステータス</label>
+                            <select class="form-select" id="userStatus">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary" onclick="addUser()">登録</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- フッターの読み込み -->
@@ -131,6 +180,79 @@
         document.addEventListener('DOMContentLoaded', () => {
             applyCustomSettings();
         });
+
+        // ステータス切り替え
+        function toggleStatus(userId) {
+            const row = document.querySelector(`button[onclick="toggleStatus(${userId})"]`).closest('tr');
+            const statusBadge = row.querySelector('.badge');
+            const button = row.querySelector('button');
+            
+            if (statusBadge.textContent === 'Active') {
+                // Active → Inactive
+                statusBadge.textContent = 'Inactive';
+                statusBadge.className = 'badge bg-secondary';
+                button.innerHTML = '<i class="bi bi-play"></i> Active';
+                button.className = 'btn btn-success btn-sm';
+            } else {
+                // Inactive → Active
+                statusBadge.textContent = 'Active';
+                statusBadge.className = 'badge bg-success';
+                button.innerHTML = '<i class="bi bi-pause"></i> Inactive';
+                button.className = 'btn btn-warning btn-sm';
+            }
+            
+            alert(`ユーザー${userId}のステータスを${statusBadge.textContent}に変更しました`);
+        }
+
+        // 新規登録モーダルを開く
+        function openAddUserModal() {
+            const modal = new bootstrap.Modal(document.getElementById('addUserModal'));
+            modal.show();
+        }
+
+        // 新規ユーザー登録
+        function addUser() {
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const password = document.getElementById('userPassword').value;
+            const status = document.getElementById('userStatus').value;
+            
+            if (!name || !email || !password) {
+                alert('すべての項目を入力してください');
+                return;
+            }
+            
+            // 新しい行をテーブルに追加
+            const tbody = document.querySelector('tbody');
+            const newRow = document.createElement('tr');
+            const statusBadge = status === 'active' ? 'bg-success' : 'bg-secondary';
+            const statusText = status === 'active' ? 'Active' : 'Inactive';
+            const buttonClass = status === 'active' ? 'btn-warning' : 'btn-success';
+            const buttonIcon = status === 'active' ? 'bi-pause' : 'bi-play';
+            const buttonText = status === 'active' ? 'Inactive' : 'Active';
+            
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${email}</td>
+                <td><span class="badge ${statusBadge}">${statusText}</span></td>
+                <td class="text-end">
+                    <button class="btn ${buttonClass} btn-sm" onclick="toggleStatus(${Date.now()})">
+                        <i class="bi ${buttonIcon}"></i> ${buttonText}
+                    </button>
+                </td>
+            `;
+            
+            tbody.appendChild(newRow);
+            
+            // モーダルを閉じる
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addUserModal'));
+            modal.hide();
+            
+            // フォームをリセット
+            document.getElementById('addUserForm').reset();
+            
+            alert('新しいユーザーを登録しました');
+        }
 
     </script>
 </body>

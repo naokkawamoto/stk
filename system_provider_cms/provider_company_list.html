@@ -46,8 +46,16 @@
     <!-- 状態プルダウン -->
     <select class="form-select small-text ms-2" style="width:100px;">
         <option value="">状態</option>
-        <option value="有効">有効</option>
-        <option value="無効">無効</option>
+        <option value="契約中">契約中</option>
+        <option value="解約済み">解約済み</option>
+        <option value="データ削除済">データ削除済</option>
+    </select>
+    <!-- 契約更新30日前プルダウン -->
+    <select class="form-select small-text ms-2" style="width:150px;" id="renewal-filter">
+        <option value="">契約更新30日前</option>
+        <option value="30days">30日以内</option>
+        <option value="60days">60日以内</option>
+        <option value="90days">90日以内</option>
     </select>
     <!-- 検索ボタン -->
     <button class="btn btn-primary small-text ms-2" id="button-search">検索</button>
@@ -72,6 +80,7 @@
         <th scope="col" class="small-text">利用ストレージ</th>
         <th scope="col" class="small-text">契約開始日</th>
         <th scope="col" class="small-text">契約終了日</th>
+        <th scope="col" class="small-text">更新まで</th>
         <th scope="col" class="small-text">状態</th>
         <th scope="col" class="text-end small-text">操作</th>
         </tr>
@@ -89,7 +98,8 @@
         <td class="small-text">5/10GB</td>
         <td class="small-text">2024-01-10</td>
         <td class="small-text">2024-12-31</td>
-        <td class="small-text">有効</td>
+        <td class="small-text renewal-days" data-end-date="2024-12-31">365日</td>
+        <td class="small-text">契約中</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -107,7 +117,8 @@
         <td class="small-text">80/100GB</td>
         <td class="small-text">2024-02-05</td>
         <td class="small-text">2024-11-30</td>
-        <td class="small-text">有効</td>
+        <td class="small-text renewal-days" data-end-date="2024-11-30">15日</td>
+        <td class="small-text">契約中</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -125,7 +136,8 @@
         <td class="small-text">450/500GB</td>
         <td class="small-text">2024-03-01</td>
         <td class="small-text">2024-12-31</td>
-        <td class="small-text">有効</td>
+        <td class="small-text renewal-days" data-end-date="2024-12-31">365日</td>
+        <td class="small-text">契約中</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -143,7 +155,8 @@
         <td class="small-text">900/1000GB</td>
         <td class="small-text">2024-01-15</td>
         <td class="small-text">2024-12-31</td>
-        <td class="small-text">有効</td>
+        <td class="small-text renewal-days" data-end-date="2024-12-31">365日</td>
+        <td class="small-text">契約中</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -161,7 +174,8 @@
         <td class="small-text">6/10GB</td>
         <td class="small-text">2024-03-12</td>
         <td class="small-text">2024-12-31</td>
-        <td class="small-text">無効</td>
+        <td class="small-text renewal-days" data-end-date="2024-12-31">365日</td>
+        <td class="small-text">データ削除済</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -178,7 +192,8 @@
         <td class="small-text">5/10GB</td>
         <td class="small-text">2024-01-10</td>
         <td class="small-text">2024-12-31</td>
-        <td class="small-text">有効</td>
+        <td class="small-text renewal-days" data-end-date="2024-12-31">365日</td>
+        <td class="small-text">契約中</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -196,7 +211,8 @@
         <td class="small-text">80/100GB</td>
         <td class="small-text">2024-02-05</td>
         <td class="small-text">2024-11-30</td>
-        <td class="small-text">有効</td>
+        <td class="small-text renewal-days" data-end-date="2024-11-30">15日</td>
+        <td class="small-text">契約中</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -214,7 +230,8 @@
         <td class="small-text">450/500GB</td>
         <td class="small-text">2024-03-01</td>
         <td class="small-text">2024-12-31</td>
-        <td class="small-text">有効</td>
+        <td class="small-text renewal-days" data-end-date="2024-12-31">365日</td>
+        <td class="small-text">契約中</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -232,7 +249,8 @@
         <td class="small-text">900/1000GB</td>
         <td class="small-text">2024-01-15</td>
         <td class="small-text">2024-12-31</td>
-        <td class="small-text">有効</td>
+        <td class="small-text renewal-days" data-end-date="2024-12-31">365日</td>
+        <td class="small-text">契約中</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -250,7 +268,8 @@
         <td class="small-text">6/10GB</td>
         <td class="small-text">2024-03-12</td>
         <td class="small-text">2024-12-31</td>
-        <td class="small-text">無効</td>
+        <td class="small-text renewal-days" data-end-date="2024-12-31">365日</td>
+        <td class="small-text">データ削除済</td>
         <td class="text-end small-text">
             <a href="provider_company_detail.html" class="btn btn-primary btn-sm">詳細</a>
         </td>
@@ -303,7 +322,73 @@ fetch('provider_footer.html')
 // カスタム設定を適用
 document.addEventListener('DOMContentLoaded', () => {
     applyCustomSettings();
+    
+    // URLパラメータからフィルターを適用
+    const urlParams = new URLSearchParams(window.location.search);
+    const filter = urlParams.get('filter');
+    
+    if (filter === 'recent') {
+        // 登録1ヶ月以内のフィルター（契約種類をFreeに設定）
+        const contractSelect = document.querySelector('select[style*="width:120px"]');
+        if (contractSelect) {
+            contractSelect.value = 'Free';
+        }
+    } else if (filter === 'renewal') {
+        // 契約更新30日前のフィルター
+        const renewalSelect = document.getElementById('renewal-filter');
+        if (renewalSelect) {
+            renewalSelect.value = '30days';
+            filterByRenewalDays(30);
+        }
+    }
+    
+    // 契約更新30日前フィルターのイベントリスナー
+    const renewalFilter = document.getElementById('renewal-filter');
+    if (renewalFilter) {
+        renewalFilter.addEventListener('change', function() {
+            const days = this.value;
+            if (days === '30days') {
+                filterByRenewalDays(30);
+            } else if (days === '60days') {
+                filterByRenewalDays(60);
+            } else if (days === '90days') {
+                filterByRenewalDays(90);
+            } else {
+                showAllRows();
+            }
+        });
+    }
 });
+
+// 契約更新日までの日数でフィルタリング
+function filterByRenewalDays(days) {
+    const rows = document.querySelectorAll('tbody tr');
+    const today = new Date();
+    
+    rows.forEach(row => {
+        const renewalCell = row.querySelector('.renewal-days');
+        if (renewalCell) {
+            const endDateStr = renewalCell.getAttribute('data-end-date');
+            const endDate = new Date(endDateStr);
+            const diffTime = endDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays <= days && diffDays >= 0) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+}
+
+// すべての行を表示
+function showAllRows() {
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+        row.style.display = '';
+    });
+}
 </script>
 </body>
 </html>

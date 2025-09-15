@@ -2,121 +2,483 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>請求管理</title>
-    
-    <!-- Bootstrap CSS CDN -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="../style.css">
-    </head>
-    <body>
-    <!-- ヘッダーの読み込み -->
+    <style>
+        .bill-card {
+            border-left: 4px solid #dc3545;
+            transition: all 0.3s ease;
+        }
+        .bill-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .bill-card.paid {
+            border-left-color: #28a745;
+        }
+        .bill-card.pending {
+            border-left-color: #ffc107;
+        }
+        .bill-card.overdue {
+            border-left-color: #dc3545;
+        }
+        .status-badge {
+            font-size: 0.8rem;
+        }
+        .bill-stats {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            margin: 5px;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .amount-cell {
+            text-align: right;
+            font-weight: 600;
+        }
+        .overdue-amount {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .paid-amount {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .pending-amount {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        .bank-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
     <div id="header-container"></div>
-    
-    <div class="container mt-4">
-        <h2 class="mb-3">請求状況</h2>
-        <!-- パンくずリスト -->
-        <nav aria-label="breadcrumb">
-        <ol class="breadcrumb small-text">
-            <li class="breadcrumb-item"><a href="provider_dashboard.html">ダッシュボード</a></li>
-            <li class="breadcrumb-item active" aria-current="page">請求管理</li>
-        </ol>
-        </nav>
-        
-        <!-- 検索窓と新規請求ボタン -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-        <div class="input-group w-50">
-            <input type="text" class="form-control small-text" placeholder="請求情報を検索" aria-label="検索">
-            <button class="btn btn-primary small-text" type="button">検索</button>
+
+    <div class="container-fluid mt-4 px-3">
+        <!-- ページタイトル -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0">請求管理</h4>
+            <div>
+                <button class="btn btn-outline-primary me-2" onclick="refreshBills()">
+                    <i class="bi bi-arrow-clockwise"></i> 更新
+                </button>
+                <button class="btn btn-success" onclick="generateMonthlyBills()">
+                    <i class="bi bi-file-earmark-text"></i> 今月請求書生成
+                </button>
+            </div>
         </div>
-        <a href="provider_bill_create.html" class="btn btn-success btn-sm small-text">新規請求作成</a>
+
+        <!-- 統計情報テーブル -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">請求統計</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 15%;">期間</th>
+                                <th style="width: 15%;">請求額</th>
+                                <th style="width: 12%;">請求件数</th>
+                                <th style="width: 15%;">入金額</th>
+                                <th style="width: 12%;">入金件数</th>
+                                <th style="width: 15%;">未入金額</th>
+                                <th style="width: 16%;">未入金件数</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">今月予定</td>
+                                <td class="amount-cell">¥2,450,000</td>
+                                <td class="text-center">25件</td>
+                                <td class="amount-cell paid-amount">¥1,850,000</td>
+                                <td class="text-center">18件</td>
+                                <td class="amount-cell pending-amount">¥600,000</td>
+                                <td class="text-center">7件</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">先月</td>
+                                <td class="amount-cell">¥2,200,000</td>
+                                <td class="text-center">22件</td>
+                                <td class="amount-cell paid-amount">¥2,150,000</td>
+                                <td class="text-center">21件</td>
+                                <td class="amount-cell pending-amount">¥50,000</td>
+                                <td class="text-center">1件</td>
+                            </tr>
+                            <tr>
+                                <td class="fw-bold">未入金</td>
+                                <td class="amount-cell">¥450,000</td>
+                                <td class="text-center">5件</td>
+                                <td class="amount-cell">¥0</td>
+                                <td class="text-center">0件</td>
+                                <td class="amount-cell pending-amount">¥450,000</td>
+                                <td class="text-center">5件</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        
-        <!-- 請求管理テーブル -->
+
+
+        <!-- フィルター・検索 -->
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <select class="form-select" id="statusFilter">
+                    <option value="">すべてのステータス</option>
+                    <option value="paid">入金済み</option>
+                    <option value="pending">未入金</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="clientFilter">
+                    <option value="">すべてのクライアント</option>
+                    <option value="CLI001">ZERO×STYLE</option>
+                    <option value="CLI002">ABC建設</option>
+                    <option value="CLI003">田中設計</option>
+                    <option value="CLI004">鈴木工務店</option>
+                    <option value="CLI005">渡辺建築</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="請求書番号で検索..." id="billNumberSearch">
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-outline-primary w-100" onclick="applyFilters()">
+                    <i class="bi bi-search"></i> 検索
+                </button>
+            </div>
+        </div>
+
+        <!-- 請求一覧 -->
         <div class="card">
-        <div class="card-body">
-            <table class="table table-striped small-text">
-            <thead>
-                <tr>
-                <th scope="col" class="small-text">請求ID</th>
-                <th scope="col" class="small-text">クライアント名</th>
-                <th scope="col" class="small-text">未請求額</th>
-                <th scope="col" class="small-text">請求済み額</th>
-                <th scope="col" class="small-text">未払い額</th>
-                <th scope="col" class="small-text">請求日</th>
-                <th scope="col" class="small-text">支払い期日</th>
-                <th scope="col" class="text-end small-text">操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td class="small-text">BILL-001</td>
-                <td class="small-text">株式会社サンプル1</td>
-                <td class="small-text">¥200,000</td>
-                <td class="small-text">¥1,300,000</td>
-                <td class="small-text"><span class="text-danger">¥50,000</span></td>
-                <td class="small-text">2024-04-01</td>
-                <td class="small-text">2024-04-30</td>
-                <td class="text-end small-text">
-                    <a href="provider_bill_detail.html" class="btn btn-primary btn-sm small-text">詳細</a>
-                </td>
-                </tr>
-                <tr>
-                <td class="small-text">BILL-002</td>
-                <td class="small-text">有限会社サンプル2</td>
-                <td class="small-text">¥150,000</td>
-                <td class="small-text">¥900,000</td>
-                <td class="small-text"><span class="text-danger">¥20,000</span></td>
-                <td class="small-text">2024-03-25</td>
-                <td class="small-text">2024-04-20</td>
-                <td class="text-end small-text">
-                    <a href="provider_bill_detail.html" class="btn btn-primary btn-sm small-text">詳細</a>
-                </td>
-                </tr>
-                <tr>
-                <td class="small-text">BILL-003</td>
-                <td class="small-text">株式会社サンプル3</td>
-                <td class="small-text">¥100,000</td>
-                <td class="small-text">¥1,000,000</td>
-                <td class="small-text"><span class="text-danger">¥0</span></td>
-                <td class="small-text">2024-03-20</td>
-                <td class="small-text">2024-04-15</td>
-                <td class="text-end small-text">
-                    <a href="provider_bill_detail.html" class="btn btn-primary btn-sm small-text">詳細</a>
-                </td>
-                </tr>
-                <!-- 必要に応じて追加 -->
-            </tbody>
-            </table>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">請求一覧</h5>
+                <div class="btn-group btn-group-sm" role="group">
+                    <input type="radio" class="btn-check" name="sortOrder" id="sortNewest" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="sortNewest">最新順</label>
+                    <input type="radio" class="btn-check" name="sortOrder" id="sortOldest" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="sortOldest">古い順</label>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="billTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 8%;">請求書番号</th>
+                                <th style="width: 12%;">クライアント</th>
+                                <th style="width: 8%;">請求日</th>
+                                <th style="width: 8%;">支払期限</th>
+                                <th style="width: 10%;">請求金額</th>
+                                <th style="width: 8%;">ステータス</th>
+                                <th style="width: 8%;">入金日</th>
+                                <th style="width: 12%;">担当者</th>
+                                <th style="width: 10%;">電話番号</th>
+                                <th style="width: 16%;">メール</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 請求1: 入金済み -->
+                            <tr class="bill-card paid" data-id="1" data-status="paid" data-client="CLI001" data-amount="150000">
+                                <td><code>INV-2025-001</code></td>
+                                <td>
+                                    <span class="badge bg-primary">CLI001</span><br>
+                                    <small class="text-muted">ZERO×STYLE</small>
+                                </td>
+                                <td>2025-01-01</td>
+                                <td>2025-01-31</td>
+                                <td class="amount-cell paid-amount">¥150,000</td>
+                                <td><span class="badge bg-success status-badge">入金済み</span></td>
+                                <td>
+                                    <input type="date" class="form-control form-control-sm" value="2025-01-15" onchange="updatePaymentDate(1, this.value)">
+                                </td>
+                                <td>山田太郎</td>
+                                <td>03-1234-5678</td>
+                                <td>yamada@zerostyle.com</td>
+                            </tr>
+
+                            <!-- 請求2: 未入金 -->
+                            <tr class="bill-card pending" data-id="2" data-status="pending" data-client="CLI002" data-amount="200000">
+                                <td><code>INV-2025-002</code></td>
+                                <td>
+                                    <span class="badge bg-primary">CLI002</span><br>
+                                    <small class="text-muted">ABC建設</small>
+                                </td>
+                                <td>2025-01-01</td>
+                                <td>2025-01-31</td>
+                                <td class="amount-cell pending-amount">¥200,000</td>
+                                <td><span class="badge bg-warning status-badge">未入金</span></td>
+                                <td>
+                                    <button class="btn btn-success btn-sm" onclick="markAsPaid(2)">
+                                        <i class="bi bi-check-circle"></i> 入金
+                                    </button>
+                                </td>
+                                <td>佐藤花子</td>
+                                <td>06-9876-5432</td>
+                                <td>sato@abc-construction.com</td>
+                            </tr>
+
+
+                            <!-- 請求4: 入金済み -->
+                            <tr class="bill-card paid" data-id="4" data-status="paid" data-client="CLI004" data-amount="120000">
+                                <td><code>INV-2025-003</code></td>
+                                <td>
+                                    <span class="badge bg-primary">CLI004</span><br>
+                                    <small class="text-muted">鈴木工務店</small>
+                                </td>
+                                <td>2025-01-01</td>
+                                <td>2025-01-31</td>
+                                <td class="amount-cell paid-amount">¥120,000</td>
+                                <td><span class="badge bg-success status-badge">入金済み</span></td>
+                                <td>
+                                    <input type="date" class="form-control form-control-sm" value="2025-01-18" onchange="updatePaymentDate(4, this.value)">
+                                </td>
+                                <td>鈴木次郎</td>
+                                <td>045-1234-5678</td>
+                                <td>suzuki@suzuki-koumuten.com</td>
+                            </tr>
+
+                            <!-- 請求5: 未入金 -->
+                            <tr class="bill-card pending" data-id="5" data-status="pending" data-client="CLI005" data-amount="250000">
+                                <td><code>INV-2025-004</code></td>
+                                <td>
+                                    <span class="badge bg-primary">CLI005</span><br>
+                                    <small class="text-muted">渡辺建築</small>
+                                </td>
+                                <td>2025-01-01</td>
+                                <td>2025-01-31</td>
+                                <td class="amount-cell pending-amount">¥250,000</td>
+                                <td><span class="badge bg-warning status-badge">未入金</span></td>
+                                <td>
+                                    <button class="btn btn-success btn-sm" onclick="markAsPaid(5)">
+                                        <i class="bi bi-check-circle"></i> 入金
+                                    </button>
+                                </td>
+                                <td>渡辺三郎</td>
+                                <td>052-1234-5678</td>
+                                <td>watanabe@watanabe-kenchiku.com</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
+        <!-- ページネーション -->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- フッター -->
+    <div id="footer-container"></div>
+
+    <!-- 入金記録モーダル -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">入金記録</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="paymentForm">
+                        <div class="mb-3">
+                            <label for="billNumber" class="form-label">請求書番号</label>
+                            <input type="text" class="form-control" id="billNumber" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="clientName" class="form-label">クライアント</label>
+                            <input type="text" class="form-control" id="clientName" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="billAmount" class="form-label">請求金額</label>
+                            <input type="text" class="form-control" id="billAmount" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="paymentDate" class="form-label">入金日 <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="paymentDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="paymentAmount" class="form-label">入金金額 <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="paymentAmount" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bankReference" class="form-label">銀行取引番号</label>
+                            <input type="text" class="form-control" id="bankReference" placeholder="振込依頼人名や取引番号">
+                        </div>
+                        <div class="mb-3">
+                            <label for="paymentNote" class="form-label">備考</label>
+                            <textarea class="form-control" id="paymentNote" rows="3" placeholder="入金に関する備考"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-success" onclick="confirmPayment()">入金記録</button>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <!-- フッターの読み込み -->
-    <div id="footer-container"></div>
-    
-    <!-- Bootstrap JS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../style.js"></script>
-    
-    <!-- JavaScript to load header and footer -->
     <script>
-        fetch('provider_header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-container').innerHTML = data;
-        });
-        
-        fetch('provider_footer.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('footer-container').innerHTML = data;
-        });
-        
-        document.addEventListener('DOMContentLoaded', () => {
-        applyCustomSettings();
-        });
+        // ヘッダー＆フッター読み込み
+        fetch('provider_header.html').then(r=>r.text()).then(html=>document.getElementById('header-container').innerHTML=html);
+        fetch('provider_footer.html').then(r=>r.text()).then(html=>document.getElementById('footer-container').innerHTML=html);
+
+        // 未入金を入金済みに変更
+        function markAsPaid(billId) {
+            const row = document.querySelector(`tr[data-id="${billId}"]`);
+            if (!row) return;
+
+            // ステータスを更新
+            row.setAttribute('data-status', 'paid');
+            row.className = 'bill-card paid';
+            
+            // バッジを更新
+            const statusBadge = row.querySelector('.status-badge');
+            statusBadge.textContent = '入金済み';
+            statusBadge.className = 'badge bg-success status-badge';
+            
+            // 入金日を今日の日付で設定
+            const paymentDateCell = row.querySelector('td:nth-child(7)');
+            const today = new Date().toISOString().split('T')[0];
+            paymentDateCell.innerHTML = `<input type="date" class="form-control form-control-sm" value="${today}" onchange="updatePaymentDate(${billId}, this.value)">`;
+            
+            alert('入金済みに変更しました');
+            updateStats();
+        }
+
+        // 入金日を更新
+        function updatePaymentDate(billId, paymentDate) {
+            alert(`請求書ID ${billId} の入金日を ${paymentDate} に更新しました`);
+        }
+
+        // 入金確認
+        function confirmPayment() {
+            const paymentDate = document.getElementById('paymentDate').value;
+            const paymentAmount = document.getElementById('paymentAmount').value;
+
+            if (!paymentDate || !paymentAmount) {
+                alert('入金日と入金金額は必須です');
+                return;
+            }
+
+            alert('入金を記録しました');
+            
+            // モーダルを閉じる
+            const modal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+            modal.hide();
+        }
+
+        // 請求詳細表示
+        function viewBillDetail(billId) {
+            alert(`請求書ID ${billId} の詳細を表示します`);
+        }
+
+        // 督促送信
+        function sendReminder(billId) {
+            alert(`請求書ID ${billId} の督促メールを送信します`);
+        }
+
+        // 今月請求書生成
+        function generateMonthlyBills() {
+            alert('今月の請求書を生成します');
+        }
+
+        // 請求を更新
+        function refreshBills() {
+            alert('請求一覧を更新しました');
+        }
+
+        // フィルターを適用
+        function applyFilters() {
+            alert('フィルターを適用しました');
+        }
+
+        // 統計情報を更新
+        function updateStats() {
+            const rows = document.querySelectorAll('#billTable tbody tr:not([style*="display: none"])');
+            let totalAmount = 0;
+            let paidAmount = 0;
+            let pendingAmount = 0;
+            
+            rows.forEach(row => {
+                const amount = parseInt(row.getAttribute('data-amount'));
+                const status = row.getAttribute('data-status');
+                
+                totalAmount += amount;
+                
+                if (status === 'paid') {
+                    paidAmount += amount;
+                } else if (status === 'pending') {
+                    pendingAmount += amount;
+                }
+            });
+            
+            // 統計テーブルを更新
+            const currentMonthRow = document.querySelector('tbody tr:nth-child(1)');
+            const lastMonthRow = document.querySelector('tbody tr:nth-child(2)');
+            const unpaidRow = document.querySelector('tbody tr:nth-child(3)');
+            
+            if (currentMonthRow) {
+                currentMonthRow.querySelector('td:nth-child(2)').textContent = `¥${totalAmount.toLocaleString()}`;
+                currentMonthRow.querySelector('td:nth-child(4)').textContent = `¥${paidAmount.toLocaleString()}`;
+                currentMonthRow.querySelector('td:nth-child(6)').textContent = `¥${pendingAmount.toLocaleString()}`;
+            }
+            
+            if (unpaidRow) {
+                unpaidRow.querySelector('td:nth-child(2)').textContent = `¥${pendingAmount.toLocaleString()}`;
+                unpaidRow.querySelector('td:nth-child(6)').textContent = `¥${pendingAmount.toLocaleString()}`;
+            }
+        }
     </script>
 </body>
 </html>
