@@ -30,12 +30,6 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-        .export-section {
-            background-color: #e3f2fd;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
@@ -50,7 +44,7 @@
                 <button class="btn btn-outline-primary me-2" onclick="refreshLogs()">
                     <i class="bi bi-arrow-clockwise"></i> 更新
                 </button>
-                <button class="btn btn-success" onclick="exportLogs()">
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exportModal">
                     <i class="bi bi-download"></i> エクスポート
                 </button>
             </div>
@@ -114,43 +108,6 @@
             </div>
         </div>
 
-        <!-- エクスポート設定 -->
-        <div class="export-section">
-            <h6 class="mb-3"><i class="bi bi-download"></i> エクスポート設定</h6>
-            <div class="row">
-                <div class="col-md-3">
-                    <label class="form-label small">形式</label>
-                    <select class="form-select form-select-sm" id="exportFormat">
-                        <option value="csv">CSV</option>
-                        <option value="excel">Excel</option>
-                        <option value="pdf">PDF</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label small">期間</label>
-                    <select class="form-select form-select-sm" id="exportPeriod">
-                        <option value="today">本日</option>
-                        <option value="week">今週</option>
-                        <option value="month">今月</option>
-                        <option value="custom">カスタム</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label small">件数制限</label>
-                    <select class="form-select form-select-sm" id="exportLimit">
-                        <option value="1000">1,000件</option>
-                        <option value="5000">5,000件</option>
-                        <option value="10000">10,000件</option>
-                        <option value="all">すべて</option>
-                    </select>
-                </div>
-                <div class="col-md-3 d-flex align-items-end">
-                    <button class="btn btn-success btn-sm w-100" onclick="executeExport()">
-                        <i class="bi bi-download"></i> エクスポート実行
-                    </button>
-                </div>
-            </div>
-        </div>
 
         <!-- ログテーブル -->
         <div class="card">
@@ -337,6 +294,47 @@
         </nav>
     </div>
 
+    <!-- エクスポートモーダル -->
+    <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exportModalLabel">ログエクスポート</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="exportForm">
+                        <div class="mb-3">
+                            <label class="form-label">形式</label>
+                            <div class="form-control-plaintext">CSV</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exportPeriod" class="form-label">期間</label>
+                            <select class="form-select" id="exportPeriod" required onchange="toggleCustomDateRange()">
+                                <option value="today">本日</option>
+                                <option value="week">今週</option>
+                                <option value="month">今月</option>
+                                <option value="custom">カスタム</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="customDateRange" style="display: none;">
+                            <label for="startDate" class="form-label">開始日</label>
+                            <input type="date" class="form-control" id="startDate">
+                            <label for="endDate" class="form-label mt-2">終了日</label>
+                            <input type="date" class="form-control" id="endDate">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-success" onclick="executeExport()">
+                        <i class="bi bi-download"></i> エクスポート実行
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- フッター -->
     <div id="footer-container"></div>
 
@@ -435,11 +433,37 @@
 
         // エクスポート実行
         function executeExport() {
-            const format = document.getElementById('exportFormat').value;
             const period = document.getElementById('exportPeriod').value;
-            const limit = document.getElementById('exportLimit').value;
             
-            alert(`${format.toUpperCase()}形式で${period}のログを${limit === 'all' ? 'すべて' : limit + '件'}エクスポートを開始します`);
+            // カスタム期間の場合は日付を取得
+            let periodText = period;
+            if (period === 'custom') {
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                if (!startDate || !endDate) {
+                    alert('カスタム期間を選択した場合は、開始日と終了日を入力してください');
+                    return;
+                }
+                periodText = `${startDate} ～ ${endDate}`;
+            }
+            
+            alert(`CSV形式で${periodText}のログをエクスポートを開始します`);
+            
+            // モーダルを閉じる
+            const modal = bootstrap.Modal.getInstance(document.getElementById('exportModal'));
+            modal.hide();
+        }
+
+        // 期間選択の変更処理
+        function toggleCustomDateRange() {
+            const period = document.getElementById('exportPeriod').value;
+            const customDateRange = document.getElementById('customDateRange');
+            
+            if (period === 'custom') {
+                customDateRange.style.display = 'block';
+            } else {
+                customDateRange.style.display = 'none';
+            }
         }
 
 

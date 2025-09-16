@@ -240,15 +240,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="notificationTarget" class="form-label">配信対象</label>
-                            <select class="form-select" id="notificationTarget">
-                                <option value="all">全ユーザー</option>
-                                <option value="active">アクティブユーザーのみ</option>
-                                <option value="premium">プレミアムユーザーのみ</option>
-                                <option value="free">フリーユーザーのみ</option>
-                            </select>
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -348,7 +339,6 @@
             const content = document.getElementById('notificationContent').value;
             const status = document.getElementById('notificationStatus').value;
             const date = document.getElementById('notificationDate').value;
-            const target = document.getElementById('notificationTarget').value;
             
             if (!title || !content) {
                 alert('タイトルと内容は必須です');
