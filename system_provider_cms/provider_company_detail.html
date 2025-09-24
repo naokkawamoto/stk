@@ -213,62 +213,199 @@
 
       <!-- ユーザー一覧 -->
       <div class="tab-pane fade" id="tab-user-list" role="tabpanel" aria-labelledby="tab-user-list-tab">
-        <table class="table table-striped small">
-          <thead>
-            <tr>
-              <th>ユーザー管理ID</th>
-              <th>メール（ユーザー名）</th>
-              <th>パスワード</th>
-              <th>権限</th>
-              <th>講習情報<br>(講習機関・修了証明書番号)</th>
-              <th>建築士資格種別</th>
-              <th>建築士登録番号</th>
-              <th>所属事務所名</th>
-              <th>事務所登録番号</th>
-              <th>登録日</th>
-              <th class="text-center">状態</th>
-              <th class="text-end">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>taro@example.com</td>
-              <td>******</td>
-              <td>一般</td>
-              <td>講習A / CERT-001</td>
-              <td>一級</td>
-              <td>ARCH-1001</td>
-              <td>株式会社建築研究所</td>
-              <td>OFF-1001</td>
-              <td>2024-01-10</td>
-              <td class="text-center">
-                <span class="badge bg-success">有効</span>
-              </td>
-              <td class="text-end">
-                <a href="user_user_detail.html" class="btn btn-primary btn-sm">詳細</a>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>hanako@example.com</td>
-              <td>******</td>
-              <td>外部</td>
-              <td>講習B / CERT-002</td>
-              <td>二級</td>
-              <td>ARCH-1002</td>
-              <td>有限会社設計工房</td>
-              <td>OFF-1002</td>
-              <td>2024-02-05</td>
-              <td class="text-center">
-                <span class="badge bg-success">有効</span>
-              </td>
-              <td class="text-end">
-                <a href="user_user_detail.html" class="btn btn-primary btn-sm">詳細</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- サブタブ -->
+        <ul class="nav nav-tabs mb-3" id="userSubTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="sub-tab-staff" data-bs-toggle="tab" data-bs-target="#sub-tab-content-staff" type="button" role="tab">社内担当者</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="sub-tab-coop" data-bs-toggle="tab" data-bs-target="#sub-tab-content-coop" type="button" role="tab">協力業者</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="sub-tab-expert" data-bs-toggle="tab" data-bs-target="#sub-tab-content-expert" type="button" role="tab">外部専門家</button>
+          </li>
+        </ul>
+        
+        <div class="tab-content">
+          <!-- 社内担当者サブタブ -->
+          <div class="tab-pane fade show active" id="sub-tab-content-staff" role="tabpanel">
+            <!-- 登録件数と検索ボックス -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <span class="text-muted me-2">登録件数:</span>
+                  <span class="fs-6">8件</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="staffSearchInput" placeholder="名前等で検索" aria-label="検索">
+                  <button class="btn btn-outline-secondary" type="button" onclick="searchStaff()">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mb-3">
+              <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addMemberModal">新規登録</button>
+              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#csvUploadModal" onclick="setCsvType('staff')">CSV一括登録</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered small-text">
+                <thead class="table-light">
+                  <tr>
+                    <th>支店名</th>
+                    <th>名前</th>
+                    <th>カナ</th>
+                    <th>職種</th>
+                    <th>建築士</th>
+                    <th>登録</th>
+                    <th>登録番号</th>
+                    <th>電話番号</th>
+                    <th>メール</th>
+                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>松江支店</td><td>山本 太郎</td><td>ヤマモト タロウ</td><td>システム管理者</td><td>一級</td><td>島根県</td><td>123456</td><td>090-1111-1111</td><td>yamamoto.taro@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('山本 太郎')">詳細</button></td></tr>
+                  <tr><td>広島支店</td><td>佐藤 花子</td><td>サトウ ハナコ</td><td>管理職</td><td>二級</td><td>広島県</td><td>234567</td><td>090-2222-2222</td><td>satou.hanako@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('佐藤 花子')">詳細</button></td></tr>
+                  <tr><td>松江支店</td><td>田中 一郎</td><td>タナカ イチロウ</td><td>事務</td><td>無し</td><td></td><td></td><td>090-3333-3333</td><td>tanaka.ichirou@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('田中 一郎')">詳細</button></td></tr>
+                  <tr><td>広島支店</td><td>高橋 美咲</td><td>タカハシ ミサキ</td><td>営業</td><td>一級</td><td>広島県</td><td>456789</td><td>090-4444-4444</td><td>takahashi.misaki@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('高橋 美咲')">詳細</button></td></tr>
+                  <tr><td>松江支店</td><td>中村 健</td><td>ナカムラ ケン</td><td>設計</td><td>二級</td><td>島根県</td><td>567890</td><td>090-5555-5555</td><td>nakamura.ken@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('中村 健')">詳細</button></td></tr>
+                  <tr><td>広島支店</td><td>小林 愛</td><td>コバヤシ アイ</td><td>インテリアコーディネーター</td><td>無し</td><td></td><td></td><td>090-6666-6666</td><td>kobayashi.ai@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('小林 愛')">詳細</button></td></tr>
+                  <tr><td>松江支店</td><td>伊藤 翔</td><td>イトウ ショウ</td><td>現場監督</td><td>一級</td><td>島根県</td><td>789012</td><td>090-7777-7777</td><td>itou.sho@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('伊藤 翔')">詳細</button></td></tr>
+                  <tr><td>広島支店</td><td>渡辺 智子</td><td>ワタナベ トモコ</td><td>積算</td><td>二級</td><td>広島県</td><td>890123</td><td>090-8888-8888</td><td>watanabe.tomoko@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('渡辺 智子')">詳細</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ページネーション -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mt-4">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+          
+          <!-- 協力業者サブタブ -->
+          <div class="tab-pane fade" id="sub-tab-content-coop" role="tabpanel">
+            <!-- 登録件数と検索ボックス -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <span class="text-muted me-2">登録件数:</span>
+                  <span class="fs-6">6件</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="coopSearchInput" placeholder="名前等で検索" aria-label="検索">
+                  <button class="btn btn-outline-secondary" type="button" onclick="searchCoop()">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mb-3">
+              <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addCoopModal">新規登録</button>
+              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#csvUploadModal" onclick="setCsvType('coop')">CSV一括登録</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered small-text">
+                <thead class="table-light">
+                  <tr>
+                    <th>会社名</th>
+                    <th>名前</th>
+                    <th>名前（カナ）</th>
+                    <th>職種</th>
+                    <th>メール</th>
+                    <th>電話番号</th>
+                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>株式会社協力一</td><td>佐藤 健</td><td>サトウ ケン</td><td>積算</td><td>ken.sato@example.com</td><td>090-1234-0001</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('佐藤 健')">詳細</button></td></tr>
+                  <tr><td>株式会社協力二</td><td>鈴木 彩</td><td>スズキ アヤ</td><td>事務</td><td>aya.suzuki@example.com</td><td>090-1234-0002</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('鈴木 彩')">詳細</button></td></tr>
+                  <tr><td>株式会社協力三</td><td>高橋 大輔</td><td>タカハシ ダイスケ</td><td>管理職</td><td>daisuke.takahashi@example.com</td><td>090-1234-0003</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('高橋 大輔')">詳細</button></td></tr>
+                  <tr><td>株式会社協力四</td><td>田中 礼子</td><td>タナカ レイコ</td><td>職人</td><td>reiko.tanaka@example.com</td><td>090-1234-0004</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('田中 礼子')">詳細</button></td></tr>
+                  <tr><td>株式会社協力五</td><td>伊藤 翔太</td><td>イトウ ショウタ</td><td>営業</td><td>shota.ito@example.com</td><td>090-1234-0005</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('伊藤 翔太')">詳細</button></td></tr>
+                  <tr><td>株式会社協力六</td><td>山本 浩</td><td>ヤマモト ヒロシ</td><td>代表者</td><td>hiroshi.yamamoto@example.com</td><td>090-1234-0006</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('山本 浩')">詳細</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ページネーション -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mt-4">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+          
+          <!-- 外部専門家サブタブ -->
+          <div class="tab-pane fade" id="sub-tab-content-expert" role="tabpanel">
+            <!-- 登録件数と検索ボックス -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="d-flex align-items-center">
+                  <span class="text-muted me-2">登録件数:</span>
+                  <span class="fs-6">6件</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="expertSearchInput" placeholder="名前等で検索" aria-label="検索">
+                  <button class="btn btn-outline-secondary" type="button" onclick="searchExpert()">
+                    <i class="bi bi-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mb-3">
+              <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#addExpertModal">新規登録</button>
+              <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#csvUploadModal" onclick="setCsvType('expert')">CSV一括登録</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered small-text">
+                <thead class="table-light">
+                  <tr>
+                    <th>会社名</th>
+                    <th>名前</th>
+                    <th>名前（カナ）</th>
+                    <th>職種</th>
+                    <th>メール</th>
+                    <th>電話番号</th>
+                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>株式会社専門一</td><td>松本 桜</td><td>マツモト サクラ</td><td>家屋調査士</td><td>sakura.matsumoto@example.com</td><td>090-2345-0001</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('松本 桜')">詳細</button></td></tr>
+                  <tr><td>株式会社専門二</td><td>小川 翔</td><td>オガワ ショウ</td><td>司法書士</td><td>sho.ogawa@example.com</td><td>090-2345-0002</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('小川 翔')">詳細</button></td></tr>
+                  <tr><td>株式会社専門三</td><td>中山 理恵</td><td>ナカヤマ リエ</td><td>建築士</td><td>rie.nakayama@example.com</td><td>090-2345-0003</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('中山 理恵')">詳細</button></td></tr>
+                  <tr><td>株式会社専門四</td><td>橋本 健太</td><td>ハシモト ケンタ</td><td>インテリアコーディネーター</td><td>kenta.hashimoto@example.com</td><td>090-2345-0004</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('橋本 健太')">詳細</button></td></tr>
+                  <tr><td>株式会社専門五</td><td>佐々木 亮</td><td>ササキ リョウ</td><td>土地家屋調査士</td><td>ryo.sasaki@example.com</td><td>090-2345-0005</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('佐々木 亮')">詳細</button></td></tr>
+                  <tr><td>株式会社専門六</td><td>山田 美咲</td><td>ヤマダ ミサキ</td><td>測量士</td><td>misaki.yamada@example.com</td><td>090-2345-0006</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('山田 美咲')">詳細</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ページネーション -->
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mt-4">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
 
       <!-- 契約詳細 -->
@@ -916,6 +1053,193 @@
       // フォームをリセット
       document.getElementById('planChangeForm').reset();
     }
+
+    // クライアントログインモーダルを開く
+    function openClientLoginModal(userName) {
+      document.getElementById('clientLoginUserName').textContent = userName;
+      const modal = new bootstrap.Modal(document.getElementById('clientLoginModal'));
+      modal.show();
+    }
+
+    // クライアントログイン処理
+    function clientLogin() {
+      const userId = document.getElementById('clientUserId').value;
+      const password = document.getElementById('clientPassword').value;
+      
+      if (!userId || !password) {
+        alert('IDとパスワードを入力してください');
+        return;
+      }
+      
+      // ログイン処理（実際の実装では認証APIを呼び出す）
+      alert(`クライアント画面にログインしました\nユーザー: ${document.getElementById('clientLoginUserName').textContent}\nID: ${userId}`);
+      
+      // モーダルを閉じる
+      const modal = bootstrap.Modal.getInstance(document.getElementById('clientLoginModal'));
+      modal.hide();
+      
+      // フォームをリセット
+      document.getElementById('clientLoginForm').reset();
+      
+      // 実際の実装では、ここでクライアント画面にリダイレクト
+      // window.location.href = 'client_dashboard.html';
+    }
+
+    // 検索機能
+    function searchStaff() {
+      const searchInput = document.getElementById('staffSearchInput');
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const tableBody = document.querySelector('#sub-tab-content-staff tbody');
+      const rows = tableBody.querySelectorAll('tr');
+      
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const nameCell = row.querySelector('td:nth-child(2)'); // 名前の列
+        const kanaCell = row.querySelector('td:nth-child(3)'); // カナの列
+        const positionCell = row.querySelector('td:nth-child(4)'); // 職種の列
+        const branchCell = row.querySelector('td:nth-child(1)'); // 支店名の列
+        
+        if (nameCell && kanaCell && positionCell && branchCell) {
+          const name = nameCell.textContent.toLowerCase();
+          const kana = kanaCell.textContent.toLowerCase();
+          const position = positionCell.textContent.toLowerCase();
+          const branch = branchCell.textContent.toLowerCase();
+          
+          const isMatch = name.includes(searchTerm) || 
+                         kana.includes(searchTerm) || 
+                         position.includes(searchTerm) || 
+                         branch.includes(searchTerm);
+          
+          row.style.display = isMatch ? '' : 'none';
+          if (isMatch) visibleCount++;
+        }
+      });
+      
+      // 検索結果件数を更新
+      const countElement = document.querySelector('#sub-tab-content-staff .fs-6');
+      if (countElement) {
+        countElement.textContent = `${visibleCount}件`;
+      }
+    }
+
+    function searchCoop() {
+      const searchInput = document.getElementById('coopSearchInput');
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const tableBody = document.querySelector('#sub-tab-content-coop tbody');
+      const rows = tableBody.querySelectorAll('tr');
+      
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const companyCell = row.querySelector('td:nth-child(1)'); // 会社名の列
+        const nameCell = row.querySelector('td:nth-child(2)'); // 名前の列
+        const kanaCell = row.querySelector('td:nth-child(3)'); // カナの列
+        const positionCell = row.querySelector('td:nth-child(4)'); // 職種の列
+        
+        if (companyCell && nameCell && kanaCell && positionCell) {
+          const company = companyCell.textContent.toLowerCase();
+          const name = nameCell.textContent.toLowerCase();
+          const kana = kanaCell.textContent.toLowerCase();
+          const position = positionCell.textContent.toLowerCase();
+          
+          const isMatch = company.includes(searchTerm) || 
+                         name.includes(searchTerm) || 
+                         kana.includes(searchTerm) || 
+                         position.includes(searchTerm);
+          
+          row.style.display = isMatch ? '' : 'none';
+          if (isMatch) visibleCount++;
+        }
+      });
+      
+      // 検索結果件数を更新
+      const countElement = document.querySelector('#sub-tab-content-coop .fs-6');
+      if (countElement) {
+        countElement.textContent = `${visibleCount}件`;
+      }
+    }
+
+    function searchExpert() {
+      const searchInput = document.getElementById('expertSearchInput');
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const tableBody = document.querySelector('#sub-tab-content-expert tbody');
+      const rows = tableBody.querySelectorAll('tr');
+      
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const companyCell = row.querySelector('td:nth-child(1)'); // 会社名の列
+        const nameCell = row.querySelector('td:nth-child(2)'); // 名前の列
+        const kanaCell = row.querySelector('td:nth-child(3)'); // カナの列
+        const positionCell = row.querySelector('td:nth-child(4)'); // 職種の列
+        
+        if (companyCell && nameCell && kanaCell && positionCell) {
+          const company = companyCell.textContent.toLowerCase();
+          const name = nameCell.textContent.toLowerCase();
+          const kana = kanaCell.textContent.toLowerCase();
+          const position = positionCell.textContent.toLowerCase();
+          
+          const isMatch = company.includes(searchTerm) || 
+                         name.includes(searchTerm) || 
+                         kana.includes(searchTerm) || 
+                         position.includes(searchTerm);
+          
+          row.style.display = isMatch ? '' : 'none';
+          if (isMatch) visibleCount++;
+        }
+      });
+      
+      // 検索結果件数を更新
+      const countElement = document.querySelector('#sub-tab-content-expert .fs-6');
+      if (countElement) {
+        countElement.textContent = `${visibleCount}件`;
+      }
+    }
+
+    // CSV一括登録の制御
+    function setCsvType(type) {
+      alert(`${type}のCSV一括登録機能は準備中です。`);
+    }
   </script>
+
+  <!-- クライアントログインモーダル -->
+  <div class="modal fade" id="clientLoginModal" tabindex="-1" aria-labelledby="clientLoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="clientLoginModalLabel">クライアント画面ログイン</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="clientLoginForm">
+            <div class="mb-3">
+              <label class="form-label">対象ユーザー</label>
+              <div class="form-control-plaintext">
+                <strong id="clientLoginUserName"></strong>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="clientUserId" class="form-label">ID <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="clientUserId" placeholder="ユーザーIDを入力" required>
+            </div>
+            <div class="mb-3">
+              <label for="clientPassword" class="form-label">パスワード <span class="text-danger">*</span></label>
+              <input type="password" class="form-control" id="clientPassword" placeholder="パスワードを入力" required>
+            </div>
+            <div class="alert alert-info">
+              <small>
+                <strong>注意:</strong> クライアント画面にログインして、ユーザーの詳細情報を確認できます。
+              </small>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-primary" onclick="clientLogin()">ログイン</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
