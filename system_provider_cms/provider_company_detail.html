@@ -19,25 +19,38 @@
     <h2 class="mb-4">ZERO×STYLE</h2>
 
     <!-- ステータスとアクション -->
-    <div class="d-flex align-items-center mb-4 flex-wrap gap-2">
-        <span class="badge bg-success fs-6">契約中（自動更新）</span>
-        <span class="text-muted">契約名：ZERO×STYLE 契約</span>
-        <span class="badge bg-info fs-6">プラン1</span>
-        <button class="btn btn-outline-info btn-sm" onclick="openPlanDescriptionModal()">
-            <i class="bi bi-info-circle"></i> プラン説明
-        </button>
-        <button class="btn btn-outline-primary btn-sm" onclick="openPlanChangeModal()">
-            <i class="bi bi-arrow-repeat"></i> プラン変更
-        </button>
-        <button class="btn btn-primary btn-sm" onclick="openExtensionModal()">
-            <i class="bi bi-calendar-plus"></i> 契約延長
-        </button>
-        <button class="btn btn-warning btn-sm" onclick="openCancellationModal()">
-            <i class="bi bi-calendar-x"></i> 解約
-        </button>
-        <button class="btn btn-danger btn-sm" onclick="openDataDeletionModal()">
-            <i class="bi bi-trash"></i> データ削除
-        </button>
+    <div class="mb-4">
+        <!-- 1行目: 契約種類とプラン関連ボタン -->
+        <div class="d-flex align-items-center mb-2 flex-wrap gap-2">
+            <span class="badge bg-success fs-6">契約中（自動更新）</span>
+            <span class="text-muted">契約種類：プラン1</span>
+            <button class="btn btn-outline-primary btn-sm" onclick="openPlanChangeModal()">
+                <i class="bi bi-arrow-repeat"></i> プラン変更
+            </button>
+            <button class="btn btn-outline-info btn-sm" onclick="openPlanDescriptionModal()">
+                <i class="bi bi-info-circle"></i> プラン説明
+            </button>
+        </div>
+        
+        <!-- 2行目: 自動更新と契約関連ボタン -->
+        <div class="d-flex align-items-center mb-2 flex-wrap gap-2">
+            <span class="text-muted">自動更新：あり</span>
+            <button class="btn btn-primary btn-sm" onclick="openExtensionModal()">
+                <i class="bi bi-calendar-plus"></i> 契約延長
+            </button>
+            <button class="btn btn-warning btn-sm" onclick="openCancellationModal()">
+                <i class="bi bi-calendar-x"></i> 解約
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="openDataDeletionModal()">
+                <i class="bi bi-trash"></i> データ削除
+            </button>
+        </div>
+        
+        <!-- 3行目: ユーザー数とストレージ情報 -->
+        <div class="d-flex align-items-center flex-wrap gap-2">
+            <span class="text-muted">ユーザー数：13/15</span>
+            <span class="text-muted">利用ストレージ：5.5GB/10GB</span>
+        </div>
     </div>
 
     <!-- ナビゲーションタブ -->
