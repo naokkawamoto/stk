@@ -156,7 +156,7 @@
               <td>2024-01-15</td>
               <td>2024-01-20</td>
               <td class="text-end">
-                <a href="user_project_detail.html" class="btn btn-primary btn-sm">詳細</a>
+                <button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('プロジェクトA')">詳細</button>
               </td>
             </tr>
             <tr>
@@ -168,7 +168,7 @@
               <td>2024-02-05</td>
               <td>2024-02-10</td>
               <td class="text-end">
-                <a href="user_project_detail.html" class="btn btn-primary btn-sm">詳細</a>
+                <button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('プロジェクトA')">詳細</button>
               </td>
             </tr>
             <tr>
@@ -180,7 +180,7 @@
               <td>2024-03-01</td>
               <td>2024-03-05</td>
               <td class="text-end">
-                <a href="user_project_detail.html" class="btn btn-primary btn-sm">詳細</a>
+                <button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('プロジェクトA')">詳細</button>
               </td>
             </tr>
             <tr>
@@ -192,7 +192,7 @@
               <td>2024-03-15</td>
               <td>2024-03-20</td>
               <td class="text-end">
-                <a href="user_project_detail.html" class="btn btn-primary btn-sm">詳細</a>
+                <button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('プロジェクトA')">詳細</button>
               </td>
             </tr>
             <tr>
@@ -204,7 +204,7 @@
               <td>2024-02-20</td>
               <td>2024-02-25</td>
               <td class="text-end">
-                <a href="user_project_detail.html" class="btn btn-primary btn-sm">詳細</a>
+                <button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('プロジェクトA')">詳細</button>
               </td>
             </tr>
           </tbody>
@@ -263,18 +263,18 @@
                     <th>登録番号</th>
                     <th>電話番号</th>
                     <th>メール</th>
-                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                    <th style="font-size:0.5rem;">操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>松江支店</td><td>山本 太郎</td><td>ヤマモト タロウ</td><td>システム管理者</td><td>一級</td><td>島根県</td><td>123456</td><td>090-1111-1111</td><td>yamamoto.taro@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('山本 太郎')">詳細</button></td></tr>
-                  <tr><td>広島支店</td><td>佐藤 花子</td><td>サトウ ハナコ</td><td>管理職</td><td>二級</td><td>広島県</td><td>234567</td><td>090-2222-2222</td><td>satou.hanako@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('佐藤 花子')">詳細</button></td></tr>
-                  <tr><td>松江支店</td><td>田中 一郎</td><td>タナカ イチロウ</td><td>事務</td><td>無し</td><td></td><td></td><td>090-3333-3333</td><td>tanaka.ichirou@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('田中 一郎')">詳細</button></td></tr>
-                  <tr><td>広島支店</td><td>高橋 美咲</td><td>タカハシ ミサキ</td><td>営業</td><td>一級</td><td>広島県</td><td>456789</td><td>090-4444-4444</td><td>takahashi.misaki@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('高橋 美咲')">詳細</button></td></tr>
-                  <tr><td>松江支店</td><td>中村 健</td><td>ナカムラ ケン</td><td>設計</td><td>二級</td><td>島根県</td><td>567890</td><td>090-5555-5555</td><td>nakamura.ken@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('中村 健')">詳細</button></td></tr>
-                  <tr><td>広島支店</td><td>小林 愛</td><td>コバヤシ アイ</td><td>インテリアコーディネーター</td><td>無し</td><td></td><td></td><td>090-6666-6666</td><td>kobayashi.ai@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('小林 愛')">詳細</button></td></tr>
-                  <tr><td>松江支店</td><td>伊藤 翔</td><td>イトウ ショウ</td><td>現場監督</td><td>一級</td><td>島根県</td><td>789012</td><td>090-7777-7777</td><td>itou.sho@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('伊藤 翔')">詳細</button></td></tr>
-                  <tr><td>広島支店</td><td>渡辺 智子</td><td>ワタナベ トモコ</td><td>積算</td><td>二級</td><td>広島県</td><td>890123</td><td>090-8888-8888</td><td>watanabe.tomoko@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('渡辺 智子')">詳細</button></td></tr>
+                  <tr><td>松江支店</td><td>山本 太郎</td><td>ヤマモト タロウ</td><td>システム管理者</td><td>一級</td><td>島根県</td><td>123456</td><td>090-1111-1111</td><td>yamamoto.taro@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('山本 太郎')">詳細</button></td></tr>
+                  <tr><td>広島支店</td><td>佐藤 花子</td><td>サトウ ハナコ</td><td>管理職</td><td>二級</td><td>広島県</td><td>234567</td><td>090-2222-2222</td><td>satou.hanako@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('佐藤 花子')">詳細</button></td></tr>
+                  <tr><td>松江支店</td><td>田中 一郎</td><td>タナカ イチロウ</td><td>事務</td><td>無し</td><td></td><td></td><td>090-3333-3333</td><td>tanaka.ichirou@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('田中 一郎')">詳細</button></td></tr>
+                  <tr><td>広島支店</td><td>高橋 美咲</td><td>タカハシ ミサキ</td><td>営業</td><td>一級</td><td>広島県</td><td>456789</td><td>090-4444-4444</td><td>takahashi.misaki@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('高橋 美咲')">詳細</button></td></tr>
+                  <tr><td>松江支店</td><td>中村 健</td><td>ナカムラ ケン</td><td>設計</td><td>二級</td><td>島根県</td><td>567890</td><td>090-5555-5555</td><td>nakamura.ken@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('中村 健')">詳細</button></td></tr>
+                  <tr><td>広島支店</td><td>小林 愛</td><td>コバヤシ アイ</td><td>インテリアコーディネーター</td><td>無し</td><td></td><td></td><td>090-6666-6666</td><td>kobayashi.ai@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('小林 愛')">詳細</button></td></tr>
+                  <tr><td>松江支店</td><td>伊藤 翔</td><td>イトウ ショウ</td><td>現場監督</td><td>一級</td><td>島根県</td><td>789012</td><td>090-7777-7777</td><td>itou.sho@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('伊藤 翔')">詳細</button></td></tr>
+                  <tr><td>広島支店</td><td>渡辺 智子</td><td>ワタナベ トモコ</td><td>積算</td><td>二級</td><td>広島県</td><td>890123</td><td>090-8888-8888</td><td>watanabe.tomoko@example.com</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('渡辺 智子')">詳細</button></td></tr>
                 </tbody>
               </table>
             </div>
@@ -323,16 +323,16 @@
                     <th>職種</th>
                     <th>メール</th>
                     <th>電話番号</th>
-                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                    <th style="font-size:0.5rem;">操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>株式会社協力一</td><td>佐藤 健</td><td>サトウ ケン</td><td>積算</td><td>ken.sato@example.com</td><td>090-1234-0001</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('佐藤 健')">詳細</button></td></tr>
-                  <tr><td>株式会社協力二</td><td>鈴木 彩</td><td>スズキ アヤ</td><td>事務</td><td>aya.suzuki@example.com</td><td>090-1234-0002</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('鈴木 彩')">詳細</button></td></tr>
-                  <tr><td>株式会社協力三</td><td>高橋 大輔</td><td>タカハシ ダイスケ</td><td>管理職</td><td>daisuke.takahashi@example.com</td><td>090-1234-0003</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('高橋 大輔')">詳細</button></td></tr>
-                  <tr><td>株式会社協力四</td><td>田中 礼子</td><td>タナカ レイコ</td><td>職人</td><td>reiko.tanaka@example.com</td><td>090-1234-0004</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('田中 礼子')">詳細</button></td></tr>
-                  <tr><td>株式会社協力五</td><td>伊藤 翔太</td><td>イトウ ショウタ</td><td>営業</td><td>shota.ito@example.com</td><td>090-1234-0005</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('伊藤 翔太')">詳細</button></td></tr>
-                  <tr><td>株式会社協力六</td><td>山本 浩</td><td>ヤマモト ヒロシ</td><td>代表者</td><td>hiroshi.yamamoto@example.com</td><td>090-1234-0006</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('山本 浩')">詳細</button></td></tr>
+                  <tr><td>株式会社協力一</td><td>佐藤 健</td><td>サトウ ケン</td><td>積算</td><td>ken.sato@example.com</td><td>090-1234-0001</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('佐藤 健')">詳細</button></td></tr>
+                  <tr><td>株式会社協力二</td><td>鈴木 彩</td><td>スズキ アヤ</td><td>事務</td><td>aya.suzuki@example.com</td><td>090-1234-0002</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('鈴木 彩')">詳細</button></td></tr>
+                  <tr><td>株式会社協力三</td><td>高橋 大輔</td><td>タカハシ ダイスケ</td><td>管理職</td><td>daisuke.takahashi@example.com</td><td>090-1234-0003</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('高橋 大輔')">詳細</button></td></tr>
+                  <tr><td>株式会社協力四</td><td>田中 礼子</td><td>タナカ レイコ</td><td>職人</td><td>reiko.tanaka@example.com</td><td>090-1234-0004</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('田中 礼子')">詳細</button></td></tr>
+                  <tr><td>株式会社協力五</td><td>伊藤 翔太</td><td>イトウ ショウタ</td><td>営業</td><td>shota.ito@example.com</td><td>090-1234-0005</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('伊藤 翔太')">詳細</button></td></tr>
+                  <tr><td>株式会社協力六</td><td>山本 浩</td><td>ヤマモト ヒロシ</td><td>代表者</td><td>hiroshi.yamamoto@example.com</td><td>090-1234-0006</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('山本 浩')">詳細</button></td></tr>
                 </tbody>
               </table>
             </div>
@@ -381,16 +381,16 @@
                     <th>職種</th>
                     <th>メール</th>
                     <th>電話番号</th>
-                    <th style="font-size:0.5rem;">案件管理者のみ</th>
+                    <th style="font-size:0.5rem;">操作</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td>株式会社専門一</td><td>松本 桜</td><td>マツモト サクラ</td><td>家屋調査士</td><td>sakura.matsumoto@example.com</td><td>090-2345-0001</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('松本 桜')">詳細</button></td></tr>
-                  <tr><td>株式会社専門二</td><td>小川 翔</td><td>オガワ ショウ</td><td>司法書士</td><td>sho.ogawa@example.com</td><td>090-2345-0002</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('小川 翔')">詳細</button></td></tr>
-                  <tr><td>株式会社専門三</td><td>中山 理恵</td><td>ナカヤマ リエ</td><td>建築士</td><td>rie.nakayama@example.com</td><td>090-2345-0003</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('中山 理恵')">詳細</button></td></tr>
-                  <tr><td>株式会社専門四</td><td>橋本 健太</td><td>ハシモト ケンタ</td><td>インテリアコーディネーター</td><td>kenta.hashimoto@example.com</td><td>090-2345-0004</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('橋本 健太')">詳細</button></td></tr>
-                  <tr><td>株式会社専門五</td><td>佐々木 亮</td><td>ササキ リョウ</td><td>土地家屋調査士</td><td>ryo.sasaki@example.com</td><td>090-2345-0005</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('佐々木 亮')">詳細</button></td></tr>
-                  <tr><td>株式会社専門六</td><td>山田 美咲</td><td>ヤマダ ミサキ</td><td>測量士</td><td>misaki.yamada@example.com</td><td>090-2345-0006</td><td><button class="btn btn-primary btn-sm" onclick="openClientLoginModal('山田 美咲')">詳細</button></td></tr>
+                  <tr><td>株式会社専門一</td><td>松本 桜</td><td>マツモト サクラ</td><td>家屋調査士</td><td>sakura.matsumoto@example.com</td><td>090-2345-0001</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('松本 桜')">詳細</button></td></tr>
+                  <tr><td>株式会社専門二</td><td>小川 翔</td><td>オガワ ショウ</td><td>司法書士</td><td>sho.ogawa@example.com</td><td>090-2345-0002</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('小川 翔')">詳細</button></td></tr>
+                  <tr><td>株式会社専門三</td><td>中山 理恵</td><td>ナカヤマ リエ</td><td>建築士</td><td>rie.nakayama@example.com</td><td>090-2345-0003</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('中山 理恵')">詳細</button></td></tr>
+                  <tr><td>株式会社専門四</td><td>橋本 健太</td><td>ハシモト ケンタ</td><td>インテリアコーディネーター</td><td>kenta.hashimoto@example.com</td><td>090-2345-0004</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('橋本 健太')">詳細</button></td></tr>
+                  <tr><td>株式会社専門五</td><td>佐々木 亮</td><td>ササキ リョウ</td><td>土地家屋調査士</td><td>ryo.sasaki@example.com</td><td>090-2345-0005</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('佐々木 亮')">詳細</button></td></tr>
+                  <tr><td>株式会社専門六</td><td>山田 美咲</td><td>ヤマダ ミサキ</td><td>測量士</td><td>misaki.yamada@example.com</td><td>090-2345-0006</td><td><button class="btn btn-primary btn-sm" onclick="openZeroStyleLoginModal('山田 美咲')">詳細</button></td></tr>
                 </tbody>
               </table>
             </div>
@@ -1201,7 +1201,70 @@
     function setCsvType(type) {
       alert(`${type}のCSV一括登録機能は準備中です。`);
     }
+
+    // ZERO×STYLE管理画面ログインモーダルを開く
+    function openZeroStyleLoginModal(projectName) {
+      const modal = new bootstrap.Modal(document.getElementById('zeroStyleLoginModal'));
+      modal.show();
+    }
+
+    // ZERO×STYLE管理画面ログイン処理
+    function zeroStyleLogin() {
+      const userId = document.getElementById('zeroStyleUserId').value;
+      const password = document.getElementById('zeroStylePassword').value;
+      
+      if (!userId || !password) {
+        alert('ログインIDとパスワードを入力してください');
+        return;
+      }
+      
+      // ログイン処理（実際の実装では認証APIを呼び出す）
+      alert(`ZERO×STYLEの管理画面にログインしました\nログインID: ${userId}`);
+      
+      // モーダルを閉じる
+      const modal = bootstrap.Modal.getInstance(document.getElementById('zeroStyleLoginModal'));
+      modal.hide();
+      
+      // フォームをリセット
+      document.getElementById('zeroStyleLoginForm').reset();
+      
+      // user_project_list.htmlに遷移
+      window.location.href = '../system_user_cms/user_project_list.html';
+    }
   </script>
+
+  <!-- ZERO×STYLE管理画面ログインモーダル -->
+  <div class="modal fade" id="zeroStyleLoginModal" tabindex="-1" aria-labelledby="zeroStyleLoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="zeroStyleLoginModalLabel">ZERO×STYLEの管理画面にログインします。</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="zeroStyleLoginForm">
+            <div class="mb-3">
+              <label for="zeroStyleUserId" class="form-label">ログインID <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="zeroStyleUserId" placeholder="ログインIDを入力" required>
+            </div>
+            <div class="mb-3">
+              <label for="zeroStylePassword" class="form-label">パスワード <span class="text-danger">*</span></label>
+              <input type="password" class="form-control" id="zeroStylePassword" placeholder="パスワードを入力" required>
+            </div>
+            <div class="alert alert-info">
+              <small>
+                <strong>注意:</strong> ZERO×STYLEの管理画面にログインして、案件の詳細情報を確認できます。
+              </small>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="button" class="btn btn-primary" onclick="zeroStyleLogin()">ログイン</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- クライアントログインモーダル -->
   <div class="modal fade" id="clientLoginModal" tabindex="-1" aria-labelledby="clientLoginModalLabel" aria-hidden="true">
