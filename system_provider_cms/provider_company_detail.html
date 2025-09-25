@@ -133,6 +133,33 @@
 
       <!-- 案件一覧 -->
       <div class="tab-pane fade" id="tab-project-list" role="tabpanel" aria-labelledby="tab-project-list-tab">
+        <!-- 検索・絞り込み機能 -->
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" id="projectSearchInput" placeholder="案件名で検索" aria-label="案件名で検索">
+              <button class="btn btn-outline-secondary" type="button" onclick="searchProjects()">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="input-group">
+              <select class="form-select" id="branchFilterSelect" onchange="filterProjectsByBranch()">
+                <option value="">全ての支店</option>
+                <option value="東京支店">東京支店</option>
+                <option value="大阪支店">大阪支店</option>
+                <option value="名古屋支店">名古屋支店</option>
+                <option value="福岡支店">福岡支店</option>
+                <option value="札幌支店">札幌支店</option>
+              </select>
+              <button class="btn btn-outline-secondary" type="button" onclick="clearFilters()">
+                <i class="bi bi-x-circle"></i> クリア
+              </button>
+            </div>
+          </div>
+        </div>
+        
         <table class="table table-striped small">
           <thead>
             <tr>
@@ -209,6 +236,32 @@
             </tr>
           </tbody>
         </table>
+        
+        <!-- ページネーション -->
+        <nav aria-label="案件一覧ページネーション">
+          <ul class="pagination justify-content-center mt-3">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">前へ</a>
+            </li>
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">次へ</a>
+            </li>
+          </ul>
+        </nav>
+        
+        <!-- 検索結果表示 -->
+        <div class="text-muted small mt-2">
+          <span id="projectResultCount">5件中 5件を表示</span>
+        </div>
       </div>
 
       <!-- ユーザー一覧 -->
@@ -1201,6 +1254,75 @@
     function setCsvType(type) {
       alert(`${type}のCSV一括登録機能は準備中です。`);
     }
+
+    // 案件検索機能
+    function searchProjects() {
+      const searchInput = document.getElementById('projectSearchInput');
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const branchFilter = document.getElementById('branchFilterSelect').value;
+      
+      filterProjects(searchTerm, branchFilter);
+    }
+
+    // 支店で絞り込み
+    function filterProjectsByBranch() {
+      const searchInput = document.getElementById('projectSearchInput');
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const branchFilter = document.getElementById('branchFilterSelect').value;
+      
+      filterProjects(searchTerm, branchFilter);
+    }
+
+    // フィルターをクリア
+    function clearFilters() {
+      document.getElementById('projectSearchInput').value = '';
+      document.getElementById('branchFilterSelect').value = '';
+      filterProjects('', '');
+    }
+
+    // 案件フィルタリング処理
+    function filterProjects(searchTerm, branchFilter) {
+      const tableBody = document.querySelector('#tab-project-list tbody');
+      const rows = tableBody.querySelectorAll('tr');
+      
+      let visibleCount = 0;
+      
+      rows.forEach(row => {
+        const projectNameCell = row.querySelector('td:nth-child(1)'); // 案件名の列
+        const branchCell = row.querySelector('td:nth-child(3)'); // 担当支店の列
+        
+        if (projectNameCell && branchCell) {
+          const projectName = projectNameCell.textContent.toLowerCase();
+          const branch = branchCell.textContent;
+          
+          const matchesSearch = searchTerm === '' || projectName.includes(searchTerm);
+          const matchesBranch = branchFilter === '' || branch === branchFilter;
+          
+          const isVisible = matchesSearch && matchesBranch;
+          
+          row.style.display = isVisible ? '' : 'none';
+          if (isVisible) visibleCount++;
+        }
+      });
+      
+      // 検索結果件数を更新
+      const resultCountElement = document.getElementById('projectResultCount');
+      if (resultCountElement) {
+        resultCountElement.textContent = `${visibleCount}件中 ${visibleCount}件を表示`;
+      }
+    }
+
+    // Enterキーで検索
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('projectSearchInput');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            searchProjects();
+          }
+        });
+      }
+    });
 
     // ZERO×STYLE管理画面ログインモーダルを開く
     function openZeroStyleLoginModal(projectName) {
