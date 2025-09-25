@@ -69,41 +69,12 @@
 
         <div class="p-3">
             <!-- ヘッダー情報 -->
-            <h4 class="mb-3"><a href="user_project_detail_design_estimate.html">業者見積もり</a> ＞<a href="user_project_detail_estimate_detail.html">仮設工事</a> ＞ABC建設</h3>
-
-
-            <!-- ABC建設情報 -->
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h3>ABC建設</h3>
-                    <span class="badge bg-warning mb-3">見積もり依頼中</span>
-                    <div class="table-responsive mb-3">
-                        <table class="table table-bordered small-text">
-                            <tbody>
-                                <tr>
-                                    <th class="table-light">電話番号</th>
-                                    <td>03-1234-5678</td>
-                                    <th class="table-light">担当者名</th>
-                                    <td>田中太郎</td>
-                                    <th class="table-light">email</th>
-                                    <td>tanaka@abc_kensetsu.com</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <h4 class="mb-3"><a href="user_project_detail_design_estimate.html">業者見積もり</a> ＞<a href="user_project_detail_estimate_detail.html">仮設工事</a> ＞自社対応見積もり</h3>
 
             <!-- サブタブ -->
             <ul class="nav nav-tabs mb-3">
                 <li class="nav-item">
                     <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-create">見積もり作成</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-supplier">業者見積書</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-chat">チャット <span class="badge bg-danger">3</span></button>
                 </li>
             </ul>
 
@@ -111,7 +82,7 @@
                 <!-- 見積もり作成 -->
                 <div class="tab-pane fade show active" id="tab-create">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="mb-0">ABC建設 見積もり</h5>
+                        <h5 class="mb-0">自社対応見積もり</h5>
                         <div>
                             <button class="btn btn-outline-primary btn-sm" id="editBtn" onclick="toggleEditMode()">
                                 <i class="bi bi-pencil"></i> 編集
@@ -280,127 +251,6 @@
                         <button class="btn btn-outline-secondary" onclick="window.print()">
                             <i class="bi bi-printer"></i> プリントアウト
                         </button>
-                    </div>
-                </div>
-
-                <!-- 業者見積書 -->
-                <div class="tab-pane fade" id="tab-supplier">
-                    <div class="card">
-                        <div class="card-body p-0">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr><th>資料名称</th><th>既読人数</th><th>作成日時</th><th>アクション</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>ABC建設見積書</td>
-                                        <td>0</td>
-                                        <td>未提出</td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary me-1">アップロード</button>
-                                            <button class="btn btn-sm btn-outline-secondary" disabled>ダウンロード</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- チャット -->
-                <div class="tab-pane fade" id="tab-chat">
-                    <div class="card mb-3 d-flex flex-column" style="min-height: 500px;">
-                        <!-- 検索フォーム -->
-                        <div class="card-header p-2">
-                            <div class="input-group input-group-sm">
-                                <input type="text" class="form-control" placeholder="メッセージ内検索">
-                                <button class="btn btn-outline-secondary" type="button">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- チャットヘッダー -->
-                        <div class="card-header p-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="mb-0">業者見積もり_仮設工事_ABC建設</h6>
-                                    <small class="text-muted">最終更新: 2025/01/20 10:15</small>
-                                </div>
-                                <div>
-                                    <button class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-plus-lg"></i> 新規メッセージ
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- チャットメッセージエリア -->
-                        <div class="card-body flex-grow-1" style="overflow-y: auto;">
-                            <div class="chat-messages">
-                                <div class="message mb-3">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                                ABC
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <div class="message-header">
-                                                <strong>ABC建設 田中</strong>
-                                                <small class="text-muted ms-2">2025/01/20 10:10</small>
-                                            </div>
-                                            <div class="message-content bg-light p-2 rounded">
-                                                見積もり依頼を承りました。詳細を確認して回答いたします。
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="message mb-3">
-                                    <div class="d-flex justify-content-end">
-                                        <div class="flex-grow-1 me-3 text-end">
-                                            <div class="message-header">
-                                                <small class="text-muted me-2">2025/01/20 10:12</small>
-                                                <strong>あなた</strong>
-                                            </div>
-                                            <div class="message-content bg-primary text-white p-2 rounded">
-                                                ありがとうございます。提出期限は3月15日でお願いします。
-                                            </div>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                                            <div class="avatar bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                                私
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="message mb-3">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                                                ABC
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <div class="message-header">
-                                                <strong>ABC建設 田中</strong>
-                                                <small class="text-muted ms-2">2025/01/20 10:15</small>
-                                            </div>
-                                            <div class="message-content bg-light p-2 rounded">
-                                                承知いたしました。期限内に提出いたします。
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- メッセージ入力エリア -->
-                        <div class="card-footer p-2">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="メッセージを入力...">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="bi bi-send"></i>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
