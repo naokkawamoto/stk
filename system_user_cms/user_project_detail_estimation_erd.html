@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解体・新設積算システム ERD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .entity-box {
+            transition: all 0.3s ease;
+        }
+        .entity-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .relationship-line {
+            stroke-dasharray: 5,5;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -1000;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="w-full bg-gray-50 p-6">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">解体・新設積算システム</h1>
+            <p class="text-gray-600">プラン作成データをベースに詳細な工事費用を自動積算</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-lg overflow-auto">
+            <svg width="850" height="650" viewBox="0 0 850 650">
+                <defs>
+                    <marker
+                        id="arrowhead"
+                        markerWidth="8"
+                        markerHeight="6"
+                        refX="8"
+                        refY="3"
+                        orient="auto"
+                        fill="#6B7280"
+                    >
+                        <polygon points="0 0, 8 3, 0 6" />
+                    </marker>
+                </defs>
+                
+                <!-- リレーションシップ線 -->
+                <line x1="130" y1="150" x2="150" y2="250" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="140" y="200" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">1:N</text>
+                
+                <line x1="330" y1="150" x2="150" y2="300" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="240" y="225" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">1:N</text>
+                
+                <line x1="530" y1="150" x2="200" y2="300" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="365" y="225" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">1:N</text>
+                
+                <line x1="730" y1="150" x2="250" y2="300" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="490" y="225" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">1:N</text>
+                
+                <line x1="250" y1="350" x2="400" y2="350" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="325" y="345" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">N:1</text>
+                
+                <line x1="250" y1="380" x2="650" y2="350" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="450" y="365" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">N:1</text>
+                
+                <line x1="150" y1="400" x2="160" y2="450" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="155" y="425" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">1:1</text>
+                
+                <line x1="150" y1="400" x2="420" y2="450" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="285" y="425" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">1:N</text>
+                
+                <line x1="150" y1="400" x2="670" y2="450" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="410" y="425" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">1:N</text>
+                
+                <line x1="250" y1="400" x2="270" y2="450" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="260" y="425" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">N:1</text>
+                
+                <line x1="250" y1="380" x2="420" y2="450" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                <text x="335" y="415" text-anchor="middle" font-size="9" fill="#7C3AED" font-weight="bold">N:1</text>
+                
+                <!-- プランデータ参照（グレーアウト） -->
+                <!-- リノベプラン -->
+                <rect x="50" y="50" width="160" height="100" fill="white" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="5,5" rx="8" class="reference-entity"/>
+                <rect x="50" y="50" width="160" height="30" fill="#9CA3AF" rx="8" opacity="0.7"/>
+                <text x="130" y="70" text-anchor="middle" fill="white" font-size="13" font-weight="bold">リノベプラン</text>
+                <text x="200" y="90" text-anchor="end" font-size="9" fill="#666" font-style="italic" opacity="0.7">(プランデータ)</text>
+                <text x="60" y="100" font-size="10" fill="#DC2626" font-weight="bold" opacity="0.7">plan_id</text>
+                <text x="210" y="100" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">PK</text>
+                <text x="60" y="118" font-size="10" fill="#0369A1" font-weight="bold" opacity="0.7">建物ID</text>
+                <text x="210" y="118" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">FK</text>
+                <text x="60" y="136" font-size="10" fill="#374151" opacity="0.7">プラン名</text>
+                <text x="210" y="136" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">VARCHAR</text>
+
+                <!-- プラン外部仕上表 -->
+                <rect x="250" y="50" width="160" height="100" fill="white" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="5,5" rx="8" class="reference-entity"/>
+                <rect x="250" y="50" width="160" height="30" fill="#9CA3AF" rx="8" opacity="0.7"/>
+                <text x="330" y="70" text-anchor="middle" fill="white" font-size="13" font-weight="bold">プラン外部仕上表</text>
+                <text x="400" y="90" text-anchor="end" font-size="9" fill="#666" font-style="italic" opacity="0.7">(プランデータ)</text>
+                <text x="260" y="100" font-size="10" fill="#DC2626" font-weight="bold" opacity="0.7">plan_ext_id</text>
+                <text x="410" y="100" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">PK</text>
+                <text x="260" y="118" font-size="10" fill="#0369A1" font-weight="bold" opacity="0.7">plan_id</text>
+                <text x="410" y="118" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">FK</text>
+                <text x="260" y="136" font-size="10" fill="#374151" opacity="0.7">仕様種別</text>
+                <text x="410" y="136" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">VARCHAR</text>
+
+                <!-- プラン内部仕上表 -->
+                <rect x="450" y="50" width="160" height="100" fill="white" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="5,5" rx="8" class="reference-entity"/>
+                <rect x="450" y="50" width="160" height="30" fill="#9CA3AF" rx="8" opacity="0.7"/>
+                <text x="530" y="70" text-anchor="middle" fill="white" font-size="13" font-weight="bold">プラン内部仕上表</text>
+                <text x="600" y="90" text-anchor="end" font-size="9" fill="#666" font-style="italic" opacity="0.7">(プランデータ)</text>
+                <text x="460" y="100" font-size="10" fill="#DC2626" font-weight="bold" opacity="0.7">plan_int_id</text>
+                <text x="610" y="100" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">PK</text>
+                <text x="460" y="118" font-size="10" fill="#0369A1" font-weight="bold" opacity="0.7">plan_room_id</text>
+                <text x="610" y="118" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">FK</text>
+                <text x="460" y="136" font-size="10" fill="#374151" opacity="0.7">仕上部位</text>
+                <text x="610" y="136" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">VARCHAR</text>
+
+                <!-- プラン設備情報 -->
+                <rect x="650" y="50" width="160" height="100" fill="white" stroke="#9CA3AF" stroke-width="1" stroke-dasharray="5,5" rx="8" class="reference-entity"/>
+                <rect x="650" y="50" width="160" height="30" fill="#9CA3AF" rx="8" opacity="0.7"/>
+                <text x="730" y="70" text-anchor="middle" fill="white" font-size="13" font-weight="bold">プラン設備情報</text>
+                <text x="800" y="90" text-anchor="end" font-size="9" fill="#666" font-style="italic" opacity="0.7">(プランデータ)</text>
+                <text x="660" y="100" font-size="10" fill="#DC2626" font-weight="bold" opacity="0.7">plan_equipment_id</text>
+                <text x="810" y="100" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">PK</text>
+                <text x="660" y="118" font-size="10" fill="#0369A1" font-weight="bold" opacity="0.7">plan_room_id</text>
+                <text x="810" y="118" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">FK</text>
+                <text x="660" y="136" font-size="10" fill="#374151" opacity="0.7">設備種別</text>
+                <text x="810" y="136" text-anchor="end" font-size="8" fill="#6B7280" opacity="0.7">VARCHAR</text>
+
+                <!-- 積算明細（メイン機能） -->
+                <rect x="50" y="250" width="200" height="200" fill="white" stroke="#059669" stroke-width="2" rx="8" class="entity-box"/>
+                <rect x="50" y="250" width="200" height="30" fill="#059669" rx="8"/>
+                <text x="150" y="270" text-anchor="middle" fill="white" font-size="13" font-weight="bold">積算明細</text>
+                <text x="60" y="298" font-size="10" fill="#DC2626" font-weight="bold">cost_detail_id</text>
+                <text x="250" y="298" text-anchor="end" font-size="8" fill="#6B7280">PK</text>
+                <text x="60" y="316" font-size="10" fill="#0369A1" font-weight="bold">plan_id</text>
+                <text x="250" y="316" text-anchor="end" font-size="8" fill="#6B7280">FK</text>
+                <text x="60" y="334" font-size="10" fill="#374151">対象テーブル</text>
+                <text x="250" y="334" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="60" y="352" font-size="10" fill="#374151">対象レコードID</text>
+                <text x="250" y="352" text-anchor="end" font-size="8" fill="#6B7280">INT</text>
+                <text x="60" y="370" font-size="10" fill="#374151">工事区分</text>
+                <text x="250" y="370" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="60" y="388" font-size="10" fill="#374151">工事種別</text>
+                <text x="250" y="388" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="60" y="406" font-size="10" fill="#374151">単価</text>
+                <text x="250" y="406" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="60" y="424" font-size="10" fill="#374151">数量</text>
+                <text x="250" y="424" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="60" y="442" font-size="10" fill="#374151">金額</text>
+                <text x="250" y="442" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+
+                <!-- 新設マスタ -->
+                <rect x="300" y="250" width="200" height="160" fill="white" stroke="#3B82F6" stroke-width="2" rx="8" class="entity-box"/>
+                <rect x="300" y="250" width="200" height="30" fill="#3B82F6" rx="8"/>
+                <text x="400" y="270" text-anchor="middle" fill="white" font-size="13" font-weight="bold">新設マスタ</text>
+                <text x="310" y="298" font-size="10" fill="#DC2626" font-weight="bold">new_master_id</text>
+                <text x="500" y="298" text-anchor="end" font-size="8" fill="#6B7280">PK</text>
+                <text x="310" y="316" font-size="10" fill="#374151">工事種別</text>
+                <text x="500" y="316" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="310" y="334" font-size="10" fill="#374151">仕様分類</text>
+                <text x="500" y="334" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="310" y="352" font-size="10" fill="#374151">材料名</text>
+                <text x="500" y="352" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="310" y="370" font-size="10" fill="#374151">工法</text>
+                <text x="500" y="370" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="310" y="388" font-size="10" fill="#374151">単価</text>
+                <text x="500" y="388" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="310" y="406" font-size="10" fill="#374151">単位</text>
+                <text x="500" y="406" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+
+                <!-- 解体マスタ -->
+                <rect x="550" y="250" width="200" height="160" fill="white" stroke="#DC2626" stroke-width="2" rx="8" class="entity-box"/>
+                <rect x="550" y="250" width="200" height="30" fill="#DC2626" rx="8"/>
+                <text x="650" y="270" text-anchor="middle" fill="white" font-size="13" font-weight="bold">解体マスタ</text>
+                <text x="560" y="298" font-size="10" fill="#DC2626" font-weight="bold">demo_master_id</text>
+                <text x="750" y="298" text-anchor="end" font-size="8" fill="#6B7280">PK</text>
+                <text x="560" y="316" font-size="10" fill="#374151">対象種別</text>
+                <text x="750" y="316" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="560" y="334" font-size="10" fill="#374151">対象分類</text>
+                <text x="750" y="334" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="560" y="352" font-size="10" fill="#374151">解体方法</text>
+                <text x="750" y="352" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="560" y="370" font-size="10" fill="#374151">解体単価</text>
+                <text x="750" y="370" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="560" y="388" font-size="10" fill="#374151">廃材処理費</text>
+                <text x="750" y="388" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="560" y="406" font-size="10" fill="#374151">単位</text>
+                <text x="750" y="406" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+
+                <!-- 積算サマリ -->
+                <rect x="50" y="450" width="220" height="160" fill="white" stroke="#7C3AED" stroke-width="2" rx="8" class="entity-box"/>
+                <rect x="50" y="450" width="220" height="30" fill="#7C3AED" rx="8"/>
+                <text x="160" y="470" text-anchor="middle" fill="white" font-size="13" font-weight="bold">積算サマリ</text>
+                <text x="60" y="498" font-size="10" fill="#DC2626" font-weight="bold">summary_id</text>
+                <text x="270" y="498" text-anchor="end" font-size="8" fill="#6B7280">PK</text>
+                <text x="60" y="516" font-size="10" fill="#0369A1" font-weight="bold">plan_id</text>
+                <text x="270" y="516" text-anchor="end" font-size="8" fill="#6B7280">FK</text>
+                <text x="60" y="534" font-size="10" fill="#374151">新設工事費</text>
+                <text x="270" y="534" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="60" y="552" font-size="10" fill="#374151">解体工事費</text>
+                <text x="270" y="552" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="60" y="570" font-size="10" fill="#374151">外部工事費</text>
+                <text x="270" y="570" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="60" y="588" font-size="10" fill="#374151">内部工事費</text>
+                <text x="270" y="588" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="60" y="606" font-size="10" fill="#374151">設備工事費</text>
+                <text x="270" y="606" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+
+                <!-- 工事区分別集計 -->
+                <rect x="320" y="450" width="200" height="160" fill="white" stroke="#F59E0B" stroke-width="2" rx="8" class="entity-box"/>
+                <rect x="320" y="450" width="200" height="30" fill="#F59E0B" rx="8"/>
+                <text x="420" y="470" text-anchor="middle" fill="white" font-size="13" font-weight="bold">工事区分別集計</text>
+                <text x="330" y="498" font-size="10" fill="#DC2626" font-weight="bold">category_summary_id</text>
+                <text x="520" y="498" text-anchor="end" font-size="8" fill="#6B7280">PK</text>
+                <text x="330" y="516" font-size="10" fill="#0369A1" font-weight="bold">plan_id</text>
+                <text x="520" y="516" text-anchor="end" font-size="8" fill="#6B7280">FK</text>
+                <text x="330" y="534" font-size="10" fill="#374151">工事区分</text>
+                <text x="520" y="534" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="330" y="552" font-size="10" fill="#374151">工事種別</text>
+                <text x="520" y="552" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="330" y="570" font-size="10" fill="#374151">項目数</text>
+                <text x="520" y="570" text-anchor="end" font-size="8" fill="#6B7280">INT</text>
+                <text x="330" y="588" font-size="10" fill="#374151">合計数量</text>
+                <text x="520" y="588" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="330" y="606" font-size="10" fill="#374151">合計金額</text>
+                <text x="520" y="606" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+
+                <!-- 積算履歴 -->
+                <rect x="570" y="450" width="200" height="160" fill="white" stroke="#EC4899" stroke-width="2" rx="8" class="entity-box"/>
+                <rect x="570" y="450" width="200" height="30" fill="#EC4899" rx="8"/>
+                <text x="670" y="470" text-anchor="middle" fill="white" font-size="13" font-weight="bold">積算履歴</text>
+                <text x="580" y="498" font-size="10" fill="#DC2626" font-weight="bold">calc_history_id</text>
+                <text x="770" y="498" text-anchor="end" font-size="8" fill="#6B7280">PK</text>
+                <text x="580" y="516" font-size="10" fill="#0369A1" font-weight="bold">plan_id</text>
+                <text x="770" y="516" text-anchor="end" font-size="8" fill="#6B7280">FK</text>
+                <text x="580" y="534" font-size="10" fill="#374151">計算種別</text>
+                <text x="770" y="534" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+                <text x="580" y="552" font-size="10" fill="#374151">計算前合計</text>
+                <text x="770" y="552" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="580" y="570" font-size="10" fill="#374151">計算後合計</text>
+                <text x="770" y="570" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="580" y="588" font-size="10" fill="#374151">変更金額</text>
+                <text x="770" y="588" text-anchor="end" font-size="8" fill="#6B7280">DECIMAL</text>
+                <text x="580" y="606" font-size="10" fill="#374151">計算実行者</text>
+                <text x="770" y="606" text-anchor="end" font-size="8" fill="#6B7280">VARCHAR</text>
+            </svg>
+        </div>
+
+        <!-- 機能説明 -->
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">システム概要</h3>
+                <div class="space-y-3 text-sm">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-gray-400 rounded mr-3"></div>
+                        <span><strong>プランデータ参照</strong>：プラン作成システムからのデータ取得</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-green-600 rounded mr-3"></div>
+                        <span><strong>積算明細</strong>：工事項目別の詳細積算</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-blue-500 rounded mr-3"></div>
+                        <span><strong>新設マスタ</strong>：新設工事の単価・仕様管理</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-red-600 rounded mr-3"></div>
+                        <span><strong>解体マスタ</strong>：解体工事の単価・方法管理</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-purple-600 rounded mr-3"></div>
+                        <span><strong>積算サマリ</strong>：工事費用の総合計管理</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">主要機能</h3>
+                <div class="space-y-2 text-sm">
+                    <div>✓ 工事区分別（新設・解体）の自動積算</div>
+                    <div>✓ 工事種別別（外部・内部・設備）の集計</div>
+                    <div>✓ マスタデータからの単価自動取得</div>
+                    <div>✓ 数量×単価の自動計算</div>
+                    <div>✓ 多段階での集計・サマリ作成</div>
+                    <div>✓ 積算履歴の追跡・比較</div>
+                    <div>✓ リアルタイム積算更新</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 bg-purple-50 p-6 rounded-xl">
+            <h3 class="text-lg font-bold text-purple-800 mb-3">積算の流れ</h3>
+            <div class="flex flex-wrap gap-4 text-sm text-purple-700">
+                <div class="bg-white px-3 py-2 rounded">1. プランデータ読み込み</div>
+                <div class="text-purple-600">→</div>
+                <div class="bg-white px-3 py-2 rounded">2. 工事区分判定</div>
+                <div class="text-purple-600">→</div>
+                <div class="bg-white px-3 py-2 rounded">3. マスタ参照・単価取得</div>
+                <div class="text-purple-600">→</div>
+                <div class="bg-white px-3 py-2 rounded">4. 明細積算</div>
+                <div class="text-purple-600">→</div>
+                <div class="bg-white px-3 py-2 rounded">5. 集計・サマリ作成</div>
+            </div>
+            <div class="mt-4 flex space-x-4">
+                <a href="user_project_detail_designlist.html" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                    <i class="bi bi-arrow-left"></i> プラン一覧に戻る
+                </a>
+                <a href="user_project_detail_erd.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">既存図ERDを見る</a>
+                <a href="user_project_detail_plan_erd.html" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">プラン作成ERDを見る</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
