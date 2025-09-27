@@ -86,78 +86,243 @@
                 <a class="nav-link" href="user_project_detail_investigate_report.html"><i class="bi bi-file-earmark-text"></i> 報告書プレビュー</a>
             </li>
         </ul>
-  <h5 class="mb-3">現地調査</h5>
-  <div id="floorView" class="row g-3">
-    <!-- 1F カード -->
-    <div class="col-6 col-md-4 col-lg-3">
-      <div class="card card-project h-100 text-center">
-        <div class="card-header d-flex justify-content-between align-items-center py-1 small-text">1F</div>
-        <img src="../images/1f.webp" class="card-img-top" alt="1F画像">
-        <div class="card-body p-2 small-text">
-          <button class="btn btn-primary btn-sm w-100 mt-2" onclick="location.href='user_project_detail_investigate_1f.html'">現地調査開始</button>
+  <!-- スマホサイズの検査作業メニュー -->
+  <div class="mobile-inspection-menu" style="max-width: 375px; margin: 0 auto; min-height: 667px; background: #f8f9fa; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden;">
+    <!-- ヘッダー -->
+    <div class="inspection-header bg-success text-white p-3" style="border-radius: 0;">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-arrow-left me-2"></i>
+          <h5 class="mb-0">調査エリア</h5>
         </div>
       </div>
     </div>
-    <!-- 2F カード -->
-    <div class="col-6 col-md-4 col-lg-3">
-      <div class="card card-project h-100 text-center">
-        <div class="card-header d-flex justify-content-between align-items-center py-1 small-text">2F</div>
-        <img src="../images/2f.webp" class="card-img-top" alt="2F画像">
-        <div class="card-body p-2 small-text d-flex justify-content-center align-items-center">
-          <button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#modal2F">現地調査開始</button>
+
+
+    <!-- コンテンツカード -->
+    <div class="inspection-cards px-3" style="flex: 1; overflow-y: auto;">
+      <!-- 全体進捗カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">全体進捗</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-danger me-2" style="font-size: 10px;">警告</span>
+              <span class="badge bg-primary" style="font-size: 12px;">8%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (12/147)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 8%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-danger btn-sm" style="font-size: 12px; padding: 4px 12px;">確認</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- 屋外／屋外設備［敷地図］カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">屋外／屋外設備［敷地図］</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">8.3%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (10/120)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 30%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_outdoor_site.html'">調査</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 屋外［立面図］カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">屋外［立面図］</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">5.2%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (8/150)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 5.2%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_outdoor_elevation.html'">調査</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 屋内／屋内設備１F［1F平面図］カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">屋内／屋内設備１F［1F平面図］</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">0%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (0/21)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 0%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_indoor_1f.html'">調査</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 屋内／１F床下［1F床下図］カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">屋内／１F床下［1F床下図］</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">0%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (0/15)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 0%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_indoor_1f_floor.html'">調査</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 屋内／屋内設備２F［2F平面図］カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">屋内／屋内設備２F［2F平面図］</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">0%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (0/18)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 0%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_indoor_2f.html'">調査</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 屋内／2F小屋裏［2F小屋裏図］カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">屋内／2F小屋裏［2F小屋裏図］</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">0%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (0/12)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 0%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_indoor_2f_attic.html'">調査</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 傾斜／１F［1F傾斜図］カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">傾斜／１F［1F傾斜図］</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">66.7%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (2/3)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 66.7%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_slope_1f.html'">調査</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 傾斜／２F［2F傾斜図］カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">傾斜／２F［2F傾斜図］</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">0%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (0/3)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 0%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_slope_2f.html'">調査</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- その他の調査カード -->
+      <div class="card mb-2" style="border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="card-body p-3">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="card-title mb-0" style="font-size: 14px;">その他の調査</h6>
+            <div class="d-flex align-items-center">
+              <span class="badge bg-info text-dark me-2" style="font-size: 10px;">調査中</span>
+              <span class="badge bg-primary" style="font-size: 12px;">0%</span>
+            </div>
+          </div>
+          <div class="d-flex align-items-center justify-content-between">
+            <span class="text-muted" style="font-size: 12px;">進捗 (0/3)</span>
+            <div class="d-flex align-items-center">
+              <div class="progress me-2" style="width: 60px; height: 6px; border-radius: 3px;">
+                <div class="progress-bar bg-success" style="width: 0%; border-radius: 3px;"></div>
+              </div>
+              <button class="btn btn-outline-success btn-sm" style="font-size: 12px; padding: 4px 12px;" onclick="location.href='user_project_detail_investigate_other.html'">調査</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <!-- 敷地図 カード -->
-    <div class="col-6 col-md-4 col-lg-3">
-      <div class="card card-project h-100 text-center">
-        <div class="card-header d-flex justify-content-between align-items-center py-1 small-text">敷地</div>
-        <img src="../images/2f.webp" class="card-img-top" alt="敷地画像">
-        <div class="card-body p-2 small-text d-flex justify-content-center align-items-center">
-          <button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#modalSite">現地調査開始</button>
-        </div>
-      </div>
-    </div>
-    <!-- 東面 カード -->
-    <div class="col-6 col-md-4 col-lg-3">
-      <div class="card card-project h-100 text-center">
-        <div class="card-header d-flex justify-content-between align-items-center py-1 small-text">東面</div>
-        <img src="../images/east_elevation.jpg" class="card-img-top" alt="東面画像">
-        <div class="card-body p-2 small-text d-flex justify-content-center align-items-center">
-          <button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#modal2F">現地調査開始</button>
-        </div>
-      </div>
-    </div>
-    <!-- 西面 カード -->
-    <div class="col-6 col-md-4 col-lg-3">
-      <div class="card card-project h-100 text-center">
-        <div class="card-header d-flex justify-content-between align-items-center py-1 small-text">西面</div>
-        <img src="../images/west_elevation.jpg" class="card-img-top" alt="西面画像">
-        <div class="card-body p-2 small-text d-flex justify-content-center align-items-center">
-          <button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#modal2F">現地調査開始</button>
-        </div>
-      </div>
-    </div>
-    <!-- 南面 カード -->
-    <div class="col-6 col-md-4 col-lg-3">
-      <div class="card card-project h-100 text-center">
-        <div class="card-header d-flex justify-content-between align-items-center py-1 small-text">南面</div>
-        <img src="../images/south_elevation.jpg" class="card-img-top" alt="南面画像">
-        <div class="card-body p-2 small-text d-flex justify-content-center align-items-center">
-          <button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#modal2F">現地調査開始</button>
-        </div>
-      </div>
-    </div>
-    <!-- 北面 カード -->
-    <div class="col-6 col-md-4 col-lg-3">
-      <div class="card card-project h-100 text-center">
-        <div class="card-header d-flex justify-content-between align-items-center py-1 small-text">北面</div>
-        <img src="../images/north_elavation.jpg" class="card-img-top" alt="北面画像">
-        <div class="card-body p-2 small-text d-flex justify-content-center align-items-center">
-          <button class="btn btn-primary btn-sm w-100 mt-2" data-bs-toggle="modal" data-bs-target="#modal2F">現地調査開始</button>
-        </div>
-      </div>
-    </div>
+
   </div>
   <!-- 2F/敷地 モーダルは必要に応じて移植 -->
 </div>

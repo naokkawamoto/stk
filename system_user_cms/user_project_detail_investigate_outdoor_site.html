@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>屋外／屋外設備［敷地図］調査 - リノベーション管理システム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', '游ゴシック', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .mobile-container {
+            max-width: 375px;
+            margin: 0 auto;
+            min-height: 667px;
+            background: #f8f9fa;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .inspection-header {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 0;
+        }
+        .nav-tabs {
+            background: #e9ecef;
+            border: none;
+            padding: 8px;
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            font-size: 12px;
+            padding: 6px 12px;
+            margin: 0 2px;
+            border-radius: 6px;
+        }
+        .nav-tabs .nav-link.active {
+            background: white;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+        .toolbar {
+            position: absolute;
+            left: 15px;
+            top: 80px;
+            z-index: 10;
+        }
+        .tool-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .main-content {
+            position: relative;
+            background: #f8f9fa;
+            min-height: 400px;
+            padding: 20px;
+        }
+        .site-diagram {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .floating-action-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #fd7e14;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+            z-index: 10;
+        }
+        .bottom-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            max-height: 60vh;
+            background: #343a40;
+            border-radius: 20px 20px 0 0;
+            color: white;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .sheet-header {
+            padding: 15px;
+            border-bottom: 1px solid #495057;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sheet-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+        .sheet-tab {
+            background: #495057;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .sheet-tab.active {
+            background: #28a745;
+        }
+        .inspection-items {
+            padding: 0 15px 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .inspection-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #495057;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+        .item-content {
+            flex: 1;
+            font-size: 14px;
+            color: white;
+        }
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #6c757d;
+            border-radius: 6px;
+            background: transparent;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            background: #6c757d;
+        }
+        .action-btn.btn-ok {
+            background: #28a745;
+            border-color: #28a745;
+        }
+        .action-btn.btn-ng {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+        .action-btn.btn-maintain {
+            background: #ffc107;
+            color: #000;
+            border-color: #ffc107;
+        }
+        .action-btn.btn-secondary {
+            background: #6c757d;
+            border-color: #6c757d;
+        }
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .interactive-element:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- ヘッダー -->
+        <div class="inspection-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-arrow-left me-2" style="font-size: 18px; cursor: pointer;" onclick="location.href='user_project_detail_investigate_edit.html'"></i>
+                    <h5 class="mb-0">屋外／屋外設備［敷地図］</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- ナビゲーションバー -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="east-tab" data-bs-toggle="tab" data-bs-target="#east" type="button" role="tab">東</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="south-tab" data-bs-toggle="tab" data-bs-target="#south" type="button" role="tab">南</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="west-tab" data-bs-toggle="tab" data-bs-target="#west" type="button" role="tab">西</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="north-tab" data-bs-toggle="tab" data-bs-target="#north" type="button" role="tab">北</button>
+            </li>
+        </ul>
+
+        <!-- 左側ツールバー -->
+        <div class="toolbar">
+            <div class="tool-btn" title="編集">
+                <i class="bi bi-pencil" style="color: #6c757d;"></i>
+            </div>
+            <div class="tool-btn" title="テキスト">
+                <i class="bi bi-type" style="color: #6c757d;"></i>
+            </div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="main-content">
+            <!-- 敷地図 -->
+            <div class="site-diagram">
+                <svg width="100%" height="200" viewBox="0 0 300 200">
+                    <!-- 敷地境界 -->
+                    <rect x="20" y="20" width="260" height="160" fill="none" stroke="#6c757d" stroke-width="2" stroke-dasharray="5,5"/>
+                    
+                    <!-- 建物 -->
+                    <rect x="80" y="60" width="140" height="80" fill="#e9ecef" stroke="#495057" stroke-width="2"/>
+                    
+                    <!-- 道路 -->
+                    <rect x="0" y="180" width="300" height="20" fill="#6c757d" opacity="0.3"/>
+                    
+                    <!-- 北方向矢印 -->
+                    <text x="150" y="15" text-anchor="middle" font-size="12" fill="#6c757d">N</text>
+                    <polygon points="150,5 145,15 155,15" fill="#6c757d"/>
+                    
+                    <!-- 敷地内設備（ダミー） -->
+                    <circle cx="120" cy="100" r="8" fill="#28a745" class="interactive-element"/>
+                    <text x="120" y="105" text-anchor="middle" font-size="8" fill="white">水</text>
+                    
+                    <circle cx="180" cy="100" r="8" fill="#dc3545" class="interactive-element"/>
+                    <text x="180" y="105" text-anchor="middle" font-size="8" fill="white">ガ</text>
+                    
+                    <circle cx="150" cy="130" r="8" fill="#17a2b8" class="interactive-element"/>
+                    <text x="150" y="135" text-anchor="middle" font-size="8" fill="white">電</text>
+                </svg>
+            </div>
+
+            <!-- フローティングアクションボタン -->
+            <button class="floating-action-btn">
+                <i class="bi bi-camera" style="color: white; font-size: 20px;"></i>
+            </button>
+        </div>
+
+        <!-- ボトムシート -->
+        <div class="bottom-sheet">
+            <div class="sheet-header">
+                <div>
+                    <h6 class="text-white mb-0">点検項目(採光)</h6>
+                </div>
+            </div>
+
+            <div class="sheet-tabs">
+                <button class="sheet-tab active" onclick="updateInspectionItems('採光')">採光</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('給排水設備')">給排水設備</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('給湯設備')">給湯設備</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('水道メーター')">水道メーター</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('ガスメーター')">ガスメーター</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('電気設備・引込等')">電気設備・引込等</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('道路との高低差')">道路との高低差</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('敷地の湿潤状況')">敷地の湿潤状況</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('出水履歴')">出水履歴</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('土地条件等')">土地条件等</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('敷地の排水状況')">敷地の排水状況</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('がけ崩れ対策')">がけ崩れ対策</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('接道')">接道</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('基礎')">基礎</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('塀')">塀</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('増築部分')">増築部分</button>
+            </div>
+
+            <!-- 点検項目リスト -->
+            <div class="inspection-items">
+                <div class="text-center text-muted py-4">
+                    <i class="bi bi-list-check" style="font-size: 32px;"></i>
+                    <p class="mt-2 mb-0">採光の調査項目</p>
+                    <p class="small">調査項目は今後実装予定です</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // タブ切り替え機能
+        function updateInspectionItems(category) {
+            // タブのアクティブ状態を更新
+            document.querySelectorAll('.sheet-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // ヘッダータイトルを更新
+            document.querySelector('.sheet-header h6').textContent = `点検項目(${category})`;
+
+            // 点検項目を更新
+            const inspectionItems = document.querySelector('.inspection-items');
+            let items = [];
+            let actionButtons = '';
+
+            switch(category) {
+                case '採光':
+                    items = [
+                        { icon: '面', color: '#28a745', text: '居室の面積' },
+                        { icon: '開', color: '#17a2b8', text: '開口部の寸法' },
+                        { icon: '距', color: '#ffc107', text: '開口中心からの垂直距離' },
+                        { icon: '境', color: '#6c757d', text: '外壁と隣地境界線等との距離' },
+                        { icon: '照', color: '#6f42c1', text: '照明設備の性能' },
+                        { icon: '不', color: '#dc3545', text: '不適合の場合（部屋名と不足採光面積）' }
+                    ];
+                    break;
+                case '給排水設備':
+                    items = [
+                        { icon: '配', color: '#dc3545', text: '配管劣化' },
+                        { icon: '漏', color: '#17a2b8', text: '給排水の漏水' },
+                        { icon: '法', color: '#6c757d', text: '法36 給排水設備' },
+                        { icon: '旧', color: '#ffc107', text: '旧廃止設備' }
+                    ];
+                    break;
+                case '給湯設備':
+                    items = [
+                        { icon: '転', color: '#dc3545', text: '満水時に機器の転倒防止措置' },
+                        { icon: '不', color: '#17a2b8', text: '不具合不良の有無' },
+                        { icon: '法', color: '#6c757d', text: '法20① 給湯設備の構造強度' }
+                    ];
+                    break;
+                case '水道メーター':
+                    items = [
+                        { icon: '水', color: '#17a2b8', text: '水道メーター' },
+                        { icon: '不', color: '#dc3545', text: '不具合不良の有無' }
+                    ];
+                    break;
+                case 'ガスメーター':
+                    items = [
+                        { icon: 'ガ', color: '#dc3545', text: 'ガスメーター' },
+                        { icon: '不', color: '#17a2b8', text: '不具合不良の有無' }
+                    ];
+                    break;
+                case '電気設備・引込等':
+                    items = [
+                        { icon: '電', color: '#ffc107', text: '電気メーター' },
+                        { icon: '引', color: '#6c757d', text: '電気の引込' },
+                        { icon: 'ケ', color: '#28a745', text: 'ケーブルテレビの引込' },
+                        { icon: '電', color: '#17a2b8', text: '電話回線の引込' },
+                        { icon: 'イ', color: '#6f42c1', text: 'インターネットの引込' },
+                        { icon: '不', color: '#dc3545', text: '不具合不良の有無' }
+                    ];
+                    break;
+                case '道路との高低差':
+                    items = [
+                        { icon: '高', color: '#17a2b8', text: '道路との高低差' },
+                        { icon: '法', color: '#6c757d', text: '法19① 道路との高低差' }
+                    ];
+                    break;
+                case '敷地の湿潤状況':
+                    items = [
+                        { icon: '法', color: '#6c757d', text: '法19② 敷地の湿潤' }
+                    ];
+                    break;
+                case '出水履歴':
+                    items = [
+                        { icon: '法', color: '#6c757d', text: '法19② 出水履歴' }
+                    ];
+                    break;
+                case '土地条件等':
+                    items = [
+                        { icon: '土', color: '#8b4513', text: '土地条件' },
+                        { icon: '法', color: '#6c757d', text: '法19② 土地条件' }
+                    ];
+                    break;
+                case '敷地の排水状況':
+                    items = [
+                        { icon: '下', color: '#17a2b8', text: '下水管に接続' },
+                        { icon: '雨', color: '#6c757d', text: '雨水が側溝等に接続' },
+                        { icon: '法', color: '#6c757d', text: '法19③ 敷地の排水状況' }
+                    ];
+                    break;
+                case 'がけ崩れ対策':
+                    items = [
+                        { icon: '崖', color: '#8b4513', text: '崖条例に該当' },
+                        { icon: 'が', color: '#dc3545', text: 'がけの有無' },
+                        { icon: '擁', color: '#6c757d', text: '擁壁の設置状況' },
+                        { icon: '法', color: '#6c757d', text: '法19④ がけ崩れ対策' }
+                    ];
+                    break;
+                case '接道':
+                    items = [
+                        { icon: '接', color: '#17a2b8', text: '接道種類' },
+                        { icon: '用', color: '#6c757d', text: '用途地域の指定状況' },
+                        { icon: '法', color: '#6c757d', text: '法52②,⑦ 前面道路の幅員に基づく容積率' },
+                        { icon: '長', color: '#28a745', text: '接道長さ実測' },
+                        { icon: '幅', color: '#ffc107', text: '道路幅員実測' },
+                        { icon: '高', color: '#17a2b8', text: '前面道路との高低差' },
+                        { icon: '法', color: '#6c757d', text: '法43① 前面道路の幅員' },
+                        { icon: '道', color: '#6c757d', text: '道路種類' },
+                        { icon: '防', color: '#dc3545', text: '防火仕様' },
+                        { icon: '延', color: '#6f42c1', text: '延焼線ライン' }
+                    ];
+                    break;
+                case '基礎':
+                    items = [
+                        { icon: '配', color: '#17a2b8', text: '配筋状況：鉄筋の有り無し' },
+                        { icon: '強', color: '#6c757d', text: 'コンクリートの強度' },
+                        { icon: '法', color: '#6c757d', text: '法20① 基礎：配筋状況' }
+                    ];
+                    break;
+                case '塀':
+                    items = [
+                        { icon: '配', color: '#17a2b8', text: '配筋状況：鉄筋の有り無し' },
+                        { icon: '強', color: '#6c757d', text: 'コンクリートの強度' },
+                        { icon: '法', color: '#6c757d', text: '法20① 基礎：塀配筋状況と強度' }
+                    ];
+                    break;
+                case '増築部分':
+                    items = [
+                        { icon: '増', color: '#28a745', text: '増築部分の有無' },
+                        { icon: '法', color: '#6c757d', text: '法61② 火熱遮断壁等により分離されている建築物' },
+                        { icon: '法', color: '#6c757d', text: '法20② 別の建築物とみなす部分は相互に応力を伝えない構造方法' }
+                    ];
+                    break;
+                default:
+                    items = [];
+            }
+
+            if (items.length > 0) {
+                let itemsHTML = '';
+                items.forEach(item => {
+                    if (category === '採光') {
+                        if (item.text === '居室の面積') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '開口部の寸法') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '開口中心からの垂直距離') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '外壁と隣地境界線等との距離') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '照明設備の性能') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="確認">確認</button>
+                            `;
+                        } else if (item.text === '不適合の場合（部屋名と不足採光面積）') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="入力">入力</button>
+                            `;
+                        }
+                    } else if (category === '給排水設備') {
+                        if (item.text === '配管劣化' || item.text === '給排水の漏水') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text === '法36 給排水設備') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        } else if (item.text === '旧廃止設備') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        }
+                    } else if (category === '給湯設備') {
+                        if (item.text === '満水時に機器の転倒防止措置') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="あり">あり</button>
+                                <button class="action-btn btn-maintain" data-value="なし">なし</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text === '法20① 給湯設備の構造強度') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === '水道メーター') {
+                        if (item.text === '水道メーター') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="13A">13A</button>
+                                <button class="action-btn btn-ok" data-value="20A">20A</button>
+                                <button class="action-btn btn-ok" data-value="それ以上">それ以上</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        }
+                    } else if (category === 'ガスメーター') {
+                        if (item.text === 'ガスメーター') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="都市ガス">都市ガス</button>
+                                <button class="action-btn btn-ok" data-value="プロパンガス">プロパンガス</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        }
+                    } else if (category === '電気設備・引込等') {
+                        if (item.text === '電気メーター' || item.text === '電気の引込' || item.text === 'ケーブルテレビの引込' || item.text === '電話回線の引込' || item.text === 'インターネットの引込') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="確認">確認</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        }
+                    } else if (category === '道路との高低差') {
+                        if (item.text === '道路との高低差') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '法19① 道路との高低差') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === '敷地の湿潤状況' || category === '出水履歴') {
+                        if (item.text.includes('法19②')) {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === '土地条件等') {
+                        if (item.text === '土地条件') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="盛土">盛土</button>
+                                <button class="action-btn btn-ok" data-value="切土">切土</button>
+                                <button class="action-btn btn-ok" data-value="地盤改良">地盤改良</button>
+                                <button class="action-btn btn-ok" data-value="その他">その他</button>
+                            `;
+                        } else if (item.text === '法19② 土地条件') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === '敷地の排水状況') {
+                        if (item.text === '下水管に接続' || item.text === '雨水が側溝等に接続') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="あり">あり</button>
+                                <button class="action-btn btn-maintain" data-value="なし">なし</button>
+                            `;
+                        } else if (item.text === '法19③ 敷地の排水状況') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === 'がけ崩れ対策') {
+                        if (item.text === '崖条例に該当' || item.text === 'がけの有無' || item.text === '擁壁の設置状況') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text === '法19④ がけ崩れ対策') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === '接道') {
+                        if (item.text === '接道種類') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="市道">市道</button>
+                                <button class="action-btn btn-ok" data-value="県道">県道</button>
+                                <button class="action-btn btn-ok" data-value="国道">国道</button>
+                                <button class="action-btn btn-ok" data-value="2項道路">2項道路</button>
+                                <button class="action-btn btn-ok" data-value="私道">私道</button>
+                                <button class="action-btn btn-ok" data-value="その他">その他</button>
+                            `;
+                        } else if (item.text === '用途地域の指定状況') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="はい">はい</button>
+                                <button class="action-btn btn-maintain" data-value="いいえ">いいえ</button>
+                            `;
+                        } else if (item.text === '法52②,⑦ 前面道路の幅員に基づく容積率' || item.text === '法43① 前面道路の幅員') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                                <button class="action-btn btn-secondary" data-value="対象外">対象外</button>
+                            `;
+                        } else if (item.text === '接道長さ実測' || item.text === '道路幅員実測' || item.text === '前面道路との高低差') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '道路種類') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="国道">国道</button>
+                                <button class="action-btn btn-ok" data-value="県道">県道</button>
+                                <button class="action-btn btn-ok" data-value="市道">市道</button>
+                                <button class="action-btn btn-ok" data-value="私道">私道</button>
+                            `;
+                        } else if (item.text === '防火仕様') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="はい">はい</button>
+                                <button class="action-btn btn-maintain" data-value="いいえ">いいえ</button>
+                            `;
+                        } else if (item.text === '延焼線ライン') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="確認">確認</button>
+                            `;
+                        }
+                    } else if (category === '基礎' || category === '塀') {
+                        if (item.text === '配筋状況：鉄筋の有り無し') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text === 'コンクリートの強度') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text.includes('法20①')) {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === '増築部分') {
+                        if (item.text === '増築部分の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text.includes('法61②') || item.text.includes('法20②')) {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    }
+
+                    itemsHTML += `
+                        <div class="inspection-item">
+                            <div class="item-icon" style="background: ${item.color};">${item.icon}</div>
+                            <div class="item-content">${item.text}</div>
+                            <div class="item-actions">
+                                ${actionButtons}
+                            </div>
+                        </div>
+                    `;
+                });
+                inspectionItems.innerHTML = itemsHTML;
+
+                // イベントリスナーを追加
+                document.querySelectorAll('.action-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const action = this.textContent;
+                        const value = this.getAttribute('data-value') || action;
+                        const item = this.closest('.inspection-item');
+                        const itemName = item.querySelector('.item-content').textContent;
+                        
+                        // ボタンの状態更新
+                        item.querySelectorAll('.action-btn').forEach(b => b.style.opacity = '0.5');
+                        this.style.opacity = '1';
+                        
+                        // 詳細入力が必要な場合の処理
+                        if (value === 'あり' || value === '不適合' || value === '不明') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '居室の面積' && value === '測定') {
+                            // 居室面積測定時は面積入力
+                            showAreaInput(itemName, value);
+                        } else if (itemName === '開口部の寸法' && value === '測定') {
+                            // 開口部寸法測定時は寸法入力
+                            showDimensionInput(itemName, value);
+                        } else if (itemName === '開口中心からの垂直距離' && value === '測定') {
+                            // 垂直距離測定時は距離入力
+                            showDistanceInput(itemName, value);
+                        } else if (itemName === '外壁と隣地境界線等との距離' && value === '測定') {
+                            // 境界線距離測定時は距離入力
+                            showDistanceInput(itemName, value);
+                        } else if (itemName === '照明設備の性能' && value === '確認') {
+                            // 照明設備確認時は詳細入力
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '不適合の場合（部屋名と不足採光面積）' && value === '入力') {
+                            // 不適合入力時は部屋名と面積入力
+                            showInsufficientLightInput(itemName, value);
+                        } else if (value === 'なし' && itemName === '満水時に機器の転倒防止措置') {
+                            // 転倒防止措置が「なし」の場合も詳細入力
+                            showDetailInput(itemName, value);
+                        } else if (value === 'あり' && itemName === '不具合不良の有無') {
+                            // 不具合不良が「あり」の場合、テキスト入力
+                            showTextInput(itemName, value);
+                        } else if (itemName === '水道メーター' || itemName === 'ガスメーター') {
+                            // 水道メーター・ガスメーター選択時は詳細入力
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '電気メーター' || itemName === '電気の引込' || itemName === 'ケーブルテレビの引込' || itemName === '電話回線の引込' || itemName === 'インターネットの引込') {
+                            // 電気設備確認時は詳細入力
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '道路との高低差' && value === '測定') {
+                            // 高低差測定時は数値入力
+                            showMeasurementInput(itemName, value);
+                        } else if (itemName === '法19① 道路との高低差' && (value === '不適合' || value === '不明')) {
+                            // 法規不適合・不明時は詳細入力
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '土地条件' && value === 'その他') {
+                            // 土地条件「その他」選択時はテキスト入力
+                            showTextInput(itemName, value);
+                        } else if ((itemName === '下水管に接続' || itemName === '雨水が側溝等に接続') && value === 'なし') {
+                            // 排水状況「なし」時は詳細入力
+                            showDetailInput(itemName, value);
+                        } else if ((itemName === '崖条例に該当' || itemName === 'がけの有無' || itemName === '擁壁の設置状況') && value === 'あり') {
+                            // がけ崩れ対策「あり」時は詳細入力
+                            showDetailInput(itemName, value);
+                        } else if (itemName.includes('法19②') || itemName.includes('法19③') || itemName.includes('法19④')) {
+                            // 法規項目で不適合・不明時は詳細入力
+                            if (value === '不適合' || value === '不明') {
+                                showDetailInput(itemName, value);
+                            }
+                        } else if (itemName === '接道種類' && value === 'その他') {
+                            // 接道種類「その他」選択時はテキスト入力
+                            showTextInput(itemName, value);
+                        } else if (itemName === '防火仕様' && value === 'いいえ') {
+                            // 防火仕様「いいえ」時は詳細入力
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '延焼線ライン' && value === '確認') {
+                            // 延焼線ライン確認時は詳細入力
+                            showDetailInput(itemName, value);
+                        } else if ((itemName === '接道長さ実測' || itemName === '道路幅員実測' || itemName === '前面道路との高低差') && value === '測定') {
+                            // 測定項目時は数値入力
+                            showMeasurementInput(itemName, value);
+                        } else if (itemName.includes('法52②,⑦') || itemName.includes('法43①')) {
+                            // 法規項目で不適合・不明時は詳細入力
+                            if (value === '不適合' || value === '不明') {
+                                showDetailInput(itemName, value);
+                            }
+                        } else if (itemName === '配筋状況：鉄筋の有り無し' && value === 'あり') {
+                            // 配筋「あり」時はピッチ入力
+                            showPitchInput(itemName, value);
+                        } else if (itemName === 'コンクリートの強度' && value === 'あり') {
+                            // コンクリート強度「あり」時は強度入力
+                            showStrengthInput(itemName, value);
+                        } else if (itemName.includes('法20①') || itemName.includes('法61②') || itemName.includes('法20②')) {
+                            // 法規項目で不適合・不明時は詳細入力
+                            if (value === '不適合' || value === '不明') {
+                                showDetailInput(itemName, value);
+                            }
+                        }
+                        
+                        console.log(`${itemName}: ${action} (${value}) が選択されました`);
+                    });
+                });
+            } else {
+                inspectionItems.innerHTML = `
+                    <div class="text-center text-muted py-4">
+                        <i class="bi bi-list-check" style="font-size: 32px;"></i>
+                        <p class="mt-2 mb-0">${category}の調査項目</p>
+                        <p class="small">調査項目は今後実装予定です</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 詳細入力モーダル
+        function showDetailInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">詳細入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">コメント</label>
+                                <textarea class="form-control" rows="3" placeholder="詳細を入力してください"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">写真</label>
+                                <input type="file" class="form-control" accept="image/*" multiple>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveDetail(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 詳細保存
+        function saveDetail(button) {
+            const modal = button.closest('.modal');
+            const comment = modal.querySelector('textarea').value;
+            const photos = modal.querySelector('input[type="file"]').files;
+            
+            console.log('コメント:', comment);
+            console.log('写真:', photos.length + '枚');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // テキスト入力モーダル（不具合不良の有無用）
+        function showTextInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">詳細入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">詳細内容</label>
+                                <textarea class="form-control" rows="3" placeholder="不具合の詳細を入力してください"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveText(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // テキスト保存
+        function saveText(button) {
+            const modal = button.closest('.modal');
+            const text = modal.querySelector('textarea').value;
+            
+            console.log('詳細内容:', text);
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // 数値測定入力モーダル（道路との高低差用）
+        function showMeasurementInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">数値入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">高低差 (mm)</label>
+                                <input type="number" class="form-control" placeholder="数値を入力してください" step="1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">コメント</label>
+                                <textarea class="form-control" rows="3" placeholder="コメントを入力してください"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveMeasurement(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 数値測定保存
+        function saveMeasurement(button) {
+            const modal = button.closest('.modal');
+            const measurement = modal.querySelector('input[type="number"]').value;
+            const comment = modal.querySelector('textarea').value;
+            
+            console.log('高低差:', measurement + 'mm');
+            console.log('コメント:', comment);
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // 配筋ピッチ入力モーダル
+        function showPitchInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">配筋ピッチ入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">配筋のピッチ (mm)</label>
+                                <input type="number" class="form-control" placeholder="ピッチを入力してください" step="1">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="savePitch(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 配筋ピッチ保存
+        function savePitch(button) {
+            const modal = button.closest('.modal');
+            const pitch = modal.querySelector('input[type="number"]').value;
+            
+            console.log('配筋ピッチ:', pitch + 'mm');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // コンクリート強度入力モーダル
+        function showStrengthInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">コンクリート強度入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">コンクリート強度 (Kg/㎠)</label>
+                                <input type="number" class="form-control" placeholder="強度を入力してください" step="0.1">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveStrength(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // コンクリート強度保存
+        function saveStrength(button) {
+            const modal = button.closest('.modal');
+            const strength = modal.querySelector('input[type="number"]').value;
+            
+            console.log('コンクリート強度:', strength + 'Kg/㎠');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // 居室面積入力モーダル
+        function showAreaInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">居室面積入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">居室の面積 (㎡)</label>
+                                <input type="number" class="form-control" placeholder="面積を入力してください" step="0.01">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveArea(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 居室面積保存
+        function saveArea(button) {
+            const modal = button.closest('.modal');
+            const area = modal.querySelector('input[type="number"]').value;
+            
+            console.log('居室面積:', area + '㎡');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // 開口部寸法入力モーダル
+        function showDimensionInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">開口部寸法入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">幅 (mm)</label>
+                                <input type="number" class="form-control" placeholder="幅を入力してください" step="1">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">高さ (mm)</label>
+                                <input type="number" class="form-control" placeholder="高さを入力してください" step="1">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveDimension(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 開口部寸法保存
+        function saveDimension(button) {
+            const modal = button.closest('.modal');
+            const width = modal.querySelectorAll('input[type="number"]')[0].value;
+            const height = modal.querySelectorAll('input[type="number"]')[1].value;
+            
+            console.log('開口部寸法:', width + 'mm × ' + height + 'mm');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // 距離入力モーダル
+        function showDistanceInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">距離入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">距離 (mm)</label>
+                                <input type="number" class="form-control" placeholder="距離を入力してください" step="1">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveDistance(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 距離保存
+        function saveDistance(button) {
+            const modal = button.closest('.modal');
+            const distance = modal.querySelector('input[type="number"]').value;
+            
+            console.log('距離:', distance + 'mm');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // 不足採光面積入力モーダル
+        function showInsufficientLightInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">不足採光面積入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">部屋名</label>
+                                <input type="text" class="form-control" placeholder="部屋名を入力してください">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">不足採光面積 (㎡)</label>
+                                <input type="number" class="form-control" placeholder="不足面積を入力してください" step="0.01">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveInsufficientLight(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 不足採光面積保存
+        function saveInsufficientLight(button) {
+            const modal = button.closest('.modal');
+            const roomName = modal.querySelector('input[type="text"]').value;
+            const area = modal.querySelector('input[type="number"]').value;
+            
+            console.log('部屋名:', roomName);
+            console.log('不足採光面積:', area + '㎡');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // インタラクティブ要素のクリックイベント
+        document.querySelectorAll('.interactive-element').forEach(element => {
+            element.addEventListener('click', function() {
+                // 選択状態の切り替え
+                this.style.border = this.style.border === '2px solid #ffc107' ? '' : '2px solid #ffc107';
+                this.style.boxShadow = this.style.boxShadow === '0 0 10px rgba(255, 193, 7, 0.5)' ? '' : '0 0 10px rgba(255, 193, 7, 0.5)';
+            });
+        });
+
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初期表示で「採光」カテゴリを表示
+            updateInspectionItems('採光');
+        });
+    </script>
+</body>
+</html>
