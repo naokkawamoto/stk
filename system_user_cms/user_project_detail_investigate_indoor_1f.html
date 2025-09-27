@@ -26,6 +26,185 @@
             padding: 15px;
             border-radius: 0;
         }
+        .nav-tabs {
+            background: #e9ecef;
+            border: none;
+            padding: 8px;
+        }
+        .nav-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            font-size: 12px;
+            padding: 6px 12px;
+            margin: 0 2px;
+            border-radius: 6px;
+        }
+        .nav-tabs .nav-link.active {
+            background: white;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+        .toolbar {
+            position: absolute;
+            left: 15px;
+            top: 80px;
+            z-index: 10;
+        }
+        .tool-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .main-content {
+            position: relative;
+            background: #f8f9fa;
+            min-height: 400px;
+            padding: 20px;
+        }
+        .floor-diagram {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .floating-action-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #fd7e14;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+            z-index: 10;
+        }
+        .bottom-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            max-height: 60vh;
+            background: #343a40;
+            border-radius: 20px 20px 0 0;
+            color: white;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .sheet-header {
+            padding: 15px;
+            border-bottom: 1px solid #495057;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sheet-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+        .sheet-tab {
+            background: #495057;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .sheet-tab.active {
+            background: #28a745;
+        }
+        .inspection-items {
+            padding: 0 15px 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .inspection-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #495057;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+        .item-content {
+            flex: 1;
+            font-size: 14px;
+            color: white;
+        }
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #6c757d;
+            border-radius: 6px;
+            background: transparent;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .action-btn:hover {
+            background: #6c757d;
+        }
+        .action-btn.btn-ok {
+            background: #28a745;
+            border-color: #28a745;
+        }
+        .action-btn.btn-ng {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+        .action-btn.btn-maintain {
+            background: #ffc107;
+            color: #000;
+            border-color: #ffc107;
+        }
+        .action-btn.btn-secondary {
+            background: #6c757d;
+            border-color: #6c757d;
+        }
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .interactive-element:hover {
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -40,16 +219,934 @@
             </div>
         </div>
 
+        <!-- ナビゲーションバー -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="living-tab" data-bs-toggle="tab" data-bs-target="#living" type="button" role="tab">居間</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="kitchen-tab" data-bs-toggle="tab" data-bs-target="#kitchen" type="button" role="tab">キッチン</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="toilet-tab" data-bs-toggle="tab" data-bs-target="#toilet" type="button" role="tab">トイレ</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="bathroom-tab" data-bs-toggle="tab" data-bs-target="#bathroom" type="button" role="tab">浴室</button>
+            </li>
+        </ul>
+
+        <!-- 左側ツールバー -->
+        <div class="toolbar">
+            <div class="tool-btn" title="編集">
+                <i class="bi bi-pencil" style="color: #6c757d;"></i>
+            </div>
+            <div class="tool-btn" title="テキスト">
+                <i class="bi bi-type" style="color: #6c757d;"></i>
+            </div>
+        </div>
+
         <!-- メインコンテンツ -->
-        <div class="p-3">
-            <div class="text-center text-muted">
-                <i class="bi bi-house" style="font-size: 48px; color: #6c757d;"></i>
-                <p class="mt-3">1F平面図調査ページ</p>
-                <p class="small">調査機能は今後実装予定です</p>
+        <div class="main-content">
+            <!-- 1F平面図 -->
+            <div class="floor-diagram">
+                <svg width="100%" height="200" viewBox="0 0 300 200">
+                    <!-- 外壁 -->
+                    <rect x="10" y="10" width="280" height="180" fill="none" stroke="#495057" stroke-width="2"/>
+                    
+                    <!-- 居間 -->
+                    <rect x="20" y="20" width="100" height="70" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                    <text x="70" y="60" text-anchor="middle" font-size="12" fill="#1976d2">居間</text>
+                    
+                    <!-- キッチン -->
+                    <rect x="130" y="20" width="70" height="70" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                    <text x="165" y="60" text-anchor="middle" font-size="12" fill="#f57c00">キッチン</text>
+                    
+                    <!-- トイレ -->
+                    <rect x="210" y="20" width="70" height="70" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2"/>
+                    <text x="245" y="60" text-anchor="middle" font-size="12" fill="#7b1fa2">トイレ</text>
+                    
+                    <!-- 洗面所 -->
+                    <rect x="20" y="100" width="60" height="50" fill="#e8f5e8" stroke="#388e3c" stroke-width="2"/>
+                    <text x="50" y="130" text-anchor="middle" font-size="12" fill="#388e3c">洗面所</text>
+                    
+                    <!-- 浴室 -->
+                    <rect x="90" y="100" width="80" height="50" fill="#e1f5fe" stroke="#0277bd" stroke-width="2"/>
+                    <text x="130" y="130" text-anchor="middle" font-size="12" fill="#0277bd">浴室</text>
+                    
+                    <!-- 玄関 -->
+                    <rect x="180" y="100" width="100" height="50" fill="#fff8e1" stroke="#f9a825" stroke-width="2"/>
+                    <text x="230" y="130" text-anchor="middle" font-size="12" fill="#f9a825">玄関</text>
+                    
+                    <!-- 廊下 -->
+                    <rect x="20" y="160" width="260" height="20" fill="#f5f5f5" stroke="#757575" stroke-width="1"/>
+                    <text x="150" y="175" text-anchor="middle" font-size="10" fill="#757575">廊下</text>
+                    
+                    <!-- ドア -->
+                    <line x1="70" y1="20" x2="70" y2="90" stroke="#8d6e63" stroke-width="2"/>
+                    <line x1="200" y1="20" x2="200" y2="90" stroke="#8d6e63" stroke-width="2"/>
+                    <line x1="20" y1="125" x2="80" y2="125" stroke="#8d6e63" stroke-width="2"/>
+                    <line x1="170" y1="125" x2="220" y2="125" stroke="#8d6e63" stroke-width="2"/>
+                    <line x1="280" y1="125" x2="280" y2="175" stroke="#8d6e63" stroke-width="2"/>
+                    
+                    <!-- 設備アイコン -->
+                    <!-- キッチン設備 -->
+                    <rect x="140" y="30" width="12" height="12" fill="#ff5722" class="interactive-element"/>
+                    <text x="146" y="38" text-anchor="middle" font-size="8" fill="white">シ</text>
+                    
+                    <rect x="155" y="30" width="12" height="12" fill="#ff5722" class="interactive-element"/>
+                    <text x="161" y="38" text-anchor="middle" font-size="8" fill="white">レ</text>
+                    
+                    <!-- トイレ設備 -->
+                    <rect x="220" y="30" width="12" height="12" fill="#9c27b0" class="interactive-element"/>
+                    <text x="226" y="38" text-anchor="middle" font-size="8" fill="white">ト</text>
+                    
+                    <!-- 洗面設備 -->
+                    <rect x="30" y="110" width="12" height="12" fill="#4caf50" class="interactive-element"/>
+                    <text x="36" y="118" text-anchor="middle" font-size="8" fill="white">洗</text>
+                    
+                    <!-- 浴室設備 -->
+                    <rect x="100" y="110" width="12" height="12" fill="#2196f3" class="interactive-element"/>
+                    <text x="106" y="118" text-anchor="middle" font-size="8" fill="white">風</text>
+                    
+                    <!-- 電気設備 -->
+                    <rect x="250" y="110" width="12" height="12" fill="#ff9800" class="interactive-element"/>
+                    <text x="256" y="118" text-anchor="middle" font-size="8" fill="white">電</text>
+                </svg>
+            </div>
+
+            <!-- フローティングアクションボタン -->
+            <button class="floating-action-btn">
+                <i class="bi bi-camera" style="color: white; font-size: 20px;"></i>
+            </button>
+        </div>
+
+        <!-- ボトムシート -->
+        <div class="bottom-sheet">
+            <div class="sheet-header">
+                <div>
+                    <h6 class="text-white mb-0">点検項目(給排気設備)</h6>
+                </div>
+            </div>
+
+            <div class="sheet-tabs">
+                <button class="sheet-tab active" onclick="updateInspectionItems('給排気設備')">給排気設備</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('キッチン')">キッチン</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('レンジフード')">レンジフード</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('キッチン壁天井')">キッチン壁天井</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('シンク')">シンク</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('トイレ')">トイレ</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('分電盤/防災無線')">分電盤/防災無線</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('防災無線')">防災無線</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('電気設備・配線箇所')">電気設備・配線箇所</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('建具とびら')">建具とびら</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('洗面化粧台')">洗面化粧台</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('お風呂')">お風呂</button>
+                <button class="sheet-tab" onclick="updateInspectionItems('トイレ浄化槽')">トイレ浄化槽</button>
+            </div>
+
+            <!-- 点検項目リスト -->
+            <div class="inspection-items">
+                <div class="text-center text-muted py-4">
+                    <i class="bi bi-list-check" style="font-size: 32px;"></i>
+                    <p class="mt-2 mb-0">給排気設備の調査項目</p>
+                    <p class="small">調査項目は今後実装予定です</p>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // タブ切り替え機能
+        function updateInspectionItems(category) {
+            // タブのアクティブ状態を更新
+            document.querySelectorAll('.sheet-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // ヘッダータイトルを更新
+            document.querySelector('.sheet-header h6').textContent = `点検項目(${category})`;
+
+            // 点検項目を更新
+            const inspectionItems = document.querySelector('.inspection-items');
+            let items = [];
+            let actionButtons = '';
+
+            switch(category) {
+                case '給排気設備':
+                    items = [
+                        { icon: '換', color: '#17a2b8', text: '換気方式' },
+                        { icon: 'メ', color: '#6c757d', text: '換気設備メーカー' },
+                        { icon: '品', color: '#6c757d', text: '換気設備品番' },
+                        { icon: '量', color: '#28a745', text: '必要換気量' },
+                        { icon: '不', color: '#dc3545', text: '不具合不良の有無' },
+                        { icon: '法', color: '#6c757d', text: '法28②法36 換気設備（調理室を除く）' }
+                    ];
+                    break;
+                case 'キッチン':
+                    items = [
+                        { icon: 'メ', color: '#6c757d', text: 'キッチンメーカー' },
+                        { icon: '長', color: '#28a745', text: 'キッチンサイズ（長さ）' },
+                        { icon: '奥', color: '#28a745', text: 'キッチンサイズ（奥行き）' },
+                        { icon: '高', color: '#28a745', text: '天板までの高さ' },
+                        { icon: '不', color: '#dc3545', text: '不具合不良の有無' },
+                        { icon: '加', color: '#17a2b8', text: '加熱器種類' },
+                        { icon: '量', color: '#28a745', text: '（ガス）必要換気量' },
+                        { icon: '法', color: '#6c757d', text: '法28②法36 換気設備（調理室等）' }
+                    ];
+                    break;
+                case 'レンジフード':
+                    items = [
+                        { icon: 'メ', color: '#6c757d', text: 'レンジフードメーカー' },
+                        { icon: '品', color: '#6c757d', text: 'レンジフード品番' },
+                        { icon: '不', color: '#dc3545', text: '不具合不良の有無' }
+                    ];
+                    break;
+                case 'キッチン壁天井':
+                    items = [
+                        { icon: '壁', color: '#17a2b8', text: '壁天井が不燃材' },
+                        { icon: '壁', color: '#28a745', text: '壁天井' },
+                        { icon: '法', color: '#6c757d', text: '法35の2 火気使用室の内装' }
+                    ];
+                    break;
+                case 'シンク':
+                    items = [
+                        { icon: '位', color: '#17a2b8', text: 'シンク位置' }
+                    ];
+                    break;
+                case 'トイレ':
+                    items = [
+                        { icon: 'メ', color: '#6c757d', text: 'トイレメーカー' },
+                        { icon: '品', color: '#6c757d', text: 'トイレ品番' },
+                        { icon: '窓', color: '#17a2b8', text: '窓の有無' },
+                        { icon: '換', color: '#28a745', text: '換気の有無' },
+                        { icon: '不', color: '#dc3545', text: '不具合不良の有無' },
+                        { icon: '法', color: '#6c757d', text: '法31①法36 採光、換気設備' }
+                    ];
+                    break;
+                case '分電盤/防災無線':
+                    items = [
+                        { icon: '回', color: '#17a2b8', text: '分電盤/回路数' },
+                        { icon: 'ア', color: '#28a745', text: 'アンペア' }
+                    ];
+                    break;
+                case '防災無線':
+                    items = [
+                        { icon: '防', color: '#6c757d', text: '防災無線' }
+                    ];
+                    break;
+                case '電気設備・配線箇所':
+                    items = [
+                        { icon: 'コ', color: '#17a2b8', text: 'コンセントの種類' },
+                        { icon: '数', color: '#28a745', text: 'コンセントの数' },
+                        { icon: '照', color: '#ffc107', text: '照明の種類' },
+                        { icon: '数', color: '#ffc107', text: '照明の配灯数' },
+                        { icon: 'ス', color: '#6f42c1', text: 'スイッチの種類' },
+                        { icon: '数', color: '#6f42c1', text: 'スイッチの数' },
+                        { icon: 'イ', color: '#dc3545', text: 'インターフォンの種類' },
+                        { icon: '数', color: '#dc3545', text: 'インターフォンの数' },
+                        { icon: '給', color: '#20c997', text: '給湯器リモコン' },
+                        { icon: '法', color: '#6c757d', text: '法32 電気設備' }
+                    ];
+                    break;
+                case '建具とびら':
+                    items = [
+                        { icon: '高', color: '#17a2b8', text: '高さ' },
+                        { icon: '幅', color: '#28a745', text: '幅' },
+                        { icon: '種', color: '#ffc107', text: '扉の種類' },
+                        { icon: '破', color: '#dc3545', text: '建具：著しい破損・劣化・欠損・建付け不良' }
+                    ];
+                    break;
+                case '洗面化粧台':
+                    items = [
+                        { icon: '高', color: '#17a2b8', text: '洗面化粧台高さ' },
+                        { icon: '幅', color: '#28a745', text: '洗面化粧台幅' },
+                        { icon: 'メ', color: '#6c757d', text: 'メーカー名' },
+                        { icon: '不', color: '#dc3545', text: '不具合不良の有無' }
+                    ];
+                    break;
+                case 'お風呂':
+                    items = [
+                        { icon: '形', color: '#17a2b8', text: 'お風呂形態' },
+                        { icon: '不', color: '#dc3545', text: '不具合不良の有無' }
+                    ];
+                    break;
+                case 'トイレ浄化槽':
+                    items = [
+                        { icon: '浄', color: '#17a2b8', text: 'トイレ浄化槽' },
+                        { icon: '法', color: '#6c757d', text: '法31①法36 公共下水道の処理区域' },
+                        { icon: '法', color: '#6c757d', text: '法31②法36 公共下水道の処理区域' }
+                    ];
+                    break;
+                default:
+                    items = [];
+            }
+
+            if (items.length > 0) {
+                let itemsHTML = '';
+                items.forEach(item => {
+                    if (category === '給排気設備') {
+                        if (item.text === '換気方式') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="第１種換気方式">第１種</button>
+                                <button class="action-btn btn-ok" data-value="第２種換気方式">第２種</button>
+                                <button class="action-btn btn-ok" data-value="第３種換気方式">第３種</button>
+                            `;
+                        } else if (item.text === '換気設備メーカー' || item.text === '換気設備品番') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="入力">入力</button>
+                            `;
+                        } else if (item.text === '必要換気量') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-maintain" data-value="不適合">不適合</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text === '法28②法36 換気設備（調理室を除く）') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === 'キッチン') {
+                        if (item.text === 'キッチンメーカー') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="入力">入力</button>
+                            `;
+                        } else if (item.text.includes('キッチンサイズ') || item.text === '天板までの高さ') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text === '加熱器種類') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="ガス">ガス</button>
+                                <button class="action-btn btn-ok" data-value="IH">IH</button>
+                            `;
+                        } else if (item.text === '（ガス）必要換気量') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-maintain" data-value="不適合">不適合</button>
+                            `;
+                        } else if (item.text === '法28②法36 換気設備（調理室等）') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === 'レンジフード') {
+                        if (item.text === 'レンジフードメーカー' || item.text === 'レンジフード品番') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="入力">入力</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        }
+                    } else if (category === 'キッチン壁天井') {
+                        if (item.text === '壁天井が不燃材') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="はい">はい</button>
+                                <button class="action-btn btn-maintain" data-value="いいえ">いいえ</button>
+                            `;
+                        } else if (item.text === '壁天井') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-maintain" data-value="不適合">不適合</button>
+                            `;
+                        } else if (item.text === '法35の2 火気使用室の内装') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === 'シンク') {
+                        if (item.text === 'シンク位置') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="右シンク">右シンク</button>
+                                <button class="action-btn btn-ok" data-value="左シンク">左シンク</button>
+                            `;
+                        }
+                    } else if (category === 'トイレ') {
+                        if (item.text === 'トイレメーカー' || item.text === 'トイレ品番') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="入力">入力</button>
+                            `;
+                        } else if (item.text === '窓の有無' || item.text === '換気の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="あり">あり</button>
+                                <button class="action-btn btn-maintain" data-value="なし">なし</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        } else if (item.text === '法31①法36 採光、換気設備') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === '分電盤/防災無線') {
+                        if (item.text === '分電盤/回路数') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === 'アンペア') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="30A">30A</button>
+                                <button class="action-btn btn-ok" data-value="40A">40A</button>
+                                <button class="action-btn btn-ok" data-value="50A">50A</button>
+                                <button class="action-btn btn-ok" data-value="60A">60A</button>
+                                <button class="action-btn btn-secondary" data-value="その他">その他</button>
+                            `;
+                        }
+                    } else if (category === '防災無線') {
+                        if (item.text === '防災無線') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="あり">あり</button>
+                                <button class="action-btn btn-maintain" data-value="なし">なし</button>
+                            `;
+                        }
+                    } else if (category === '電気設備・配線箇所') {
+                        if (item.text === 'コンセントの種類') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="1口コンセント">1口</button>
+                                <button class="action-btn btn-ok" data-value="2口コンセント">2口</button>
+                                <button class="action-btn btn-ok" data-value="アース付コンセント">アース付</button>
+                                <button class="action-btn btn-ok" data-value="エアコンコンセント">エアコン</button>
+                                <button class="action-btn btn-ok" data-value="防水コンセント">防水</button>
+                                <button class="action-btn btn-ok" data-value="テレビコンセント">TV</button>
+                                <button class="action-btn btn-ok" data-value="電話コンセント">電話</button>
+                                <button class="action-btn btn-ok" data-value="インターネットコンセント">LAN</button>
+                            `;
+                        } else if (item.text === 'コンセントの数') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '照明の種類') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="天井付け">天井付け</button>
+                                <button class="action-btn btn-ok" data-value="ブラケット">ブラケット</button>
+                                <button class="action-btn btn-ok" data-value="ダウンライト">ダウンライト</button>
+                            `;
+                        } else if (item.text === '照明の配灯数') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === 'スイッチの種類') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="ボタン数(1)">1ボタン</button>
+                                <button class="action-btn btn-ok" data-value="ボタン数(2)">2ボタン</button>
+                                <button class="action-btn btn-ok" data-value="ボタン数(3)">3ボタン</button>
+                                <button class="action-btn btn-ok" data-value="ボタン数(4)">4ボタン</button>
+                            `;
+                        } else if (item.text === 'スイッチの数') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === 'インターフォンの種類') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="TV付き">TV付き</button>
+                                <button class="action-btn btn-ok" data-value="TVなし">TVなし</button>
+                                <button class="action-btn btn-ok" data-value="チャイムのみ">チャイム</button>
+                            `;
+                        } else if (item.text === 'インターフォンの数') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '給湯器リモコン') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="あり">あり</button>
+                                <button class="action-btn btn-maintain" data-value="なし">なし</button>
+                            `;
+                        } else if (item.text === '法32 電気設備') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    } else if (category === '建具とびら') {
+                        if (item.text === '高さ' || item.text === '幅') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === '扉の種類') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="洋風">洋風</button>
+                                <button class="action-btn btn-ok" data-value="和風">和風</button>
+                            `;
+                        } else if (item.text === '建具：著しい破損・劣化・欠損・建付け不良') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        }
+                    } else if (category === '洗面化粧台') {
+                        if (item.text === '洗面化粧台高さ' || item.text === '洗面化粧台幅') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="測定">測定</button>
+                            `;
+                        } else if (item.text === 'メーカー名') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="入力">入力</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        }
+                    } else if (category === 'お風呂') {
+                        if (item.text === 'お風呂形態') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="ユニットバス">ユニットバス</button>
+                                <button class="action-btn btn-ok" data-value="在来風呂">在来風呂</button>
+                            `;
+                        } else if (item.text === '不具合不良の有無') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="なし">なし</button>
+                                <button class="action-btn btn-maintain" data-value="あり">あり</button>
+                            `;
+                        }
+                    } else if (category === 'トイレ浄化槽') {
+                        if (item.text === 'トイレ浄化槽') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="下水道接続">下水道接続</button>
+                                <button class="action-btn btn-ok" data-value="浄化槽接続">浄化槽接続</button>
+                                <button class="action-btn btn-ok" data-value="汲み取り方式">汲み取り方式</button>
+                            `;
+                        } else if (item.text === '法31①法36 公共下水道の処理区域') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="区域内">区域内</button>
+                                <button class="action-btn btn-maintain" data-value="区域外">区域外</button>
+                            `;
+                        } else if (item.text === '法31②法36 公共下水道の処理区域') {
+                            actionButtons = `
+                                <button class="action-btn btn-ok" data-value="適合">適合</button>
+                                <button class="action-btn btn-ng" data-value="不適合">不適合</button>
+                                <button class="action-btn btn-maintain" data-value="不明">不明</button>
+                            `;
+                        }
+                    }
+
+                    itemsHTML += `
+                        <div class="inspection-item">
+                            <div class="item-icon" style="background: ${item.color};">${item.icon}</div>
+                            <div class="item-content">${item.text}</div>
+                            <div class="item-actions">
+                                ${actionButtons}
+                            </div>
+                        </div>
+                    `;
+                });
+                inspectionItems.innerHTML = itemsHTML;
+
+                // イベントリスナーを追加
+                document.querySelectorAll('.action-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const action = this.textContent;
+                        const value = this.getAttribute('data-value') || action;
+                        const item = this.closest('.inspection-item');
+                        const itemName = item.querySelector('.item-content').textContent;
+                        
+                        // ボタンの状態更新
+                        item.querySelectorAll('.action-btn').forEach(b => b.style.opacity = '0.5');
+                        this.style.opacity = '1';
+                        
+                        // 詳細入力が必要な場合の処理
+                        if (value === 'あり' || value === '不適合' || value === '不明') {
+                            showDetailInput(itemName, value);
+                        } else if (value === '入力') {
+                            showTextInput(itemName, value);
+                        } else if (value === '測定') {
+                            showMeasurementInput(itemName, value);
+                        } else if (itemName === '不具合不良の有無' && value === 'あり') {
+                            showTextInput(itemName, value);
+                        } else if ((itemName === '必要換気量' || itemName === '（ガス）必要換気量') && value === '不適合') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '壁天井が不燃材' && value === 'いいえ') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '壁天井' && value === '不適合') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === 'シンク位置' && (value === '右シンク' || value === '左シンク')) {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '窓の有無' && value === 'あり') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '窓の有無' && value === 'なし') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '換気の有無' && value === 'あり') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '換気の有無' && value === 'なし') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === 'アンペア' && value === 'その他') {
+                            showTextInput(itemName, value);
+                        } else if (itemName === 'アンペア' && value !== 'その他') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '防災無線' && value === 'あり') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '防災無線' && value === 'なし') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === 'コンセントの種類' && value !== '測定') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '照明の種類' && value !== '測定') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === 'スイッチの種類' && value !== '測定') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === 'インターフォンの種類' && value !== '測定') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '給湯器リモコン' && value === 'あり') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '給湯器リモコン' && value === 'なし') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '建具：著しい破損・劣化・欠損・建付け不良' && value === 'あり') {
+                            showTextInput(itemName, value);
+                        } else if (itemName === '洗面化粧台高さ' || itemName === '洗面化粧台幅') {
+                            showMeasurementInput(itemName, value);
+                        } else if (itemName === 'メーカー名' && value === '入力') {
+                            showTextInput(itemName, value);
+                        } else if (itemName === '不具合不良の有無' && value === 'あり' && (category === '洗面化粧台' || category === 'お風呂')) {
+                            showTextInput(itemName, value);
+                        } else if (itemName === 'お風呂形態' && (value === 'ユニットバス' || value === '在来風呂')) {
+                            showChildItems(itemName, value);
+                        } else if (itemName === '扉の種類' && (value === '洋風' || value === '和風')) {
+                            showChildItems(itemName, value);
+                        } else if (itemName === 'トイレ浄化槽' && (value === '浄化槽接続' || value === '汲み取り方式')) {
+                            showChildItems(itemName, value);
+                        } else if (itemName === '法31①法36 公共下水道の処理区域' && value === '区域外') {
+                            showDetailInput(itemName, value);
+                        } else if (itemName === '法31②法36 公共下水道の処理区域' && (value === '不適合' || value === '不明')) {
+                            showDetailInput(itemName, value);
+                        }
+                        
+                        console.log(`${itemName}: ${action} (${value}) が選択されました`);
+                    });
+                });
+            } else {
+                inspectionItems.innerHTML = `
+                    <div class="text-center text-muted py-4">
+                        <i class="bi bi-list-check" style="font-size: 32px;"></i>
+                        <p class="mt-2 mb-0">${category}の調査項目</p>
+                        <p class="small">調査項目は今後実装予定です</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 詳細入力モーダル
+        function showDetailInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">詳細入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">コメント</label>
+                                <textarea class="form-control" rows="3" placeholder="詳細を入力してください"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">写真</label>
+                                <input type="file" class="form-control" accept="image/*" multiple>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveDetail(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // テキスト入力モーダル
+        function showTextInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">テキスト入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">詳細内容</label>
+                                <textarea class="form-control" rows="3" placeholder="詳細を入力してください"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveText(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 数値測定入力モーダル
+        function showMeasurementInput(itemName, value) {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">測定入力 - ${itemName}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">測定値 (mm)</label>
+                                <input type="number" class="form-control" placeholder="測定値を入力してください" step="1">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveMeasurement(this)">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+            
+            modal.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 詳細保存
+        function saveDetail(button) {
+            const modal = button.closest('.modal');
+            const comment = modal.querySelector('textarea').value;
+            const photos = modal.querySelector('input[type="file"]').files;
+            
+            console.log('コメント:', comment);
+            console.log('写真:', photos.length + '枚');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // テキスト保存
+        function saveText(button) {
+            const modal = button.closest('.modal');
+            const text = modal.querySelector('textarea').value;
+            
+            console.log('詳細内容:', text);
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // 数値測定保存
+        function saveMeasurement(button) {
+            const modal = button.closest('.modal');
+            const measurement = modal.querySelector('input[type="number"]').value;
+            
+            console.log('測定値:', measurement + 'mm');
+            
+            bootstrap.Modal.getInstance(modal).hide();
+        }
+
+        // 子項目表示
+        function showChildItems(parentName, parentValue) {
+            let childItems = [];
+            
+            if (parentName === '扉の種類' && parentValue === '洋風') {
+                childItems = [
+                    { icon: '既', color: '#6c757d', text: '既製品' },
+                    { icon: '洋', color: '#17a2b8', text: '（洋風）種類' }
+                ];
+            } else if (parentName === '扉の種類' && parentValue === '和風') {
+                childItems = [
+                    { icon: '和', color: '#28a745', text: '（和風）種類' }
+                ];
+            } else if (parentName === 'お風呂形態' && parentValue === '在来風呂') {
+                childItems = [
+                    { icon: 'サ', color: '#17a2b8', text: '（在来風呂）サイズ' }
+                ];
+            } else if (parentName === 'お風呂形態' && parentValue === 'ユニットバス') {
+                childItems = [
+                    { icon: '規', color: '#28a745', text: '（ユニットバス）規定サイズ' },
+                    { icon: 'メ', color: '#6c757d', text: '（ユニットバス）メーカー名' },
+                    { icon: 'オ', color: '#ffc107', text: '（ユニットバス）オプション' }
+                ];
+            } else if (parentName === 'トイレ浄化槽' && parentValue === '浄化槽接続') {
+                childItems = [
+                    { icon: '種', color: '#17a2b8', text: '（浄化槽）種類' },
+                    { icon: 'サ', color: '#28a745', text: '（浄化槽）サイズ' }
+                ];
+            } else if (parentName === 'トイレ浄化槽' && parentValue === '汲み取り方式') {
+                childItems = [
+                    { icon: '漏', color: '#dc3545', text: '（汲み取り）漏水の有無' }
+                ];
+            }
+
+            if (childItems.length > 0) {
+                const inspectionItems = document.querySelector('.inspection-items');
+                let childHTML = '';
+                
+                childItems.forEach(child => {
+                    let childActionButtons = '';
+                    
+                    if (child.text === '既製品') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="既製品">既製品</button>
+                            <button class="action-btn btn-ok" data-value="オーダー">オーダー</button>
+                        `;
+                    } else if (child.text === '（洋風）種類') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="片開ドア">片開ドア</button>
+                            <button class="action-btn btn-ok" data-value="親子ドア">親子ドア</button>
+                            <button class="action-btn btn-ok" data-value="両開ドア">両開ドア</button>
+                            <button class="action-btn btn-ok" data-value="引違戸">引違戸</button>
+                            <button class="action-btn btn-ok" data-value="片引戸">片引戸</button>
+                            <button class="action-btn btn-ok" data-value="アウトセット引戸">アウトセット引戸</button>
+                            <button class="action-btn btn-ok" data-value="引込戸">引込戸</button>
+                            <button class="action-btn btn-ok" data-value="折戸">折戸</button>
+                        `;
+                    } else if (child.text === '（和風）種類') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="戸襖">戸襖</button>
+                            <button class="action-btn btn-ok" data-value="開戸">開戸</button>
+                            <button class="action-btn btn-ok" data-value="両開戸">両開戸</button>
+                            <button class="action-btn btn-ok" data-value="引違戸">引違戸</button>
+                            <button class="action-btn btn-ok" data-value="片引戸">片引戸</button>
+                            <button class="action-btn btn-ok" data-value="障子">障子</button>
+                        `;
+                    } else if (child.text === '（在来風呂）サイズ') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="入力">入力</button>
+                        `;
+                    } else if (child.text === '（ユニットバス）規定サイズ') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="1216">1216</button>
+                            <button class="action-btn btn-ok" data-value="1217">1217</button>
+                            <button class="action-btn btn-ok" data-value="1316">1316</button>
+                            <button class="action-btn btn-ok" data-value="1317">1317</button>
+                            <button class="action-btn btn-secondary" data-value="その他">その他</button>
+                        `;
+                    } else if (child.text === '（ユニットバス）メーカー名') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="入力">入力</button>
+                        `;
+                    } else if (child.text === '（ユニットバス）オプション') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="追い焚き有り">追い焚き有り</button>
+                            <button class="action-btn btn-ok" data-value="換気扇">換気扇</button>
+                            <button class="action-btn btn-ok" data-value="換気乾燥暖房機">換気乾燥暖房機</button>
+                        `;
+                    } else if (child.text === '（浄化槽）種類') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="単独">単独</button>
+                            <button class="action-btn btn-ok" data-value="合併">合併</button>
+                        `;
+                    } else if (child.text === '（浄化槽）サイズ') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="５人層">５人層</button>
+                            <button class="action-btn btn-ok" data-value="７人槽">７人槽</button>
+                            <button class="action-btn btn-ok" data-value="１０人層">１０人層</button>
+                            <button class="action-btn btn-secondary" data-value="その他">その他</button>
+                        `;
+                    } else if (child.text === '（汲み取り）漏水の有無') {
+                        childActionButtons = `
+                            <button class="action-btn btn-ok" data-value="あり">あり</button>
+                            <button class="action-btn btn-maintain" data-value="なし">なし</button>
+                        `;
+                    }
+
+                    childHTML += `
+                        <div class="inspection-item" style="margin-left: 20px; border-left: 3px solid ${child.color};">
+                            <div class="item-icon" style="background: ${child.color};">${child.icon}</div>
+                            <div class="item-content">${child.text}</div>
+                            <div class="item-actions">
+                                ${childActionButtons}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                inspectionItems.innerHTML += childHTML;
+
+                // 子項目のイベントリスナーを追加
+                const childButtons = inspectionItems.querySelectorAll('.inspection-item[style*="margin-left"] .action-btn');
+                childButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const action = this.textContent;
+                        const value = this.getAttribute('data-value') || action;
+                        const item = this.closest('.inspection-item');
+                        const itemName = item.querySelector('.item-content').textContent;
+                        
+                        // ボタンの状態更新
+                        item.querySelectorAll('.action-btn').forEach(b => b.style.opacity = '0.5');
+                        this.style.opacity = '1';
+                        
+                        // 詳細入力が必要な場合の処理
+                        if (value === 'オーダー' || value === 'その他' || value === '入力') {
+                            showTextInput(itemName, value);
+                        } else if (value === 'あり') {
+                            showDetailInput(itemName, value);
+                        } else if (value === 'なし') {
+                            showDetailInput(itemName, value);
+                        }
+                        
+                        console.log(`${itemName}: ${action} (${value}) が選択されました`);
+                    });
+                });
+            }
+        }
+
+        // インタラクティブ要素のクリックイベント
+        document.querySelectorAll('.interactive-element').forEach(element => {
+            element.addEventListener('click', function() {
+                // 選択状態の切り替え
+                this.style.border = this.style.border === '2px solid #ffc107' ? '' : '2px solid #ffc107';
+                this.style.boxShadow = this.style.boxShadow === '0 0 10px rgba(255, 193, 7, 0.5)' ? '' : '0 0 10px rgba(255, 193, 7, 0.5)';
+            });
+        });
+
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初期表示で「給排気設備」カテゴリを表示
+            updateInspectionItems('給排気設備');
+        });
+    </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>傾斜／１F［1F傾斜図］調査 - リノベーション管理システム</title>
+    <title>傾斜／１,2F［1,2F傾斜図］調査 - リノベーション管理システム</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -26,6 +26,159 @@
             padding: 15px;
             border-radius: 0;
         }
+        .floor-selector {
+            background: #e9ecef;
+            padding: 8px;
+            display: flex;
+            gap: 8px;
+        }
+        .floor-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .floor-btn.active {
+            background: white;
+            color: #495057;
+        }
+        .floor-btn:not(.active) {
+            background: #6c757d;
+            color: white;
+        }
+        .toolbar {
+            position: absolute;
+            left: 15px;
+            top: 80px;
+            z-index: 10;
+        }
+        .tool-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        .main-content {
+            position: relative;
+            background: #f8f9fa;
+            min-height: 400px;
+            padding: 20px;
+        }
+        .floor-diagram {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .floating-action-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #fd7e14;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(253, 126, 20, 0.3);
+            z-index: 10;
+            cursor: pointer;
+        }
+        .bottom-panel {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 375px;
+            background: #343a40;
+            border-radius: 20px 20px 0 0;
+            color: white;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .panel-header {
+            padding: 15px;
+            border-bottom: 1px solid #495057;
+        }
+        .dropdown-row {
+            display: flex;
+            gap: 8px;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+        .dropdown-btn {
+            background: #495057;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .dropdown-btn.active {
+            background: white;
+            color: #495057;
+        }
+        .inspection-item {
+            padding: 0 15px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .item-indicator {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #dc3545;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .item-content {
+            flex: 1;
+            font-size: 14px;
+        }
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border: 1px solid #6c757d;
+            border-radius: 6px;
+            background: transparent;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            background: #6c757d;
+        }
     </style>
 </head>
 <body>
@@ -35,21 +188,536 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <i class="bi bi-arrow-left me-2" style="font-size: 18px; cursor: pointer;" onclick="location.href='user_project_detail_investigate_edit.html'"></i>
-                    <h5 class="mb-0">傾斜／１F［1F傾斜図］</h5>
+                    <h5 class="mb-0">傾斜・3/3 (100%)</h5>
                 </div>
             </div>
         </div>
 
+        <!-- フロア選択バー -->
+        <div class="floor-selector">
+            <button class="floor-btn active" onclick="switchFloor('1f')">1F_H • 2/3</button>
+            <button class="floor-btn" onclick="switchFloor('2f')">2F_H • 3/3</button>
+        </div>
+
+        <!-- 左側ツールバー -->
+        <div class="toolbar">
+            <div class="tool-btn" title="編集">
+                <i class="bi bi-pencil" style="color: #6c757d;"></i>
+            </div>
+            <div class="tool-btn" title="テキスト">
+                <i class="bi bi-type" style="color: #6c757d;"></i>
+            </div>
+        </div>
+
         <!-- メインコンテンツ -->
-        <div class="p-3">
-            <div class="text-center text-muted">
-                <i class="bi bi-arrow-up-right" style="font-size: 48px; color: #6c757d;"></i>
-                <p class="mt-3">1F傾斜図調査ページ</p>
-                <p class="small">調査機能は今後実装予定です</p>
+        <div class="main-content">
+            <!-- 傾斜図 -->
+            <div class="floor-diagram">
+                <svg width="100%" height="300" viewBox="0 0 300 300">
+                    <!-- 1F平面図 -->
+                    <rect x="20" y="20" width="260" height="260" fill="none" stroke="#000" stroke-width="2"/>
+                    
+                    <!-- キッチン -->
+                    <rect x="30" y="30" width="80" height="60" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="70" y="55" text-anchor="middle" font-size="10">キッチン</text>
+                    
+                    <!-- トイレ1 -->
+                    <rect x="30" y="100" width="40" height="50" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="50" y="120" text-anchor="middle" font-size="9">トイレ1</text>
+                    
+                    <!-- 洗面所1 -->
+                    <rect x="80" y="100" width="30" height="50" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="95" y="120" text-anchor="middle" font-size="9">洗面所1</text>
+                    
+                    <!-- LD -->
+                    <rect x="120" y="30" width="140" height="100" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="190" y="80" text-anchor="middle" font-size="12">LD</text>
+                    
+                    <!-- 和室1 -->
+                    <rect x="30" y="160" width="100" height="80" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="80" y="195" text-anchor="middle" font-size="10">和室1</text>
+                    
+                    <!-- ホール1 -->
+                    <rect x="140" y="140" width="80" height="100" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="180" y="185" text-anchor="middle" font-size="10">ホール1</text>
+                    
+                    <!-- ローカ1 -->
+                    <rect x="230" y="140" width="30" height="100" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="245" y="185" text-anchor="middle" font-size="9">ローカ1</text>
+                    
+                    <!-- 階段 -->
+                    <rect x="220" y="160" width="20" height="60" fill="#e9ecef" stroke="#000" stroke-width="1"/>
+                    <text x="230" y="190" text-anchor="middle" font-size="8">UP</text>
+                    
+                    <!-- 寸法線 -->
+                    <line x1="20" y1="15" x2="280" y2="15" stroke="#666" stroke-width="1"/>
+                    <line x1="20" y1="12" x2="20" y2="18" stroke="#666" stroke-width="1"/>
+                    <line x1="280" y1="12" x2="280" y2="18" stroke="#666" stroke-width="1"/>
+                    <text x="150" y="10" text-anchor="middle" font-size="8">8,000</text>
+                    
+                    <!-- 傾斜測定ポイント -->
+                    <circle cx="70" cy="60" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="70" y="90" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                    
+                    <circle cx="190" cy="80" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="190" y="110" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                    
+                    <circle cx="80" cy="200" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="80" y="230" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                </svg>
+            </div>
+
+            <!-- フローティングアクションボタン -->
+            <button class="floating-action-btn" title="ハイライト">
+                <i class="bi bi-star-fill" style="color: white; font-size: 20px;"></i>
+            </button>
+        </div>
+
+        <!-- ボトムパネル -->
+        <div class="bottom-panel">
+            <div class="panel-header">
+                <h6 class="text-white mb-0">点検項目(床)</h6>
+            </div>
+
+            <div class="dropdown-row">
+                <button class="dropdown-btn active">
+                    床 <i class="bi bi-chevron-down"></i>
+                </button>
+                <button class="dropdown-btn">
+                    柱 <i class="bi bi-chevron-down"></i>
+                </button>
+            </div>
+
+            <!-- 点検項目 -->
+            <div id="inspection-items">
+                <!-- 床の点検項目 -->
+                <div class="inspection-item" id="floor-item">
+                    <div class="item-indicator">床</div>
+                    <div class="item-content">
+                        <div style="font-size: 14px; font-weight: bold;">床の傾斜</div>
+                        <div style="font-size: 12px; color: #adb5bd;">2点間の数値と距離をいれると傾斜が表示　下降に矢印がつく</div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="action-btn" onclick="showFloorSlopeModal()">測定</button>
+                    </div>
+                </div>
+                
+                <!-- 柱の点検項目 -->
+                <div class="inspection-item" id="column-item" style="display: none;">
+                    <div class="item-indicator">柱</div>
+                    <div class="item-content">
+                        <div style="font-size: 14px; font-weight: bold;">柱の傾斜</div>
+                        <div style="font-size: 12px; color: #adb5bd;">☒→5　　3←☒</div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="action-btn" onclick="showColumnSlopeModal()">測定</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // フロア切り替え機能
+        function switchFloor(floor) {
+            // ボタンのアクティブ状態を更新
+            document.querySelectorAll('.floor-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 平面図の更新（実際の実装では、フロアごとの異なる平面図を表示）
+            const svg = document.querySelector('.floor-diagram svg');
+            if (floor === '2f') {
+                // 2F平面図に変更
+                svg.innerHTML = `
+                    <!-- 2F平面図 -->
+                    <rect x="20" y="20" width="260" height="260" fill="none" stroke="#000" stroke-width="2"/>
+                    
+                    <!-- 寝室1 -->
+                    <rect x="30" y="30" width="100" height="80" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="80" y="65" text-anchor="middle" font-size="10">寝室1</text>
+                    
+                    <!-- 寝室2 -->
+                    <rect x="140" y="30" width="100" height="80" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="190" y="65" text-anchor="middle" font-size="10">寝室2</text>
+                    
+                    <!-- 書斎 -->
+                    <rect x="30" y="120" width="80" height="80" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="70" y="155" text-anchor="middle" font-size="10">書斎</text>
+                    
+                    <!-- 収納 -->
+                    <rect x="120" y="120" width="60" height="80" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="150" y="155" text-anchor="middle" font-size="10">収納</text>
+                    
+                    <!-- 廊下 -->
+                    <rect x="190" y="120" width="50" height="80" fill="#e9ecef" stroke="#000" stroke-width="1"/>
+                    <text x="215" y="155" text-anchor="middle" font-size="10">廊下</text>
+                    
+                    <!-- 階段 -->
+                    <rect x="220" y="160" width="20" height="60" fill="#e9ecef" stroke="#000" stroke-width="1"/>
+                    <text x="230" y="190" text-anchor="middle" font-size="8">DOWN</text>
+                    
+                    <!-- 寸法線 -->
+                    <line x1="20" y1="15" x2="280" y2="15" stroke="#666" stroke-width="1"/>
+                    <line x1="20" y1="12" x2="20" y2="18" stroke="#666" stroke-width="1"/>
+                    <line x1="280" y1="12" x2="280" y2="18" stroke="#666" stroke-width="1"/>
+                    <text x="150" y="10" text-anchor="middle" font-size="8">8,000</text>
+                    
+                    <!-- 傾斜測定ポイント -->
+                    <circle cx="80" cy="70" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="80" y="100" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                    
+                    <circle cx="190" cy="70" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="190" y="100" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                    
+                    <circle cx="70" cy="160" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="70" y="190" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                `;
+            } else {
+                // 1F平面図に変更（デフォルト）
+                svg.innerHTML = `
+                    <!-- 1F平面図 -->
+                    <rect x="20" y="20" width="260" height="260" fill="none" stroke="#000" stroke-width="2"/>
+                    
+                    <!-- キッチン -->
+                    <rect x="30" y="30" width="80" height="60" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="70" y="55" text-anchor="middle" font-size="10">キッチン</text>
+                    
+                    <!-- トイレ1 -->
+                    <rect x="30" y="100" width="40" height="50" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="50" y="120" text-anchor="middle" font-size="9">トイレ1</text>
+                    
+                    <!-- 洗面所1 -->
+                    <rect x="80" y="100" width="30" height="50" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="95" y="120" text-anchor="middle" font-size="9">洗面所1</text>
+                    
+                    <!-- LD -->
+                    <rect x="120" y="30" width="140" height="100" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="190" y="80" text-anchor="middle" font-size="12">LD</text>
+                    
+                    <!-- 和室1 -->
+                    <rect x="30" y="160" width="100" height="80" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="80" y="195" text-anchor="middle" font-size="10">和室1</text>
+                    
+                    <!-- ホール1 -->
+                    <rect x="140" y="140" width="80" height="100" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="180" y="185" text-anchor="middle" font-size="10">ホール1</text>
+                    
+                    <!-- ローカ1 -->
+                    <rect x="230" y="140" width="30" height="100" fill="#f8f9fa" stroke="#000" stroke-width="1"/>
+                    <text x="245" y="185" text-anchor="middle" font-size="9">ローカ1</text>
+                    
+                    <!-- 階段 -->
+                    <rect x="220" y="160" width="20" height="60" fill="#e9ecef" stroke="#000" stroke-width="1"/>
+                    <text x="230" y="190" text-anchor="middle" font-size="8">UP</text>
+                    
+                    <!-- 寸法線 -->
+                    <line x1="20" y1="15" x2="280" y2="15" stroke="#666" stroke-width="1"/>
+                    <line x1="20" y1="12" x2="20" y2="18" stroke="#666" stroke-width="1"/>
+                    <line x1="280" y1="12" x2="280" y2="18" stroke="#666" stroke-width="1"/>
+                    <text x="150" y="10" text-anchor="middle" font-size="8">8,000</text>
+                    
+                    <!-- 傾斜測定ポイント -->
+                    <circle cx="70" cy="60" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="70" y="90" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                    
+                    <circle cx="190" cy="80" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="190" y="110" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                    
+                    <circle cx="80" cy="200" r="4" fill="#dc3545" stroke="#fff" stroke-width="1"/>
+                    <text x="80" y="230" text-anchor="middle" font-size="8" fill="#dc3545">1000</text>
+                `;
+            }
+
+            console.log(`${floor}平面図に切り替えました`);
+        }
+
+        // インタラクティブ要素のクリックイベント
+        document.querySelectorAll('.tool-btn, .floating-action-btn').forEach(element => {
+            element.addEventListener('click', function() {
+                console.log(`${this.title || 'ボタン'}がクリックされました`);
+            });
+        });
+
+        // ドロップダウンボタンのクリックイベント
+        document.querySelectorAll('.dropdown-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.dropdown-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.textContent.trim();
+                
+                // パネルヘッダーを更新
+                document.querySelector('.panel-header h6').textContent = `点検項目(${category})`;
+                
+                // 点検項目を切り替え
+                if (category === '床') {
+                    document.getElementById('floor-item').style.display = 'flex';
+                    document.getElementById('column-item').style.display = 'none';
+                } else if (category === '柱') {
+                    document.getElementById('floor-item').style.display = 'none';
+                    document.getElementById('column-item').style.display = 'flex';
+                }
+                
+                console.log(`${category}が選択されました`);
+            });
+        });
+
+        // 床傾斜測定モーダル
+        function showFloorSlopeModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">床の傾斜測定</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">1点目の高さ (mm)</label>
+                                <input type="number" class="form-control" id="point1Height" placeholder="例: 1000">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">2点目の高さ (mm)</label>
+                                <input type="number" class="form-control" id="point2Height" placeholder="例: 995">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">2点間の距離 (mm)</label>
+                                <input type="number" class="form-control" id="distance" placeholder="例: 2000">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">傾斜方向</label>
+                                <select class="form-select" id="slopeDirection">
+                                    <option value="down">下降 (↓)</option>
+                                    <option value="up">上昇 (↑)</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-info">
+                                <strong>計算結果:</strong><br>
+                                <span id="slopeResult">数値を入力してください</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveFloorSlope()">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+
+            // リアルタイム計算
+            ['point1Height', 'point2Height', 'distance'].forEach(id => {
+                document.getElementById(id).addEventListener('input', calculateSlope);
+            });
+            document.getElementById('slopeDirection').addEventListener('change', calculateSlope);
+
+            function calculateSlope() {
+                const point1 = parseFloat(document.getElementById('point1Height').value) || 0;
+                const point2 = parseFloat(document.getElementById('point2Height').value) || 0;
+                const distance = parseFloat(document.getElementById('distance').value) || 0;
+                const direction = document.getElementById('slopeDirection').value;
+
+                if (point1 && point2 && distance) {
+                    const heightDiff = Math.abs(point1 - point2);
+                    const slope = (heightDiff / distance * 100).toFixed(2);
+                    const arrow = direction === 'down' ? '↓' : '↑';
+                    document.getElementById('slopeResult').innerHTML = 
+                        `傾斜: ${slope}% ${arrow}<br>高さ差: ${heightDiff}mm<br>距離: ${distance}mm`;
+                } else {
+                    document.getElementById('slopeResult').innerHTML = '数値を入力してください';
+                }
+            }
+
+            modal.addEventListener('hidden.bs.modal', () => {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 柱傾斜測定モーダル
+        function showColumnSlopeModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">柱の傾斜測定</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">柱の傾斜値 (mm)</label>
+                                <input type="number" class="form-control" id="columnSlope" placeholder="例: 5">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">傾斜方向</label>
+                                <div class="d-flex gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="columnDirection" id="direction1" value="right">
+                                        <label class="form-check-label" for="direction1">
+                                            ☒→5 (右方向)
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="columnDirection" id="direction2" value="left">
+                                        <label class="form-check-label" for="direction2">
+                                            3←☒ (左方向)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">測定位置</label>
+                                <select class="form-select" id="measurementPosition">
+                                    <option value="top">柱上部</option>
+                                    <option value="middle">柱中央</option>
+                                    <option value="bottom">柱下部</option>
+                                </select>
+                            </div>
+                            <div class="alert alert-warning">
+                                <strong>測定結果:</strong><br>
+                                <span id="columnResult">数値を入力してください</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary" onclick="saveColumnSlope()">保存</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.show();
+
+            // リアルタイム表示更新
+            document.getElementById('columnSlope').addEventListener('input', updateColumnResult);
+            document.querySelectorAll('input[name="columnDirection"]').forEach(radio => {
+                radio.addEventListener('change', updateColumnResult);
+            });
+            document.getElementById('measurementPosition').addEventListener('change', updateColumnResult);
+
+            function updateColumnResult() {
+                const slope = document.getElementById('columnSlope').value;
+                const direction = document.querySelector('input[name="columnDirection"]:checked')?.value;
+                const position = document.getElementById('measurementPosition').value;
+
+                if (slope && direction) {
+                    const directionText = direction === 'right' ? '☒→' : '←☒';
+                    const positionText = position === 'top' ? '上部' : position === 'middle' ? '中央' : '下部';
+                    document.getElementById('columnResult').innerHTML = 
+                        `${directionText}${slope} (${positionText})`;
+                } else {
+                    document.getElementById('columnResult').innerHTML = '数値を入力してください';
+                }
+            }
+
+            modal.addEventListener('hidden.bs.modal', () => {
+                document.body.removeChild(modal);
+            });
+        }
+
+        // 保存関数
+        function saveFloorSlope() {
+            const point1 = document.getElementById('point1Height').value;
+            const point2 = document.getElementById('point2Height').value;
+            const distance = document.getElementById('distance').value;
+            const direction = document.getElementById('slopeDirection').value;
+            const result = document.getElementById('slopeResult').innerHTML;
+
+            console.log('床傾斜測定結果:', {
+                point1: point1,
+                point2: point2,
+                distance: distance,
+                direction: direction,
+                result: result
+            });
+
+            // モーダルを閉じる
+            const modal = document.querySelector('.modal');
+            bootstrap.Modal.getInstance(modal).hide();
+
+            // 平面図に傾斜線を追加する処理（ダミー）
+            addSlopeLineToFloor();
+        }
+
+        function saveColumnSlope() {
+            const slope = document.getElementById('columnSlope').value;
+            const direction = document.querySelector('input[name="columnDirection"]:checked')?.value;
+            const position = document.getElementById('measurementPosition').value;
+            const result = document.getElementById('columnResult').innerHTML;
+
+            console.log('柱傾斜測定結果:', {
+                slope: slope,
+                direction: direction,
+                position: position,
+                result: result
+            });
+
+            // モーダルを閉じる
+            const modal = document.querySelector('.modal');
+            bootstrap.Modal.getInstance(modal).hide();
+
+            // 平面図に柱傾斜マークを追加する処理（ダミー）
+            addColumnSlopeToFloor();
+        }
+
+        // 平面図に傾斜線を追加（ダミー）
+        function addSlopeLineToFloor() {
+            const svg = document.querySelector('.floor-diagram svg');
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', '50');
+            line.setAttribute('y1', '50');
+            line.setAttribute('x2', '250');
+            line.setAttribute('y2', '100');
+            line.setAttribute('stroke', '#ff6b6b');
+            line.setAttribute('stroke-width', '3');
+            line.setAttribute('stroke-dasharray', '5,5');
+            svg.appendChild(line);
+
+            // 矢印を追加
+            const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            arrow.setAttribute('x', '250');
+            arrow.setAttribute('y', '95');
+            arrow.setAttribute('font-size', '16');
+            arrow.setAttribute('fill', '#ff6b6b');
+            arrow.textContent = '↓';
+            svg.appendChild(arrow);
+
+            console.log('床傾斜線を平面図に追加しました');
+        }
+
+        // 平面図に柱傾斜マークを追加（ダミー）
+        function addColumnSlopeToFloor() {
+            const svg = document.querySelector('.floor-diagram svg');
+            const marker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            marker.setAttribute('cx', '150');
+            marker.setAttribute('cy', '150');
+            marker.setAttribute('r', '8');
+            marker.setAttribute('fill', '#4ecdc4');
+            marker.setAttribute('stroke', '#fff');
+            marker.setAttribute('stroke-width', '2');
+            svg.appendChild(marker);
+
+            // 傾斜矢印を追加
+            const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            arrow.setAttribute('x', '150');
+            arrow.setAttribute('y', '155');
+            arrow.setAttribute('font-size', '12');
+            arrow.setAttribute('fill', '#4ecdc4');
+            arrow.setAttribute('text-anchor', 'middle');
+            arrow.textContent = '☒→5';
+            svg.appendChild(arrow);
+
+            console.log('柱傾斜マークを平面図に追加しました');
+        }
+    </script>
 </body>
 </html>
