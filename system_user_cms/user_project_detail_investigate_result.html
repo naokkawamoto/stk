@@ -2,93 +2,582 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>調査結果</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>調査結果一覧 - リノベーション管理システム</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
+        body {
+            font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', '游ゴシック', sans-serif;
+            background-color: #f8f9fa;
+        }
         .content-wrapper {
             margin: 0 auto;
             padding: 0 1rem;
+            max-width: 1200px;
+        }
+        .result-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .search-filters {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .result-section {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .section-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .section-header:hover {
+            background: #e9ecef;
+        }
+        .section-header.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+        .section-content {
+            padding: 0;
+        }
+        .collapse-icon {
+            transition: transform 0.2s;
+        }
+        .investigation-item {
+            border-bottom: 1px solid #f1f3f4;
+            padding: 15px 20px;
+            transition: background-color 0.2s;
+        }
+        .investigation-item:hover {
+            background: #f8f9fa;
+        }
+        .investigation-item:last-child {
+            border-bottom: none;
+        }
+        .item-header {
+            display: flex;
+            justify-content-between;
+            align-items-center;
+            margin-bottom: 10px;
+        }
+        .item-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin: 0;
+        }
+        .item-status {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .result-count {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .status-completed {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+        .status-partial {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        .status-pending {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        .results-list {
+            margin-top: 10px;
+        }
+        .result-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-left: 4px solid #28a745;
+        }
+        .result-item:last-child {
+            margin-bottom: 0;
+        }
+        .result-meta {
+            display: flex;
+            justify-content-between;
+            align-items-center;
+            margin-bottom: 8px;
+        }
+        .result-type {
+            background: #6c757d;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+        }
+        .result-date {
+            color: #6c757d;
+            font-size: 12px;
+        }
+        .result-content {
+            color: #495057;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .result-actions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+        }
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+        .photo-count {
+            background: #ffc107;
+            color: #212529;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+        .no-results {
+            text-align: center;
+            color: #6c757d;
+            padding: 20px;
+            font-style: italic;
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 0 10px;
+            }
+            .summary-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .stat-card {
+                padding: 15px;
+            }
+            .stat-number {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
-<div id="header-container"></div>
-<div class="content-wrapper mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-2">
-        <div>
-            <h5 class="mb-0">会社名</h5>
-            <h4 class="mb-0 d-inline">案件名 <i class="bi bi-star"></i></h4>
-        </div>
-        <div class="text-end">
-            <span class="me-2">案件フロー:</span>
-            <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-                <option value="registration">案件登録済</option>
-                <option value="investigate">現地調査済</option>
-                <option value="design">プラン中</option>
-                <option value="contract">契約完了</option>
-                <option value="complete">他決完了</option>
-                </select>
-                <button class="btn btn-outline-primary btn-sm">変更</button>
+    <div class="content-wrapper mt-4">
+        <!-- ヘッダー -->
+        <div class="result-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-1">調査結果一覧</h4>
+                    <p class="mb-0 opacity-75">案件名: サンプル住宅リノベーション</p>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-light text-dark me-2">調査日: 2024/01/15</span>
+                    <span class="badge bg-warning text-dark">最終更新: 2024/01/20</span>
+                </div>
             </div>
         </div>
-    
-        <!-- メインステータスバッジ（右寄せ） -->
-        <div class="d-flex justify-content-end mb-3">
-            <span class="badge bg-light text-dark me-2">案件登録済</span>
-            <span class="badge bg-primary me-2">現地調査済</span>
-            <span class="badge bg-light text-dark me-2">プラン中</span>
-            <span class="badge bg-light text-dark me-2">契約完了</span>
-            <span class="badge bg-light text-dark me-2">他決完了</span>
+
+        <!-- サマリー統計 -->
+        <div class="summary-stats">
+            <div class="stat-card">
+                <div class="stat-number">147</div>
+                <div class="stat-label">総調査項目数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">89</div>
+                <div class="stat-label">完了項目数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">58</div>
+                <div class="stat-label">未完了項目数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">60.5%</div>
+                <div class="stat-label">完了率</div>
+            </div>
         </div>
-        <!-- メインタブ（nav-tabs） -->
-        <ul class="nav nav-tabs mb-4">
-            <li class="nav-item"><a class="nav-link"      href="user_project_detail.html">概要</a></li>
-            <li class="nav-item"><a class="nav-link active" href="user_project_detail_investigate.html">現地調査</a></li>
-            <li class="nav-item"><a class="nav-link"      href="user_project_detail_designlist.html">プラン一覧</a></li>
-            <li class="nav-item"><a class="nav-link"      href="user_project_detail_doc.html">お客様資料</a></li>
-            <li class="nav-item"><a class="nav-link"      href="user_project_detail_chat.html">チャット <span class="badge bg-danger">5</span></a></li>
-            <li class="nav-item"><a class="nav-link"      href="user_project_detail_expartner.html">外部業務依頼</a></li>
-        </ul>
-        <!-- サブタブ用バッジ（右寄せ） -->
-        <div class="d-flex justify-content-end align-items-center mb-2" style="gap:0.5rem;">
-            <span class="badge bg-light text-dark">案件登録済</span>
-            <span class="badge bg-light text-dark">お客様調整済</span>
-            <span class="badge bg-light text-dark">図面作成済</span>
-            <span class="badge bg-light text-dark">調査済</span>
-            <span class="badge bg-light text-dark">調査報告書作成済</span>
+
+        <!-- 検索・フィルター -->
+        <div class="search-filters">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">調査エリア</label>
+                    <select class="form-select" id="areaFilter">
+                        <option value="">すべてのエリア</option>
+                        <option value="屋外敷地">屋外／屋外設備［敷地図］</option>
+                        <option value="屋外立面">屋外［立面図］</option>
+                        <option value="屋内1F">屋内／屋内設備１F［1F平面図］</option>
+                        <option value="屋内1F床下">屋内／１F床下［1F床下図］</option>
+                        <option value="屋内2F">屋内／屋内設備２F［2F平面図］</option>
+                        <option value="屋内2F小屋裏">屋内／2F小屋裏［2F小屋裏図］</option>
+                        <option value="傾斜">傾斜／１,2F［1,2F傾斜図］</option>
+                        <option value="その他">その他の調査</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">状態</label>
+                    <select class="form-select" id="statusFilter">
+                        <option value="">すべての状態</option>
+                        <option value="completed">完了</option>
+                        <option value="partial">部分完了</option>
+                        <option value="pending">未完了</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">検索</label>
+                    <input type="text" class="form-control" placeholder="調査項目名で検索" id="searchInput">
+                </div>
+            </div>
         </div>
-        <!-- サブタブ nav-pills（右寄せ） -->
-        <ul class="nav nav-pills justify-content-end mb-4" id="investigateSubTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="user_project_detail_investigate.html"><i class="bi bi-person-lines-fill"></i> お客様調整</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="user_project_detail_investigate_create_figure.html"><i class="bi bi-pencil-square"></i> 図面作成</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="user_project_detail_investigate_edit.html"><i class="bi bi-clipboard-data"></i> 調査・編集</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" href="#"><i class="bi bi-clipboard-check"></i> 調査結果</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="user_project_detail_investigate_images.html"><i class="bi bi-images"></i> 画像一覧</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" href="user_project_detail_investigate_report.html"><i class="bi bi-file-earmark-text"></i> 報告書プレビュー</a>
-            </li>
-        </ul>
-  <!-- 調査結果 空コンテンツ -->
-</div>
-<div id="footer-container"></div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../style.js"></script>
-<script>
-fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
-fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
-</script>
+
+        <!-- 調査結果一覧 -->
+        <div class="result-section">
+            <div class="section-header" data-bs-toggle="collapse" data-bs-target="#area1">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">屋外／屋外設備［敷地図］</h5>
+                        <small class="text-muted">給排水設備、給湯設備、水道メーター等</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="result-count me-2">15/120</span>
+                        <span class="status-badge status-partial">部分完了</span>
+                        <i class="bi bi-chevron-down collapse-icon ms-2"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse show" id="area1">
+                <div class="section-content">
+                    <!-- 給排水設備 -->
+                    <div class="investigation-item">
+                        <div class="item-header">
+                            <h6 class="item-title">給排水設備</h6>
+                            <div class="item-status">
+                                <span class="result-count">3件</span>
+                                <span class="status-badge status-completed">完了</span>
+                            </div>
+                        </div>
+                        <div class="results-list">
+                            <div class="result-item">
+                                <div class="result-meta">
+                                    <span class="result-type">選択</span>
+                                    <span class="result-date">2024/01/15 14:30</span>
+                                </div>
+                                <div class="result-content">
+                                    <strong>配管劣化:</strong> あり<br>
+                                    <strong>場所:</strong> 東面、北面<br>
+                                    <strong>コメント:</strong> 古い配管で錆が目立つ
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn btn-outline-primary btn-sm">編集</button>
+                                    <button class="btn btn-outline-danger btn-sm">削除</button>
+                                </div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-meta">
+                                    <span class="result-type">選択</span>
+                                    <span class="result-date">2024/01/15 14:32</span>
+                                </div>
+                                <div class="result-content">
+                                    <strong>給排水の漏水:</strong> なし<br>
+                                    <strong>コメント:</strong> 漏水は確認されず
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn btn-outline-primary btn-sm">編集</button>
+                                    <button class="btn btn-outline-danger btn-sm">削除</button>
+                                </div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-meta">
+                                    <span class="result-type">選択</span>
+                                    <span class="result-date">2024/01/15 14:35</span>
+                                </div>
+                                <div class="result-content">
+                                    <strong>法36 給排水設備:</strong> 適合<br>
+                                    <strong>コメント:</strong> 法規適合確認済み
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn btn-outline-primary btn-sm">編集</button>
+                                    <button class="btn btn-outline-danger btn-sm">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 給湯設備 -->
+                    <div class="investigation-item">
+                        <div class="item-header">
+                            <h6 class="item-title">給湯設備</h6>
+                            <div class="item-status">
+                                <span class="result-count">2件</span>
+                                <span class="status-badge status-completed">完了</span>
+                            </div>
+                        </div>
+                        <div class="results-list">
+                            <div class="result-item">
+                                <div class="result-meta">
+                                    <span class="result-type">選択</span>
+                                    <span class="result-date">2024/01/15 14:40</span>
+                                </div>
+                                <div class="result-content">
+                                    <strong>満水時に機器の転倒防止措置:</strong> あり<br>
+                                    <strong>コメント:</strong> 適切に固定されている
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn btn-outline-primary btn-sm">編集</button>
+                                    <button class="btn btn-outline-danger btn-sm">削除</button>
+                                </div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-meta">
+                                    <span class="result-type">選択</span>
+                                    <span class="result-date">2024/01/15 14:42</span>
+                                </div>
+                                <div class="result-content">
+                                    <strong>不具合不良の有無:</strong> あり<br>
+                                    <strong>詳細:</strong> 給湯温度が不安定
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn btn-outline-primary btn-sm">編集</button>
+                                    <button class="btn btn-outline-danger btn-sm">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 水道メーター -->
+                    <div class="investigation-item">
+                        <div class="item-header">
+                            <h6 class="item-title">水道メーター</h6>
+                            <div class="item-status">
+                                <span class="result-count">0件</span>
+                                <span class="status-badge status-pending">未完了</span>
+                            </div>
+                        </div>
+                        <div class="results-list">
+                            <div class="no-results">
+                                まだ調査結果がありません
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- その他の調査エリア（折りたたみ状態） -->
+        <div class="result-section">
+            <div class="section-header" data-bs-toggle="collapse" data-bs-target="#area2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">その他の調査</h5>
+                        <small class="text-muted">用途地域、防火地域、基礎等</small>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="result-count me-2">8/12</span>
+                        <span class="status-badge status-partial">部分完了</span>
+                        <i class="bi bi-chevron-down collapse-icon ms-2"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" id="area2">
+                <div class="section-content">
+                    <!-- 用途地域 -->
+                    <div class="investigation-item">
+                        <div class="item-header">
+                            <h6 class="item-title">用途地域</h6>
+                            <div class="item-status">
+                                <span class="result-count">1件</span>
+                                <span class="status-badge status-completed">完了</span>
+                            </div>
+                        </div>
+                        <div class="results-list">
+                            <div class="result-item">
+                                <div class="result-meta">
+                                    <span class="result-type">選択</span>
+                                    <span class="result-date">2024/01/16 09:15</span>
+                                </div>
+                                <div class="result-content">
+                                    <strong>兼用用途の有無:</strong> なし<br>
+                                    <strong>①用途地域:</strong> 住居地域（建蔽率60%、容積率200%）<br>
+                                    <strong>②用途地域:</strong> 商業地域（建蔽率80%、容積率400%）<br>
+                                    <strong>合計:</strong> 建蔽率140%、容積率600%<br>
+                                    <strong>法48①～⑭:</strong> 適合
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn btn-outline-primary btn-sm">編集</button>
+                                    <button class="btn btn-outline-danger btn-sm">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 防火地域 -->
+                    <div class="investigation-item">
+                        <div class="item-header">
+                            <h6 class="item-title">防火地域</h6>
+                            <div class="item-status">
+                                <span class="result-count">1件</span>
+                                <span class="status-badge status-completed">完了</span>
+                            </div>
+                        </div>
+                        <div class="results-list">
+                            <div class="result-item">
+                                <div class="result-meta">
+                                    <span class="result-type">選択</span>
+                                    <span class="result-date">2024/01/16 09:30</span>
+                                </div>
+                                <div class="result-content">
+                                    <strong>防火地域:</strong> 準防火地域<br>
+                                    <strong>延べ面積:</strong> 100m2以下<br>
+                                    <strong>建物構造:</strong> 2階建て以上<br>
+                                    <strong>耐火建築物:</strong> 適合
+                                </div>
+                                <div class="result-actions">
+                                    <button class="btn btn-outline-primary btn-sm">編集</button>
+                                    <button class="btn btn-outline-danger btn-sm">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 画像一覧へのリンク -->
+        <div class="text-center mt-4">
+            <a href="user_project_detail_investigate_images.html" class="btn btn-outline-primary">
+                <i class="bi bi-images me-2"></i>画像一覧を見る (45枚)
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // フィルター機能
+        document.getElementById('areaFilter').addEventListener('change', filterResults);
+        document.getElementById('statusFilter').addEventListener('change', filterResults);
+        document.getElementById('searchInput').addEventListener('input', filterResults);
+
+        function filterResults() {
+            const areaFilter = document.getElementById('areaFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            const sections = document.querySelectorAll('.result-section');
+            
+            sections.forEach(section => {
+                let sectionVisible = true;
+                
+                // エリアフィルター
+                if (areaFilter) {
+                    const sectionTitle = section.querySelector('.section-header h5').textContent;
+                    if (!sectionTitle.includes(areaFilter)) {
+                        sectionVisible = false;
+                    }
+                }
+                
+                // 検索フィルター
+                if (searchInput) {
+                    const sectionText = section.textContent.toLowerCase();
+                    if (!sectionText.includes(searchInput)) {
+                        sectionVisible = false;
+                    }
+                }
+                
+                // 状態フィルター
+                if (statusFilter) {
+                    const statusBadge = section.querySelector('.status-badge');
+                    if (statusBadge && !statusBadge.classList.contains(`status-${statusFilter}`)) {
+                        sectionVisible = false;
+                    }
+                }
+                
+                section.style.display = sectionVisible ? 'block' : 'none';
+            });
+        }
+
+        // セクションの折りたたみ
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const icon = this.querySelector('.collapse-icon');
+                const isCollapsed = this.getAttribute('aria-expanded') === 'false';
+                
+                setTimeout(() => {
+                    if (isCollapsed) {
+                        this.classList.add('collapsed');
+                    } else {
+                        this.classList.remove('collapsed');
+                    }
+                }, 150);
+            });
+        });
+
+        // 編集ボタンのイベント
+        document.querySelectorAll('.btn-outline-primary').forEach(btn => {
+            if (btn.textContent.includes('編集')) {
+                btn.addEventListener('click', function() {
+                    // 編集モーダルを開く処理
+                    alert('編集機能は今後実装予定です');
+                });
+            }
+        });
+
+        // 削除ボタンのイベント
+        document.querySelectorAll('.btn-outline-danger').forEach(btn => {
+            if (btn.textContent.includes('削除')) {
+                btn.addEventListener('click', function() {
+                    if (confirm('この調査結果を削除しますか？')) {
+                        // 削除処理
+                        this.closest('.result-item').remove();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
-</html> 
+</html>

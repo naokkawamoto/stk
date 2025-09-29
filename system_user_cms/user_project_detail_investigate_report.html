@@ -81,11 +81,1695 @@
                 <a class="nav-link active" href="#"><i class="bi bi-file-earmark-text"></i> 報告書プレビュー</a>
             </li>
         </ul>
-  <!-- 報告書プレビュー 空コンテンツ -->
+  <!-- 現況調査報告書フォーム -->
+  <div class="report-form-container">
+    <div class="report-form">
+      <!-- ヘッダー部分 -->
+      <div class="report-header">
+        <h3 class="form-title">現況調査報告書</h3>
+        <div class="header-description">
+          2. に記載の建築物の現況調査の結果を報告します。本報告書に記載の事項は、事実に相違ありません。
+        </div>
+        
+        <div class="header-fields">
+          <table class="form-table w-100">
+            <tr>
+              <td class="field-label">様</td>
+              <td class="field-input"><input type="text" class="form-control"></td>
+            </tr>
+            <tr>
+              <td class="field-label">令和 年 月 日</td>
+              <td class="field-input">
+                <div class="d-flex">
+                  <input type="number" class="form-control me-2" style="width: 80px;" placeholder="年">
+                  <input type="number" class="form-control me-2" style="width: 60px;" placeholder="月">
+                  <input type="number" class="form-control" style="width: 60px;" placeholder="日">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="field-label">調査者氏名：</td>
+              <td class="field-input"><input type="text" class="form-control"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- セクション1: 調査者 -->
+      <div class="report-section">
+        <h5 class="section-title">1. 調査者</h5>
+        <div class="section-subtitle">（代表となる調査者）</div>
+        <table class="form-table w-100">
+          <tr>
+            <td class="field-label">①資格</td>
+            <td class="field-input"><input type="text" class="form-control" placeholder="()建築士()登録第号">
+
+            </td>
+          </tr>
+          <tr>
+            <td class="field-label">②氏名のフリガナ</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td class="field-label">③氏名</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td class="field-label">④勤務先</td>
+            <td class="field-input"><input type="text" class="form-control" placeholder="()建築士事務所()知事登録第号"></td>
+          </tr>
+          <tr>
+            <td class="field-label">⑤所在地</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td class="field-label">⑥電話番号</td>
+            <td class="field-input"><input type="tel" class="form-control"></td>
+          </tr>
+          <tr>
+            <td class="field-label">⑦その他調査者</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- セクション2: 調査対象建築物及び敷地の位置 -->
+      <div class="report-section">
+        <h5 class="section-title">2. 調査対象建築物及び敷地の位置</h5>
+        <table class="form-table w-100">
+          <tr>
+            <td class="field-label">①敷地の位置</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td class="field-label">②防火地域</td>
+            <td class="field-input">
+              <div class="d-flex align-items-center">
+                <div class="form-check me-3">
+                  <input class="form-check-input" type="checkbox" id="fire-zone">
+                  <label class="form-check-label" for="fire-zone">防火地域</label>
+                </div>
+                <div class="form-check me-3">
+                  <input class="form-check-input" type="checkbox" id="quasi-fire-zone">
+                  <label class="form-check-label" for="quasi-fire-zone">準防火地域</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="no-designation">
+                  <label class="form-check-label" for="no-designation">指定なし</label>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="field-label">③その他の区域、地域、地区又は街区</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td class="field-label">④用途地域</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+            <td class="field-label">⑥構造</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td class="field-label">⑤現況用途</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+            <td class="field-label">⑦階数</td>
+            <td class="field-input">
+              <div class="d-flex">
+                <input type="number" class="form-control me-1" placeholder="地上" style="width: 50px;">
+                <span class="align-self-center me-1">/</span>
+                <input type="number" class="form-control" placeholder="地下" style="width: 50px;">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="field-label">⑧敷地面積</td>
+            <td class="field-input">
+              <div class="d-flex align-items-center">
+                <input type="number" class="form-control me-1" style="width: 80px;">
+                <span>㎡</span>
+              </div>
+            </td>
+            <td class="field-label">⑨建築面積</td>
+            <td class="field-input">
+              <div class="d-flex align-items-center">
+                <input type="number" class="form-control me-1" style="width: 80px;">
+                <span>㎡</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="field-label">⑩延べ面積</td>
+            <td class="field-input">
+              <div class="d-flex align-items-center">
+                <input type="number" class="form-control me-1" style="width: 80px;">
+                <span>㎡</span>
+              </div>
+            </td>
+            <td class="field-label"></td>
+            <td class="field-input"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- セクション3: 調査結果概要 -->
+      <div class="report-section">
+        <h5 class="section-title">3. 調査結果概要</h5>
+        <table class="form-table w-100">
+          <tr>
+            <td class="field-label">①直近の建築等の工事の着手時点</td>
+            <td class="field-input"><input type="text" class="form-control"></td>
+          </tr>
+          <tr>
+            <td class="field-label">②現況調査結果※1</td>
+            <td class="field-input">
+              <div class="investigation-results">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="investigation-result" id="conforming">
+                      <label class="form-check-label" for="conforming">適合</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="investigation-result" id="non-conforming-existing">
+                      <label class="form-check-label" for="non-conforming-existing">不適合（既存不適格）</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="investigation-result" id="non-conforming-other">
+                      <label class="form-check-label" for="non-conforming-other">不適合（その他）</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="investigation-result" id="unknown">
+                      <label class="form-check-label" for="unknown">不明</label>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="additional-regulations">
+                      <label class="form-label">下記以外の規定</label>
+                      <textarea class="form-control" rows="3"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td class="field-label">②検査済証の有無</td>
+            <td class="field-input">
+              <div class="inspection-certificate">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="has-certificate">
+                  <label class="form-check-label" for="has-certificate">有</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="no-certificate">
+                  <label class="form-check-label" for="no-certificate">無</label>
+                </div>
+                <div class="certificate-date">
+                  <input type="text" class="form-control" placeholder="（年月日）">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="field-label">③その他特記事項</td>
+            <td class="field-input"><textarea class="form-control" rows="3"></textarea></td>
+            <td class="field-label"></td>
+            <td class="field-input"></td>
+          </tr>
+          <tr>
+            <td class="field-label">④調査年月日</td>
+            <td class="field-input">
+              <div class="d-flex align-items-center">
+                <input type="number" class="form-control me-1" style="width: 60px;" placeholder="令和年">
+                <input type="number" class="form-control me-1" style="width: 40px;" placeholder="月">
+                <input type="number" class="form-control me-1" style="width: 40px;" placeholder="日">
+                <span>実施</span>
+              </div>
+            </td>
+            <td class="field-label"></td>
+            <td class="field-input"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- セクション4: 改変※2の有無及び概要 -->
+      <div class="report-section">
+        <h5 class="section-title">4. 改変※2の有無及び概要</h5>
+        <table class="form-table w-100">
+          <tr>
+            <td class="field-label">現況図面の作成</td>
+            <td class="field-input">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="has-alteration">
+                <label class="form-check-label" for="has-alteration">有</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="no-alteration">
+                <label class="form-check-label" for="no-alteration">無</label>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- セクション5: 現況調査に用いた図書 -->
+      <div class="report-section">
+        <h5 class="section-title">5. 現況調査に用いた図書</h5>
+        <table class="form-table w-100">
+          <tr>
+            <td class="field-input-full">
+              <textarea class="form-control" rows="5"></textarea>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- セクション6: 備考 -->
+      <div class="report-section">
+        <h5 class="section-title">6. 備考</h5>
+        <table class="form-table w-100">
+          <tr>
+            <td class="field-input-full">
+              <textarea class="form-control" rows="5"></textarea>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 確認申請調査項目チェックリスト -->
+  <div class="checklist-container">
+    <div class="checklist-form">
+      <h3 class="checklist-title">確認申請調査項目チェックリスト</h3>
+      
+      <!-- 敷地関係 -->
+      <div class="checklist-section">
+        <h4 class="category-title">敷地関係</h4>
+        <div class="category-note">
+          （法第43条及び第44条は都市計画区域及び準都市計画区域内に限り適用）
+        </div>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法19① -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法19①</td>
+              <td class="col-content">敷地の高さ</td>
+              <td class="col-items">・道路との高低差</td>
+              <td class="col-method">目視又は計測</td>
+            </tr>
+            
+            <!-- 法19② -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法19②</td>
+              <td class="col-content">湿潤な土地等の衛生・安全対策</td>
+              <td class="col-items">
+                ・敷地の湿潤状況、出水履歴、土地条件等<br>
+                ・盛土、地盤改良等の有無
+              </td>
+              <td class="col-method">目視等及び土地条件図、治水地形分類図等を確認</td>
+            </tr>
+            
+            <!-- 法19③ -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法19③</td>
+              <td class="col-content">敷地の排水</td>
+              <td class="col-items">・敷地内の排水状況</td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法19④ -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法19④</td>
+              <td class="col-content">がけ崩れ対策</td>
+              <td class="col-items">
+                ・がけの有無<br>
+                ・擁壁の設置状況
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法43① -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法43①</td>
+              <td class="col-content">接道</td>
+              <td class="col-items">
+                ・都市計画区域・準都市計画区域の指定状況<br>
+                ・特定行政庁による道路の指定状況<br>
+                ・特定行政庁による許可・認定の有無と適合状況<br>
+                ・道路との接道長さ<br>
+                ・前面道路幅員
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                特定行政庁の指定道路図を確認<br>
+                図書及び目視等<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法44① -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法44①</td>
+              <td class="col-content">道路内建築</td>
+              <td class="col-items">
+                ・都市計画区域・準都市計画区域の指定状況<br>
+                ・特定行政庁による道路の指定状況<br>
+                ・道路、建築物、擁壁等の位置
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                特定行政庁の指定道路図を確認<br>
+                目視等
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 構造関係 -->
+      <div class="checklist-section">
+        <h4 class="category-title">構造関係</h4>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法20① - 基礎 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation" rowspan="11">法20①</td>
+              <td class="col-content" rowspan="11">建築物の構造耐力上主要な部分</td>
+              <td class="col-items">
+                <strong>基礎</strong><br>
+                ・立ち上がり部分の構造、材料及び寸法<br>
+                ・配筋の状況<br>
+                （令第38条第4項の構造計算による場合）コンクリートの強度
+              </td>
+              <td class="col-method">
+                目視等及び計測<br>
+                電磁誘導法 又は 電磁波レーダー法による鉄筋探査及びはつり出し<br>
+                コンクリート圧縮試験又は シュミットハンマー試験
+              </td>
+            </tr>
+            
+            <!-- 法20① - 屋根ふき材 外装材等 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>屋根ふき材 外装材等</strong><br>
+                ・緊結等の状況
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法20① - 木材 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>木材</strong><br>
+                ・構造耐力上主要な部分に使用されている木材の状況
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法20① - 土台及び基礎 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>土台及び基礎</strong><br>
+                ・土台の緊結等の状況
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法20① - 柱の小径 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>柱の小径</strong><br>
+                ・欠込み等の有無<br>
+                ・部材寸法（柱の小径）
+              </td>
+              <td class="col-method">
+                目視等<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法20① - はり等の横架材 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>はり等の横架材</strong><br>
+                ・欠込み等の有無
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法20① - 筋かい -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>筋かい</strong><br>
+                ・柱梁接合部及び筋かいの金物の有無及び金物種類、緊結の状況<br>
+                ・欠込み等の有無<br>
+                ・筋かいの部材寸法
+              </td>
+              <td class="col-method">
+                目視等<br>
+                目視等<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法20① - 軸組等 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>軸組等</strong><br>
+                ・筋かい、耐力壁の位置<br>
+                ・金物種類<br>
+                ・筋かい、耐力壁の部材寸法等の状況<br>
+                ・壁量計算による必要壁量及び存在壁量、配置の確認<br>
+                ・壁配置のバランス
+              </td>
+              <td class="col-method">
+                目視等<br>
+                目視等及び計測<br>
+                壁量計算
+              </td>
+            </tr>
+            
+            <!-- 法20① - 継手又は仕口 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>継手又は仕口</strong><br>
+                ・柱梁接合部の金物の有無及び金物種類、緊結の状況<br>
+                ・筋かいの部材寸法
+              </td>
+              <td class="col-method">
+                目視等<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法20① - 防腐措置 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>防腐措置</strong><br>
+                ・腐りやすい構造である部分の下地材<br>
+                ・柱、筋かい、土台の防腐・防蟻処理の状況
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法20① - 塀 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-items">
+                <strong>塀</strong><br>
+                ・高さ、厚さ<br>
+                ・控え壁、基礎の有無<br>
+                ・配筋の状況
+              </td>
+              <td class="col-method">
+                目視等及び計測<br>
+                電磁誘導法 又は 電磁波レーダー法による鉄筋探査及びはつり出し
+              </td>
+            </tr>
+            
+            <!-- 法20② - 建築設備の構造強度 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation" rowspan="2">法20②</td>
+              <td class="col-content">建築設備の構造強度</td>
+              <td class="col-items">
+                ・給湯設備の満水時の質量<br>
+                ・給湯設備の形状<br>
+                ・給湯設備の緊結状況
+              </td>
+              <td class="col-method">
+                目視等及び<br>
+                設備の型番から仕様を確認
+              </td>
+            </tr>
+            
+            <!-- 法20② - 基準の適用上別の建築物みなす部 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-content">基準の適用上別の建築物みなす部</td>
+              <td class="col-items">
+                ・相互に応力を伝えない構造方法のみで接する建築物の部分の有無
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 防火関係 -->
+      <div class="checklist-section">
+        <h4 class="category-title">防火関係</h4>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法61① -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法61①</td>
+              <td class="col-content">防火地域、準防火地域内の建築物</td>
+              <td class="col-items">
+                ・防火地域・準防火地域の指定状況<br>
+                ・建築物の規模に応じた耐火建築物・準耐火建築物等の種別<br>
+                ・延焼のおそれのある部分の防火設備の位置・形状等
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報確認<br>
+                目視等<br>
+                設備の認定シール等確認
+              </td>
+            </tr>
+            
+            <!-- 法61② -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法61②</td>
+              <td class="col-content">基準の適用上別の建築物とみなす部分</td>
+              <td class="col-items">
+                ・火熱遮断壁等により分離されている建築物の部分の有無
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法62 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法62</td>
+              <td class="col-content">屋根</td>
+              <td class="col-items">
+                ・防火地域・準防火地域の指定状況<br>
+                ・屋根材の状況
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報確認<br>
+                目視等
+              </td>
+            </tr>
+            
+            <!-- 法22① -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法22①</td>
+              <td class="col-content">屋根</td>
+              <td class="col-items">
+                ・法第22条区域の指定状況<br>
+                ・屋根ふき材の状況
+              </td>
+              <td class="col-method">
+                特定行政庁による指定状況確認<br>
+                目視等
+              </td>
+            </tr>
+            
+            <!-- 法23 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法23</td>
+              <td class="col-content">外壁</td>
+              <td class="col-items">
+                ・法第22条区域の指定状況<br>
+                ・外壁材の状況
+              </td>
+              <td class="col-method">
+                特定行政庁による指定状況確認<br>
+                目視等
+              </td>
+            </tr>
+            
+            <!-- 法35の2 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法35の2</td>
+              <td class="col-content">内装</td>
+              <td class="col-items">
+                ・火気使用室の有無<br>
+                ・内装材
+              </td>
+              <td class="col-method">
+                目視等<br>
+                材料の認定シール等確認
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 設備関係 -->
+      <div class="checklist-section">
+        <h4 class="category-title">設備関係</h4>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法28②, 法36 - 換気設備（調理室等を除く） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法28②<br>法36</td>
+              <td class="col-content">換気設備（調理室等を除く）</td>
+              <td class="col-items">
+                ・開口部の面積・位置<br>
+                ・給気口・排気口の位置<br>
+                ・機械換気設備の性能等<br>
+                ・換気設備の有効換気量<br>
+                ・居室の床面積
+              </td>
+              <td class="col-method">
+                目視等及び計測<br>
+                風量測定<br>
+                設備の型番から性能等確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法28③, 法36 - 換気設備（調理室等） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法28③<br>法36</td>
+              <td class="col-content">換気設備（調理室等）</td>
+              <td class="col-items">
+                ・ガス設備等の有無<br>
+                ・給気口・排気口の位置<br>
+                ・火気設備の出力等<br>
+                ・機械換気設備の性能等<br>
+                ・換気設備の有効換気量
+              </td>
+              <td class="col-method">
+                目視等<br>
+                風量測定<br>
+                設備の型番から性能等確認
+              </td>
+            </tr>
+            
+            <!-- 法31①, 法36 - 便所（処理区域内） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法31①<br>法36</td>
+              <td class="col-content">便所（処理区域内）</td>
+              <td class="col-items">
+                ・公共下水道の処理区域<br>
+                ・採光及び換気のための窓又はそれに代わる照明・換気設備の有無
+              </td>
+              <td class="col-method">
+                処理区域の公示確認<br>
+                目視等
+              </td>
+            </tr>
+            
+            <!-- 法31②, 法36 - 便所（処理区域外） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法31②<br>法36</td>
+              <td class="col-content">便所（処理区域外）</td>
+              <td class="col-items">
+                ・公共下水道の処理区域<br>
+                ・浄化槽の処理性能又はくみ取便所の構造<br>
+                ・採光及び換気のための窓又はそれに代わる照明・換気設備の有無<br>
+                ・漏水の有無
+              </td>
+              <td class="col-method">
+                処理区域の公示確認<br>
+                浄化槽の保守点検結果及び設備の型番から性能等確認<br>
+                目視等
+              </td>
+            </tr>
+            
+            <!-- 法32, 法36 - 電気設備 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法32<br>法36</td>
+              <td class="col-content">電気設備</td>
+              <td class="col-items">
+                ・不具合の有無
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法36 - その他の配管設備の設置及び構造（給排水設備） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法36</td>
+              <td class="col-content">その他の配管設備の設置及び構造（給排水設備）</td>
+              <td class="col-items">
+                ・配管設備の設置状況<br>
+                ・漏水等不具合の有無
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 材料関係 -->
+      <div class="checklist-section">
+        <h4 class="category-title">材料関係</h4>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法37 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法37</td>
+              <td class="col-content">建築材料</td>
+              <td class="col-items">
+                基礎のコンクリート、鉄筋のJISへの適合状況
+              </td>
+              <td class="col-method">図書等により使用材料の仕様を確認</td>
+            </tr>
+            
+            <!-- 法28の2 - 石綿 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法28の2</td>
+              <td class="col-content">石綿</td>
+              <td class="col-items">
+                石綿の吹付けの有無
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法28の2 - クロルピリホス（添加） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法28の2</td>
+              <td class="col-content">クロルピリホス</td>
+              <td class="col-items">
+                添加の有無（添加されている場合は、5年以上が経過している）
+              </td>
+              <td class="col-method">図書等により仕様を確認又は目視等</td>
+            </tr>
+            
+            <!-- 法28の2 - クロルピリホス（使用） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法28の2</td>
+              <td class="col-content">クロルピリホス</td>
+              <td class="col-items">
+                使用の有無（使用されている場合は、5年以上が経過している）
+              </td>
+              <td class="col-method">図書等による仕様を確認又は目視等</td>
+            </tr>
+            
+            <!-- 法28の2 - 換気経路 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法28の2</td>
+              <td class="col-content">換気経路</td>
+              <td class="col-items">
+                建具のアンダーカット、ガラリ等の有無、給気口、排気口の位置
+              </td>
+              <td class="col-method">図書等による仕様を確認又は目視等</td>
+            </tr>
+            
+            <!-- 法28の2 - 換気設備の有効換気量 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法28の2</td>
+              <td class="col-content">換気設備の有効換気量</td>
+              <td class="col-items">
+                換気設備の有効換気量
+              </td>
+              <td class="col-method">風量測定又は設備の型番から性能等を確認</td>
+            </tr>
+            
+            <!-- 法28の2三 - ホルムアルデヒド -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法28の2三</td>
+              <td class="col-content">ホルムアルデヒド</td>
+              <td class="col-items">
+                居室の面積、天井高さ
+              </td>
+              <td class="col-method">計測</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 一般構造関係 -->
+      <div class="checklist-section">
+        <h4 class="category-title">一般構造関係</h4>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法28①, 法36 - 居室の採光面積に係る部分（開口部） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation" rowspan="2">法28①<br>法36</td>
+              <td class="col-content">居室の採光面積に係る部分</td>
+              <td class="col-items">
+                居室の面積、開口部の寸法、開口中心からの垂直距離、外壁と隣地境界線等との距離
+              </td>
+              <td class="col-method">計測</td>
+            </tr>
+            
+            <!-- 法28①, 法36 - 居室の採光面積に係る部分（照明設備） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-content">照明設備の性能等</td>
+              <td class="col-items">
+                照明設備の性能等
+              </td>
+              <td class="col-method">床面における照度測定又は設備の型番から各種性能を確認</td>
+            </tr>
+            
+            <!-- 法29 - 地階における居室（面積） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation" rowspan="2">法29</td>
+              <td class="col-content">地階における居室</td>
+              <td class="col-items">
+                居室の面積
+              </td>
+              <td class="col-method">計測</td>
+            </tr>
+            
+            <!-- 法29 - 地階における居室（構造） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-content">からぼり等の有無、地面に接する外壁等の構造</td>
+              <td class="col-items">
+                からぼり等の有無、地面に接する外壁等の構造
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法36 - 天井及び床の高さに係る部分 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法36</td>
+              <td class="col-content">天井及び床の高さに係る部分</td>
+              <td class="col-items">
+                居室の天井高さ、最下階の居室の床の高さ
+              </td>
+              <td class="col-method">計測</td>
+            </tr>
+            
+            <!-- 法36 - 床の防湿方法に係る部分 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法36</td>
+              <td class="col-content">床の防湿方法に係る部分</td>
+              <td class="col-items">
+                最下階の床の材料、床下の防湿措置の状況、外壁の床下換気孔の状況
+              </td>
+              <td class="col-method">目視等</td>
+            </tr>
+            
+            <!-- 法36 - 階段の構造に係る部分 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法36</td>
+              <td class="col-content">階段の構造に係る部分</td>
+              <td class="col-items">
+                階段及び踊場の幅員、階段の蹴上げ、踏面の寸法、手すりの設置状況、出幅の寸法、踊場の設置状況、階段に代わる傾斜路の設置状況
+              </td>
+              <td class="col-method">目視等及び計測</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 用途関係 -->
+      <div class="checklist-section">
+        <h4 class="category-title">用途関係</h4>
+        <div class="category-note">
+          （都市計画区域及び準都市計画区域内に限り適用）
+        </div>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法48①~④ - 用途（指定状況） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation" rowspan="2">法48①~④</td>
+              <td class="col-content">用途</td>
+              <td class="col-items">
+                用途地域の指定状況
+              </td>
+              <td class="col-method">市区町村の都市計画情報を確認</td>
+            </tr>
+            
+            <!-- 法48①~④ - 用途（兼用用途） -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-content">兼用用途の有無及び当該用途に供する床面積</td>
+              <td class="col-items">
+                兼用用途の有無及び当該用途に供する床面積
+              </td>
+              <td class="col-method">目視等及び計測</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 形態関係 -->
+      <div class="checklist-section">
+        <h4 class="category-title">形態関係</h4>
+        <div class="category-note">
+          （都市計画区域及び準都市計画区域内に限り適用）
+        </div>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法47 - 壁面線 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法47</td>
+              <td class="col-content">壁面線</td>
+              <td class="col-items">
+                壁面線の指定状況<br>
+                壁面線と外壁との距離
+              </td>
+              <td class="col-method">
+                特定行政庁による指定状況を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法52①,② - 用途地域等に基づく容積率 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法52①,②</td>
+              <td class="col-content">用途地域等に基づく容積率</td>
+              <td class="col-items">
+                指定容積率<br>
+                建築物の延べ面積及び敷地面積
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法52②,⑦ - 前面道路の幅員に基づく容積率 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法52②,⑦</td>
+              <td class="col-content">前面道路の幅員に基づく容積率</td>
+              <td class="col-items">
+                用途地域等の指定状況<br>
+                前面道路の幅員
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法53①,② - 建蔽率 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法53①,②</td>
+              <td class="col-content">建蔽率</td>
+              <td class="col-items">
+                指定建蔽率<br>
+                防火地域、準防火地域の指定状況<br>
+                建築物の建築面積及び敷地面積
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法53の2① - 最低敷地面積 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法53の2①</td>
+              <td class="col-content">最低敷地面積</td>
+              <td class="col-items">
+                敷地面積の最低限度の指定状況<br>
+                敷地面積
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法54① - 外壁後退距離 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法54①</td>
+              <td class="col-content">外壁後退距離</td>
+              <td class="col-items">
+                外壁の後退距離の限度の指定状況<br>
+                外壁から敷地境界線までの距離
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法55① - 絶対高さ制限 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法55①</td>
+              <td class="col-content">絶対高さ制限</td>
+              <td class="col-items">
+                高さの限度の指定状況<br>
+                建築物の高さ
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 道路高さ制限 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">道路高さ制限</td>
+              <td class="col-content">道路高さ制限</td>
+              <td class="col-items">
+                用途地域の指定状況<br>
+                前面道路幅員<br>
+                前面道路との高低差<br>
+                建築物の高さ<br>
+                道路境界線との距離
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法56① - 北側高さ制限 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法56①</td>
+              <td class="col-content">北側高さ制限</td>
+              <td class="col-items">
+                用途地域の指定状況<br>
+                日影による高さ制限の対象区域の指定状況<br>
+                真北の方角<br>
+                真北方向の境界線との距離<br>
+                北側隣地との高低差<br>
+                建築物の高さ
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報及び条例の制定状況を確認<br>
+                計測
+              </td>
+            </tr>
+            
+            <!-- 法58① - 高度地区内の建築物 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法58①</td>
+              <td class="col-content">高度地区内の建築物</td>
+              <td class="col-items">
+                高度地区の指定状況<br>
+                建築物の高さ
+              </td>
+              <td class="col-method">
+                市区町村の都市計画情報を確認<br>
+                計測
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- その他 -->
+      <div class="checklist-section">
+        <h4 class="category-title">その他</h4>
+        <div class="category-note">
+          （条例により付加された制限）
+        </div>
+        
+        <table class="checklist-table">
+          <thead>
+            <tr>
+              <th class="col-apply">適用</th>
+              <th class="col-regulation">規定</th>
+              <th class="col-content">規定の内容</th>
+              <th class="col-items">調査項目</th>
+              <th class="col-method">調査方法</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 法39, 40, 68の2他 - 地方公共団体の条例による制限 -->
+            <tr>
+              <td class="col-apply">
+                <input type="checkbox" class="form-check-input">
+              </td>
+              <td class="col-regulation">法39, 40, 68の2他</td>
+              <td class="col-content">地方公共団体の条例による制限</td>
+              <td class="col-items">
+                地方公共団体の条例による制限の有無及び内容
+              </td>
+              <td class="col-method">
+                条例の制定状況を確認<br>
+                制限の内容に応じて確認方法を検討
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 <div id="footer-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../style.js"></script>
+<style>
+  /* A4横サイズ（297mm x 210mm）での印刷最適化 */
+  @page {
+    size: A4 landscape;
+    margin: 15mm;
+  }
+
+  .report-form-container {
+    background: #fff;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .report-form {
+    font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+    line-height: 1.4;
+    font-size: 11px;
+    width: 100%;
+  }
+
+  .form-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #000;
+    text-align: center;
+  }
+
+  .header-description {
+    font-size: 10px;
+    margin-bottom: 12px;
+    color: #000;
+    text-align: center;
+  }
+
+  .form-table {
+    border-collapse: collapse;
+    margin-bottom: 8px;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .form-table td {
+    border: 1px solid #000;
+    padding: 3px;
+    vertical-align: top;
+    font-size: 10px;
+  }
+
+  .field-label {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    width: 20%;
+    font-size: 10px;
+    color: #000;
+    text-align: center;
+  }
+
+  .field-input {
+    background-color: #fff;
+    width: 30%;
+  }
+
+  .field-input-full {
+    background-color: #fff;
+    width: 100%;
+  }
+
+  .field-input input[type="text"],
+  .field-input input[type="number"],
+  .field-input input[type="tel"],
+  .field-input textarea {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-size: 10px;
+    padding: 2px;
+  }
+
+  .field-input input[type="text"]:focus,
+  .field-input input[type="number"]:focus,
+  .field-input input[type="tel"]:focus,
+  .field-input textarea:focus {
+    outline: 1px solid #007bff;
+    outline-offset: 1px;
+  }
+
+  .section-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    color: #000;
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+  }
+
+  .section-subtitle {
+    font-size: 9px;
+    color: #000;
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+
+  .report-section {
+    margin-bottom: 8px;
+  }
+
+  .row-label {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-weight: bold;
+    font-size: 10px;
+    text-align: center;
+  }
+
+  .vert-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    white-space: nowrap;
+    height: 60px;
+    width: 20px;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .vertical-label {
+    font-size: 9px;
+    font-weight: bold;
+  }
+
+  .investigation-results {
+    background-color: #f8f8f8;
+    padding: 4px;
+    border: 1px solid #ccc;
+  }
+
+  .inspection-certificate {
+    background-color: #f8f8f8;
+    padding: 4px;
+    border: 1px solid #ccc;
+  }
+
+  .additional-regulations {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .additional-regulations label {
+    font-size: 9px;
+    margin-bottom: 2px;
+  }
+
+  .certificate-date input {
+    font-size: 9px;
+    margin-top: 2px;
+  }
+
+  .form-check-input:checked {
+    background-color: #000;
+    border-color: #000;
+  }
+
+  .form-check-label {
+    font-size: 9px;
+    margin-left: 2px;
+  }
+
+  /* 印刷時の調整 */
+  @media print {
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .report-form-container {
+      padding: 0;
+      box-shadow: none;
+    }
+    
+    .form-table td {
+      border: 1px solid #000 !important;
+    }
+    
+    .field-label {
+      background-color: #f0f0f0 !important;
+    }
+    
+    .section-title {
+      border-bottom: 1px solid #000 !important;
+    }
+  }
+
+  /* 画面表示時の調整 */
+  @media screen {
+    .report-form-container {
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+
+  /* チェックリスト用スタイル */
+  .checklist-container {
+    background: #fff;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+  }
+
+  .checklist-form {
+    font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+    line-height: 1.4;
+    font-size: 11px;
+    width: 100%;
+  }
+
+  .checklist-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #000;
+    text-align: center;
+  }
+
+  .checklist-section {
+    margin-bottom: 15px;
+  }
+
+  .category-title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #000;
+    border-bottom: 1px solid #000;
+    padding-bottom: 2px;
+  }
+
+  .category-note {
+    font-size: 9px;
+    color: #000;
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+
+  .checklist-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 10px;
+  }
+
+  .checklist-table th,
+  .checklist-table td {
+    border: 1px solid #000;
+    padding: 3px;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  .checklist-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .col-apply {
+    width: 8%;
+    text-align: center;
+  }
+
+  .col-regulation {
+    width: 12%;
+    text-align: center;
+  }
+
+  .col-content {
+    width: 20%;
+  }
+
+  .col-items {
+    width: 30%;
+  }
+
+  .col-method {
+    width: 30%;
+  }
+
+  .checklist-table input[type="checkbox"] {
+    margin: 0;
+    transform: scale(0.8);
+  }
+
+  /* 印刷時の調整 */
+  @media print {
+    .checklist-container {
+      padding: 0;
+      box-shadow: none;
+      margin-top: 10px;
+    }
+    
+    .checklist-table th,
+    .checklist-table td {
+      border: 1px solid #000 !important;
+    }
+    
+    .checklist-table th {
+      background-color: #f0f0f0 !important;
+    }
+    
+    .category-title {
+      border-bottom: 1px solid #000 !important;
+    }
+  }
+
+  /* 画面表示時の調整 */
+  @media screen {
+    .checklist-container {
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      max-width: 1200px;
+      margin: 20px auto 0;
+    }
+  }
+</style>
 <script>
 fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
 fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);

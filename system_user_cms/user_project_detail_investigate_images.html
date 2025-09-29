@@ -1,649 +1,769 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>案件管理（調査画像）</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
-  <style>
-    .container-fluid {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    /* 画像カードのスタイル */
-    .image-card {
-      border: 1px solid #dee2e6;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-      height: 100%;
-    }
-    .image-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-    .image-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      cursor: pointer;
-    }
-    .image-card .card-body {
-      padding: 1rem;
-    }
-    .image-card .card-title {
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-    .image-card .card-text {
-      font-size: 0.8rem;
-      color: #6c757d;
-    }
-    /* アップロードエリア */
-    .upload-area {
-      border: 2px dashed #dee2e6;
-      border-radius: 8px;
-      padding: 2rem;
-      text-align: center;
-      background-color: #f8f9fa;
-      transition: border-color 0.2s, background-color 0.2s;
-    }
-    .upload-area:hover {
-      border-color: #007bff;
-      background-color: #e7f3ff;
-    }
-    .upload-area.dragover {
-      border-color: #007bff;
-      background-color: #e7f3ff;
-    }
-    /* 画像プレビュー */
-    .image-preview {
-      max-width: 100%;
-      max-height: 300px;
-      border-radius: 4px;
-    }
-    /* フィルター・検索エリア */
-    .filter-section {
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    /* カテゴリタグ */
-    .category-tag {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      margin: 0.125rem;
-      background-color: #e9ecef;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      color: #495057;
-    }
-    .category-tag.active {
-      background-color: #007bff;
-      color: white;
-    }
-    /* 画像詳細モーダル */
-    .image-detail-modal .modal-body {
-      max-height: 70vh;
-      overflow-y: auto;
-    }
-    .image-detail-modal img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 4px;
-    }
-    /* レスポンシブ対応 */
-    @media (max-width: 768px) {
-      .image-card img {
-        height: 150px;
-      }
-      .upload-area {
-        padding: 1rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像一覧 - リノベーション管理システム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'ヒラギノ角ゴシック', 'Yu Gothic', '游ゴシック', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .content-wrapper {
+            margin: 0 auto;
+            padding: 0 1rem;
+            max-width: 1400px;
+        }
+        .images-header {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .filter-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .view-btn {
+            padding: 8px 16px;
+            border: 1px solid #dee2e6;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .view-btn.active {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .view-btn:hover {
+            background: #e9ecef;
+        }
+        .view-btn.active:hover {
+            background: #0056b3;
+        }
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .images-table {
+            display: none;
+        }
+        .images-table.active {
+            display: block;
+        }
+        .image-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .image-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f8f9fa 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f8f9fa 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f8f9fa 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f8f9fa 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .image-placeholder {
+            width: 80px;
+            height: 80px;
+            background: #dee2e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 24px;
+        }
+        .image-overlay {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+        }
+        .image-info {
+            padding: 15px;
+        }
+        .image-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .image-meta {
+            display: flex;
+            justify-content-between;
+            align-items-center;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+        .image-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+        }
+        .image-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+        .table-responsive {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .table {
+            margin-bottom: 0;
+        }
+        .table th {
+            background: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            font-weight: 600;
+            color: #495057;
+            font-size: 14px;
+        }
+        .table td {
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f3f4;
+            font-size: 14px;
+        }
+        .table td:last-child {
+            border-bottom: none;
+        }
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            background: #dee2e6;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 20px;
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #17a2b8;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 0 10px;
+            }
+            .images-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+            .summary-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .stat-card {
+                padding: 15px;
+            }
+            .stat-number {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- ヘッダー -->
-  <div id="header-container"></div>
+    <div class="content-wrapper mt-4">
+        <!-- ヘッダー -->
+        <div class="images-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h4 class="mb-1">画像一覧</h4>
+                    <p class="mb-0 opacity-75">案件名: サンプル住宅リノベーション</p>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-light text-dark me-2">総画像数: 45枚</span>
+                    <span class="badge bg-warning text-dark">最終更新: 2024/01/20</span>
+                </div>
+            </div>
+        </div>
 
-  <div class="container-fluid mt-4 px-3">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <div class="text-start">
-        <h5 class="mb-0">会社名</h5>
-        <h4 class="mb-0 d-inline">
-          <a href="user_project_detail_investigate.html" class="text-decoration-none text-dark">
-            調査画像管理 <i class="bi bi-images"></i>
-          </a>
-        </h4>
-      </div>
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-secondary" onclick="location.href='user_project_detail_investigate.html'">
-          <i class="bi bi-arrow-return-left me-2"></i>調査一覧に戻る
-        </button>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-          <i class="bi bi-cloud-upload me-2"></i>画像アップロード
-        </button>
-      </div>
+        <!-- サマリー統計 -->
+        <div class="summary-stats">
+            <div class="stat-card">
+                <div class="stat-number">45</div>
+                <div class="stat-label">総画像数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">32</div>
+                <div class="stat-label">調査画像</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">13</div>
+                <div class="stat-label">図面画像</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2.3MB</div>
+                <div class="stat-label">平均サイズ</div>
+            </div>
+        </div>
+
+        <!-- フィルター・検索 -->
+        <div class="filter-bar">
+            <div class="view-toggle">
+                <div class="view-btn active" data-view="grid">
+                    <i class="bi bi-grid-3x3-gap me-1"></i>グリッド表示
+                </div>
+                <div class="view-btn" data-view="table">
+                    <i class="bi bi-table me-1"></i>表表示
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">調査エリア</label>
+                    <select class="form-select" id="areaFilter">
+                        <option value="">すべてのエリア</option>
+                        <option value="屋外敷地">屋外／屋外設備［敷地図］</option>
+                        <option value="屋外立面">屋外［立面図］</option>
+                        <option value="屋内1F">屋内／屋内設備１F［1F平面図］</option>
+                        <option value="屋内1F床下">屋内／１F床下［1F床下図］</option>
+                        <option value="屋内2F">屋内／屋内設備２F［2F平面図］</option>
+                        <option value="屋内2F小屋裏">屋内／2F小屋裏［2F小屋裏図］</option>
+                        <option value="傾斜">傾斜／１,2F［1,2F傾斜図］</option>
+                        <option value="その他">その他の調査</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">画像タイプ</label>
+                    <select class="form-select" id="typeFilter">
+                        <option value="">すべてのタイプ</option>
+                        <option value="調査">調査画像</option>
+                        <option value="図面">図面画像</option>
+                        <option value="全景">全景画像</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">日付</label>
+                    <input type="date" class="form-control" id="dateFilter">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">検索</label>
+                    <input type="text" class="form-control" placeholder="ファイル名で検索" id="searchInput">
+                </div>
+            </div>
+        </div>
+
+        <!-- グリッド表示 -->
+        <div class="images-grid" id="gridView">
+            <!-- 画像カード1 -->
+            <div class="image-card" data-area="屋外敷地" data-type="調査" data-date="2024-01-15">
+                <div class="image-preview">
+                    <div class="image-placeholder">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <div class="image-overlay">JPEG</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">給排水設備_配管劣化_東面</div>
+                    <div class="image-meta">
+                        <span>2024/01/15 14:30</span>
+                        <span>2.1MB</span>
+                    </div>
+                    <div class="image-tags">
+                        <span class="tag">給排水設備</span>
+                        <span class="tag">配管劣化</span>
+                        <span class="tag">東面</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="btn btn-outline-primary btn-sm">表示</button>
+                        <button class="btn btn-outline-secondary btn-sm">ダウンロード</button>
+                        <button class="btn btn-outline-danger btn-sm">削除</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 画像カード2 -->
+            <div class="image-card" data-area="屋外敷地" data-type="調査" data-date="2024-01-15">
+                <div class="image-preview">
+                    <div class="image-placeholder">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <div class="image-overlay">PNG</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">給湯設備_設置状況_全景</div>
+                    <div class="image-meta">
+                        <span>2024/01/15 14:40</span>
+                        <span>1.8MB</span>
+                    </div>
+                    <div class="image-tags">
+                        <span class="tag">給湯設備</span>
+                        <span class="tag">設置状況</span>
+                        <span class="tag">全景</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="btn btn-outline-primary btn-sm">表示</button>
+                        <button class="btn btn-outline-secondary btn-sm">ダウンロード</button>
+                        <button class="btn btn-outline-danger btn-sm">削除</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 画像カード3 -->
+            <div class="image-card" data-area="その他" data-type="図面" data-date="2024-01-16">
+                <div class="image-preview">
+                    <div class="image-placeholder">
+                        <i class="bi bi-file-earmark-image"></i>
+                    </div>
+                    <div class="image-overlay">PDF</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">用途地域_確認図面</div>
+                    <div class="image-meta">
+                        <span>2024/01/16 09:15</span>
+                        <span>3.2MB</span>
+                    </div>
+                    <div class="image-tags">
+                        <span class="tag">用途地域</span>
+                        <span class="tag">図面</span>
+                        <span class="tag">法規</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="btn btn-outline-primary btn-sm">表示</button>
+                        <button class="btn btn-outline-secondary btn-sm">ダウンロード</button>
+                        <button class="btn btn-outline-danger btn-sm">削除</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 画像カード4 -->
+            <div class="image-card" data-area="屋内1F" data-type="調査" data-date="2024-01-17">
+                <div class="image-preview">
+                    <div class="image-placeholder">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <div class="image-overlay">JPEG</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">キッチン_設備状況_全体</div>
+                    <div class="image-meta">
+                        <span>2024/01/17 10:20</span>
+                        <span>2.5MB</span>
+                    </div>
+                    <div class="image-tags">
+                        <span class="tag">キッチン</span>
+                        <span class="tag">設備</span>
+                        <span class="tag">1F</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="btn btn-outline-primary btn-sm">表示</button>
+                        <button class="btn btn-outline-secondary btn-sm">ダウンロード</button>
+                        <button class="btn btn-outline-danger btn-sm">削除</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 画像カード5 -->
+            <div class="image-card" data-area="傾斜" data-type="調査" data-date="2024-01-18">
+                <div class="image-preview">
+                    <div class="image-placeholder">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <div class="image-overlay">JPEG</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">床傾斜_測定結果_1F</div>
+                    <div class="image-meta">
+                        <span>2024/01/18 15:45</span>
+                        <span>1.9MB</span>
+                    </div>
+                    <div class="image-tags">
+                        <span class="tag">傾斜</span>
+                        <span class="tag">測定</span>
+                        <span class="tag">1F</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="btn btn-outline-primary btn-sm">表示</button>
+                        <button class="btn btn-outline-secondary btn-sm">ダウンロード</button>
+                        <button class="btn btn-outline-danger btn-sm">削除</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 画像カード6 -->
+            <div class="image-card" data-area="屋外立面" data-type="調査" data-date="2024-01-19">
+                <div class="image-preview">
+                    <div class="image-placeholder">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <div class="image-overlay">JPEG</div>
+                </div>
+                <div class="image-info">
+                    <div class="image-title">外壁材_劣化状況_南面</div>
+                    <div class="image-meta">
+                        <span>2024/01/19 11:30</span>
+                        <span>2.3MB</span>
+                    </div>
+                    <div class="image-tags">
+                        <span class="tag">外壁材</span>
+                        <span class="tag">劣化</span>
+                        <span class="tag">南面</span>
+                    </div>
+                    <div class="image-actions">
+                        <button class="btn btn-outline-primary btn-sm">表示</button>
+                        <button class="btn btn-outline-secondary btn-sm">ダウンロード</button>
+                        <button class="btn btn-outline-danger btn-sm">削除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 表表示 -->
+        <div class="images-table" id="tableView">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="80">画像</th>
+                            <th>ファイル名</th>
+                            <th width="120">調査エリア</th>
+                            <th width="100">タイプ</th>
+                            <th width="120">撮影日時</th>
+                            <th width="80">サイズ</th>
+                            <th width="100">タグ</th>
+                            <th width="200">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="thumbnail">
+                                    <i class="bi bi-image"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>給排水設備_配管劣化_東面.jpg</strong><br>
+                                <small class="text-muted">配管の劣化状況を撮影</small>
+                            </td>
+                            <td>屋外／屋外設備［敷地図］</td>
+                            <td><span class="badge bg-primary">調査</span></td>
+                            <td>2024/01/15<br>14:30</td>
+                            <td>2.1MB</td>
+                            <td>
+                                <span class="tag">給排水設備</span>
+                                <span class="tag">配管劣化</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm me-1">表示</button>
+                                <button class="btn btn-outline-secondary btn-sm me-1">ダウンロード</button>
+                                <button class="btn btn-outline-danger btn-sm">削除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="thumbnail">
+                                    <i class="bi bi-image"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>給湯設備_設置状況_全景.png</strong><br>
+                                <small class="text-muted">給湯設備の設置状況</small>
+                            </td>
+                            <td>屋外／屋外設備［敷地図］</td>
+                            <td><span class="badge bg-primary">調査</span></td>
+                            <td>2024/01/15<br>14:40</td>
+                            <td>1.8MB</td>
+                            <td>
+                                <span class="tag">給湯設備</span>
+                                <span class="tag">設置状況</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm me-1">表示</button>
+                                <button class="btn btn-outline-secondary btn-sm me-1">ダウンロード</button>
+                                <button class="btn btn-outline-danger btn-sm">削除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="thumbnail">
+                                    <i class="bi bi-file-earmark-image"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>用途地域_確認図面.pdf</strong><br>
+                                <small class="text-muted">用途地域の確認図面</small>
+                            </td>
+                            <td>その他の調査</td>
+                            <td><span class="badge bg-success">図面</span></td>
+                            <td>2024/01/16<br>09:15</td>
+                            <td>3.2MB</td>
+                            <td>
+                                <span class="tag">用途地域</span>
+                                <span class="tag">図面</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm me-1">表示</button>
+                                <button class="btn btn-outline-secondary btn-sm me-1">ダウンロード</button>
+                                <button class="btn btn-outline-danger btn-sm">削除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="thumbnail">
+                                    <i class="bi bi-image"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>キッチン_設備状況_全体.jpg</strong><br>
+                                <small class="text-muted">1Fキッチンの設備状況</small>
+                            </td>
+                            <td>屋内／屋内設備１F［1F平面図］</td>
+                            <td><span class="badge bg-primary">調査</span></td>
+                            <td>2024/01/17<br>10:20</td>
+                            <td>2.5MB</td>
+                            <td>
+                                <span class="tag">キッチン</span>
+                                <span class="tag">設備</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm me-1">表示</button>
+                                <button class="btn btn-outline-secondary btn-sm me-1">ダウンロード</button>
+                                <button class="btn btn-outline-danger btn-sm">削除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="thumbnail">
+                                    <i class="bi bi-image"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>床傾斜_測定結果_1F.jpg</strong><br>
+                                <small class="text-muted">1F床の傾斜測定結果</small>
+                            </td>
+                            <td>傾斜／１,2F［1,2F傾斜図］</td>
+                            <td><span class="badge bg-primary">調査</span></td>
+                            <td>2024/01/18<br>15:45</td>
+                            <td>1.9MB</td>
+                            <td>
+                                <span class="tag">傾斜</span>
+                                <span class="tag">測定</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm me-1">表示</button>
+                                <button class="btn btn-outline-secondary btn-sm me-1">ダウンロード</button>
+                                <button class="btn btn-outline-danger btn-sm">削除</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="thumbnail">
+                                    <i class="bi bi-image"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>外壁材_劣化状況_南面.jpg</strong><br>
+                                <small class="text-muted">南面外壁の劣化状況</small>
+                            </td>
+                            <td>屋外［立面図］</td>
+                            <td><span class="badge bg-primary">調査</span></td>
+                            <td>2024/01/19<br>11:30</td>
+                            <td>2.3MB</td>
+                            <td>
+                                <span class="tag">外壁材</span>
+                                <span class="tag">劣化</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary btn-sm me-1">表示</button>
+                                <button class="btn btn-outline-secondary btn-sm me-1">ダウンロード</button>
+                                <button class="btn btn-outline-danger btn-sm">削除</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 調査結果一覧へのリンク -->
+        <div class="text-center mt-4">
+            <a href="user_project_detail_investigate_result.html" class="btn btn-outline-primary">
+                <i class="bi bi-clipboard-data me-2"></i>調査結果一覧を見る
+            </a>
+        </div>
     </div>
 
-    <!-- フィルター・検索セクション -->
-    <div class="filter-section">
-      <div class="row g-3">
-        <div class="col-md-4">
-          <label class="form-label fw-bold">検索</label>
-          <div class="input-group">
-            <span class="input-group-text">
-              <i class="bi bi-search"></i>
-            </span>
-            <input type="text" class="form-control" placeholder="画像名、説明、タグで検索" id="searchInput">
-          </div>
-        </div>
-        <div class="col-md-3">
-          <label class="form-label fw-bold">カテゴリ</label>
-          <select class="form-select" id="categoryFilter">
-            <option value="">すべて</option>
-            <option value="外観">外観</option>
-            <option value="内装">内装</option>
-            <option value="構造">構造</option>
-            <option value="設備">設備</option>
-            <option value="屋根">屋根</option>
-            <option value="基礎">基礎</option>
-            <option value="その他">その他</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <label class="form-label fw-bold">撮影日</label>
-          <select class="form-select" id="dateFilter">
-            <option value="">すべて</option>
-            <option value="today">今日</option>
-            <option value="week">今週</option>
-            <option value="month">今月</option>
-            <option value="custom">カスタム</option>
-          </select>
-        </div>
-        <div class="col-md-2">
-          <label class="form-label fw-bold">並び順</label>
-          <select class="form-select" id="sortFilter">
-            <option value="newest">新しい順</option>
-            <option value="oldest">古い順</option>
-            <option value="name">名前順</option>
-            <option value="size">サイズ順</option>
-          </select>
-        </div>
-      </div>
-      
-      <!-- カテゴリタグ -->
-      <div class="mt-3">
-        <label class="form-label fw-bold me-2">クイックフィルター:</label>
-        <span class="category-tag active" data-category="">すべて</span>
-        <span class="category-tag" data-category="外観">外観</span>
-        <span class="category-tag" data-category="内装">内装</span>
-        <span class="category-tag" data-category="構造">構造</span>
-        <span class="category-tag" data-category="設備">設備</span>
-        <span class="category-tag" data-category="屋根">屋根</span>
-        <span class="category-tag" data-category="基礎">基礎</span>
-        <span class="category-tag" data-category="その他">その他</span>
-      </div>
-    </div>
-
-    <!-- 統計情報 -->
-    <div class="row mb-4">
-      <div class="col-md-3">
-        <div class="card border-0 bg-primary text-white">
-          <div class="card-body text-center">
-            <h4 class="mb-0">156</h4>
-            <small>総画像数</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card border-0 bg-success text-white">
-          <div class="card-body text-center">
-            <h4 class="mb-0">2.4GB</h4>
-            <small>総容量</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card border-0 bg-info text-white">
-          <div class="card-body text-center">
-            <h4 class="mb-0">8</h4>
-            <small>カテゴリ数</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card border-0 bg-warning text-white">
-          <div class="card-body text-center">
-            <h4 class="mb-0">12</h4>
-            <small>今月追加</small>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 画像グリッド -->
-    <div class="row g-3" id="imageGrid">
-      <!-- 画像カード1 -->
-      <div class="col-md-3 col-sm-6">
-        <div class="image-card">
-          <img src="../images/building.webp" alt="建物外観" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-id="1">
-          <div class="card-body">
-            <h6 class="card-title">建物外観（南面）</h6>
-            <p class="card-text">2024年1月15日撮影</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="category-tag">外観</span>
-              <small class="text-muted">2.3MB</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 画像カード2 -->
-      <div class="col-md-3 col-sm-6">
-        <div class="image-card">
-          <img src="../images/1f.webp" alt="1階内装" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-id="2">
-          <div class="card-body">
-            <h6 class="card-title">1階リビング</h6>
-            <p class="card-text">2024年1月15日撮影</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="category-tag">内装</span>
-              <small class="text-muted">1.8MB</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 画像カード3 -->
-      <div class="col-md-3 col-sm-6">
-        <div class="image-card">
-          <img src="../images/2f.webp" alt="2階内装" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-id="3">
-          <div class="card-body">
-            <h6 class="card-title">2階寝室</h6>
-            <p class="card-text">2024年1月15日撮影</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="category-tag">内装</span>
-              <small class="text-muted">2.1MB</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 画像カード4 -->
-      <div class="col-md-3 col-sm-6">
-        <div class="image-card">
-          <img src="../images/east_elevation.jpg" alt="東立面" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-id="4">
-          <div class="card-body">
-            <h6 class="card-title">東立面詳細</h6>
-            <p class="card-text">2024年1月14日撮影</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="category-tag">外観</span>
-              <small class="text-muted">3.2MB</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 画像カード5 -->
-      <div class="col-md-3 col-sm-6">
-        <div class="image-card">
-          <img src="../images/south_elevation.jpg" alt="南立面" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-id="5">
-          <div class="card-body">
-            <h6 class="card-title">南立面全景</h6>
-            <p class="card-text">2024年1月14日撮影</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="category-tag">外観</span>
-              <small class="text-muted">2.8MB</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 画像カード6 -->
-      <div class="col-md-3 col-sm-6">
-        <div class="image-card">
-          <img src="../images/west_elevation.jpg" alt="西立面" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-id="6">
-          <div class="card-body">
-            <h6 class="card-title">西立面詳細</h6>
-            <p class="card-text">2024年1月14日撮影</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="category-tag">外観</span>
-              <small class="text-muted">2.5MB</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 画像カード7 -->
-      <div class="col-md-3 col-sm-6">
-        <div class="image-card">
-          <img src="../images/north_elavation.jpg" alt="北立面" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-id="7">
-          <div class="card-body">
-            <h6 class="card-title">北立面全景</h6>
-            <p class="card-text">2024年1月14日撮影</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="category-tag">外観</span>
-              <small class="text-muted">2.7MB</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 画像カード8 -->
-      <div class="col-md-3 col-sm-6">
-        <div class="image-card">
-          <img src="../images/roofplan.webp" alt="屋根平面図" data-bs-toggle="modal" data-bs-target="#imageDetailModal" data-image-id="8">
-          <div class="card-body">
-            <h6 class="card-title">屋根平面図</h6>
-            <p class="card-text">2024年1月13日撮影</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <span class="category-tag">屋根</span>
-              <small class="text-muted">1.9MB</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ページネーション -->
-    <nav aria-label="画像ページネーション" class="mt-4">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">前へ</a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">次へ</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-  <!-- 画像アップロードモーダル -->
-  <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="uploadModalLabel">
-            <i class="bi bi-cloud-upload me-2"></i>画像アップロード
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <!-- ドラッグ&ドロップエリア -->
-          <div class="upload-area" id="uploadArea">
-            <i class="bi bi-cloud-upload fs-1 text-muted mb-3"></i>
-            <h5>画像をドラッグ&ドロップ</h5>
-            <p class="text-muted">または</p>
-            <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
-              ファイルを選択
-            </button>
-            <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
-            <p class="text-muted mt-2">対応形式: JPG, PNG, GIF, WebP (最大10MB)</p>
-          </div>
-
-          <!-- アップロード進捗 -->
-          <div id="uploadProgress" style="display: none;">
-            <div class="progress mt-3">
-              <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-            </div>
-            <p class="text-center mt-2">アップロード中...</p>
-          </div>
-
-          <!-- 画像情報入力 -->
-          <div class="mt-4">
-            <h6>画像情報</h6>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <label class="form-label">画像名</label>
-                <input type="text" class="form-control" placeholder="画像の名前を入力">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">カテゴリ</label>
-                <select class="form-select">
-                  <option value="">カテゴリを選択</option>
-                  <option value="外観">外観</option>
-                  <option value="内装">内装</option>
-                  <option value="構造">構造</option>
-                  <option value="設備">設備</option>
-                  <option value="屋根">屋根</option>
-                  <option value="基礎">基礎</option>
-                  <option value="その他">その他</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">撮影日</label>
-                <input type="date" class="form-control">
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">タグ</label>
-                <input type="text" class="form-control" placeholder="カンマ区切りでタグを入力">
-              </div>
-              <div class="col-12">
-                <label class="form-label">説明</label>
-                <textarea class="form-control" rows="3" placeholder="画像の説明を入力"></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-          <button type="button" class="btn btn-primary" id="uploadButton">
-            <i class="bi bi-cloud-upload me-2"></i>アップロード
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 画像詳細モーダル -->
-  <div class="modal fade" id="imageDetailModal" tabindex="-1" aria-labelledby="imageDetailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="imageDetailModalLabel">
-            <i class="bi bi-image me-2"></i>画像詳細
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-8">
-              <img src="" alt="画像詳細" class="image-detail-modal" id="modalImage">
-            </div>
-            <div class="col-md-4">
-              <h6>画像情報</h6>
-              <table class="table table-sm">
-                <tr>
-                  <td><strong>ファイル名:</strong></td>
-                  <td id="modalFileName">-</td>
-                </tr>
-                <tr>
-                  <td><strong>サイズ:</strong></td>
-                  <td id="modalFileSize">-</td>
-                </tr>
-                <tr>
-                  <td><strong>撮影日:</strong></td>
-                  <td id="modalDate">-</td>
-                </tr>
-                <tr>
-                  <td><strong>カテゴリ:</strong></td>
-                  <td id="modalCategory">-</td>
-                </tr>
-                <tr>
-                  <td><strong>タグ:</strong></td>
-                  <td id="modalTags">-</td>
-                </tr>
-              </table>
-              
-              <h6 class="mt-3">説明</h6>
-              <p id="modalDescription">-</p>
-              
-              <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-outline-primary btn-sm">
-                  <i class="bi bi-download me-2"></i>ダウンロード
-                </button>
-                <button class="btn btn-outline-secondary btn-sm">
-                  <i class="bi bi-pencil me-2"></i>編集
-                </button>
-                <button class="btn btn-outline-danger btn-sm">
-                  <i class="bi bi-trash me-2"></i>削除
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- フッター -->
-  <div id="footer-container"></div>
-
-  <!-- Bootstrap & Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../style.js"></script>
-  <script>
-    fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
-    fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
-
-    // カテゴリタグのクリックイベント
-    document.addEventListener('DOMContentLoaded', function() {
-      const categoryTags = document.querySelectorAll('.category-tag');
-      const categoryFilter = document.getElementById('categoryFilter');
-      
-      categoryTags.forEach(tag => {
-        tag.addEventListener('click', function() {
-          // アクティブクラスを更新
-          categoryTags.forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-          
-          // フィルターを更新
-          const category = this.getAttribute('data-category');
-          categoryFilter.value = category;
-          
-          // ここでフィルタリング処理を実行
-          filterImages();
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 表示切り替え
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // アクティブ状態を切り替え
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 表示を切り替え
+                const view = this.dataset.view;
+                document.getElementById('gridView').style.display = view === 'grid' ? 'grid' : 'none';
+                document.getElementById('tableView').classList.toggle('active', view === 'table');
+            });
         });
-      });
 
-      // 検索機能
-      const searchInput = document.getElementById('searchInput');
-      searchInput.addEventListener('input', function() {
-        filterImages();
-      });
+        // フィルター機能
+        document.getElementById('areaFilter').addEventListener('change', filterImages);
+        document.getElementById('typeFilter').addEventListener('change', filterImages);
+        document.getElementById('dateFilter').addEventListener('change', filterImages);
+        document.getElementById('searchInput').addEventListener('input', filterImages);
 
-      // フィルター変更時の処理
-      const filters = ['categoryFilter', 'dateFilter', 'sortFilter'];
-      filters.forEach(filterId => {
-        const filter = document.getElementById(filterId);
-        if (filter) {
-          filter.addEventListener('change', function() {
-            filterImages();
-          });
+        function filterImages() {
+            const areaFilter = document.getElementById('areaFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+
+            // グリッド表示のフィルタリング
+            const gridCards = document.querySelectorAll('.image-card');
+            gridCards.forEach(card => {
+                let visible = true;
+                
+                if (areaFilter && !card.dataset.area.includes(areaFilter)) {
+                    visible = false;
+                }
+                if (typeFilter && card.dataset.type !== typeFilter) {
+                    visible = false;
+                }
+                if (dateFilter && card.dataset.date !== dateFilter) {
+                    visible = false;
+                }
+                if (searchInput && !card.textContent.toLowerCase().includes(searchInput)) {
+                    visible = false;
+                }
+                
+                card.style.display = visible ? 'block' : 'none';
+            });
+
+            // 表表示のフィルタリング
+            const tableRows = document.querySelectorAll('#tableView tbody tr');
+            tableRows.forEach(row => {
+                let visible = true;
+                const cells = row.querySelectorAll('td');
+                
+                if (areaFilter && !cells[2].textContent.includes(areaFilter)) {
+                    visible = false;
+                }
+                if (typeFilter) {
+                    const typeBadge = cells[3].querySelector('.badge').textContent;
+                    if (typeBadge !== typeFilter) {
+                        visible = false;
+                    }
+                }
+                if (searchInput && !row.textContent.toLowerCase().includes(searchInput)) {
+                    visible = false;
+                }
+                
+                row.style.display = visible ? '' : 'none';
+            });
         }
-      });
 
-      // ドラッグ&ドロップ機能
-      const uploadArea = document.getElementById('uploadArea');
-      const fileInput = document.getElementById('fileInput');
-
-      uploadArea.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        this.classList.add('dragover');
-      });
-
-      uploadArea.addEventListener('dragleave', function(e) {
-        e.preventDefault();
-        this.classList.remove('dragover');
-      });
-
-      uploadArea.addEventListener('drop', function(e) {
-        e.preventDefault();
-        this.classList.remove('dragover');
-        
-        const files = e.dataTransfer.files;
-        if (files.length > 0) {
-          handleFiles(files);
-        }
-      });
-
-      fileInput.addEventListener('change', function(e) {
-        if (e.target.files.length > 0) {
-          handleFiles(e.target.files);
-        }
-      });
-
-      // 画像詳細モーダルの処理
-      const imageDetailModal = document.getElementById('imageDetailModal');
-      if (imageDetailModal) {
-        imageDetailModal.addEventListener('show.bs.modal', function(event) {
-          const button = event.relatedTarget;
-          const imageId = button.getAttribute('data-image-id');
-          const image = button.querySelector('img');
-          
-          // モーダル内の要素を更新
-          document.getElementById('modalImage').src = image.src;
-          document.getElementById('modalFileName').textContent = image.alt;
-          document.getElementById('modalFileSize').textContent = '2.3MB'; // 実際のサイズを取得
-          document.getElementById('modalDate').textContent = '2024年1月15日';
-          document.getElementById('modalCategory').textContent = '外観';
-          document.getElementById('modalTags').textContent = '建物, 外観, 南面';
-          document.getElementById('modalDescription').textContent = '建物の南面外観写真です。';
+        // 画像表示ボタン
+        document.querySelectorAll('.btn-outline-primary').forEach(btn => {
+            if (btn.textContent.includes('表示')) {
+                btn.addEventListener('click', function() {
+                    // 画像表示モーダルを開く処理
+                    alert('画像表示機能は今後実装予定です');
+                });
+            }
         });
-      }
-    });
 
-    // 画像フィルタリング関数
-    function filterImages() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const category = document.getElementById('categoryFilter').value;
-      const images = document.querySelectorAll('.image-card');
-      
-      images.forEach(imageCard => {
-        const title = imageCard.querySelector('.card-title').textContent.toLowerCase();
-        const categoryTag = imageCard.querySelector('.category-tag').textContent;
-        
-        let show = true;
-        
-        // 検索フィルター
-        if (searchTerm && !title.includes(searchTerm)) {
-          show = false;
-        }
-        
-        // カテゴリフィルター
-        if (category && categoryTag !== category) {
-          show = false;
-        }
-        
-        // 表示/非表示を切り替え
-        imageCard.style.display = show ? 'block' : 'none';
-      });
-    }
+        // ダウンロードボタン
+        document.querySelectorAll('.btn-outline-secondary').forEach(btn => {
+            if (btn.textContent.includes('ダウンロード')) {
+                btn.addEventListener('click', function() {
+                    // ダウンロード処理
+                    alert('ダウンロード機能は今後実装予定です');
+                });
+            }
+        });
 
-    // ファイル処理関数
-    function handleFiles(files) {
-      Array.from(files).forEach(file => {
-        if (file.type.startsWith('image/')) {
-          // 画像ファイルの処理
-          console.log('画像ファイル:', file.name);
-          // ここでプレビュー表示やアップロード処理を実装
-        }
-      });
-    }
-  </script>
+        // 削除ボタン
+        document.querySelectorAll('.btn-outline-danger').forEach(btn => {
+            if (btn.textContent.includes('削除')) {
+                btn.addEventListener('click', function() {
+                    if (confirm('この画像を削除しますか？')) {
+                        // 削除処理
+                        this.closest('.image-card, tr').remove();
+                    }
+                });
+            }
+        });
+
+        // 画像カードクリック
+        document.querySelectorAll('.image-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('button')) {
+                    // 画像詳細表示
+                    alert('画像詳細表示機能は今後実装予定です');
+                }
+            });
+        });
+    </script>
 </body>
-</html> 
+</html>
