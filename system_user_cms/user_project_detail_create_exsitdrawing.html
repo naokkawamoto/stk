@@ -289,11 +289,50 @@
         <button class="room-button" style="top: 230px; left: 280px;" data-bs-toggle="modal" data-bs-target="#roomModal">
           洋室1
         </button>
+        <!-- 和室（既存）ボタン -->
+        <button class="room-button" style="top: 230px; left: 370px; background: rgba(255, 182, 193, 0.6); color: black;" data-bs-toggle="modal" data-bs-target="#roomModal">
+          和室（既存）
+        </button>
         <!-- 下絵ボタン -->
         <div style="position: absolute; top: 20px; left: 5px; text-align: center; z-index: 1000;">
           <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #fd7e14; border-color: #fd7e14; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);" data-bs-toggle="modal" data-bs-target="#underlayModal">
             下絵
           </button>
+        </div>
+
+        <!-- 保存ボタン -->
+        <div style="position: absolute; top: -20px; left: 80px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #ffc107; border-color: #ffc107; color: black; box-shadow: 0 2px 4px rgba(0,0,0,0.3); font-weight: bold;">
+            保存
+          </button>
+        </div>
+
+        <!-- 元に戻すボタン -->
+        <div style="position: absolute; top: -20px; left: 155px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #ffc107; border-color: #ffc107; color: black; box-shadow: 0 2px 4px rgba(0,0,0,0.3); font-weight: bold;">
+            <i class="bi bi-arrow-left"></i>
+          </button>
+        </div>
+
+        <!-- やり直しボタン -->
+        <div style="position: absolute; top: -20px; left: 230px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #ffc107; border-color: #ffc107; color: black; box-shadow: 0 2px 4px rgba(0,0,0,0.3); font-weight: bold;">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- 910mm表示 -->
+        <div style="position: absolute; top: -20px; left: 305px; text-align: center; z-index: 1000;">
+          <div class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #6c757d; border-color: #6c757d; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); font-weight: bold; cursor: default;">
+            910mm
+          </div>
+        </div>
+
+        <!-- 1/4ピッチ表示 -->
+        <div style="position: absolute; top: -20px; left: 380px; text-align: center; z-index: 1000;">
+          <div class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #6c757d; border-color: #6c757d; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); font-weight: bold; cursor: default;">
+            1/4ピッチ
+          </div>
         </div>
 
         <!-- 敷地ボタン -->
@@ -380,384 +419,369 @@
           <!-- 基本情報カード -->
           <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-light border-0">
-              <h6 class="mb-0 fw-bold text-primary">
-                <i class="bi bi-info-circle me-2"></i>基本情報
-              </h6>
-            </div>
-            <div class="card-body">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">案件名</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0">
-                      <i class="bi bi-person-badge text-muted"></i>
-                    </span>
-                    <input type="text" class="form-control border-start-0" value="河本直己邱" readonly>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">部屋名</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0">
-                      <i class="bi bi-door-open text-muted"></i>
-                    </span>
-                    <input type="text" class="form-control border-start-0" value="洋室1">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">広さ</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0">
-                      <i class="bi bi-arrows-angle-expand text-muted"></i>
-                    </span>
-                    <input type="text" class="form-control border-start-0" value="9帖">
-                    <span class="input-group-text bg-light border-start-0">帖</span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">位置</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0">
-                      <i class="bi bi-geo-alt text-muted"></i>
-                    </span>
-                    <input type="text" class="form-control border-start-0" value='{"x": 120.3,"y": 200.5,"width": 40.0,"height": 40.0}'>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <label class="form-label fw-bold text-muted small">備考</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border-end-0">
-                      <i class="bi bi-chat-text text-muted"></i>
-                    </span>
-                    <textarea class="form-control border-start-0" rows="2" placeholder="フリーフォーム"></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 部屋属性セクション -->
-          <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-light border-0">
-              <h6 class="mb-0 fw-bold text-primary">
-                <i class="bi bi-gear me-2"></i>部屋属性
-              </h6>
-            </div>
-            <div class="card-body">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">天井高</label>
-                  <div class="input-group">
-                    <input type="number" class="form-control" value="2300">
-                    <span class="input-group-text">mm</span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">床高増減</label>
-                  <div class="input-group">
-                    <input type="number" class="form-control" placeholder="0">
-                    <span class="input-group-text">mm</span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">部屋タイプ</label>
-                  <select class="form-select">
-                    <option value="洋室" selected>洋室</option>
-                    <option value="和室">和室</option>
-                    <option value="玄関">玄関</option>
-                    <option value="ポーチ">ポーチ</option>
-                    <option value="ガレージ">ガレージ</option>
-                    <option value="L">L（リビング）</option>
-                    <option value="D">D（ダイニング）</option>
-                    <option value="K">K（キッチン）</option>
-                    <option value="LD">LD（リビング＋ダイニング）</option>
-                    <option value="LDK">LDK（リビング＋ダイニング＋キッチン）</option>
-                    <option value="浴室">浴室</option>
-                    <option value="トイレ">トイレ</option>
-                    <option value="洗面所">洗面所</option>
-                    <option value="廊下">廊下</option>
-                    <option value="バルコニー" disabled>バルコニー（※グレー表示で選択不可状態）</option>
-                    <option value="床の間">床の間</option>
-                    <option value="広縁">広縁</option>
-                    <option value="吹抜け" disabled>吹抜け（※グレー表示で選択不可状態）</option>
-                    <option value="収納">収納</option>
-                    <option value="土間">土間</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">壁タイプ</label>
-                  <select class="form-select">
-                    <option value="大壁">大壁（おおかべ）</option>
-                    <option value="真壁">真壁（しんかべ）</option>
-                    <option value="大壁風">大壁風</option>
-                    <option value="腰壁あり大壁">腰壁あり大壁</option>
-                    <option value="漆喰壁">漆喰壁</option>
-                    <option value="障子壁・襖壁">障子壁・襖壁</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 仕上げセクション -->
-          <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-light border-0">
-              <h6 class="mb-0 fw-bold text-primary">
-                <i class="bi bi-palette me-2"></i>仕上げ
-              </h6>
-            </div>
-            <div class="card-body">
-              <div class="row g-3">
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">天井仕上げ</label>
-                  <select class="form-select">
-                    <option value="ビニールクロス">ビニールクロス</option>
-                    <option value="繊維クロス">繊維クロス（布クロス）</option>
-                    <option value="塗装">塗装（EP・AEP）</option>
-                    <option value="化粧石膏ボード">化粧石膏ボード</option>
-                    <option value="木目調化粧合板">木目調化粧合板／羽目板</option>
-                    <option value="漆喰・珪藻土">漆喰・珪藻土</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">壁仕上げ</label>
-                  <select class="form-select">
-                    <option value="ビニールクロス">ビニールクロス</option>
-                    <option value="繊維クロス">繊維クロス（布クロス）</option>
-                    <option value="塗装仕上げ">塗装仕上げ（EP/AEP）</option>
-                    <option value="化粧合板">化粧合板／木パネル</option>
-                    <option value="タイル張り">タイル張り</option>
-                    <option value="モルタル・左官仕上げ">モルタル・左官仕上げ（漆喰等）</option>
-                    <option value="腰壁＋クロス">腰壁＋クロス</option>
-                    <option value="エコカラット">エコカラット／機能性パネル</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">腰壁</label>
-                  <div class="d-flex align-items-center gap-3">
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="waistWall" id="waistWallYes" value="yes" checked>
-                      <label class="form-check-label" for="waistWallYes">あり</label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="waistWall" id="waistWallNo" value="no">
-                      <label class="form-check-label" for="waistWallNo">なし</label>
-                    </div>
-                  </div>
-                  <div class="mt-2">
-                    <div class="input-group">
-                      <input type="number" class="form-control" value="900" min="0" step="10">
-                      <span class="input-group-text">mm</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label fw-bold text-muted small">巾木高</label>
-                  <div class="input-group">
-                    <input type="number" class="form-control" placeholder="60" min="0" step="10">
-                    <span class="input-group-text">mm</span>
-                  </div>
-                </div>
-                <div class="col-12">
-                  <label class="form-label fw-bold text-muted small">床仕上げ</label>
-                  <select class="form-select" id="floorFinish">
-                    <option value="フローリング">フローリング</option>
-                    <option value="畳">畳</option>
-                    <option value="タイル">タイル</option>
-                    <option value="カーペット">カーペット</option>
-                    <option value="コンクリート">コンクリート</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 建具セクション -->
-          <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-light border-0">
-              <h6 class="mb-0 fw-bold text-primary">
-                <i class="bi bi-door-closed me-2"></i>建具
+              <h6 class="mb-0 fw-bold text-primary" style="font-size: 0.8rem;">
+                <i class="bi bi-info-circle me-2"></i>基本情報　河本直己邸　部屋名：洋室１
               </h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-hover table-borderless">
-                  <thead class="table-primary">
-                    <tr>
-                      <th class="border-0 text-white">ID</th>
-                      <th class="border-0 text-white">建具種別</th>
-                      <th class="border-0 text-white">取り付け高さ</th>
-                      <th class="border-0 text-white">扉サイズ（W×H）</th>
-                      <th class="border-0 text-white">素材／表面材</th>
-                      <th class="border-0 text-white">開閉方向</th>
-                    </tr>
-                  </thead>
+                <table class="table table-bordered table-sm">
                   <tbody>
-                    <tr class="border-bottom">
-                      <td class="fw-bold">WD001</td>
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">部屋ID</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">部屋タイプ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">広さ（畳）</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">広さ（ｍ²）</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">X方向(mm)</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">Y方向(mm)</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">天井高(mm)</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">床高(mm)</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="R001" readonly>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="洋室" selected>洋室</option>
+                            <option value="和室">和室</option>
+                            <option value="玄関">玄関</option>
+                            <option value="ポーチ">ポーチ</option>
+                            <option value="ガレージ">ガレージ</option>
+                            <option value="リビング">リビング</option>
+                            <option value="ダイニング">ダイニング</option>
+                            <option value="キッチン">キッチン</option>
+                            <option value="リビングダイニング">リビングダイニング</option>
+                            <option value="LDK">LDK</option>
+                            <option value="浴室">浴室</option>
+                            <option value="トイレ">トイレ</option>
+                            <option value="洗面所">洗面所</option>
+                            <option value="廊下">廊下</option>
+                            <option value="バルコニー">バルコニー</option>
+                            <option value="床の間">床の間</option>
+                            <option value="縁側">縁側</option>
+                            <option value="吹き抜け">吹き抜け</option>
+                            <option value="収納">収納</option>
+                            <option value="土間">土間</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" value="6" min="0" step="0.5">
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" value="9.9" min="0" step="0.1">
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" value="3300" min="0" step="10">
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" value="3000" min="0" step="10">
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" value="2400" min="0" step="10">
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" value="0" min="0" step="10">
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 内部仕様セクション -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-light border-0">
+              <h6 class="mb-0 fw-bold text-primary" style="font-size: 0.8rem;">
+                <i class="bi bi-palette me-2"></i>内部仕様　部屋ID:R001
+              </h6>
+            </div>
+            <div class="card-body">
+              <!-- 天井仕様サブセクション -->
+              <div class="mb-2">
+                <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">天井仕様　天井ID:C001</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <tbody>
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">天井仕上げ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">天井下地</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="ビニル：クロス" selected>ビニル：クロス</option>
+                            <option value="石膏：化粧ボード　455×910">石膏：化粧ボード　455×910</option>
+                            <option value="石膏：化粧ボード　910×910">石膏：化粧ボード　910×910</option>
+                            <option value="木化粧合板">木化粧合板</option>
+                            <option value="木　和室　目透天井">木　和室　目透天井</option>
+                            <option value="木　和室　竿縁天井">木　和室　竿縁天井</option>
+                            <option value="塗料　水性塗料ローラー塗り">塗料　水性塗料ローラー塗り</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="木、石膏　野縁＋PB 3×6 T=9.5" selected>木、石膏　野縁＋PB 3×6 T=9.5</option>
+                            <option value="木、石膏　野縁＋板野縁＋PB 3×6 T=9.5">木、石膏　野縁＋板野縁＋PB 3×6 T=9.5</option>
+                            <option value="木　野縁">木　野縁</option>
+                            <option value="木　吊木">木　吊木</option>
+                            <option value="金属　吊りボルト＋軽天野縁">金属　吊りボルト＋軽天野縁</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 壁仕様サブセクション -->
+              <div class="mb-2">
+                <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">壁仕様　壁ID:W001</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <tbody>
+                      <!-- 1段目: 壁タイプ、壁仕上げ、壁下地 -->
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">壁タイプ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">壁仕上げ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">壁下地</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="真壁" selected>真壁</option>
+                            <option value="大壁">大壁</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="ビニル　クロス貼り" selected>ビニル　クロス貼り</option>
+                            <option value="石膏　化粧ボード3×8">石膏　化粧ボード3×8</option>
+                            <option value="木　シナ合板　3×6">木　シナ合板　3×6</option>
+                            <option value="木　化粧合板　2×8">木　化粧合板　2×8</option>
+                            <option value="土　じゅらく塗り">土　じゅらく塗り</option>
+                            <option value="土　漆喰塗り">土　漆喰塗り</option>
+                            <option value="塗料　水性塗料ローラー塗り">塗料　水性塗料ローラー塗り</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="木、石膏　板野縁＋PB 3×8　T=12.5" selected>木、石膏　板野縁＋PB 3×8　T=12.5</option>
+                            <option value="石膏　PB 3×8　T=12.5">石膏　PB 3×8　T=12.5</option>
+                            <option value="木、石膏　板野縁＋PB 3×8　T=9.5">木、石膏　板野縁＋PB 3×8　T=9.5</option>
+                            <option value="石膏　PB 3×8　T=9.5">石膏　PB 3×8　T=9.5</option>
+                            <option value="木　板野縁＋合板3×8　T=12">木　板野縁＋合板3×8　T=12</option>
+                            <option value="木、石膏　板野縁＋ラスPB3×6　T=5">木、石膏　板野縁＋ラスPB3×6　T=5</option>
+                            <option value="土　土壁">土　土壁</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <!-- 2段目: 腰壁有り無しラジオボタン、腰壁高 -->
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;" colspan="2">腰壁</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">腰壁高</td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <div class="d-flex align-items-center gap-3">
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="waistWall" id="waistWallYes" value="yes" checked>
+                              <label class="form-check-label" for="waistWallYes">あり</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="waistWall" id="waistWallNo" value="no">
+                              <label class="form-check-label" for="waistWallNo">なし</label>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" value="900" min="0" step="10" placeholder="mm">
+                        </td>
+                      </tr>
+                      <!-- 3段目: 巾木仕上げ、巾木高 -->
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">巾木仕上げ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">巾木高</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="木　木製付巾木H=60" selected>木　木製付巾木H=60</option>
+                            <option value="木　木製本巾木H=60">木　木製本巾木H=60</option>
+                            <option value="木　畳寄せH=60">木　畳寄せH=60</option>
+                            <option value="ビニル　ソフト巾木H=60">ビニル　ソフト巾木H=60</option>
+                            <option value="木　玄関付巾木H=150">木　玄関付巾木H=150</option>
+                            <option value="木　雑巾ずり">木　雑巾ずり</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="number" class="form-control form-control-sm" value="60" min="0" step="10" placeholder="mm">
+                        </td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 床仕様サブセクション -->
+              <div class="mb-2">
+                <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">床仕様　床ID:F001</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <tbody>
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">床仕上げ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">床下地</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="木　フローリングT=12" selected>木　フローリングT=12</option>
+                            <option value="木　フローリングT=15">木　フローリングT=15</option>
+                            <option value="木　縁甲板T=12">木　縁甲板T=12</option>
+                            <option value="い草　畳">い草　畳</option>
+                            <option value="ビニル　クッションフロアー">ビニル　クッションフロアー</option>
+                            <option value="木　ラワンべニア">木　ラワンべニア</option>
+                            <option value="木　床板">木　床板</option>
+                            <option value="磁器　磁器タイル100角">磁器　磁器タイル100角</option>
+                            <option value="磁器　磁器タイル150角">磁器　磁器タイル150角</option>
+                            <option value="磁器　磁器タイル300角">磁器　磁器タイル300角</option>
+                            <option value="セメント　モルタル金コテ">セメント　モルタル金コテ</option>
+                            <option value="石　石張り">石　石張り</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12" selected>木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                            <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                            <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12">木　鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                            <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                            <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24">木　束石＋鋼製束＋大引材＋構造用合板T=24</option>
+                            <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
+                            <option value="木　鋼製束＋大引材＋構造用合板T=24">木　鋼製束＋大引材＋構造用合板T=24</option>
+                            <option value="木　鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
+                            <option value="木　根太材＋構造用合板T=12">木　根太材＋構造用合板T=12</option>
+                            <option value="木　根太材＋構造用合板T=12＋コンパネT=9">木　根太材＋構造用合板T=12＋コンパネT=9</option>
+                            <option value="木　構造用合板T=24">木　構造用合板T=24</option>
+                            <option value="木　構造用合板T=24＋コンパネT=9">木　構造用合板T=24＋コンパネT=9</option>
+                            <option value="セメント　モルタル">セメント　モルタル</option>
+                            <option value="セメント　コンクリート">セメント　コンクリート</option>
+                            <option value="セメント　レベラー">セメント　レベラー</option>
+                          </select>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- 建具セクション -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-light border-0">
+              <h6 class="mb-0 fw-bold text-primary" style="font-size: 0.8rem;">
+                <i class="bi bi-door-closed me-2"></i>建具　部屋ID:R001
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                  <tbody>
+                    <tr>
+                      <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">建具ID</td>
+                      <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">建具種別</td>
+                      <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">取り付け高さ</td>
+                      <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">扉サイズ（W×H）</td>
+                      <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">開閉方向</td>
+                    </tr>
+                    <tr>
                       <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>片開きドア</option>
-                          <option>引違い2枚</option>
-                          <option>引違い4枚</option>
-                          <option>折戸</option>
-                          <option>引き戸</option>
+                        <input type="text" class="form-control form-control-sm" value="WD001" readonly>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option value="木　洋-片開戸" selected>木　洋-片開戸</option>
+                          <option value="木　洋‐親子戸">木　洋‐親子戸</option>
+                          <option value="木　洋‐両開戸">木　洋‐両開戸</option>
+                          <option value="木　洋‐片引戸">木　洋‐片引戸</option>
+                          <option value="木　洋‐2枚片引戸">木　洋‐2枚片引戸</option>
+                          <option value="木　洋‐3枚片引戸">木　洋‐3枚片引戸</option>
+                          <option value="木　洋‐引込戸">木　洋‐引込戸</option>
+                          <option value="木　洋‐アウトセット引戸">木　洋‐アウトセット引戸</option>
+                          <option value="木　洋‐2枚引違戸">木　洋‐2枚引違戸</option>
+                          <option value="木　洋‐3枚引違戸">木　洋‐3枚引違戸</option>
+                          <option value="木　洋‐4枚引違戸">木　洋‐4枚引違戸</option>
+                          <option value="木　洋‐2枚折戸">木　洋‐2枚折戸</option>
+                          <option value="木　洋‐4枚折戸">木　洋‐4枚折戸</option>
+                          <option value="木　洋‐6枚折戸">木　洋‐6枚折戸</option>
+                          <option value="木　洋‐8枚折戸">木　洋‐8枚折戸</option>
                         </select>
                       </td>
                       <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" value="2000" readonly>
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
+                        <input type="number" class="form-control form-control-sm" value="2000" min="0" step="10" placeholder="mm">
                       </td>
                       <td>
                         <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" placeholder="800" value="800">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="2000" value="2000">
-                          <span class="input-group-text bg-light border-0">mm</span>
+                          <input type="number" class="form-control form-control-sm" value="800" min="0" step="10">
+                          <span class="input-group-text">×</span>
+                          <input type="number" class="form-control form-control-sm" value="2000" min="0" step="10">
+                          <span class="input-group-text">mm</span>
                         </div>
                       </td>
                       <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>木製</option>
-                          <option>アルミ</option>
-                          <option>樹脂</option>
-                          <option>鋼製</option>
-                        </select>
-                      </td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>右開き</option>
-                          <option>左開き</option>
-                          <option>引違い</option>
-                          <option>折れ戸</option>
+                        <select class="form-select form-select-sm">
+                          <option value="右開き" selected>右開き</option>
+                          <option value="左開き">左開き</option>
+                          <option value="引違い">引違い</option>
+                          <option value="折れ戸">折れ戸</option>
                         </select>
                       </td>
                     </tr>
-                    <tr class="border-bottom">
-                      <td class="fw-bold">WD002</td>
+                    <tr>
                       <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>引違い2枚</option>
-                          <option>片開きドア</option>
-                          <option>引違い4枚</option>
-                          <option>折戸</option>
-                          <option>引き戸</option>
+                        <input type="text" class="form-control form-control-sm" value="WD002" readonly>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option value="木　洋-片開戸">木　洋-片開戸</option>
+                          <option value="木　洋‐親子戸" selected>木　洋‐親子戸</option>
+                          <option value="木　洋‐両開戸">木　洋‐両開戸</option>
+                          <option value="木　洋‐片引戸">木　洋‐片引戸</option>
+                          <option value="木　洋‐2枚片引戸">木　洋‐2枚片引戸</option>
+                          <option value="木　洋‐3枚片引戸">木　洋‐3枚片引戸</option>
+                          <option value="木　洋‐引込戸">木　洋‐引込戸</option>
+                          <option value="木　洋‐アウトセット引戸">木　洋‐アウトセット引戸</option>
+                          <option value="木　洋‐2枚引違戸">木　洋‐2枚引違戸</option>
+                          <option value="木　洋‐3枚引違戸">木　洋‐3枚引違戸</option>
+                          <option value="木　洋‐4枚引違戸">木　洋‐4枚引違戸</option>
+                          <option value="木　洋‐2枚折戸">木　洋‐2枚折戸</option>
+                          <option value="木　洋‐4枚折戸">木　洋‐4枚折戸</option>
+                          <option value="木　洋‐6枚折戸">木　洋‐6枚折戸</option>
+                          <option value="木　洋‐8枚折戸">木　洋‐8枚折戸</option>
                         </select>
+                      </td>
+                      <td>
+                        <input type="number" class="form-control form-control-sm" value="2000" min="0" step="10" placeholder="mm">
                       </td>
                       <td>
                         <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" value="2000" readonly>
-                          <span class="input-group-text bg-light border-0">mm</span>
+                          <input type="number" class="form-control form-control-sm" value="900" min="0" step="10">
+                          <span class="input-group-text">×</span>
+                          <input type="number" class="form-control form-control-sm" value="2000" min="0" step="10">
+                          <span class="input-group-text">mm</span>
                         </div>
                       </td>
                       <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" placeholder="1200" value="1200">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="2000" value="2000">
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
-                      </td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>アルミ</option>
-                          <option>木製</option>
-                          <option>樹脂</option>
-                          <option>鋼製</option>
-                        </select>
-                      </td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>引違い</option>
-                          <option>右開き</option>
-                          <option>左開き</option>
-                          <option>折れ戸</option>
-                        </select>
-                      </td>
-                    </tr>
-                    <tr class="border-bottom">
-                      <td class="fw-bold">WD003</td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>折戸</option>
-                          <option>片開きドア</option>
-                          <option>引違い2枚</option>
-                          <option>引違い4枚</option>
-                          <option>引き戸</option>
-                        </select>
-                      </td>
-                      <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" value="2000" readonly>
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" placeholder="900" value="900">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="2000" value="2000">
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
-                      </td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>木製</option>
-                          <option>アルミ</option>
-                          <option>樹脂</option>
-                          <option>鋼製</option>
-                        </select>
-                      </td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>折れ戸</option>
-                          <option>右開き</option>
-                          <option>左開き</option>
-                          <option>引違い</option>
-                        </select>
-                      </td>
-                    </tr>
-                    <tr class="border-bottom">
-                      <td class="fw-bold">WD004</td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>引き戸</option>
-                          <option>片開きドア</option>
-                          <option>引違い2枚</option>
-                          <option>引違い4枚</option>
-                          <option>折戸</option>
-                        </select>
-                      </td>
-                      <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" value="2000" readonly>
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" placeholder="1000" value="1000">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="2000" value="2000">
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
-                      </td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>樹脂</option>
-                          <option>木製</option>
-                          <option>アルミ</option>
-                          <option>鋼製</option>
-                        </select>
-                      </td>
-                      <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>引違い</option>
-                          <option>右開き</option>
-                          <option>左開き</option>
-                          <option>折れ戸</option>
+                        <select class="form-select form-select-sm">
+                          <option value="右開き">右開き</option>
+                          <option value="左開き" selected>左開き</option>
+                          <option value="引違い">引違い</option>
+                          <option value="折れ戸">折れ戸</option>
                         </select>
                       </td>
                     </tr>
@@ -770,124 +794,371 @@
           <!-- 住設機器セクション -->
           <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-light border-0">
-              <h6 class="mb-0 fw-bold text-primary">
-                <i class="bi bi-tools me-2"></i>住設機器
+              <h6 class="mb-0 fw-bold text-primary" style="font-size: 0.8rem;">
+                <i class="bi bi-tools me-2"></i>住設機器　部屋ID:R001
               </h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-hover table-borderless">
-                  <thead class="table-success">
-                    <tr>
-                      <th class="border-0 text-white">ID</th>
-                      <th class="border-0 text-white">名称</th>
-                      <th class="border-0 text-white">サイズ（W×H×D）</th>
-                      <th class="border-0 text-white">備考</th>
-                    </tr>
-                  </thead>
+                <table class="table table-bordered table-sm">
                   <tbody>
-                    <tr class="border-bottom">
-                      <td class="fw-bold">EQ001</td>
+                    <tr>
+                      <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">住設機器ID</td>
+                      <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
+                      <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">サイズ</td>
+                    </tr>
+                    <tr>
                       <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>照明</option>
-                          <option>空調</option>
-                          <option>給排水</option>
-                          <option>電気</option>
-                          <option>その他</option>
+                        <input type="text" class="form-control form-control-sm" value="EQ001" readonly>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option value="キッチン　I型　右シンク" selected>キッチン　I型　右シンク</option>
+                          <option value="キッチン　I型　左シンク">キッチン　I型　左シンク</option>
+                          <option value="キッチン　L型　右シンク">キッチン　L型　右シンク</option>
+                          <option value="キッチン　L型　左シンク">キッチン　L型　左シンク</option>
+                          <option value="浴槽　在来風呂">浴槽　在来風呂</option>
+                          <option value="ユニットバス0.75坪">ユニットバス0.75坪</option>
+                          <option value="ユニットバス1坪">ユニットバス1坪</option>
+                          <option value="ユニットバス1.25坪">ユニットバス1.25坪</option>
+                          <option value="洗面台">洗面台</option>
+                          <option value="手洗器">手洗器</option>
+                          <option value="洋風便器">洋風便器</option>
+                          <option value="和式便器">和式便器</option>
+                          <option value="洗濯パン">洗濯パン</option>
+                          <option value="ガス給湯器">ガス給湯器</option>
+                          <option value="灯油ボイラー">灯油ボイラー</option>
+                          <option value="電気温水器">電気温水器</option>
+                          <option value="エコキュート">エコキュート</option>
+                          <option value="壁掛けエアコン">壁掛けエアコン</option>
+                          <option value="天井埋込エアコン">天井埋込エアコン</option>
                         </select>
                       </td>
                       <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" placeholder="300" value="300">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="300" value="300">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="100" value="100">
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control form-control-sm border-0 bg-light" placeholder="備考を入力">
+                        <input type="text" class="form-control form-control-sm" value="L=2550　H=800　D=600" placeholder="サイズ">
                       </td>
                     </tr>
-                    <tr class="border-bottom">
-                      <td class="fw-bold">EQ002</td>
+                    <tr>
                       <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>空調</option>
-                          <option>照明</option>
-                          <option>給排水</option>
-                          <option>電気</option>
-                          <option>その他</option>
+                        <input type="text" class="form-control form-control-sm" value="EQ002" readonly>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option value="キッチン　I型　右シンク">キッチン　I型　右シンク</option>
+                          <option value="キッチン　I型　左シンク">キッチン　I型　左シンク</option>
+                          <option value="キッチン　L型　右シンク" selected>キッチン　L型　右シンク</option>
+                          <option value="キッチン　L型　左シンク">キッチン　L型　左シンク</option>
+                          <option value="浴槽　在来風呂">浴槽　在来風呂</option>
+                          <option value="ユニットバス0.75坪">ユニットバス0.75坪</option>
+                          <option value="ユニットバス1坪">ユニットバス1坪</option>
+                          <option value="ユニットバス1.25坪">ユニットバス1.25坪</option>
+                          <option value="洗面台">洗面台</option>
+                          <option value="手洗器">手洗器</option>
+                          <option value="洋風便器">洋風便器</option>
+                          <option value="和式便器">和式便器</option>
+                          <option value="洗濯パン">洗濯パン</option>
+                          <option value="ガス給湯器">ガス給湯器</option>
+                          <option value="灯油ボイラー">灯油ボイラー</option>
+                          <option value="電気温水器">電気温水器</option>
+                          <option value="エコキュート">エコキュート</option>
+                          <option value="壁掛けエアコン">壁掛けエアコン</option>
+                          <option value="天井埋込エアコン">天井埋込エアコン</option>
                         </select>
                       </td>
                       <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" placeholder="800" value="800">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="600" value="600">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="250" value="250">
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control form-control-sm border-0 bg-light" placeholder="備考を入力">
+                        <input type="text" class="form-control form-control-sm" value="1800×2550　H=800　D=600" placeholder="サイズ">
                       </td>
                     </tr>
-                    <tr class="border-bottom">
-                      <td class="fw-bold">EQ003</td>
+                    <tr>
                       <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>給排水</option>
-                          <option>照明</option>
-                          <option>空調</option>
-                          <option>電気</option>
-                          <option>その他</option>
+                        <input type="text" class="form-control form-control-sm" value="EQ003" readonly>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option value="キッチン　I型　右シンク">キッチン　I型　右シンク</option>
+                          <option value="キッチン　I型　左シンク">キッチン　I型　左シンク</option>
+                          <option value="キッチン　L型　右シンク">キッチン　L型　右シンク</option>
+                          <option value="キッチン　L型　左シンク">キッチン　L型　左シンク</option>
+                          <option value="浴槽　在来風呂">浴槽　在来風呂</option>
+                          <option value="ユニットバス0.75坪">ユニットバス0.75坪</option>
+                          <option value="ユニットバス1坪" selected>ユニットバス1坪</option>
+                          <option value="ユニットバス1.25坪">ユニットバス1.25坪</option>
+                          <option value="洗面台">洗面台</option>
+                          <option value="手洗器">手洗器</option>
+                          <option value="洋風便器">洋風便器</option>
+                          <option value="和式便器">和式便器</option>
+                          <option value="洗濯パン">洗濯パン</option>
+                          <option value="ガス給湯器">ガス給湯器</option>
+                          <option value="灯油ボイラー">灯油ボイラー</option>
+                          <option value="電気温水器">電気温水器</option>
+                          <option value="エコキュート">エコキュート</option>
+                          <option value="壁掛けエアコン">壁掛けエアコン</option>
+                          <option value="天井埋込エアコン">天井埋込エアコン</option>
                         </select>
                       </td>
                       <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" placeholder="400" value="400">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="500" value="500">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="300" value="300">
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control form-control-sm border-0 bg-light" placeholder="備考を入力">
+                        <input type="text" class="form-control form-control-sm" value="1600×1600" placeholder="サイズ">
                       </td>
                     </tr>
-                    <tr class="border-bottom">
-                      <td class="fw-bold">EQ004</td>
+                    <tr>
                       <td>
-                        <select class="form-select form-select-sm border-0 bg-light">
-                          <option>電気</option>
-                          <option>照明</option>
-                          <option>空調</option>
-                          <option>給排水</option>
-                          <option>その他</option>
+                        <input type="text" class="form-control form-control-sm" value="EQ004" readonly>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option value="キッチン　I型　右シンク">キッチン　I型　右シンク</option>
+                          <option value="キッチン　I型　左シンク">キッチン　I型　左シンク</option>
+                          <option value="キッチン　L型　右シンク">キッチン　L型　右シンク</option>
+                          <option value="キッチン　L型　左シンク">キッチン　L型　左シンク</option>
+                          <option value="浴槽　在来風呂">浴槽　在来風呂</option>
+                          <option value="ユニットバス0.75坪">ユニットバス0.75坪</option>
+                          <option value="ユニットバス1坪">ユニットバス1坪</option>
+                          <option value="ユニットバス1.25坪">ユニットバス1.25坪</option>
+                          <option value="洗面台" selected>洗面台</option>
+                          <option value="手洗器">手洗器</option>
+                          <option value="洋風便器">洋風便器</option>
+                          <option value="和式便器">和式便器</option>
+                          <option value="洗濯パン">洗濯パン</option>
+                          <option value="ガス給湯器">ガス給湯器</option>
+                          <option value="灯油ボイラー">灯油ボイラー</option>
+                          <option value="電気温水器">電気温水器</option>
+                          <option value="エコキュート">エコキュート</option>
+                          <option value="壁掛けエアコン">壁掛けエアコン</option>
+                          <option value="天井埋込エアコン">天井埋込エアコン</option>
                         </select>
                       </td>
                       <td>
-                        <div class="input-group input-group-sm">
-                          <input type="number" class="form-control border-0 bg-light" placeholder="150" value="150">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="100" value="100">
-                          <span class="input-group-text bg-light border-0">×</span>
-                          <input type="number" class="form-control border-0 bg-light" placeholder="80" value="80">
-                          <span class="input-group-text bg-light border-0">mm</span>
-                        </div>
+                        <input type="text" class="form-control form-control-sm" value="W=750" placeholder="サイズ">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="text" class="form-control form-control-sm" value="EQ005" readonly>
                       </td>
                       <td>
-                        <input type="text" class="form-control form-control-sm border-0 bg-light" placeholder="備考を入力">
+                        <select class="form-select form-select-sm">
+                          <option value="キッチン　I型　右シンク">キッチン　I型　右シンク</option>
+                          <option value="キッチン　I型　左シンク">キッチン　I型　左シンク</option>
+                          <option value="キッチン　L型　右シンク">キッチン　L型　右シンク</option>
+                          <option value="キッチン　L型　左シンク">キッチン　L型　左シンク</option>
+                          <option value="浴槽　在来風呂">浴槽　在来風呂</option>
+                          <option value="ユニットバス0.75坪">ユニットバス0.75坪</option>
+                          <option value="ユニットバス1坪">ユニットバス1坪</option>
+                          <option value="ユニットバス1.25坪">ユニットバス1.25坪</option>
+                          <option value="洗面台">洗面台</option>
+                          <option value="手洗器">手洗器</option>
+                          <option value="洋風便器" selected>洋風便器</option>
+                          <option value="和式便器">和式便器</option>
+                          <option value="洗濯パン">洗濯パン</option>
+                          <option value="ガス給湯器">ガス給湯器</option>
+                          <option value="灯油ボイラー">灯油ボイラー</option>
+                          <option value="電気温水器">電気温水器</option>
+                          <option value="エコキュート">エコキュート</option>
+                          <option value="壁掛けエアコン">壁掛けエアコン</option>
+                          <option value="天井埋込エアコン">天井埋込エアコン</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control form-control-sm" value="標準サイズ" placeholder="サイズ">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input type="text" class="form-control form-control-sm" value="EQ006" readonly>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option value="キッチン　I型　右シンク">キッチン　I型　右シンク</option>
+                          <option value="キッチン　I型　左シンク">キッチン　I型　左シンク</option>
+                          <option value="キッチン　L型　右シンク">キッチン　L型　右シンク</option>
+                          <option value="キッチン　L型　左シンク">キッチン　L型　左シンク</option>
+                          <option value="浴槽　在来風呂">浴槽　在来風呂</option>
+                          <option value="ユニットバス0.75坪">ユニットバス0.75坪</option>
+                          <option value="ユニットバス1坪">ユニットバス1坪</option>
+                          <option value="ユニットバス1.25坪">ユニットバス1.25坪</option>
+                          <option value="洗面台">洗面台</option>
+                          <option value="手洗器">手洗器</option>
+                          <option value="洋風便器">洋風便器</option>
+                          <option value="和式便器">和式便器</option>
+                          <option value="洗濯パン">洗濯パン</option>
+                          <option value="ガス給湯器">ガス給湯器</option>
+                          <option value="灯油ボイラー">灯油ボイラー</option>
+                          <option value="電気温水器">電気温水器</option>
+                          <option value="エコキュート">エコキュート</option>
+                          <option value="壁掛けエアコン" selected>壁掛けエアコン</option>
+                          <option value="天井埋込エアコン">天井埋込エアコン</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control form-control-sm" value="標準サイズ" placeholder="サイズ">
                       </td>
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 電気・換気セクション -->
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-light border-0">
+              <h6 class="mb-0 fw-bold text-primary" style="font-size: 0.8rem;">
+                <i class="bi bi-lightning me-2"></i>電気・換気　部屋ID:R001
+              </h6>
+            </div>
+            <div class="card-body">
+              <!-- 電気スイッチサブセクション -->
+              <div class="mb-2">
+                <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">電気スイッチ　電気スイッチID:SW001</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <tbody>
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">スイッチID</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">位置</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">備考</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="SW001" readonly>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="単極スイッチ" selected>単極スイッチ</option>
+                            <option value="3路スイッチ">3路スイッチ</option>
+                            <option value="4路スイッチ">4路スイッチ</option>
+                            <option value="調光スイッチ">調光スイッチ</option>
+                            <option value="センサー付きスイッチ">センサー付きスイッチ</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="入口左側" placeholder="位置">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="メイン照明用" placeholder="備考">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 電気照明サブセクション -->
+              <div class="mb-2">
+                <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">電気照明　電気照明ID:LT001</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <tbody>
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">照明ID</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">位置</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">備考</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="LT001" readonly>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="シーリングライト" selected>シーリングライト</option>
+                            <option value="ペンダントライト">ペンダントライト</option>
+                            <option value="ダウンライト">ダウンライト</option>
+                            <option value="スポットライト">スポットライト</option>
+                            <option value="フロアスタンド">フロアスタンド</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="天井中央" placeholder="位置">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="LED 40W" placeholder="備考">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 電気コンセントサブセクション -->
+              <div class="mb-2">
+                <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">電気コンセント　電気コンセントID:OC001</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <tbody>
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">コンセントID</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">位置</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">備考</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="OC001" readonly>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="2口コンセント" selected>2口コンセント</option>
+                            <option value="3口コンセント">3口コンセント</option>
+                            <option value="USB付きコンセント">USB付きコンセント</option>
+                            <option value="防水コンセント">防水コンセント</option>
+                            <option value="200Vコンセント">200Vコンセント</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="南壁中央" placeholder="位置">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="100V 15A" placeholder="備考">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 電気その他サブセクション -->
+              <div class="mb-2">
+                <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">電気その他　電気その他ID:----</h6>
+                <div class="fw-bold" style="font-size: 0.8rem;">なし</div>
+              </div>
+
+              <!-- 換気設備サブセクション -->
+              <div class="mb-2">
+                <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">換気設備　換気設備ID:VT001</h6>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm">
+                    <tbody>
+                      <tr>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">換気ID</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">位置</td>
+                        <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">備考</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="VT001" readonly>
+                        </td>
+                        <td>
+                          <select class="form-select form-select-sm">
+                            <option value="24時間換気扇" selected>24時間換気扇</option>
+                            <option value="レンジフード">レンジフード</option>
+                            <option value="浴室換気扇">浴室換気扇</option>
+                            <option value="トイレ換気扇">トイレ換気扇</option>
+                            <option value="給気口">給気口</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="天井" placeholder="位置">
+                        </td>
+                        <td>
+                          <input type="text" class="form-control form-control-sm" value="第一種換気" placeholder="備考">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -918,40 +1189,78 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <!-- 案件名 -->
-          <div class="mb-3">
-            <label class="form-label fw-bold">案件名</label>
-            <input type="text" class="form-control" value="リノベーション案件A" readonly>
-          </div>
-
-          <!-- 部屋名 -->
-          <div class="mb-3">
-            <label class="form-label fw-bold">部屋名</label>
-            <input type="text" class="form-control" value="1F：洋室1" readonly>
-          </div>
-
-          <!-- 面積 -->
-          <div class="mb-3">
-            <label class="form-label fw-bold">面積</label>
-            <input type="text" class="form-control" value="8帖" readonly>
-          </div>
-
-          <!-- 既存部屋 -->
-          <div class="mb-3">
-            <label class="form-label fw-bold">既存部屋</label>
-            <input type="text" class="form-control" value="既存の1F洋室" readonly>
-          </div>
-
-          <!-- 部屋の位置 -->
-          <div class="mb-3">
-            <label class="form-label fw-bold">部屋の位置</label>
-            <input type="text" class="form-control" value='{"x": 100.0,"y": 150.0,"width": 35.0,"height": 35.0}' readonly>
-          </div>
-
-          <!-- 天井の高さ -->
-          <div class="mb-3">
-            <label class="form-label fw-bold">天井の高さ</label>
-            <input type="text" class="form-control" value="2.4m" readonly>
+          <!-- 基本情報 -->
+          <div class="mb-4">
+            <h6 class="fw-bold mb-3">基本情報　河本直己邸　部屋名：洋室１</h6>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="fw-bold bg-light" style="width: 20%;">部屋タイプ</td>
+                    <td>
+                      <select class="form-select">
+                        <option value="洋室" selected>洋室</option>
+                        <option value="和室">和室</option>
+                        <option value="玄関">玄関</option>
+                        <option value="ポーチ">ポーチ</option>
+                        <option value="ガレージ">ガレージ</option>
+                        <option value="リビング">リビング</option>
+                        <option value="ダイニング">ダイニング</option>
+                        <option value="キッチン">キッチン</option>
+                        <option value="リビングダイニング">リビングダイニング</option>
+                        <option value="LDK">LDK</option>
+                        <option value="浴室">浴室</option>
+                        <option value="トイレ">トイレ</option>
+                        <option value="洗面所">洗面所</option>
+                        <option value="廊下">廊下</option>
+                        <option value="バルコニー">バルコニー</option>
+                        <option value="床の間">床の間</option>
+                        <option value="縁側">縁側</option>
+                        <option value="吹き抜け">吹き抜け</option>
+                        <option value="収納">収納</option>
+                        <option value="土間">土間</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold bg-light">広さ（畳）</td>
+                    <td>
+                      <input type="number" class="form-control" value="6" min="0" step="0.5">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold bg-light">広さ（ｍ²）</td>
+                    <td>
+                      <input type="number" class="form-control" value="9.9" min="0" step="0.1">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold bg-light">X方向(mm)</td>
+                    <td>
+                      <input type="number" class="form-control" value="3300" min="0" step="10">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold bg-light">Y方向(mm)</td>
+                    <td>
+                      <input type="number" class="form-control" value="3000" min="0" step="10">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold bg-light">天井高(mm)</td>
+                    <td>
+                      <input type="number" class="form-control" value="2400" min="0" step="10">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="fw-bold bg-light">床高(mm)</td>
+                    <td>
+                      <input type="number" class="form-control" value="0" min="0" step="10">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <!-- 仕上げ、下地 -->
@@ -2635,6 +2944,16 @@
         });
       }
     });
+    
+    // 腰壁の表示/非表示を制御する関数
+    function toggleWaistWallHeight(selectElement) {
+      const waistWallHeightRow = document.getElementById('waistWallHeightRow');
+      if (selectElement.value === 'あり') {
+        waistWallHeightRow.style.display = 'block';
+      } else {
+        waistWallHeightRow.style.display = 'none';
+      }
+    }
   </script>
 </body>
 </html> 
