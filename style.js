@@ -186,6 +186,12 @@ document.addEventListener('DOMContentLoaded', function () {
     ];
 
     const questionContainer = document.getElementById('question-container');
+    
+    // question-container要素が存在しない場合は処理を終了
+    if (!questionContainer) {
+        console.log('question-container要素が見つかりません。このページでは質問機能は使用されません。');
+        return;
+    }
 
     function showConfirmation() {
         let confirmationHtml = '<h4>確認画面</h4>';

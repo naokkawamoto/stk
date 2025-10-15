@@ -90,6 +90,13 @@
       background-color: #f8f9fa;
       font-weight: bold;
     }
+    /* モーダルの表示を強制 */
+    .modal.show {
+      display: block !important;
+    }
+    .modal-backdrop.show {
+      opacity: 0.5;
+    }
   </style>
 </head>
 <body>
@@ -146,40 +153,40 @@
       <div class="spec-col">
         <!-- 外部仕様セクション -->
         <div class="mb-2">
-          <button class="btn btn-outline-primary btn-sm w-100 d-flex justify-content-between align-items-center" onclick="toggleExternalSpec()">
+          <button class="btn btn-outline-primary btn-sm w-100 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#externalSpecContent" aria-expanded="false" aria-controls="externalSpecContent">
             <span>外部仕様</span>
             <i class="bi bi-chevron-down" id="externalChevron"></i>
           </button>
         </div>
 
         <!-- 外部仕様コンテンツ（初期状態では非表示） -->
-        <div id="externalSpecContent" style="display: none;" class="ms-3 mb-3">
+        <div id="externalSpecContent" class="collapse ms-3 mb-3">
           <!-- 外部仕様一括ボタン -->
           <div class="mb-2">
             <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_external_spec.html'">
               <i class="bi bi-gear-wide-connected me-2"></i>外部仕様一括設定
-            </button>
+        </button>
           </div>
 
-          <!-- 階高設定ボタン -->
+        <!-- 階高設定ボタン -->
           <div class="mb-2">
             <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#floorHeightModal">
-              階高設定
-            </button>
+          階高設定
+        </button>
           </div>
 
           <!-- 屋根仕様ボタン -->
           <div class="mb-2">
             <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#roofSpecModal">
               屋根仕様
-            </button>
+        </button>
           </div>
 
           <!-- 軒仕様ボタン -->
           <div class="mb-2">
             <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#eavesSpecModal">
               軒仕様
-            </button>
+        </button>
           </div>
 
           <!-- 破風・鼻隠仕様ボタン -->
@@ -187,81 +194,81 @@
             <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#gableSpecModal">
               破風・鼻隠仕様
             </button>
-          </div>
+      </div>
 
           <!-- 樋仕様ボタン -->
           <div class="mb-2">
             <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#gutterSpecModal">
               樋仕様
-            </button>
-          </div>
+              </button>
+            </div>
 
-          <!-- ポーチ仕様ボタン -->
+            <!-- ポーチ仕様ボタン -->
           <div class="mb-2">
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
-              ポーチ仕様
-            </button>
-          </div>
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
+                ポーチ仕様
+              </button>
+            </div>
 
-          <!-- 窓仕様ボタン -->
+            <!-- 窓仕様ボタン -->
           <div class="mb-2">
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
-              窓仕様
-            </button>
-          </div>
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
+                窓仕様
+              </button>
+            </div>
 
-          <!-- 玄関ドア仕様ボタン -->
+            <!-- 玄関ドア仕様ボタン -->
           <div class="mb-2">
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
-              玄関ドア仕様
-            </button>
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
+                玄関ドア仕様
+              </button>
           </div>
-        </div>
+            </div>
 
         <!-- 内部仕様セクション -->
         <div class="mb-2">
-          <button class="btn btn-outline-primary btn-sm w-100 d-flex justify-content-between align-items-center" onclick="toggleInternalSpec()">
+          <button class="btn btn-outline-primary btn-sm w-100 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#internalSpecContent" aria-expanded="false" aria-controls="internalSpecContent">
             <span>内部仕様</span>
             <i class="bi bi-chevron-down" id="internalChevron"></i>
           </button>
         </div>
 
         <!-- 内部仕様コンテンツ（初期状態では非表示） -->
-        <div id="internalSpecContent" style="display: none;" class="ms-3 mb-3">
-          <!-- 内部仕様一括設定ボタン -->
+        <div id="internalSpecContent" class="collapse ms-3 mb-3">
+            <!-- 内部仕様一括設定ボタン -->
           <div class="mb-2">
-            <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_internal_spec.html'">
-              <i class="bi bi-gear-wide-connected me-2"></i>内部仕様一括設定
-            </button>
-          </div>
+              <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_internal_spec.html'">
+                <i class="bi bi-gear-wide-connected me-2"></i>内部仕様一括設定
+              </button>
+            </div>
 
-          <!-- 建具一括設定ボタン -->
+            <!-- 建具一括設定ボタン -->
           <div class="mb-2">
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#fixturesBulkModal">
-              建具一括設定
-            </button>
-          </div>
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#fixturesBulkModal">
+                建具一括設定
+              </button>
+            </div>
 
-          <!-- 住設機器一括設定ボタン -->
+            <!-- 住設機器一括設定ボタン -->
           <div class="mb-2">
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#equipmentBulkModal">
-              住設機器一括設定
-            </button>
-          </div>
-          
+              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#equipmentBulkModal">
+                住設機器一括設定
+              </button>
+            </div>
+            
           <div class="d-grid gap-1">
-            <!-- 1F -->
-            <h6 class="mt-2 mb-2 small fw-bold">1F</h6>
-            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#roomModal1F1">1F：洋室1</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：洋室2</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：LDK</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：収納1</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：収納2</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：トイレ</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：洗面所</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：浴室</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：玄関</button>
-            <button class="btn btn-outline-secondary btn-sm">1F：階段</button>
+              <!-- 1F -->
+              <h6 class="mt-2 mb-2 small fw-bold">1F</h6>
+              <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#roomModal1F1">1F：洋室1</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：洋室2</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：LDK</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：収納1</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：収納2</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：トイレ</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：洗面所</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：浴室</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：玄関</button>
+              <button class="btn btn-outline-secondary btn-sm">1F：階段</button>
           </div>
         </div>
       </div>
@@ -282,23 +289,61 @@
         <button class="room-button" style="top: 230px; left: 280px;" data-bs-toggle="modal" data-bs-target="#roomModal">
           洋室1
         </button>
-        <!-- 階高設定歯車アイコン -->
-        <div style="position: absolute; top: 20px; left: 5px; text-align: center;">
-          <i class="bi bi-gear-fill" style="font-size: 1.5rem; color: #dc3545; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#floorHeightModal"></i>
-          <div style="font-size: 0.4rem; color: #dc3545; margin-top: 2px;">階高</div>
+        <!-- 下絵ボタン -->
+        <div style="position: absolute; top: 20px; left: 5px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #fd7e14; border-color: #fd7e14; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);" data-bs-toggle="modal" data-bs-target="#underlayModal">
+            下絵
+          </button>
         </div>
-        <!-- ポーチ仕様ボタン -->
-        <button class="spec-button" style="top: 50px; left: 5px;" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
-          ポーチ仕様
-        </button>
-        <!-- 窓仕様ボタン -->
-        <button class="spec-button" style="top: 80px; left: 5px;" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
-          窓仕様
-        </button>
-        <!-- 玄関仕様ボタン -->
-        <button class="spec-button" style="top: 110px; left: 5px;" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
-          玄関仕様
-        </button>
+
+        <!-- 敷地ボタン -->
+        <div style="position: absolute; top: 60px; left: 5px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #fd7e14; border-color: #fd7e14; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            敷地
+          </button>
+          </div>
+
+        <!-- 構造ボタン -->
+        <div style="position: absolute; top: 100px; left: 5px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #fd7e14; border-color: #fd7e14; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            構造
+          </button>
+        </div>
+
+        <!-- 部屋ボタン -->
+        <div style="position: absolute; top: 140px; left: 5px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #fd7e14; border-color: #fd7e14; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            部屋
+          </button>
+      </div>
+
+        <!-- 階段ボタン -->
+        <div style="position: absolute; top: 180px; left: 5px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #fd7e14; border-color: #fd7e14; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            階段
+          </button>
+        </div>
+
+        <!-- 建具ボタン -->
+        <div style="position: absolute; top: 220px; left: 5px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #fd7e14; border-color: #fd7e14; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            建具
+          </button>
+        </div>
+
+        <!-- 住設ボタン -->
+        <div style="position: absolute; top: 260px; left: 5px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #fd7e14; border-color: #fd7e14; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            住設
+          </button>
+        </div>
+
+        <!-- 現調ボタン -->
+        <div style="position: absolute; top: 300px; left: 5px; text-align: center; z-index: 1000;">
+          <button class="btn btn-sm" style="font-size: 0.8rem; padding: 8px 12px; background-color: #28a745; border-color: #28a745; color: white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);" data-bs-toggle="modal" data-bs-target="#surveyModal">
+            現調
+          </button>
+        </div>
         
         <!-- 柱カード -->
         <div class="card" style="position: absolute; top: 150px; left: 5px; width: 20px; font-size: 0.5rem;">
@@ -2176,6 +2221,165 @@
       </div>
     </div>
   </div>
+
+  </div>
+
+  <!-- 現調モーダル -->
+  <div class="modal fade" id="surveyModal" tabindex="-1" aria-labelledby="surveyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="surveyModalLabel">
+            <i class="bi bi-clipboard-check me-2"></i>現地調査項目
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="mb-3">調査項目</h6>
+              
+              <!-- 室内傷の調査 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="indoorDamage" checked>
+                <label class="form-check-label" for="indoorDamage">室内傷の調査</label>
+              </div>
+              
+              <!-- 分電盤/防災無線 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="electricalPanel" checked>
+                <label class="form-check-label" for="electricalPanel">分電盤/防災無線</label>
+              </div>
+              
+              <!-- 電気設備・配線箇所 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="electricalWiring" checked>
+                <label class="form-check-label" for="electricalWiring">電気設備・配線箇所</label>
+              </div>
+              
+              <!-- 筋交い -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="bracing" checked>
+                <label class="form-check-label" for="bracing">筋交い</label>
+              </div>
+              
+              <!-- 面材 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="surfaceMaterial" checked>
+                <label class="form-check-label" for="surfaceMaterial">面材</label>
+              </div>
+              
+              <!-- 床傾斜 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="floorSlope" checked>
+                <label class="form-check-label" for="floorSlope">床傾斜</label>
+              </div>
+              
+              <!-- 柱傾斜 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="columnSlope" checked>
+                <label class="form-check-label" for="columnSlope">柱傾斜</label>
+              </div>
+              
+              <!-- 給排水設備 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="plumbing" checked>
+                <label class="form-check-label" for="plumbing">給排水設備</label>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <h6 class="mb-3">その他項目</h6>
+              
+              <!-- 斜線制限 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="setbackLine" checked>
+                <label class="form-check-label" for="setbackLine">斜線制限</label>
+              </div>
+              
+              <!-- 屋根 -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="roof" checked>
+                <label class="form-check-label" for="roof">屋根</label>
+              </div>
+              
+              <!-- 外壁（雨水） -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="exteriorWall" checked>
+                <label class="form-check-label" for="exteriorWall">外壁（雨水）</label>
+              </div>
+              
+              <!-- 軒裏（雨水） -->
+              <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" id="eavesUnder" checked>
+                <label class="form-check-label" for="eavesUnder">軒裏（雨水）</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-success" onclick="saveSurveySettings()">
+            <i class="bi bi-check-circle me-2"></i>設定を保存
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 下絵読み込みモーダル -->
+  <div class="modal fade" id="underlayModal" tabindex="-1" aria-labelledby="underlayModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="underlayModalLabel">
+            <i class="bi bi-image me-2"></i>下絵読み込み
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <i class="bi bi-cloud-upload fs-1 text-primary mb-3"></i>
+            <h5>プロジェクト名の調査結果図を取り込みますか？</h5>
+            <p class="text-muted">調査結果図を読み込むと、各図面に下絵として表示されます。</p>
+          </div>
+          <div class="d-grid">
+            <button class="btn btn-primary btn-lg" onclick="loadUnderlay()">
+              <i class="bi bi-download me-2"></i>下絵読み込み
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 下絵読み込み完了モーダル -->
+  <div class="modal fade" id="underlayCompleteModal" tabindex="-1" aria-labelledby="underlayCompleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="underlayCompleteModalLabel">
+            <i class="bi bi-check-circle me-2"></i>下絵読み込み完了
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center">
+            <i class="bi bi-check-circle-fill fs-1 text-success mb-3"></i>
+            <h5>下絵読み込みが完了しました</h5>
+            <p class="text-muted">1F配置図,2F、立面東、立面南、立面西、立面北にプロジェクト名調査結果を取り込みました</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="footer-container"></div>
 
   <!-- Bootstrap & Popper -->
@@ -2186,12 +2390,33 @@
     fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
     fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
 
+    // Bootstrapの初期化確認
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOMが読み込まれました');
+      console.log('Bootstrap version:', typeof bootstrap !== 'undefined' ? 'Bootstrap 5 loaded' : 'Bootstrap not loaded');
+      
+      // 下絵ボタンの存在確認
+      const underlayButton = document.querySelector('button[data-bs-target="#underlayModal"]');
+      console.log('下絵ボタン:', underlayButton);
+      
+      // モーダルの存在確認
+      const underlayModal = document.getElementById('underlayModal');
+      console.log('下絵モーダル:', underlayModal);
+    });
+
     // 外部仕様セクションの表示/非表示を切り替え
     function toggleExternalSpec() {
+      console.log('toggleExternalSpec関数が実行されました');
+      
       const externalContent = document.getElementById('externalSpecContent');
       const internalContent = document.getElementById('internalSpecContent');
       const externalChevron = document.getElementById('externalChevron');
       const internalChevron = document.getElementById('internalChevron');
+      
+      console.log('外部仕様コンテンツ:', externalContent);
+      console.log('内部仕様コンテンツ:', internalContent);
+      console.log('外部仕様チェブロン:', externalChevron);
+      console.log('内部仕様チェブロン:', internalChevron);
       
       if (externalContent.style.display === 'none') {
         externalContent.style.display = 'block';
@@ -2200,19 +2425,28 @@
         externalChevron.classList.add('bi-chevron-up');
         internalChevron.classList.remove('bi-chevron-up');
         internalChevron.classList.add('bi-chevron-down');
+        console.log('外部仕様を表示しました');
       } else {
         externalContent.style.display = 'none';
         externalChevron.classList.remove('bi-chevron-up');
         externalChevron.classList.add('bi-chevron-down');
+        console.log('外部仕様を非表示にしました');
       }
     }
 
     // 内部仕様セクションの表示/非表示を切り替え
     function toggleInternalSpec() {
+      console.log('toggleInternalSpec関数が実行されました');
+      
       const internalContent = document.getElementById('internalSpecContent');
       const externalContent = document.getElementById('externalSpecContent');
       const internalChevron = document.getElementById('internalChevron');
       const externalChevron = document.getElementById('externalChevron');
+      
+      console.log('内部仕様コンテンツ:', internalContent);
+      console.log('外部仕様コンテンツ:', externalContent);
+      console.log('内部仕様チェブロン:', internalChevron);
+      console.log('外部仕様チェブロン:', externalChevron);
       
       if (internalContent.style.display === 'none') {
         internalContent.style.display = 'block';
@@ -2221,11 +2455,156 @@
         internalChevron.classList.add('bi-chevron-up');
         externalChevron.classList.remove('bi-chevron-up');
         externalChevron.classList.add('bi-chevron-down');
+        console.log('内部仕様を表示しました');
       } else {
         internalContent.style.display = 'none';
         internalChevron.classList.remove('bi-chevron-up');
         internalChevron.classList.add('bi-chevron-down');
+        console.log('内部仕様を非表示にしました');
       }
+    }
+
+    // 現調設定を保存する関数
+    function saveSurveySettings() {
+      console.log('現調設定を保存しました');
+      
+      // 各チェックボックスの状態を取得
+      const settings = {
+        indoorDamage: document.getElementById('indoorDamage').checked,
+        electricalPanel: document.getElementById('electricalPanel').checked,
+        electricalWiring: document.getElementById('electricalWiring').checked,
+        bracing: document.getElementById('bracing').checked,
+        surfaceMaterial: document.getElementById('surfaceMaterial').checked,
+        floorSlope: document.getElementById('floorSlope').checked,
+        columnSlope: document.getElementById('columnSlope').checked,
+        plumbing: document.getElementById('plumbing').checked,
+        setbackLine: document.getElementById('setbackLine').checked,
+        roof: document.getElementById('roof').checked,
+        exteriorWall: document.getElementById('exteriorWall').checked,
+        eavesUnder: document.getElementById('eavesUnder').checked
+      };
+      
+      console.log('保存された設定:', settings);
+      
+      // Bootstrapの標準的な方法でモーダルを閉じる
+      const modalElement = document.getElementById('surveyModal');
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      if (modal) {
+        modal.hide();
+      }
+      
+      // 成功メッセージを表示（オプション）
+      alert('現調設定が保存されました');
+    }
+
+    // 下絵モーダルを表示する関数
+    function showUnderlayModal() {
+      console.log('showUnderlayModal関数が実行されました');
+      
+      const modalElement = document.getElementById('underlayModal');
+      console.log('モーダル要素:', modalElement);
+      
+      if (modalElement) {
+        // モーダルを強制的に表示
+        modalElement.classList.add('show');
+        modalElement.style.display = 'block';
+        modalElement.setAttribute('aria-hidden', 'false');
+        
+        // バックドロップを追加
+        const backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop fade show';
+        backdrop.id = 'underlay-backdrop';
+        document.body.appendChild(backdrop);
+        
+        // bodyにmodal-openクラスを追加
+        document.body.classList.add('modal-open');
+        
+        console.log('モーダルを強制表示しました');
+        console.log('モーダルの表示状態:', modalElement.style.display);
+        console.log('モーダルのクラス:', modalElement.className);
+        console.log('バックドロップ要素:', document.getElementById('underlay-backdrop'));
+        
+        // バックドロップクリックで閉じる
+        backdrop.addEventListener('click', function() {
+          hideUnderlayModal();
+        });
+        
+        // ESCキーで閉じる（一度だけ）
+        const escapeHandler = function(e) {
+          if (e.key === 'Escape') {
+            hideUnderlayModal();
+            document.removeEventListener('keydown', escapeHandler);
+          }
+        };
+        document.addEventListener('keydown', escapeHandler);
+        
+      } else {
+        console.log('モーダル要素が見つかりません');
+      }
+    }
+    
+    // 下絵モーダルを閉じる関数
+    function hideUnderlayModal() {
+      console.log('hideUnderlayModal関数が呼び出されました');
+      console.trace('hideUnderlayModalの呼び出し元:');
+      
+      const modalElement = document.getElementById('underlayModal');
+      const backdrop = document.getElementById('underlay-backdrop');
+      
+      if (modalElement) {
+        modalElement.classList.remove('show');
+        modalElement.style.display = 'none';
+        modalElement.setAttribute('aria-hidden', 'true');
+      }
+      
+      if (backdrop) {
+        backdrop.remove();
+      }
+      
+      document.body.classList.remove('modal-open');
+      console.log('モーダルを閉じました');
+    }
+
+    // 下絵読み込み機能
+    function loadUnderlay() {
+      console.log('下絵読み込みを開始します');
+      
+      // 下絵読み込みモーダルを閉じる
+      const underlayModal = bootstrap.Modal.getInstance(document.getElementById('underlayModal'));
+      if (underlayModal) {
+        underlayModal.hide();
+      }
+      
+      // 少し待ってから完了モーダルを表示
+      setTimeout(function() {
+        const completeModal = new bootstrap.Modal(document.getElementById('underlayCompleteModal'));
+        completeModal.show();
+      }, 500);
+    }
+          
+        } else {
+          console.log('完了モーダル要素が見つかりません');
+        }
+      }, 500);
+    }
+    
+    // 完了モーダルを閉じる関数
+    function hideCompleteModal() {
+      const modalElement = document.getElementById('underlayCompleteModal');
+      const backdrop = document.getElementById('complete-backdrop');
+      
+      if (modalElement) {
+        modalElement.classList.remove('show');
+        modalElement.style.display = 'none';
+        modalElement.setAttribute('aria-hidden', 'true');
+      }
+      
+      if (backdrop) {
+        backdrop.remove();
+      }
+      
+      document.body.classList.remove('modal-open');
+      console.log('完了モーダルを閉じました');
     }
 
     // 屋根仕様モーダルの材質と部材タイプの連動
