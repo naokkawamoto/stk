@@ -142,9 +142,128 @@
 
     <!-- コンテンツエリア -->
     <div class="d-flex">
-      <!-- 左側：ツールカラム（幅 15%）-->
-      <div class="tool-col">
-        <!-- 左側のボタンを削除 -->
+      <!-- 左側：仕様選択カラム（幅 20%）-->
+      <div class="spec-col">
+        <!-- 外部仕様セクション -->
+        <div class="mb-2">
+          <button class="btn btn-outline-primary btn-sm w-100 d-flex justify-content-between align-items-center" onclick="toggleExternalSpec()">
+            <span>外部仕様</span>
+            <i class="bi bi-chevron-down" id="externalChevron"></i>
+          </button>
+        </div>
+
+        <!-- 外部仕様コンテンツ（初期状態では非表示） -->
+        <div id="externalSpecContent" style="display: none;" class="ms-3 mb-3">
+          <!-- 外部仕様一括ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_external_spec.html'">
+              <i class="bi bi-gear-wide-connected me-2"></i>外部仕様一括設定
+            </button>
+          </div>
+
+          <!-- 階高設定ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#floorHeightModal">
+              階高設定
+            </button>
+          </div>
+
+          <!-- 屋根仕様ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#roofSpecModal">
+              屋根仕様
+            </button>
+          </div>
+
+          <!-- 軒仕様ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#eavesSpecModal">
+              軒仕様
+            </button>
+          </div>
+
+          <!-- 破風・鼻隠仕様ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#gableSpecModal">
+              破風・鼻隠仕様
+            </button>
+          </div>
+
+          <!-- 樋仕様ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#gutterSpecModal">
+              樋仕様
+            </button>
+          </div>
+
+          <!-- ポーチ仕様ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
+              ポーチ仕様
+            </button>
+          </div>
+
+          <!-- 窓仕様ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
+              窓仕様
+            </button>
+          </div>
+
+          <!-- 玄関ドア仕様ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
+              玄関ドア仕様
+            </button>
+          </div>
+        </div>
+
+        <!-- 内部仕様セクション -->
+        <div class="mb-2">
+          <button class="btn btn-outline-primary btn-sm w-100 d-flex justify-content-between align-items-center" onclick="toggleInternalSpec()">
+            <span>内部仕様</span>
+            <i class="bi bi-chevron-down" id="internalChevron"></i>
+          </button>
+        </div>
+
+        <!-- 内部仕様コンテンツ（初期状態では非表示） -->
+        <div id="internalSpecContent" style="display: none;" class="ms-3 mb-3">
+          <!-- 内部仕様一括設定ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_internal_spec.html'">
+              <i class="bi bi-gear-wide-connected me-2"></i>内部仕様一括設定
+            </button>
+          </div>
+
+          <!-- 建具一括設定ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#fixturesBulkModal">
+              建具一括設定
+            </button>
+          </div>
+
+          <!-- 住設機器一括設定ボタン -->
+          <div class="mb-2">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#equipmentBulkModal">
+              住設機器一括設定
+            </button>
+          </div>
+          
+          <div class="d-grid gap-1">
+            <!-- 1F -->
+            <h6 class="mt-2 mb-2 small fw-bold">1F</h6>
+            <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#roomModal1F1">1F：洋室1</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：洋室2</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：LDK</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：収納1</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：収納2</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：トイレ</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：洗面所</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：浴室</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：玄関</button>
+            <button class="btn btn-outline-secondary btn-sm">1F：階段</button>
+          </div>
+        </div>
       </div>
 
       <!-- 中央：画像カラム（幅 65%）-->
@@ -163,10 +282,11 @@
         <button class="room-button" style="top: 230px; left: 280px;" data-bs-toggle="modal" data-bs-target="#roomModal">
           洋室1
         </button>
-        <!-- 階高設定ボタン -->
-        <button class="spec-button" style="top: 20px; left: 5px;" data-bs-toggle="modal" data-bs-target="#floorHeightModal">
-          階高設定
-        </button>
+        <!-- 階高設定歯車アイコン -->
+        <div style="position: absolute; top: 20px; left: 5px; text-align: center;">
+          <i class="bi bi-gear-fill" style="font-size: 1.5rem; color: #dc3545; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#floorHeightModal"></i>
+          <div style="font-size: 0.4rem; color: #dc3545; margin-top: 2px;">階高</div>
+        </div>
         <!-- ポーチ仕様ボタン -->
         <button class="spec-button" style="top: 50px; left: 5px;" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
           ポーチ仕様
@@ -193,108 +313,6 @@
         </div>
       </div>
 
-      <!-- 右側：外部仕様選択カラム（幅 20%）-->
-      <div class="spec-col">
-        <!-- タブナビゲーション -->
-        <ul class="nav nav-tabs mb-3" id="specTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="external-tab" data-bs-toggle="tab" data-bs-target="#external" type="button" role="tab" aria-controls="external" aria-selected="true">外部仕様</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="internal-tab" data-bs-toggle="tab" data-bs-target="#internal" type="button" role="tab" aria-controls="internal" aria-selected="false">内部仕様</button>
-          </li>
-        </ul>
-
-        <!-- タブコンテンツ -->
-        <div class="tab-content" id="specTabsContent">
-          <!-- 外部仕様タブ -->
-          <div class="tab-pane fade show active" id="external" role="tabpanel" aria-labelledby="external-tab">
-            <!-- 外部仕様一括ボタン -->
-            <div class="mb-3">
-              <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_external_spec.html'">
-                <i class="bi bi-gear-wide-connected me-2"></i>外部仕様一括設定
-              </button>
-            </div>
-
-            <!-- ポーチ仕様ボタン -->
-            <div class="mb-3">
-              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#porchSpecModal">
-                ポーチ仕様
-              </button>
-            </div>
-
-            <!-- 窓仕様ボタン -->
-            <div class="mb-3">
-              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#windowSpecModal">
-                窓仕様
-              </button>
-            </div>
-
-            <!-- 玄関ドア仕様ボタン -->
-            <div class="mb-3">
-              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#entranceSpecModal">
-                玄関ドア仕様
-              </button>
-            </div>
-
-            <!-- 階高設定ボタン -->
-            <div class="mb-3">
-              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#floorHeightModal">
-                階高設定
-              </button>
-            </div>
-          </div>
-
-          <!-- 内部仕様タブ -->
-          <div class="tab-pane fade" id="internal" role="tabpanel" aria-labelledby="internal-tab">
-            <!-- 内部仕様一括設定ボタン -->
-            <div class="mb-3">
-              <button class="btn btn-outline-success btn-sm w-100" onclick="location.href='user_project_detail_create_exsitdrawing_internal_spec.html'">
-                <i class="bi bi-gear-wide-connected me-2"></i>内部仕様一括設定
-              </button>
-            </div>
-
-            <!-- 建具一括設定ボタン -->
-            <div class="mb-3">
-              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#fixturesBulkModal">
-                建具一括設定
-              </button>
-            </div>
-
-            <!-- 住設機器一括設定ボタン -->
-            <div class="mb-3">
-              <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#equipmentBulkModal">
-                住設機器一括設定
-              </button>
-            </div>
-            
-            <div class="d-grid gap-2">
-              <!-- 1F -->
-              <h6 class="mt-2 mb-2 small fw-bold">1F</h6>
-              <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#roomModal1F1">1F：洋室1</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：洋室2</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：LDK</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：収納1</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：収納2</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：トイレ</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：洗面所</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：浴室</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：玄関</button>
-              <button class="btn btn-outline-secondary btn-sm">1F：階段</button>
-              
-              <!-- 2F -->
-              <h6 class="mt-3 mb-2 small fw-bold">2F</h6>
-              <button class="btn btn-outline-secondary btn-sm">2F：洋室1</button>
-              <button class="btn btn-outline-secondary btn-sm">2F：洋室2</button>
-              <button class="btn btn-outline-secondary btn-sm">2F：収納1</button>
-              <button class="btn btn-outline-secondary btn-sm">2F：収納2</button>
-              <button class="btn btn-outline-secondary btn-sm">2F：トイレ</button>
-              <button class="btn btn-outline-secondary btn-sm">2F：洗面所</button>
-              <button class="btn btn-outline-secondary btn-sm">2F：階段</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <!-- /.d-flex -->
   </div>
@@ -1946,9 +1964,218 @@
         </div>
       </div>
     </div>
+  <!-- 屋根仕様モーダル -->
+  <div class="modal fade" id="roofSpecModal" tabindex="-1" aria-labelledby="roofSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="roofSpecModalLabel">
+            <i class="bi bi-house-roof me-2"></i>屋根仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">材質</label>
+              <select class="form-select" id="roofMaterial">
+                <option value="">材質を選択</option>
+                <option value="瓦">瓦</option>
+                <option value="金属">金属</option>
+                <option value="スレート">スレート</option>
+                <option value="防水">防水</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">部材タイプ</label>
+              <select class="form-select" id="roofType">
+                <option value="">部材タイプを選択</option>
+                <!-- 瓦の部材タイプ -->
+                <option value="和瓦　空葺き" data-material="瓦">和瓦　空葺き</option>
+                <option value="和瓦　泥入り葺き" data-material="瓦">和瓦　泥入り葺き</option>
+                <option value="洋瓦　Ｓ型瓦葺き" data-material="瓦">洋瓦　Ｓ型瓦葺き</option>
+                <option value="洋瓦　セメント瓦葺き" data-material="瓦">洋瓦　セメント瓦葺き</option>
+                <!-- 金属の部材タイプ -->
+                <option value="瓦棒葺き" data-material="金属">瓦棒葺き</option>
+                <option value="立平葺き" data-material="金属">立平葺き</option>
+                <option value="横葺き" data-material="金属">横葺き</option>
+                <option value="折半葺き" data-material="金属">折半葺き</option>
+                <!-- スレートの部材タイプ -->
+                <option value="コロニアル" data-material="スレート">コロニアル</option>
+                <!-- 防水の部材タイプ -->
+                <option value="シート防水" data-material="防水">シート防水</option>
+                <option value="ウレタン防水" data-material="防水">ウレタン防水</option>
+                <option value="FRP防水" data-material="防水">FRP防水</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">下地</label>
+              <select class="form-select" id="roofSubstrate">
+                <option value="">下地を選択</option>
+                <option value="野地板、アスファルトルーフィング">野地板、アスファルトルーフィング</option>
+                <option value="泥、杉皮張張り">泥、杉皮張張り</option>
+                <option value="なし">なし</option>
+                <option value="モルタル下地">モルタル下地</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">屋根勾配</label>
+              <div class="input-group">
+                <input type="number" class="form-control" value="3" min="0" step="0.5">
+                <span class="input-group-text">寸</span>
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-bold">備考</label>
+              <textarea class="form-control" rows="3" placeholder="屋根仕様に関する備考を入力してください"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-success">
+            <i class="bi bi-check-circle me-2"></i>保存
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- フッター -->
+  <!-- 軒仕様モーダル -->
+  <div class="modal fade" id="eavesSpecModal" tabindex="-1" aria-labelledby="eavesSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="eavesSpecModalLabel">
+            <i class="bi bi-house-gear me-2"></i>軒仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">軒の出</label>
+              <select class="form-select">
+                <option>300mm</option>
+                <option>450mm</option>
+                <option>600mm</option>
+                <option>900mm</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">軒天井</label>
+              <select class="form-select">
+                <option>石膏ボード</option>
+                <option>化粧合板</option>
+                <option>金属板</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 破風・鼻隠仕様モーダル -->
+  <div class="modal fade" id="gableSpecModal" tabindex="-1" aria-labelledby="gableSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gableSpecModalLabel">
+            <i class="bi bi-house-gear me-2"></i>破風・鼻隠仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">破風板</label>
+              <select class="form-select">
+                <option>木製</option>
+                <option>金属製</option>
+                <option>樹脂製</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">鼻隠し</label>
+              <select class="form-select">
+                <option>木製</option>
+                <option>金属製</option>
+                <option>樹脂製</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 樋仕様モーダル -->
+  <div class="modal fade" id="gutterSpecModal" tabindex="-1" aria-labelledby="gutterSpecModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gutterSpecModalLabel">
+            <i class="bi bi-droplet me-2"></i>樋仕様
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">樋材質</label>
+              <select class="form-select">
+                <option>塩化ビニル</option>
+                <option>ガルバリウム鋼板</option>
+                <option>ステンレス鋼板</option>
+                <option>アルミニウム</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">樋サイズ</label>
+              <select class="form-select">
+                <option>100mm</option>
+                <option>125mm</option>
+                <option>150mm</option>
+                <option>200mm</option>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold">樋形状</label>
+              <select class="form-select">
+                <option>半円形</option>
+                <option>角形</option>
+                <option>丸形</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold">樋色</label>
+              <select class="form-select">
+                <option>白</option>
+                <option>グレー</option>
+                <option>ブラウン</option>
+                <option>ブラック</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+          <button type="button" class="btn btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="footer-container"></div>
 
   <!-- Bootstrap & Popper -->
@@ -1959,7 +2186,76 @@
     fetch('user_header.html').then(r => r.text()).then(html => document.getElementById('header-container').innerHTML = html);
     fetch('user_footer.html').then(r => r.text()).then(html => document.getElementById('footer-container').innerHTML = html);
 
+    // 外部仕様セクションの表示/非表示を切り替え
+    function toggleExternalSpec() {
+      const externalContent = document.getElementById('externalSpecContent');
+      const internalContent = document.getElementById('internalSpecContent');
+      const externalChevron = document.getElementById('externalChevron');
+      const internalChevron = document.getElementById('internalChevron');
+      
+      if (externalContent.style.display === 'none') {
+        externalContent.style.display = 'block';
+        internalContent.style.display = 'none';
+        externalChevron.classList.remove('bi-chevron-down');
+        externalChevron.classList.add('bi-chevron-up');
+        internalChevron.classList.remove('bi-chevron-up');
+        internalChevron.classList.add('bi-chevron-down');
+      } else {
+        externalContent.style.display = 'none';
+        externalChevron.classList.remove('bi-chevron-up');
+        externalChevron.classList.add('bi-chevron-down');
+      }
+    }
 
+    // 内部仕様セクションの表示/非表示を切り替え
+    function toggleInternalSpec() {
+      const internalContent = document.getElementById('internalSpecContent');
+      const externalContent = document.getElementById('externalSpecContent');
+      const internalChevron = document.getElementById('internalChevron');
+      const externalChevron = document.getElementById('externalChevron');
+      
+      if (internalContent.style.display === 'none') {
+        internalContent.style.display = 'block';
+        externalContent.style.display = 'none';
+        internalChevron.classList.remove('bi-chevron-down');
+        internalChevron.classList.add('bi-chevron-up');
+        externalChevron.classList.remove('bi-chevron-up');
+        externalChevron.classList.add('bi-chevron-down');
+      } else {
+        internalContent.style.display = 'none';
+        internalChevron.classList.remove('bi-chevron-up');
+        internalChevron.classList.add('bi-chevron-down');
+      }
+    }
+
+    // 屋根仕様モーダルの材質と部材タイプの連動
+    document.addEventListener('DOMContentLoaded', function() {
+      const roofMaterial = document.getElementById('roofMaterial');
+      const roofType = document.getElementById('roofType');
+      
+      if (roofMaterial && roofType) {
+        // 材質が変更された時の処理
+        roofMaterial.addEventListener('change', function() {
+          const selectedMaterial = this.value;
+          
+          // 部材タイプの選択肢をリセット
+          roofType.innerHTML = '<option value="">部材タイプを選択</option>';
+          
+          if (selectedMaterial) {
+            // 選択された材質に応じて部材タイプの選択肢を表示
+            const options = roofType.querySelectorAll('option[data-material]');
+            options.forEach(option => {
+              if (option.getAttribute('data-material') === selectedMaterial) {
+                const newOption = document.createElement('option');
+                newOption.value = option.value;
+                newOption.textContent = option.textContent;
+                roofType.appendChild(newOption);
+              }
+            });
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html> 
