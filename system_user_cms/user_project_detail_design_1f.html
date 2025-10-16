@@ -741,10 +741,22 @@
                       <table class="table table-bordered table-sm">
                         <tbody>
                           <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">天井仕上げ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">天井下地</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">新設</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">仕上げ区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">仕様</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">工事区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">材・工</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">数量</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">単価</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">金額</td>
                           </tr>
                           <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="ceilingFinishNew" id="ceilingFinishNew" value="new">
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">天井仕上げ</td>
                             <td>
                               <select class="form-select form-select-sm">
                                 <option value="ビニル：クロス" selected>ビニル：クロス</option>
@@ -756,6 +768,19 @@
                                 <option value="塗料　水性塗料ローラー塗り">塗料　水性塗料ローラー塗り</option>
                               </select>
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="ceilingSubstrateNew" id="ceilingSubstrateNew" value="new">
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">天井下地</td>
                             <td>
                               <select class="form-select form-select-sm">
                                 <option value="木、石膏　野縁＋PB 3×6 T=9.5" selected>木、石膏　野縁＋PB 3×6 T=9.5</option>
@@ -765,6 +790,11 @@
                                 <option value="金属　吊りボルト＋軽天野縁">金属　吊りボルト＋軽天野縁</option>
                               </select>
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                           </tr>
                         </tbody>
                       </table>
@@ -777,19 +807,31 @@
                     <div class="table-responsive">
                       <table class="table table-bordered table-sm">
                         <tbody>
-                          <!-- 1段目: 壁タイプ、壁仕上げ、壁下地 -->
                           <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">壁タイプ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">壁仕上げ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">壁下地</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">新設</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">壁タイプ</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">仕上げ区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">仕様</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">工事区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">高さ</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">材・工</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">数量</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">単価</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">金額</td>
                           </tr>
                           <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="wallFinishNew" id="wallFinishNew" value="new">
+                              </div>
+                            </td>
                             <td>
                               <select class="form-select form-select-sm">
                                 <option value="真壁" selected>真壁</option>
                                 <option value="大壁">大壁</option>
                               </select>
                             </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">壁仕上げ</td>
                             <td>
                               <select class="form-select form-select-sm">
                                 <option value="ビニル　クロス貼り" selected>ビニル　クロス貼り</option>
@@ -801,25 +843,27 @@
                                 <option value="塗料　水性塗料ローラー塗り">塗料　水性塗料ローラー塗り</option>
                               </select>
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="waistWallNew" id="waistWallNew" value="new">
+                              </div>
+                            </td>
                             <td>
                               <select class="form-select form-select-sm">
-                                <option value="木、石膏　板野縁＋PB 3×8　T=12.5" selected>木、石膏　板野縁＋PB 3×8　T=12.5</option>
-                                <option value="石膏　PB 3×8　T=12.5">石膏　PB 3×8　T=12.5</option>
-                                <option value="木、石膏　板野縁＋PB 3×8　T=9.5">木、石膏　板野縁＋PB 3×8　T=9.5</option>
-                                <option value="石膏　PB 3×8　T=9.5">石膏　PB 3×8　T=9.5</option>
-                                <option value="木　板野縁＋合板3×8　T=12">木　板野縁＋合板3×8　T=12</option>
-                                <option value="木、石膏　板野縁＋ラスPB3×6　T=5">木、石膏　板野縁＋ラスPB3×6　T=5</option>
-                                <option value="土　土壁">土　土壁</option>
+                                <option value="真壁" selected>真壁</option>
+                                <option value="大壁">大壁</option>
                               </select>
                             </td>
-                          </tr>
-                          <!-- 2段目: 腰壁有り無しラジオボタン、腰壁高 -->
-                          <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;" colspan="2">腰壁</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">腰壁高</td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">腰壁</td>
+                            <td>
                               <div class="d-flex align-items-center gap-3">
                                 <div class="form-check">
                                   <input class="form-check-input" type="radio" name="waistWall" id="waistWallYes" value="yes" checked>
@@ -831,17 +875,59 @@
                                 </div>
                               </div>
                             </td>
+                            <td></td>
                             <td>
                               <input type="number" class="form-control form-control-sm" value="900" min="0" step="10" placeholder="mm">
                             </td>
-                          </tr>
-                          <!-- 3段目: 巾木仕上げ、巾木高 -->
-                          <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">巾木仕上げ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">巾木高</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                           </tr>
                           <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="wallSubstrateNew" id="wallSubstrateNew" value="new">
+                              </div>
+                            </td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option value="真壁" selected>真壁</option>
+                                <option value="大壁">大壁</option>
+                              </select>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">壁下地</td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option value="木、石膏　板野縁＋PB 3×8　T=12.5" selected>木、石膏　板野縁＋PB 3×8　T=12.5</option>
+                                <option value="石膏　PB 3×8　T=12.5">石膏　PB 3×8　T=12.5</option>
+                                <option value="木、石膏　板野縁＋PB 3×8　T=9.5">木、石膏　板野縁＋PB 3×8　T=9.5</option>
+                                <option value="石膏　PB 3×8　T=9.5">石膏　PB 3×8　T=9.5</option>
+                                <option value="木　板野縁＋合板3×8　T=12">木　板野縁＋合板3×8　T=12</option>
+                                <option value="木、石膏　板野縁＋ラスPB3×6　T=5">木、石膏　板野縁＋ラスPB3×6　T=5</option>
+                                <option value="土　土壁">土　土壁</option>
+                              </select>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="baseboardNew" id="baseboardNew" value="new">
+                              </div>
+                            </td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option value="真壁" selected>真壁</option>
+                                <option value="大壁">大壁</option>
+                              </select>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">巾木仕上げ</td>
                             <td>
                               <select class="form-select form-select-sm">
                                 <option value="木　木製付巾木H=60" selected>木　木製付巾木H=60</option>
@@ -852,9 +938,13 @@
                                 <option value="木　雑巾ずり">木　雑巾ずり</option>
                               </select>
                             </td>
+                            <td></td>
                             <td>
                               <input type="number" class="form-control form-control-sm" value="60" min="0" step="10" placeholder="mm">
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                           </tr>
                         </tbody>
@@ -862,17 +952,30 @@
                     </div>
                   </div>
 
-                  <!-- 床仕様サブセクション -->
+
+                  <!-- 床仕上げ工事テーブル -->
                   <div class="mb-2">
                     <h6 class="fw-bold text-secondary mb-2" style="font-size: 0.75rem;">床仕様　床ID:F001</h6>
                     <div class="table-responsive">
                       <table class="table table-bordered table-sm">
                         <tbody>
                           <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">床仕上げ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">床下地</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">新設</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">仕上げ区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">仕様</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">工事区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">材・工</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">数量</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">単価</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">金額</td>
                           </tr>
                           <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="flooringNew" id="flooringNew" value="new" checked>
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">床仕上げ</td>
                             <td>
                               <select class="form-select form-select-sm">
                                 <option value="木　フローリングT=12" selected>木　フローリングT=12</option>
@@ -889,6 +992,24 @@
                                 <option value="石　石張り">石　石張り</option>
                               </select>
                             </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">木材工事</td>
+                            <td style="font-size: 0.6rem;">フローリングT=12</td>
+                            <td style="font-size: 0.6rem;">9.9m²</td>
+                            <td style="font-size: 0.6rem;">1,000円</td>
+                            <td style="font-size: 0.6rem;">9,900円</td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td class="fw-bold text-center" style="font-size: 0.6rem; background-color: #fff3cd;" colspan="6">床仕上げ小計</td>
+                            <td class="fw-bold text-center" style="font-size: 0.6rem; background-color: #fff3cd;">9,900円</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="stoneNew" id="stoneNew" value="new" checked>
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">床下地</td>
                             <td>
                               <select class="form-select form-select-sm">
                                 <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12" selected>木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12</option>
@@ -898,16 +1019,143 @@
                                 <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24">木　束石＋鋼製束＋大引材＋構造用合板T=24</option>
                                 <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
                                 <option value="木　鋼製束＋大引材＋構造用合板T=24">木　鋼製束＋大引材＋構造用合板T=24</option>
-                                <option value="木　鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
-                                <option value="木　根太材＋構造用合板T=12">木　根太材＋構造用合板T=12</option>
-                                <option value="木　根太材＋構造用合板T=12＋コンパネT=9">木　根太材＋構造用合板T=12＋コンパネT=9</option>
-                                <option value="木　構造用合板T=24">木　構造用合板T=24</option>
-                                <option value="木　構造用合板T=24＋コンパネT=9">木　構造用合板T=24＋コンパネT=9</option>
-                                <option value="セメント　モルタル">セメント　モルタル</option>
-                                <option value="セメント　コンクリート">セメント　コンクリート</option>
-                                <option value="セメント　レベラー">セメント　レベラー</option>
                               </select>
                             </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">雑金物工事</td>
+                            <td style="font-size: 0.6rem;">束石</td>
+                            <td style="font-size: 0.6rem;">4個</td>
+                            <td style="font-size: 0.6rem;">500円</td>
+                            <td style="font-size: 0.6rem;">2,000円</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="steelNew" id="steelNew" value="new" checked>
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">床下地</td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12" selected>木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12">木　鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24">木　束石＋鋼製束＋大引材＋構造用合板T=24</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋構造用合板T=24">木　鋼製束＋大引材＋構造用合板T=24</option>
+                              </select>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">建材工事</td>
+                            <td style="font-size: 0.6rem;">鋼製束</td>
+                            <td style="font-size: 0.6rem;">8本</td>
+                            <td style="font-size: 0.6rem;">650円</td>
+                            <td style="font-size: 0.6rem;">5,200円</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="beamNew" id="beamNew" value="new" checked>
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">床下地</td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12" selected>木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12">木　鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24">木　束石＋鋼製束＋大引材＋構造用合板T=24</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋構造用合板T=24">木　鋼製束＋大引材＋構造用合板T=24</option>
+                              </select>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">木材工事</td>
+                            <td style="font-size: 0.6rem;">大引き</td>
+                            <td style="font-size: 0.6rem;">3本</td>
+                            <td style="font-size: 0.6rem;">4,000円</td>
+                            <td style="font-size: 0.6rem;">12,000円</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="joistNew" id="joistNew" value="new" checked>
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">床下地</td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12" selected>木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12">木　鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24">木　束石＋鋼製束＋大引材＋構造用合板T=24</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋構造用合板T=24">木　鋼製束＋大引材＋構造用合板T=24</option>
+                              </select>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">木材工事</td>
+                            <td style="font-size: 0.6rem;">根太材</td>
+                            <td style="font-size: 0.6rem;">12本</td>
+                            <td style="font-size: 0.6rem;">3,100円</td>
+                            <td style="font-size: 0.6rem;">37,200円</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="plywoodNew" id="plywoodNew" value="new" checked>
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">床下地</td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12" selected>木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12">木　鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24">木　束石＋鋼製束＋大引材＋構造用合板T=24</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋構造用合板T=24">木　鋼製束＋大引材＋構造用合板T=24</option>
+                              </select>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">建材工事</td>
+                            <td style="font-size: 0.6rem;">構造用合板</td>
+                            <td style="font-size: 0.6rem;">9.9m²</td>
+                            <td style="font-size: 0.6rem;">3,000円</td>
+                            <td style="font-size: 0.6rem;">29,700円</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="carpenterNew" id="carpenterNew" value="new" checked>
+                              </div>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">床下地</td>
+                            <td>
+                              <select class="form-select form-select-sm">
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12" selected>木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　束石＋鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12">木　鋼製束＋大引材＋根太材＋構造用合板T=12</option>
+                                <option value="木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9">木　鋼製束＋大引材＋根太材＋構造用合板T=12＋コンパネT=9</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24">木　束石＋鋼製束＋大引材＋構造用合板T=24</option>
+                                <option value="木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9">木　束石＋鋼製束＋大引材＋構造用合板T=24＋コンパネT=9</option>
+                                <option value="木　鋼製束＋大引材＋構造用合板T=24">木　鋼製束＋大引材＋構造用合板T=24</option>
+                              </select>
+                            </td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.6rem;">大工工事</td>
+                            <td style="font-size: 0.6rem;">床大工手間</td>
+                            <td style="font-size: 0.6rem;">9.9m²</td>
+                            <td style="font-size: 0.6rem;">2,000円</td>
+                            <td style="font-size: 0.6rem;">19,800円</td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td class="fw-bold text-center" style="font-size: 0.6rem; background-color: #fff3cd;" colspan="6">床下地小計</td>
+                            <td class="fw-bold text-center" style="font-size: 0.6rem; background-color: #fff3cd;">105,900円</td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td class="fw-bold text-center" style="font-size: 0.6rem; background-color: #d1e7dd;" colspan="6">合計</td>
+                            <td class="fw-bold text-center" style="font-size: 0.6rem; background-color: #d1e7dd;">115,800円</td>
                           </tr>
                         </tbody>
                       </table>
@@ -928,15 +1176,22 @@
                     <table class="table table-bordered table-sm">
                       <tbody>
                         <tr>
-                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">建具ID</td>
-                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">建具種別</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">新設</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">仕様</td>
                           <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">取り付け高さ</td>
                           <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">扉サイズ（W×H）</td>
                           <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">開閉方向</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">工事区分</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">材・工</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">数量</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">単価</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">金額</td>
                         </tr>
                         <tr>
                           <td>
-                            <input type="text" class="form-control form-control-sm" value="WD001" readonly>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" name="fixture1New" id="fixture1New" value="new">
+                            </div>
                           </td>
                           <td>
                             <select class="form-select form-select-sm">
@@ -976,10 +1231,17 @@
                               <option value="折れ戸">折れ戸</option>
                             </select>
                           </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                         <tr>
                           <td>
-                            <input type="text" class="form-control form-control-sm" value="WD002" readonly>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" name="fixture2New" id="fixture2New" value="new">
+                            </div>
                           </td>
                           <td>
                             <select class="form-select form-select-sm">
@@ -1019,6 +1281,11 @@
                               <option value="折れ戸">折れ戸</option>
                             </select>
                           </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                       </tbody>
                     </table>
@@ -1038,13 +1305,20 @@
                     <table class="table table-bordered table-sm">
                       <tbody>
                         <tr>
-                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">住設機器ID</td>
-                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">新設</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">仕様</td>
                           <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">サイズ</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">工事区分</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">材・工</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">数量</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">単価</td>
+                          <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">金額</td>
                         </tr>
                         <tr>
                           <td>
-                            <input type="text" class="form-control form-control-sm" value="EQ001" readonly>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" name="equipment1New" id="equipment1New" value="new">
+                            </div>
                           </td>
                           <td>
                             <select class="form-select form-select-sm">
@@ -1054,6 +1328,11 @@
                           <td>
                             <input type="text" class="form-control form-control-sm" value="L=800　H=300　D=200" placeholder="サイズ">
                           </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                       </tbody>
                     </table>
@@ -1076,14 +1355,20 @@
                       <table class="table table-bordered table-sm">
                         <tbody>
                           <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">スイッチID</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">位置</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">新設</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">仕様</td>
                             <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">備考</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">工事区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">材・工</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">数量</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">単価</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">金額</td>
                           </tr>
                           <tr>
                             <td>
-                              <input type="text" class="form-control form-control-sm" value="SW001" readonly>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="switch1New" id="switch1New" value="new">
+                              </div>
                             </td>
                             <td>
                               <select class="form-select form-select-sm">
@@ -1094,11 +1379,13 @@
                               </select>
                             </td>
                             <td>
-                              <input type="text" class="form-control form-control-sm" value="北側壁面" placeholder="位置">
-                            </td>
-                            <td>
                               <input type="text" class="form-control form-control-sm" value="照明用" placeholder="備考">
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                           </tr>
                         </tbody>
                       </table>
@@ -1112,14 +1399,20 @@
                       <table class="table table-bordered table-sm">
                         <tbody>
                           <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">照明ID</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">位置</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">新設</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">仕様</td>
                             <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">備考</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">工事区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">材・工</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">数量</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">単価</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">金額</td>
                           </tr>
                           <tr>
                             <td>
-                              <input type="text" class="form-control form-control-sm" value="LT001" readonly>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="lighting1New" id="lighting1New" value="new">
+                              </div>
                             </td>
                             <td>
                               <select class="form-select form-select-sm">
@@ -1130,11 +1423,13 @@
                               </select>
                             </td>
                             <td>
-                              <input type="text" class="form-control form-control-sm" value="天井中央" placeholder="位置">
-                            </td>
-                            <td>
                               <input type="text" class="form-control form-control-sm" value="LED" placeholder="備考">
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                           </tr>
                         </tbody>
                       </table>
@@ -1148,14 +1443,20 @@
                       <table class="table table-bordered table-sm">
                         <tbody>
                           <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">コンセントID</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">位置</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">新設</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">仕様</td>
                             <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">備考</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">工事区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">材・工</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">数量</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">単価</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">金額</td>
                           </tr>
                           <tr>
                             <td>
-                              <input type="text" class="form-control form-control-sm" value="OC001" readonly>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="outlet1New" id="outlet1New" value="new">
+                              </div>
                             </td>
                             <td>
                               <select class="form-select form-select-sm">
@@ -1166,11 +1467,13 @@
                               </select>
                             </td>
                             <td>
-                              <input type="text" class="form-control form-control-sm" value="南側壁面" placeholder="位置">
-                            </td>
-                            <td>
                               <input type="text" class="form-control form-control-sm" value="一般用" placeholder="備考">
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                           </tr>
                         </tbody>
                       </table>
@@ -1190,14 +1493,20 @@
                       <table class="table table-bordered table-sm">
                         <tbody>
                           <tr>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">換気ID</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">タイプ</td>
-                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">位置</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">新設</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">仕様</td>
                             <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">備考</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">工事区分</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">材・工</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">数量</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">単価</td>
+                            <td class="fw-bold bg-light text-center" style="font-size: 0.7rem;">金額</td>
                           </tr>
                           <tr>
                             <td>
-                              <input type="text" class="form-control form-control-sm" value="VT001" readonly>
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="ventilation1New" id="ventilation1New" value="new">
+                              </div>
                             </td>
                             <td>
                               <select class="form-select form-select-sm">
@@ -1208,11 +1517,13 @@
                               </select>
                             </td>
                             <td>
-                              <input type="text" class="form-control form-control-sm" value="天井" placeholder="位置">
-                            </td>
-                            <td>
                               <input type="text" class="form-control form-control-sm" value="常時運転" placeholder="備考">
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                           </tr>
                         </tbody>
                       </table>
