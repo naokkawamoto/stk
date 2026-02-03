@@ -1,226 +1,295 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>案件管理（報告）</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <!-- カスタムCSS -->
-    <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8">
+  <title>案件管理（工事日誌）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS (5系) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- カスタムCSS -->
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .sidebar { max-height: 80vh; overflow-y: auto; }
+    .col-fixed { padding-left: 0; padding-right: 0; }
+    .small-text { font-size: 0.75rem; }
+    .report-table { font-size: 0.85rem; }
+    .report-table th { background-color: #f8f9fa; white-space: nowrap; }
+    .report-table td { vertical-align: middle; }
+    .date-header { background-color: #e9ecef; font-weight: bold; }
+    .company-row { cursor: pointer; }
+    .company-row:hover { background-color: #f1f3f5; }
+    .expense-row { background-color: #fafafa; }
+  </style>
 </head>
 <body>
-    <!-- ヘッダー -->
-    <div id="header-container"></div>
+  <!-- ヘッダー -->
+  <div id="header-container"></div>
 
-    <div class="container-fluid mt-4">
-        <div class="row">
-            <!-- 左カラム：案件リスト -->
-            <div class="col-auto" style="width:200px;">
-                <div style="height:80vh; overflow-y:auto; overflow-x:hidden; padding-right:5px;">
-                    <h5>案件リスト</h5>
-                    <div class="list-group">
-                        <a href="user_project_detail.html" class="list-group-item list-group-item-action">案件1</a>
-                        <a href="user_project_detail.html" class="list-group-item list-group-item-action">案件2</a>
-                        <a href="user_project_detail.html" class="list-group-item list-group-item-action">案件3</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 中央カラム：メインコンテンツ -->
-            <div class="col">
-                <div style="height:80vh; overflow-y:auto; padding-right:5px;">
-                    <!-- 会社名＋案件名＋案件フロー -->
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="text-start">
-                            <h4 class="mb-0">会社名</h4>
-                            <h3 class="mb-0 d-inline">案件名 <i class="bi bi-star"></i></h3>
-                        </div>
-                        <div class="text-end">
-                            <span class="me-2">案件フロー:</span>
-                            <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-                                <option value="preparation">準備中</option>
-                                <option value="inprogress">進行中</option>
-                                <option value="completed">完了</option>
-                            </select>
-                            <button class="btn btn-outline-primary btn-sm">変更</button>
-                        </div>
-                    </div>
-
-                    <!-- ナビゲーションタブ -->
-                    <ul class="nav nav-tabs mb-3">
-                        <li class="nav-item"><a class="nav-link" href="user_project_detail.html">概要</a></li>
-                        <li class="nav-item"><a class="nav-link" href="user_project_detail_photo.html">写真</a></li>
-                        <li class="nav-item"><a class="nav-link" href="user_project_detail_doc.html">資料</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="user_project_detail_report.html">報告</a></li>
-                        <li class="nav-item"><a class="nav-link" href="user_project_detail_order.html">発注</a></li>
-                        <li class="nav-item"><a class="nav-link" href="user_project_detail_user.html">メンバー</a></li>
-                        <li class="nav-item"><a class="nav-link" href="user_project_detail_3dview.html">３Dビュー</a></li>
-                        <li class="nav-item"><a class="nav-link" href="user_project_detail_2dview.html">２Dビュー</a></li>
-                        <li class="nav-item"><a class="nav-link" href="user_project_detail_chat.html">チャット</a></li>
-                    </ul>
-
-                    <!-- 行1：タイトル＆操作ボタン -->
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4>報告を管理する</h4>
-                        <div>
-                            <button class="btn btn-secondary me-2">EXCEL出力</button>
-                            <button class="btn btn-primary">報告を追加</button>
-                        </div>
-                    </div>
-
-                    <!-- 行2：絞り込み -->
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="me-2">絞り込み:</span>
-                        <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-                            <option value="type">報告種別</option>
-                            <option>進捗</option>
-                            <option>問題</option>
-                        </select>
-                        <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-                            <option value="author">報告者</option>
-                            <option>山田太郎</option>
-                            <option>佐藤花子</option>
-                        </select>
-                    </div>
-
-                    <!-- 報告一覧テーブル -->
-                    <div class="card">
-                        <div class="card-body p-0">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>報告対象</th>
-                                        <th>報告者</th>
-                                        <th>報告日</th>
-                                        <th>報告内容</th>
-                                        <th>アクション</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- ダミー5行 -->
-                                    <tr>
-                                        <td>案件1</td>
-                                        <td>山田太郎</td>
-                                        <td>2025/05/01</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <img src="../images/report1_1.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report1_2.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report1_3.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report1_4.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report1_5.jpg" class="img-thumbnail" style="width:50px;height:50px;">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-secondary me-1">写真台帳作成</button>
-                                            <button class="btn btn-sm btn-outline-primary">詳細</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>案件1</td><td>佐藤花子</td><td>2025/05/02</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <img src="../images/report2_1.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report2_2.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report2_3.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report2_4.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report2_5.jpg" class="img-thumbnail" style="width:50px;height:50px;">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-secondary me-1">写真台帳作成</button>
-                                            <button class="btn btn-sm btn-outline-primary">詳細</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>案件1</td><td>鈴木一郎</td><td>2025/05/03</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <img src="../images/report3_1.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report3_2.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report3_3.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report3_4.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report3_5.jpg" class="img-thumbnail" style="width:50px;height:50px;">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-secondary me-1">写真台帳作成</button>
-                                            <button class="btn btn-sm btn-outline-primary">詳細</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>案件1</td><td>田中美咲</td><td>2025/05/04</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <img src="../images/report4_1.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report4_2.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report4_3.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report4_4.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report4_5.jpg" class="img-thumbnail" style="width:50px;height:50px;">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-secondary me-1">写真台帳作成</button>
-                                            <button class="btn btn-sm btn-outline-primary">詳細</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>案件1</td><td>高橋健</td><td>2025/05/05</td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <img src="../images/report5_1.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report5_2.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report5_3.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report5_4.jpg" class="img-thumbnail me-1" style="width:50px;height:50px;">
-                                                <img src="../images/report5_5.jpg" class="img-thumbnail" style="width:50px;height:50px;">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-secondary me-1">写真台帳作成</button>
-                                            <button class="btn btn-sm btn-outline-primary">詳細</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- 右カラム：お知らせ -->
-            <div class="col-auto" style="width:200px;">
-                <div style="height:80vh; overflow-y:auto; overflow-x:hidden; direction:rtl; padding-left:5px;">
-                    <div style="direction:ltr;">
-                        <h5>お知らせ</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item">最新のお知らせ1</li>
-                            <li class="list-group-item">最新のお知らせ2</li>
-                            <li class="list-group-item">最新のお知らせ3</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <div class="container-fluid mt-4 px-4">
+    <div class="row">
+      <!-- 左サイドメニュー -->
+      <nav class="col-fixed" style="width:240px;">
+        <div class="sidebar px-2">
+          <div class="list-group small-text" id="overviewSubTabs" role="tablist">
+            <a href="user_project_detail.html" class="list-group-item list-group-item-action">工事進捗</a>
+            <a href="user_project_detail_report.html" class="list-group-item list-group-item-action active">工事日誌</a>
+            <a href="user_project_detail_schedule.html" class="list-group-item list-group-item-action">スケジュール</a>
+            <a href="user_project_detail_overview.html" class="list-group-item list-group-item-action">工事概要</a>
+            <a href="user_project_detail_drawing.html" class="list-group-item list-group-item-action">図面</a>
+            <a href="user_project_detail_budget.html" class="list-group-item list-group-item-action">予算</a>
+            <a href="user_project_detail_staff.html" class="list-group-item list-group-item-action">社内担当者</a>
+            <a href="user_project_detail_partner.html" class="list-group-item list-group-item-action">外部協力会社</a>
+            <a href="user_project_detail_other.html" class="list-group-item list-group-item-action">資料</a>
+          </div>
         </div>
+      </nav>
+
+      <!-- メインコンテンツエリア -->
+      <main class="col px-3" style="padding-bottom: 80px;">
+        <!-- タイトル -->
+        <h4 class="mb-3 fw-bold">国道９号舗装工事 <i class="bi bi-star"></i></h4>
+        
+        <!-- 工事日誌コンテンツ -->
+        <div class="card">
+          <div class="card-header py-2 d-flex justify-content-between align-items-center">
+            <span class="fw-bold">工事日誌一覧</span>
+            <span class="text-white small fw-bold bg-dark px-2 py-1 rounded">全25件中 1-15件表示</span>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-bordered report-table mb-0">
+              <thead>
+                <tr>
+                  <th style="width: 150px;">業者名</th>
+                  <th style="width: 180px;">工種</th>
+                  <th style="width: 130px;" class="text-end">予算</th>
+                  <th style="width: 130px;" class="text-end">当日実績</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- 2026/03/14 -->
+                <tr class="date-header">
+                  <td colspan="4"><i class="bi bi-calendar-event me-1"></i>2026/03/14（土）</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-14&company=1'">
+                  <td rowspan="2" class="align-middle text-center">東京舗装(株)</td>
+                  <td>アスファルト舗装工</td>
+                  <td class="text-end">28,000,000</td>
+                  <td class="text-end">850,000</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-14&company=1'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">5,000,000</td>
+                  <td class="text-end">45,000</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-14&company=2'">
+                  <td rowspan="2" class="align-middle text-center">(株)関東建設</td>
+                  <td>撤去工事</td>
+                  <td class="text-end">8,000,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-14&company=2'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">1,500,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-14&company=3'">
+                  <td rowspan="2" class="align-middle text-center">首都圏道路(株)</td>
+                  <td>区画線工</td>
+                  <td class="text-end">9,000,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-14&company=3'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">1,200,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+
+                <!-- 2026/03/13 -->
+                <tr class="date-header">
+                  <td colspan="4"><i class="bi bi-calendar-event me-1"></i>2026/03/13（金）</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-13&company=1'">
+                  <td rowspan="2" class="align-middle text-center">東京舗装(株)</td>
+                  <td>アスファルト舗装工</td>
+                  <td class="text-end">28,000,000</td>
+                  <td class="text-end">920,000</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-13&company=1'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">5,000,000</td>
+                  <td class="text-end">38,000</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-13&company=2'">
+                  <td rowspan="2" class="align-middle text-center">(株)関東建設</td>
+                  <td>撤去工事</td>
+                  <td class="text-end">8,000,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-13&company=2'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">1,500,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-13&company=3'">
+                  <td rowspan="2" class="align-middle text-center">首都圏道路(株)</td>
+                  <td>区画線工</td>
+                  <td class="text-end">9,000,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-13&company=3'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">1,200,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+
+                <!-- 2026/03/12 -->
+                <tr class="date-header">
+                  <td colspan="4"><i class="bi bi-calendar-event me-1"></i>2026/03/12（木）</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-12&company=1'">
+                  <td rowspan="2" class="align-middle text-center">東京舗装(株)</td>
+                  <td>アスファルト舗装工</td>
+                  <td class="text-end">28,000,000</td>
+                  <td class="text-end">880,000</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-12&company=1'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">5,000,000</td>
+                  <td class="text-end">42,000</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-12&company=2'">
+                  <td rowspan="2" class="align-middle text-center">(株)関東建設</td>
+                  <td>撤去工事</td>
+                  <td class="text-end">8,000,000</td>
+                  <td class="text-end">450,000</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-12&company=2'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">1,500,000</td>
+                  <td class="text-end">25,000</td>
+                </tr>
+
+                <!-- 2026/03/11 -->
+                <tr class="date-header">
+                  <td colspan="4"><i class="bi bi-calendar-event me-1"></i>2026/03/11（水）</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-11&company=1'">
+                  <td rowspan="2" class="align-middle text-center">東京舗装(株)</td>
+                  <td>アスファルト舗装工</td>
+                  <td class="text-end">28,000,000</td>
+                  <td class="text-end">950,000</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-11&company=1'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">5,000,000</td>
+                  <td class="text-end">48,000</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-11&company=2'">
+                  <td rowspan="2" class="align-middle text-center">(株)関東建設</td>
+                  <td>撤去工事</td>
+                  <td class="text-end">8,000,000</td>
+                  <td class="text-end">520,000</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-11&company=2'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">1,500,000</td>
+                  <td class="text-end">28,000</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-11&company=3'">
+                  <td rowspan="2" class="align-middle text-center">首都圏道路(株)</td>
+                  <td>区画線工</td>
+                  <td class="text-end">9,000,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-11&company=3'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">1,200,000</td>
+                  <td class="text-end">0</td>
+                </tr>
+
+                <!-- 2026/03/10 -->
+                <tr class="date-header">
+                  <td colspan="4"><i class="bi bi-calendar-event me-1"></i>2026/03/10（火）</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-10&company=1'">
+                  <td rowspan="2" class="align-middle text-center">東京舗装(株)</td>
+                  <td>アスファルト舗装工</td>
+                  <td class="text-end">28,000,000</td>
+                  <td class="text-end">890,000</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-10&company=1'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">5,000,000</td>
+                  <td class="text-end">41,000</td>
+                </tr>
+                <tr class="company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-10&company=2'">
+                  <td rowspan="2" class="align-middle text-center">(株)関東建設</td>
+                  <td>撤去工事</td>
+                  <td class="text-end">8,000,000</td>
+                  <td class="text-end">480,000</td>
+                </tr>
+                <tr class="expense-row company-row" onclick="location.href='user_project_detail_report_detail.html?date=2026-03-10&company=2'">
+                  <td class="ps-3 text-muted">└ 経費</td>
+                  <td class="text-end">1,500,000</td>
+                  <td class="text-end">22,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer bg-white">
+            <!-- ページネーション -->
+            <nav aria-label="工事日誌ページネーション">
+              <ul class="pagination pagination-sm justify-content-center mb-0">
+                <li class="page-item disabled">
+                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                    <i class="bi bi-chevron-left"></i>
+                  </a>
+                </li>
+                <li class="page-item active" aria-current="page">
+                  <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">5</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    <i class="bi bi-chevron-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </main>
     </div>
+  </div>
 
-    <!-- フッター -->
-    <div id="footer-container"></div>
+  <!-- フッター -->
+  <div id="footer-container"></div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- カスタムスクリプト -->
-    <script src="../style.js"></script>
-    <!-- ヘッダー＆フッターの読み込み -->
-    <script>
-        fetch('user_header.html')
-            .then(res => res.text()).then(html => document.getElementById('header-container').innerHTML = html);
-        fetch('user_footer.html')
-            .then(res => res.text()).then(html => document.getElementById('footer-container').innerHTML = html);
-    </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- カスタムスクリプト -->
+  <script src="../style.js"></script>
+  <script>
+    fetch('user_header.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('header-container').innerHTML = html);
+    fetch('user_footer.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('footer-container').innerHTML = html);
+  </script>
 </body>
 </html>

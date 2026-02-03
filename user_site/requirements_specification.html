@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>工事管理システム（user_site）要件定義書</title>
+  <style>
+    body { font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif; margin: 20px; font-size: 12px; }
+    h1 { font-size: 18px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+    h2 { font-size: 14px; background: #4472C4; color: white; padding: 8px; margin-top: 30px; }
+    h3 { font-size: 12px; background: #5B9BD5; color: white; padding: 6px; margin-top: 15px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+    th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; vertical-align: top; }
+    th { background: #D9E2F3; font-weight: bold; }
+    .section-header { background: #FFF2CC; font-weight: bold; }
+    .required { color: #C00000; }
+    .nav-link { color: #0563C1; }
+    .feature { background: #E2EFDA; }
+    .data { background: #FCE4D6; }
+    @media print { body { font-size: 10px; } }
+  </style>
+</head>
+<body>
+  <h1>工事管理システム（user_site）要件定義書</h1>
+  <p>作成日: 2026年1月26日</p>
+  <p><strong>対象デバイス:</strong> iPhone 17 Pro（393×852px）</p>
+
+  <!-- 目次 -->
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#page1">site_project_list.html - 工事管理</a></li>
+    <li><a href="#page2">site_project_detail.html - 案件トップ</a></li>
+    <li><a href="#page3">site_project_detail_report.html - 工事日誌一覧</a></li>
+    <li><a href="#page4">site_project_detail_report_detail.html - 工事日誌詳細</a></li>
+    <li><a href="#page5">site_project_detail_report_create.html - 工事日誌作成（ステップ1）</a></li>
+    <li><a href="#page6">site_project_detail_report_create_step2.html - 工事日誌作成（ステップ2）</a></li>
+    <li><a href="#page7">site_project_detail_report_create_step3.html - 工事日誌作成（ステップ3）</a></li>
+    <li><a href="#page8">site_project_detail_report_create_step4.html - 工事日誌作成（ステップ4）</a></li>
+    <li><a href="#page9">site_project_detail_report_create_step5.html - 工事日誌作成（ステップ5）</a></li>
+    <li><a href="#page10">site_project_detail_report_create_step6.html - 工事日誌作成（ステップ6）</a></li>
+    <li><a href="#page11">site_project_detail_report_create_step7.html - 工事日誌作成（ステップ7）</a></li>
+    <li><a href="#page12">site_project_detail_report_create_step8.html - 工事日誌作成（ステップ8）</a></li>
+    <li><a href="#page13">site_project_detail_report_create_preview.html - 工事日誌プレビュー</a></li>
+    <li><a href="#page14">site_project_detail_schedule.html - スケジュール</a></li>
+    <li><a href="#page15">site_project_detail_overview.html - 工事概要</a></li>
+    <li><a href="#page16">site_project_detail_drawing.html - 図面</a></li>
+    <li><a href="#page17">site_project_detail_budget.html - 予算</a></li>
+    <li><a href="#page18">site_chat_list.html - チャット一覧</a></li>
+    <li><a href="#page19">site_notifications.html - お知らせ</a></li>
+    <li><a href="#page20">site_myprof.html - マイページ</a></li>
+    <li><a href="#page21">site_footer.html - フッターメニュー</a></li>
+  </ol>
+
+  <!-- ===== ページ1: 工事管理 ===== -->
+  <h2 id="page1">1. site_project_list.html - 工事管理</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>工事管理</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>登録済みの工事案件を一覧表示するメインページ。iPhone 17 Proサイズ（393×852px）に最適化。パネル/リスト切り替え、ステータスフィルタリング機能あり。</td>
+    </tr>
+    <tr>
+      <td>デバイスサイズ</td>
+      <td>iPhone 17 Pro（393×852px）</td>
+    </tr>
+  </table>
+
+  <h3>レイアウト構成</h3>
+  <table>
+    <tr>
+      <th width="15%">エリア</th>
+      <th width="15%">幅</th>
+      <th width="70%">機能・要件</th>
+    </tr>
+    <tr>
+      <td>メインコンテンツ</td>
+      <td>393px</td>
+      <td>カード/テーブル表示（1カラム縦並び）</td>
+    </tr>
+  </table>
+
+  <h3>機能詳細</h3>
+  <table>
+    <tr>
+      <th width="20%">機能名</th>
+      <th width="40%">詳細</th>
+      <th width="40%">データ項目</th>
+    </tr>
+    <tr class="section-header">
+      <td colspan="3">ステータスタブ</td>
+    </tr>
+    <tr>
+      <td>フィルタータブ</td>
+      <td>ステータス別にフィルタリング（横スクロールボタン型）</td>
+      <td>すべて / 工事中 / 工事完了 / 出来方完了<br>※各タブに件数表示</td>
+    </tr>
+    <tr class="section-header">
+      <td colspan="3">表示切替</td>
+    </tr>
+    <tr>
+      <td>パネル/リスト切替</td>
+      <td>ボタンでカード表示⇔テーブル表示を切り替え</td>
+      <td>-</td>
+    </tr>
+    <tr class="section-header">
+      <td colspan="3">パネルビュー（カード表示）</td>
+    </tr>
+    <tr>
+      <td>工事カード</td>
+      <td>カードクリックで詳細ページへ遷移（1カラム縦並び、画像左・情報右）</td>
+      <td>工事名 / ステータスバッジ / 工事画像（100×100px） / 工事場所 / 工事種類 / 担当者 / 契約日 / 工事開始日 / 完了予定日 / 進捗率 / 未読メッセージ数 / 状況</td>
+    </tr>
+    <tr class="section-header">
+      <td colspan="3">リストビュー（テーブル表示）</td>
+    </tr>
+    <tr>
+      <td>工事テーブル</td>
+      <td>行クリックで詳細ページへ遷移</td>
+      <td>状況 / 工事名 / 工事種類 / 工事場所 / 担当者 / 完了予定日 / 未読数</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ2: 案件トップ ===== -->
+  <h2 id="page2">2. site_project_detail.html - 案件トップ</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>案件管理（概要）</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>工事の概要情報を表示するトップページ。iPhone 17 Proサイズに最適化。各カードをクリックで詳細ページへ遷移。</td>
+    </tr>
+  </table>
+
+  <h3>機能詳細</h3>
+  <table>
+    <tr>
+      <th width="20%">機能名</th>
+      <th width="40%">詳細</th>
+      <th width="40%">データ項目</th>
+    </tr>
+    <tr class="section-header">
+      <td colspan="3">工事概要カード</td>
+    </tr>
+    <tr>
+      <td>工事基本情報</td>
+      <td>工事種類/責任者（社内）/状況（ドロップダウン・保存ボタン）/協力業者リスト</td>
+      <td>工事種類 / 責任者（社内） / 状況 / 協力業者リスト（業者名・担当工種・責任者・電話番号）</td>
+    </tr>
+    <tr class="section-header">
+      <td colspan="3">予算・実績カード</td>
+    </tr>
+    <tr>
+      <td>予算実績サマリー</td>
+      <td>1カラム縦並びで表示</td>
+      <td>項目 / 予算 / 実績 / 進捗率（直接工事費・経費・合計） / 進捗バー</td>
+    </tr>
+    <tr class="section-header">
+      <td colspan="3">工事日誌カード</td>
+    </tr>
+    <tr>
+      <td>工事日誌新規作成ボタン</td>
+      <td>緑グラデーションの目立つボタン（カード上部）</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>直近2日間の工事日誌</td>
+      <td>1カラム縦並びで表示</td>
+      <td>日付 / 業者 / 工種 / 予算 / 当日実績</td>
+    </tr>
+    <tr class="section-header">
+      <td colspan="3">スケジュールカード</td>
+    </tr>
+    <tr>
+      <td>ガントチャート（簡易版）</td>
+      <td>作業項目/区分（予定・実績）/3月カレンダー/凡例</td>
+      <td>作業項目 / 区分（予定・実績） / 3月カレンダー / 凡例</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ3: 工事日誌一覧 ===== -->
+  <h2 id="page3">3. site_project_detail_report.html - 工事日誌一覧</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>案件管理（工事日誌）</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>工事日誌を日付降順で一覧表示。iPhone 17 Proサイズに最適化。</td>
+    </tr>
+  </table>
+
+  <h3>機能詳細</h3>
+  <table>
+    <tr>
+      <th width="20%">機能名</th>
+      <th width="40%">詳細</th>
+      <th width="40%">データ項目</th>
+    </tr>
+    <tr>
+      <td>工事日誌リスト</td>
+      <td>日付ヘッダー/業者名/工種/予算/当日実績（1社2行構成：工種行・経費行）</td>
+      <td>日付ヘッダー / 業者名 / 工種 / 予算 / 当日実績</td>
+    </tr>
+    <tr>
+      <td>ページネーション</td>
+      <td>ページ番号/前後ボタン</td>
+      <td>ページ番号 / 前後ボタン</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ4: 工事日誌詳細 ===== -->
+  <h2 id="page4">4. site_project_detail_report_detail.html - 工事日誌詳細</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>案件管理（工事日誌詳細）</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>工事日誌の詳細情報を表示。iPhone 17 Proサイズに最適化。</td>
+    </tr>
+  </table>
+
+  <h3>機能詳細</h3>
+  <table>
+    <tr>
+      <th width="20%">機能名</th>
+      <th width="40%">詳細</th>
+      <th width="40%">データ項目</th>
+    </tr>
+    <tr>
+      <td>工事日誌ヘッダー</td>
+      <td>基本情報表示</td>
+      <td>社内工事名 / 協力会社 / 工事日誌タイトル / 担当者名 / 確認者 / 作業日時 / 天候 / 作業時間 / 気温</td>
+    </tr>
+    <tr>
+      <td>スキャンデータ自動算出</td>
+      <td>3Dスキャナによる出来高自動検出</td>
+      <td>面積差分（㎡） / 体積差分（㎥） / 延長差分（m） / 数量差分（t） / スキャン日時 / 解析完了日時 / AI解析済みバッジ</td>
+    </tr>
+    <tr>
+      <td>作業内容・出来高</td>
+      <td>作業詳細テーブル</td>
+      <td>工種 / 作業内容 / 作業箇所 / 単位 / 出来高</td>
+    </tr>
+    <tr>
+      <td>使用機械・作業員</td>
+      <td>機械・人員テーブル</td>
+      <td>使用機械名 / 台数 / 協力業者名 / 人数</td>
+    </tr>
+    <tr>
+      <td>搬入材料</td>
+      <td>材料テーブル</td>
+      <td>品名 / 規格・寸法 / 単位 / 台帳数量 / 受入材料名 / 数量</td>
+    </tr>
+    <tr>
+      <td>使用計測機器</td>
+      <td>計測機器バッジ</td>
+      <td>巻尺 / 外気温度計 / コンパクトメーター / 路面温度計 / 3Dスキャナ（自社アプリ）</td>
+    </tr>
+    <tr>
+      <td>日常点検結果</td>
+      <td>点検ラジオボタン</td>
+      <td>異常なし / 異常あり</td>
+    </tr>
+    <tr>
+      <td>記事</td>
+      <td>特記事項テキスト</td>
+      <td>自由記述テキスト</td>
+    </tr>
+    <tr>
+      <td>作業写真</td>
+      <td>写真プレースホルダー</td>
+      <td>着工前 / 施工中 / 完了後 / 3Dスキャン</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ5: 工事日誌作成（ステップ1） ===== -->
+  <h2 id="page5">5. site_project_detail_report_create.html - 工事日誌作成（ステップ1）</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>案件管理（工事日誌作成）</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>工事日誌を8ステップで作成する最初のページ。ステップ1：概要の入力。</td>
+    </tr>
+  </table>
+
+  <h3>機能詳細</h3>
+  <table>
+    <tr>
+      <th width="20%">機能名</th>
+      <th width="40%">詳細</th>
+      <th width="40%">データ項目</th>
+    </tr>
+    <tr>
+      <td>ステップインジケーター</td>
+      <td>8ステップ進行状況表示（丸の中に数値、下に小さな文字）</td>
+      <td>1.概要（アクティブ） / 2.スキャン / 3.作・高 / 4.機・人 / 5.材料 / 6.計器 / 7.点検・記 / 8.写真</td>
+    </tr>
+    <tr>
+      <td>プレビューボタン</td>
+      <td>横幅いっぱいのボタン（プレビューアイコン付き）</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>工事日誌タイトル</td>
+      <td>カード上部に「工事日誌作成」を表示</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>工事日誌ヘッダー</td>
+      <td>基本情報入力</td>
+      <td>社内工事名 / 協力会社（セレクト） / 担当者名（セレクト） / 確認者</td>
+    </tr>
+    <tr>
+      <td>ステップ1：概要</td>
+      <td>基本情報入力フォーム</td>
+      <td>作業日時（日付選択） / 天候（セレクト） / 作業時間（開始・終了時刻） / 気温（最高・最低）</td>
+    </tr>
+    <tr>
+      <td>アクションボタン</td>
+      <td>下書き保存・次へボタン</td>
+      <td>下書き保存 / 次へ</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ6: 工事日誌作成（ステップ2） ===== -->
+  <h2 id="page6">6. site_project_detail_report_create_step2.html - 工事日誌作成（ステップ2）</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>案件管理（工事日誌作成 - ステップ2）</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ステップ2：スキャンデータ取得ページ。</td>
+    </tr>
+  </table>
+
+  <h3>機能詳細</h3>
+  <table>
+    <tr>
+      <th width="20%">機能名</th>
+      <th width="40%">詳細</th>
+      <th width="40%">データ項目</th>
+    </tr>
+    <tr>
+      <td>ステップインジケーター</td>
+      <td>ステップ1完了（緑）、ステップ2アクティブ（青）</td>
+      <td>1.概要（完了） / 2.スキャン（アクティブ） / 3-8（未完了）</td>
+    </tr>
+    <tr>
+      <td>スキャン開始ボタン</td>
+      <td>オレンジグラデーションの目立つボタン（カード幅いっぱい）</td>
+      <td>-</td>
+    </tr>
+    <tr>
+      <td>スキャンデータ自動算出</td>
+      <td>スキャンデータ表示</td>
+      <td>面積差分（㎡） / 体積差分（㎥） / 延長差分（m） / 数量差分（t） / スキャン日時 / 解析完了日時</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ7-12: 工事日誌作成（ステップ3-8） ===== -->
+  <h2 id="page7">7. site_project_detail_report_create_step3.html - 工事日誌作成（ステップ3）</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ステップ3：作業内容・出来高入力ページ。作業項目の追加・削除が可能。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>工種（セレクト） / 作業内容（テキスト） / 作業箇所（テキスト） / 単位（セレクト） / 出来高（数値）</td>
+    </tr>
+  </table>
+
+  <h2 id="page8">8. site_project_detail_report_create_step4.html - 工事日誌作成（ステップ4）</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ステップ4：使用機械・協力業者入力ページ。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>使用機械名（セレクト） / 台数（数値） / 協力業者名（セレクト） / 人数（数値）</td>
+    </tr>
+  </table>
+
+  <h2 id="page9">9. site_project_detail_report_create_step5.html - 工事日誌作成（ステップ5）</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ステップ5：搬入材料・受入材料入力ページ。材料名選択時に規格寸法・単位が自動設定される。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>材料名（セレクト・規格寸法・単位自動設定） / 台帳数量（数値） / 受入材料名（セレクト・単位自動設定） / 数量（数値）</td>
+    </tr>
+  </table>
+
+  <h2 id="page10">10. site_project_detail_report_create_step6.html - 工事日誌作成（ステップ6）</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ステップ6：使用計測機器選択ページ。チェックボックスで複数選択可能。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>巻尺 / 外気温度計 / コンパクトメーター / 路面温度計 / 3Dスキャナ（自社アプリ）</td>
+    </tr>
+  </table>
+
+  <h2 id="page11">11. site_project_detail_report_create_step7.html - 工事日誌作成（ステップ7）</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ステップ7：日常点検結果・特記事項入力ページ。音声入力機能付き。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>日常点検結果（ラジオボタン：異常なし/異常あり） / 特記事項（音声入力ボタン・フリーテキスト入力）</td>
+    </tr>
+  </table>
+
+  <h2 id="page12">12. site_project_detail_report_create_step8.html - 工事日誌作成（ステップ8）</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ステップ8：作業写真アップロードページ。4カテゴリ（着工前/施工中/完了後/スキャン）。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>着工前 / 施工中 / 完了後 / スキャン（プラスボタンでカメラ/ファイル選択/スキャン開始ページへ）</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ13: 工事日誌プレビュー ===== -->
+  <h2 id="page13">13. site_project_detail_report_create_preview.html - 工事日誌プレビュー</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>案件管理（工事日誌プレビュー）</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>作成中の工事日誌をプレビュー表示。すべての項目が表示される。</td>
+    </tr>
+    <tr>
+      <td>表示内容</td>
+      <td>工事日誌ヘッダー / スキャンデータ / 作業内容・出来高 / 使用機械・作業員 / 搬入材料・受入材料 / 使用計測機器 / 日常点検結果 / 特記事項 / 作業写真</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ14-17: その他詳細ページ ===== -->
+  <h2 id="page14">14. site_project_detail_schedule.html - スケジュール</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ガントチャート表示。iPhone 17 Proサイズに最適化。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>工種 / 担当業者 / 区分（予定・実績） / 3月1日〜31日カレンダー / 日付ヘッダー（曜日付き） / 進捗率</td>
+    </tr>
+  </table>
+
+  <h2 id="page15">15. site_project_detail_overview.html - 工事概要</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>工事概要・契約情報表示。iPhone 17 Proサイズに最適化。1カラム縦並び。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>工事名 / 工事種類 / 工事場所 / 発注者 / 契約金額 / 工期 / 責任者（社内） / 現場代理人 / 主任技術者 / 状況 / 進捗率 / 備考 / 契約詳細情報</td>
+    </tr>
+  </table>
+
+  <h2 id="page16">16. site_project_detail_drawing.html - 図面</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>図面サムネイル表示（2カラム）。ライトボックス機能付き。iPhone 17 Proサイズに最適化。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>図面画像 / 図面タイトル / 図面説明</td>
+    </tr>
+  </table>
+
+  <h2 id="page17">17. site_project_detail_budget.html - 予算</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>予算vs実績テーブル。契約情報・予想収益サマリー。iPhone 17 Proサイズに最適化。1カラム縦並び。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>工種 / 仕様 / 単位 / 数量 / 予算単価 / 予算金額 / 出来高数量 / 当日迄予算 / 当月迄支出額 / 差異 / 契約概要 / 収益予測</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ18: チャット一覧 ===== -->
+  <h2 id="page18">18. site_chat_list.html - チャット一覧</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>チャット一覧</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>チャットリストを1カラムで表示。iPhone 17 Proサイズに最適化。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>チャットタイトル / 案件名 / 最終メッセージプレビュー / 時刻</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ19: お知らせ ===== -->
+  <h2 id="page19">19. site_notifications.html - お知らせ</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>お知らせ</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>お知らせ・通知をタブで切り替え表示。iPhone 17 Proサイズに最適化。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>お知らせ：タイトル / 日付 / 内容 / 未読・既読バッジ<br>通知：通知内容 / 日付 / 未読・既読バッジ</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ20: マイページ ===== -->
+  <h2 id="page20">20. site_myprof.html - マイページ</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>ページタイトル</td>
+      <td>マイページ</td>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>ユーザー情報表示・編集。パスワード変更機能付き。iPhone 17 Proサイズに最適化。</td>
+    </tr>
+    <tr>
+      <td>データ項目</td>
+      <td>ユーザー写真（円形） / 支店名 / 名前 / カナ / 職種 / 資格 / 担当工事種別 / 所属部署 / 電話番号 / メール / パスワード変更</td>
+    </tr>
+  </table>
+
+  <!-- ===== ページ21: フッターメニュー ===== -->
+  <h2 id="page21">21. site_footer.html - フッターメニュー</h2>
+  <table>
+    <tr>
+      <th width="15%">項目</th>
+      <th width="85%">内容</th>
+    </tr>
+    <tr>
+      <td>概要</td>
+      <td>固定フッター（黒背景・白文字）。全ページ共通で表示。</td>
+    </tr>
+    <tr>
+      <td>メニュー項目</td>
+      <td>案件トップ / 案件一覧 / チャット（未読バッジ） / お知らせ（未読バッジ） / マイページ（ユーザー名） / メニュー（ドロップダウン）</td>
+    </tr>
+    <tr>
+      <td>メニュードロップダウン</td>
+      <td>工事進捗 / 工事日誌 / スケジュール / 工事概要 / 図面 / 予算 / バージョン情報 / ログアウト</td>
+    </tr>
+    <tr>
+      <td>ページ別調整</td>
+      <td>各ページで特定のフッター項目を削除可能（JavaScriptで動的削除）</td>
+    </tr>
+  </table>
+
+  <hr>
+  <h2>共通仕様</h2>
+  <table>
+    <tr>
+      <th width="20%">項目</th>
+      <th width="80%">内容</th>
+    </tr>
+    <tr>
+      <td>デバイスサイズ</td>
+      <td>iPhone 17 Pro（393×852px）</td>
+    </tr>
+    <tr>
+      <td>フッター</td>
+      <td>固定フッター（下部固定、黒背景・白文字）</td>
+    </tr>
+    <tr>
+      <td>フォントサイズ</td>
+      <td>小さいフォントサイズで最適化（0.65rem〜0.9rem）</td>
+    </tr>
+    <tr>
+      <td>レイアウト</td>
+      <td>1カラム縦並びを基本とする</td>
+    </tr>
+    <tr>
+      <td>コンテンツ</td>
+      <td>土木工事（舗装工事など）向けにカスタマイズ</td>
+    </tr>
+  </table>
+
+  <hr>
+  <p style="text-align: center; font-size: 10px; color: #666;">
+    ※このドキュメントはExcelにコピー＆ペースト、またはブラウザから印刷してご利用ください。
+  </p>
+</body>
+</html>

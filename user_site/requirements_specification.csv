@@ -1,0 +1,82 @@
+ページ名,ファイルパス,ページタイトル,セクション,機能・要件,データ項目,操作・インタラクション,遷移先
+工事管理,site_project_list.html,工事管理,ヘッダー,ページタイトル,工事管理,-,-
+工事管理,site_project_list.html,工事管理,ステータスタブ,ステータス別フィルタリング（横スクロールボタン型）,すべて/工事中/工事完了/出来方完了（件数表示）,タブクリック,-
+工事管理,site_project_list.html,工事管理,パネルビュー,工事カード表示（1カラム縦並び）,工事名/ステータスバッジ/工事画像（左）/工事情報（右）/工事場所/工事種類/担当者/契約日/工事開始日/完了予定日/進捗率/未読メッセージ数,カードクリックで詳細遷移,site_project_detail.html
+工事管理,site_project_list.html,工事管理,リストビュー,工事テーブル表示,状況/工事名/工事種類/工事場所/担当者/完了予定日/未読数,行クリックで詳細遷移,site_project_detail.html
+案件トップ,site_project_detail.html,案件管理（概要）,工事概要カード,工事基本情報表示,工事種類/責任者（社内）/状況（ドロップダウン・保存ボタン）/協力業者リスト（業者名・担当工種・責任者・電話番号）,状況変更・保存/カードクリックで概要ページ遷移,site_project_detail_overview.html
+案件トップ,site_project_detail.html,案件管理（概要）,予算・実績カード,予算実績サマリー表示（1カラム縦並び）,項目/予算/実績/進捗率（直接工事費・経費・合計）/進捗バー,カードクリックで予算ページ遷移,site_project_detail_budget.html
+案件トップ,site_project_detail.html,案件管理（概要）,工事日誌カード,直近2日間の工事日誌表示（1カラム縦並び）,工事日誌新規作成ボタン（緑グラデーション）/日付/業者/工種/予算/当日実績,新規作成ボタンクリック/カードクリックで工事日誌一覧遷移,site_project_detail_report_create.html / site_project_detail_report.html
+案件トップ,site_project_detail.html,案件管理（概要）,スケジュールカード,ガントチャート（簡易版）,作業項目/区分（予定・実績）/3月カレンダー/凡例,カードクリックでスケジュールページ遷移,site_project_detail_schedule.html
+工事日誌一覧,site_project_detail_report.html,案件管理（工事日誌）,メインコンテンツ,工事日誌リスト表示（日付降順）,日付ヘッダー/業者名/工種/予算/当日実績（1社2行構成：工種行・経費行）,行クリックで工事日誌詳細遷移,site_project_detail_report_detail.html
+工事日誌一覧,site_project_detail_report.html,案件管理（工事日誌）,フッター,ページネーション,ページ番号/前後ボタン,ページ切り替え,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,パンくず,階層ナビゲーション,工事日誌一覧 > 工事日誌詳細,リンククリック,site_project_detail_report.html
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,工事日誌ヘッダー,基本情報表示,社内工事名/協力会社/工事日誌タイトル/担当者名/確認者/作業日時/天候/作業時間/気温,-,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,スキャンデータ自動算出,3Dスキャナによる出来高自動検出,面積差分（㎡）/体積差分（㎥）/延長差分（m）/数量差分（t）/スキャン日時/解析完了日時/AI解析済みバッジ,-,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,作業内容・出来高,作業詳細テーブル,工種/作業内容/作業箇所/単位/出来高,-,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,使用機械・作業員,機械・人員テーブル,使用機械名/台数/協力業者名/人数,-,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,搬入材料,材料テーブル,品名/規格・寸法/単位/台帳数量/受入材料名/数量,-,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,使用計測機器,計測機器バッジ,巻尺/外気温度計/コンパクトメーター/路面温度計/3Dスキャナ（自社アプリ）,-,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,日常点検結果,点検ラジオボタン,異常なし/異常あり,-,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,記事,特記事項テキスト,自由記述テキスト,-,-
+工事日誌詳細,site_project_detail_report_detail.html,案件管理（工事日誌詳細）,作業写真,写真プレースホルダー,着工前/施工中/完了後/3Dスキャン,-,-
+工事日誌作成（ステップ1）,site_project_detail_report_create.html,案件管理（工事日誌作成）,ステップインジケーター,8ステップ進行状況表示,1.概要/2.スキャン/3.作・高/4.機・人/5.材料/6.計器/7.点検・記/8.写真,ステップ番号クリックで該当ステップへ遷移,各ステップページ
+工事日誌作成（ステップ1）,site_project_detail_report_create.html,案件管理（工事日誌作成）,プレビューボタン,プレビューページ表示,横幅いっぱいのボタン,ボタンクリック,site_project_detail_report_create_preview.html?step=1
+工事日誌作成（ステップ1）,site_project_detail_report_create.html,案件管理（工事日誌作成）,工事日誌タイトル,タイトル表示,工事日誌作成（カード上部）,-
+工事日誌作成（ステップ1）,site_project_detail_report_create.html,案件管理（工事日誌作成）,工事日誌ヘッダー,基本情報入力,社内工事名/協力会社（セレクト）/担当者名（セレクト）/確認者,-,-
+工事日誌作成（ステップ1）,site_project_detail_report_create.html,案件管理（工事日誌作成）,ステップ1：概要,基本情報入力フォーム,作業日時（日付選択）/天候（セレクト）/作業時間（開始・終了時刻）/気温（最高・最低）,入力・選択,-
+工事日誌作成（ステップ1）,site_project_detail_report_create.html,案件管理（工事日誌作成）,アクションボタン,下書き保存・次へボタン,下書き保存/次へ,ボタンクリック,site_project_detail_report_create_step2.html
+工事日誌作成（ステップ2）,site_project_detail_report_create_step2.html,案件管理（工事日誌作成 - ステップ2）,ステップインジケーター,8ステップ進行状況表示（ステップ2アクティブ）,1.概要（完了）/2.スキャン（アクティブ）/3-8（未完了）,ステップ番号クリックで該当ステップへ遷移,各ステップページ
+工事日誌作成（ステップ2）,site_project_detail_report_create_step2.html,案件管理（工事日誌作成 - ステップ2）,プレビューボタン,プレビューページ表示,横幅いっぱいのボタン,ボタンクリック,site_project_detail_report_create_preview.html?step=2
+工事日誌作成（ステップ2）,site_project_detail_report_create_step2.html,案件管理（工事日誌作成 - ステップ2）,ステップ2：スキャン,スキャン開始ボタン（オレンジグラデーション）,カード幅いっぱいの大きいボタン,ボタンクリック（後で実装予定）,-
+工事日誌作成（ステップ2）,site_project_detail_report_create_step2.html,案件管理（工事日誌作成 - ステップ2）,ステップ2：スキャン,スキャンデータ自動算出表示,面積差分（㎡）/体積差分（㎥）/延長差分（m）/数量差分（t）/スキャン日時/解析完了日時,-,-
+工事日誌作成（ステップ2）,site_project_detail_report_create_step2.html,案件管理（工事日誌作成 - ステップ2）,アクションボタン,戻る・下書き保存・次へボタン,戻る/下書き保存/次へ,ボタンクリック,site_project_detail_report_create.html / site_project_detail_report_create_step3.html
+工事日誌作成（ステップ3）,site_project_detail_report_create_step3.html,案件管理（工事日誌作成 - ステップ3）,ステップインジケーター,8ステップ進行状況表示（ステップ3アクティブ）,1-2（完了）/3.作・高（アクティブ）/4-8（未完了）,ステップ番号クリックで該当ステップへ遷移,各ステップページ
+工事日誌作成（ステップ3）,site_project_detail_report_create_step3.html,案件管理（工事日誌作成 - ステップ3）,プレビューボタン,プレビューページ表示,横幅いっぱいのボタン,ボタンクリック,site_project_detail_report_create_preview.html?step=3
+工事日誌作成（ステップ3）,site_project_detail_report_create_step3.html,案件管理（工事日誌作成 - ステップ3）,ステップ3：作業内容・出来高,作業項目入力フォーム（追加・削除可能）,工種（セレクト）/作業内容（テキスト）/作業箇所（テキスト）/単位（セレクト）/出来高（数値）,入力・追加・削除,-
+工事日誌作成（ステップ3）,site_project_detail_report_create_step3.html,案件管理（工事日誌作成 - ステップ3）,アクションボタン,戻る・下書き保存・次へボタン,戻る/下書き保存/次へ,ボタンクリック,site_project_detail_report_create_step2.html / site_project_detail_report_create_step4.html
+工事日誌作成（ステップ4）,site_project_detail_report_create_step4.html,案件管理（工事日誌作成 - ステップ4）,ステップインジケーター,8ステップ進行状況表示（ステップ4アクティブ）,1-3（完了）/4.機・人（アクティブ）/5-8（未完了）,ステップ番号クリックで該当ステップへ遷移,各ステップページ
+工事日誌作成（ステップ4）,site_project_detail_report_create_step4.html,案件管理（工事日誌作成 - ステップ4）,プレビューボタン,プレビューページ表示,横幅いっぱいのボタン,ボタンクリック,site_project_detail_report_create_preview.html?step=4
+工事日誌作成（ステップ4）,site_project_detail_report_create_step4.html,案件管理（工事日誌作成 - ステップ4）,ステップ4：使用機械,使用機械入力フォーム（追加・削除可能）,使用機械名（セレクト）/台数（数値）,入力・追加・削除,-
+工事日誌作成（ステップ4）,site_project_detail_report_create_step4.html,案件管理（工事日誌作成 - ステップ4）,ステップ4：協力業者,協力業者入力フォーム（追加・削除可能）,協力業者名（セレクト）/人数（数値）,入力・追加・削除,-
+工事日誌作成（ステップ4）,site_project_detail_report_create_step4.html,案件管理（工事日誌作成 - ステップ4）,アクションボタン,戻る・下書き保存・次へボタン,戻る/下書き保存/次へ,ボタンクリック,site_project_detail_report_create_step3.html / site_project_detail_report_create_step5.html
+工事日誌作成（ステップ5）,site_project_detail_report_create_step5.html,案件管理（工事日誌作成 - ステップ5）,ステップインジケーター,8ステップ進行状況表示（ステップ5アクティブ）,1-4（完了）/5.材料（アクティブ）/6-8（未完了）,ステップ番号クリックで該当ステップへ遷移,各ステップページ
+工事日誌作成（ステップ5）,site_project_detail_report_create_step5.html,案件管理（工事日誌作成 - ステップ5）,プレビューボタン,プレビューページ表示,横幅いっぱいのボタン,ボタンクリック,site_project_detail_report_create_preview.html?step=5
+工事日誌作成（ステップ5）,site_project_detail_report_create_step5.html,案件管理（工事日誌作成 - ステップ5）,ステップ5：搬入材料,搬入材料入力フォーム（追加・削除可能）,材料名（セレクト・規格寸法・単位自動設定）/台帳数量（数値）,入力・追加・削除,-
+工事日誌作成（ステップ5）,site_project_detail_report_create_step5.html,案件管理（工事日誌作成 - ステップ5）,ステップ5：受入材料,受入材料入力フォーム（追加・削除可能）,受入材料名（セレクト・単位自動設定）/数量（数値）,入力・追加・削除,-
+工事日誌作成（ステップ5）,site_project_detail_report_create_step5.html,案件管理（工事日誌作成 - ステップ5）,アクションボタン,戻る・下書き保存・次へボタン,戻る/下書き保存/次へ,ボタンクリック,site_project_detail_report_create_step4.html / site_project_detail_report_create_step6.html
+工事日誌作成（ステップ6）,site_project_detail_report_create_step6.html,案件管理（工事日誌作成 - ステップ6）,ステップインジケーター,8ステップ進行状況表示（ステップ6アクティブ）,1-5（完了）/6.計器（アクティブ）/7-8（未完了）,ステップ番号クリックで該当ステップへ遷移,各ステップページ
+工事日誌作成（ステップ6）,site_project_detail_report_create_step6.html,案件管理（工事日誌作成 - ステップ6）,プレビューボタン,プレビューページ表示,横幅いっぱいのボタン,ボタンクリック,site_project_detail_report_create_preview.html?step=6
+工事日誌作成（ステップ6）,site_project_detail_report_create_step6.html,案件管理（工事日誌作成 - ステップ6）,ステップ6：使用計測機器,計測機器チェックボックス（複数選択）,巻尺/外気温度計/コンパクトメーター/路面温度計/3Dスキャナ（自社アプリ）,チェックボックス選択,-
+工事日誌作成（ステップ6）,site_project_detail_report_create_step6.html,案件管理（工事日誌作成 - ステップ6）,アクションボタン,戻る・下書き保存・次へボタン,戻る/下書き保存/次へ,ボタンクリック,site_project_detail_report_create_step5.html / site_project_detail_report_create_step7.html
+工事日誌作成（ステップ7）,site_project_detail_report_create_step7.html,案件管理（工事日誌作成 - ステップ7）,ステップインジケーター,8ステップ進行状況表示（ステップ7アクティブ）,1-6（完了）/7.点検・記（アクティブ）/8（未完了）,ステップ番号クリックで該当ステップへ遷移,各ステップページ
+工事日誌作成（ステップ7）,site_project_detail_report_create_step7.html,案件管理（工事日誌作成 - ステップ7）,プレビューボタン,プレビューページ表示,横幅いっぱいのボタン,ボタンクリック,site_project_detail_report_create_preview.html?step=7
+工事日誌作成（ステップ7）,site_project_detail_report_create_step7.html,案件管理（工事日誌作成 - ステップ7）,ステップ7：日常点検結果,点検結果ラジオボタン,異常なし/異常あり,ラジオボタン選択,-
+工事日誌作成（ステップ7）,site_project_detail_report_create_step7.html,案件管理（工事日誌作成 - ステップ7）,ステップ7：特記事項,特記事項入力（音声入力対応）,音声入力ボタン（録音中アニメーション）/フリーテキスト入力（テキストエリア）,音声入力/テキスト入力,-
+工事日誌作成（ステップ7）,site_project_detail_report_create_step7.html,案件管理（工事日誌作成 - ステップ7）,アクションボタン,戻る・下書き保存・次へボタン,戻る/下書き保存/次へ,ボタンクリック,site_project_detail_report_create_step6.html / site_project_detail_report_create_step8.html
+工事日誌作成（ステップ8）,site_project_detail_report_create_step8.html,案件管理（工事日誌作成 - ステップ8）,ステップインジケーター,8ステップ進行状況表示（ステップ8アクティブ）,1-7（完了）/8.写真（アクティブ）,ステップ番号クリックで該当ステップへ遷移,各ステップページ
+工事日誌作成（ステップ8）,site_project_detail_report_create_step8.html,案件管理（工事日誌作成 - ステップ8）,プレビューボタン,プレビューページ表示,横幅いっぱいのボタン,ボタンクリック,site_project_detail_report_create_preview.html?step=8
+工事日誌作成（ステップ8）,site_project_detail_report_create_step8.html,案件管理（工事日誌作成 - ステップ8）,ステップ8：作業写真,写真アップロード（4カテゴリ）,着工前/施工中/完了後/スキャン,プラスボタンクリック（カメラ/ファイル選択/スキャン開始ページへ）,site_project_detail_report_create_step2.html
+工事日誌作成（ステップ8）,site_project_detail_report_create_step8.html,案件管理（工事日誌作成 - ステップ8）,アクションボタン,戻る・下書き保存・完了ボタン,戻る/下書き保存/完了,ボタンクリック,site_project_detail_report_create_step7.html / site_project_detail_report.html
+工事日誌プレビュー,site_project_detail_report_create_preview.html,案件管理（工事日誌プレビュー）,プレビューバッジ,プレビュー表示警告,編集するには各ステップに戻る必要があることを示す,-
+工事日誌プレビュー,site_project_detail_report_create_preview.html,案件管理（工事日誌プレビュー）,工事日誌ヘッダー,基本情報表示,社内工事名/協力会社/工事日誌タイトル/担当者名/確認者/作業日時/天候/作業時間/気温,-,-
+工事日誌プレビュー,site_project_detail_report_create_preview.html,案件管理（工事日誌プレビュー）,全セクション表示,すべての項目を表示,スキャンデータ/作業内容・出来高/使用機械・作業員/搬入材料・受入材料/使用計測機器/日常点検結果/特記事項/作業写真,-
+工事日誌プレビュー,site_project_detail_report_create_preview.html,案件管理（工事日誌プレビュー）,アクションボタン,戻る・印刷ボタン,戻る/印刷,ボタンクリック,各ステップページ
+スケジュール,site_project_detail_schedule.html,案件管理（スケジュール）,ガントチャート,詳細工程表,工種/担当業者/区分（予定・実績）/3月1日〜31日カレンダー/日付ヘッダー（曜日付き）/進捗率,横スクロール,-
+スケジュール,site_project_detail_schedule.html,案件管理（スケジュール）,凡例・サマリー,進捗状況表示,凡例（予定・実績・本日）/全体進捗率/カテゴリ別進捗,-
+工事概要,site_project_detail_overview.html,案件管理（工事概要）,工事概要カード,工事詳細情報,工事名/工事種類/工事場所/発注者/契約金額/工期/責任者（社内）/現場代理人/主任技術者/状況（ドロップダウン・保存）/進捗率/備考,編集ボタン/状況変更・保存,-
+工事概要,site_project_detail_overview.html,案件管理（工事概要）,契約情報カード,契約詳細情報,舗装厚/使用材料/施工面積/施工延長/車線規制/作業時間/騒音規制/振動規制/排水勾配/品質基準/養生期間/保証期間,編集ボタン,-
+図面,site_project_detail_drawing.html,案件管理（図面）,図面カードグリッド,図面サムネイル表示（2カラム）,図面画像/図面タイトル/図面説明,カードクリックでライトボックス表示,-
+図面,site_project_detail_drawing.html,案件管理（図面）,ライトボックス,拡大表示,拡大画像/タイトル/閉じるボタン,ESCキー/×ボタン/背景クリックで閉じる,-
+図面,site_project_detail_drawing.html,案件管理（図面）,図面追加カード,ファイルアップロード,画像・PDF対応,クリックでファイル選択ダイアログ,-
+予算,site_project_detail_budget.html,案件管理（予算）,日次出来高対比表,予算vs実績テーブル,工種/仕様/単位/数量/予算単価/予算金額/出来高数量（前日まで・当日・当日迄）/当日迄予算/当月迄支出額/差異,横スクロール,-
+予算,site_project_detail_budget.html,案件管理（予算）,契約情報サマリー,契約概要,取決め金額/S経費/粗利益/粗利益率,-
+予算,site_project_detail_budget.html,案件管理（予算）,予想収益サマリー,収益予測,変更見込/最終金額/予想利益/予想利益率,-
+チャット一覧,site_chat_list.html,チャット一覧,検索バー,チャット検索,検索キーワード,入力・検索ボタンクリック,-
+チャット一覧,site_chat_list.html,チャット一覧,チャットリスト,チャット項目表示,チャットタイトル/案件名/最終メッセージプレビュー/時刻,項目クリックでチャット詳細遷移,-
+お知らせ,site_notifications.html,お知らせ,タブ,お知らせ・通知切り替え,お知らせ/通知（未読バッジ付き）,タブ切り替え,-
+お知らせ,site_notifications.html,お知らせ,お知らせリスト,お知らせ項目表示,タイトル/日付/内容/未読・既読バッジ,項目クリック,-
+お知らせ,site_notifications.html,お知らせ,通知リスト,通知項目表示,通知内容/日付/未読・既読バッジ,項目クリック,-
+マイページ,site_myprof.html,マイページ,ユーザー情報カード,ユーザー情報表示・編集,ユーザー写真（円形）/支店名/名前/カナ/職種/資格/担当工事種別/所属部署/電話番号/メール/パスワード変更ボタン,パスワード変更ボタンクリック,-
+マイページ,site_myprof.html,マイページ,パスワード変更モーダル,パスワード変更フォーム,新しいパスワード/パスワード確認,入力・保存,-
+フッター,site_footer.html,フッターメニュー,ナビゲーションメニュー,固定フッター（黒背景・白文字）,案件トップ/案件一覧/チャット（未読バッジ）/お知らせ（未読バッジ）/マイページ（ユーザー名）/メニュー（ドロップダウン）,アイコンクリック,各ページ
+フッター,site_footer.html,フッターメニュー,メニュードロップダウン,工事関連メニュー,工事進捗/工事日誌/スケジュール/工事概要/図面/予算/バージョン情報/ログアウト,メニュークリック,各ページ

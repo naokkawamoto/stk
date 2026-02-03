@@ -2,86 +2,166 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>案件管理（お知らせ/通知）</title>
-  <meta name="viewport" content="width=1024, height=1366, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>マイページ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!-- カスタムCSS -->
+  <link rel="stylesheet" href="../style.css">
   <style>
-    /* iPadPro 1024×1366向け最適化 */
+    /* iPhone 17 Pro 393×852向け最適化 */
     body, html {
-      width: 1024px;
-      height: 1366px;
+      width: 393px;
+      height: 852px;
       margin: 0;
       padding: 0;
-      overflow: hidden;
-    }
-    .container-fluid {
-      max-width: 1024px;
-      height: calc(100vh - 56px);
+      overflow-x: hidden;
       overflow-y: auto;
     }
+    .container-fluid {
+      max-width: 393px;
+      padding-bottom: 70px;
+      margin-top: 0.5rem;
+    }
+    .small-text { font-size: 0.7rem; }
+    .project-title { white-space: nowrap; font-size: 0.9rem; }
+    .info-table { font-size: 0.65rem; }
+    .info-table th { background-color: #f8f9fa; white-space: nowrap; }
+    .info-table td { word-break: break-word; }
+    /* Footer fixed */
     #footer-container {
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 1024px;
+      width: 393px;
       z-index: 1000;
     }
-    .unread {
-      background-color: #f8f9fa;
+    #footer-container footer {
+      width: 100%;
+    }
+    .user-photo {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+    }
+    .modal-dialog {
+      max-width: 350px;
+    }
+    .modal-title {
+      font-size: 0.9rem;
+    }
+    .form-label {
+      font-size: 0.7rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+    .form-control {
+      font-size: 0.65rem;
+      padding: 0.4rem 0.5rem;
     }
   </style>
 </head>
 <body>
-  <div class="container-fluid mt-4 px-3">
-    
+  <div class="container-fluid px-2">
+    <!-- タイトル -->
+    <h5 class="mb-2 mt-2 project-title fw-bold text-center">山田太郎 - マイページ</h5>
 
-    <div class="container mt-4">
-      <!-- 検査者情報確認カード（常に展開状態） -->
-      <div class="card mb-3">
-        <div class="card-header" style="font-size: 0.8rem;">
-          <h5 class="mb-0">検査者情報確認(ユーザー名：河本直己)</h5>
+    <!-- ユーザー情報カード -->
+    <div class="card mb-2">
+      <div class="card-body p-2">
+        <div class="row">
+          <!-- ユーザー写真 -->
+          <div class="col-12 text-center mb-2">
+            <img src="../images/nk_icon.gif" alt="User Photo" class="rounded-circle user-photo">
+          </div>
+          <!-- ユーザー情報 -->
+          <div class="col-12">
+            <table class="table table-bordered info-table mb-2">
+              <tbody>
+                <tr><th style="width: 100px;">支店名</th><td>東京支店</td></tr>
+                <tr><th>名前</th><td>山田 太郎</td></tr>
+                <tr><th>カナ</th><td>ヤマダ タロウ</td></tr>
+                <tr><th>職種</th><td>工事部長</td></tr>
+                <tr><th>資格</th><td>1級土木施工管理技士、測量士</td></tr>
+                <tr><th>担当工事種別</th><td>舗装工事、道路改良、駐車場造成</td></tr>
+                <tr><th>所属部署</th><td>土木部 舗装課</td></tr>
+                <tr><th>電話番号</th><td>090-1234-5678</td></tr>
+                <tr><th>メール</th><td>yamada@example.com</td></tr>
+              </tbody>
+            </table>
+            <div class="d-flex align-items-center justify-content-between">
+              <span class="small-text">パスワード: ********</span>
+              <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#changePasswordModal" style="font-size: 0.65rem;">
+                変更
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-          <form style="font-size: 0.8rem;">
+      </div>
+    </div>
+  </div>
+  
+  <!-- パスワード変更モーダル -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordModalLabel">パスワード変更</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        </div>
+        <div class="modal-body">
+          <form id="changePasswordForm">
             <div class="mb-3">
-              <label for="inputKoushu" class="form-label">1. 講習機関名/修了証明書番号</label>
-              <input type="text" class="form-control" id="inputKoushu" placeholder="例：○○講習機関 / 123456">
+              <label for="newPassword" class="form-label">新しいパスワード</label>
+              <input type="password" class="form-control" id="newPassword" required>
             </div>
             <div class="mb-3">
-              <label for="selectKenchikushi" class="form-label">2. 建築士資格種別</label>
-              <select class="form-select" id="selectKenchikushi">
-                <option value="一級">一級</option>
-                <option value="二級">二級</option>
-                <option value="木造">木造</option>
-              </select>
+              <label for="confirmPassword" class="form-label">パスワード確認</label>
+              <input type="password" class="form-control" id="confirmPassword" required>
             </div>
-            <div class="mb-3">
-              <label for="inputTouroku" class="form-label">3. 建築士登録番号</label>
-              <input type="number" class="form-control" id="inputTouroku" placeholder="例：123456">
-            </div>
-            <div class="mb-3">
-              <label for="inputJimusho" class="form-label">4. 所属事務所名</label>
-              <input type="text" class="form-control" id="inputJimusho" placeholder="onetech事務所">
-            </div>
-            <div class="mb-3">
-              <label for="inputJimushoNo" class="form-label">5. 建築士事務所登録番号</label>
-              <input type="text" class="form-control" id="inputJimushoNo" placeholder="例：登録番号">
+            <div class="text-end">
+              <button type="button" class="btn btn-outline-secondary btn-sm me-2" data-bs-dismiss="modal" style="font-size: 0.7rem;">キャンセル</button>
+              <button type="submit" class="btn btn-primary btn-sm" style="font-size: 0.7rem;">保存</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
+  
+  <!-- フッター -->
   <div id="footer-container"></div>
+  
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../style.js"></script>
-  <script>fetch('site_footer.html').then(r=>r.text()).then(html=>{document.getElementById('footer-container').innerHTML=html;});</script>
+  <script>
+    fetch('site_footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('footer-container').innerHTML = html;
+      });
+
+    // パスワード変更フォームの処理
+    document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      if (newPassword !== confirmPassword) {
+        alert('パスワードが一致しません。');
+      } else {
+        alert('パスワードを変更しました。');
+        // パスワード変更の処理を実装
+        const modalEl = document.getElementById('changePasswordModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+        // フォームをリセット
+        document.getElementById('changePasswordForm').reset();
+      }
+    });
+  </script>
 </body>
 </html>
-
-
-

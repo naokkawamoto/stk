@@ -33,29 +33,21 @@
   </style>
 </head>
 <body>
-  <footer class="text-center text-lg-start" style="background-color: var(--main-color); color: white;">
+  <footer class="text-center text-lg-start" style="background-color: black; color: white;">
     <div class="container py-2">
       <div class="d-flex justify-content-around align-items-center">
+        <!-- 案件トップ -->
+        <div class="footer-item">
+          <a href="site_project_detail.html" class="footer-link text-white">
+            <i class="bi bi-house-fill footer-icon"></i>
+            <div class="footer-text" style="font-size: 0.4rem;">案件トップ</div>
+          </a>
+        </div>
         <!-- 案件一覧 -->
         <div class="footer-item">
           <a href="site_project_list.html" class="footer-link text-white">
             <i class="bi bi-list footer-icon"></i>
             <div class="footer-text">案件一覧</div>
-          </a>
-        </div>
-        <!-- マイページ -->
-        <div class="footer-item">
-          <a href="site_myprof.html" class="footer-link text-white">
-            <i class="bi bi-person-fill footer-icon"></i>
-            <div class="footer-text">マイページ</div>
-          </a>
-        </div>
-        <!-- お知らせ -->
-        <div class="footer-item position-relative">
-          <a href="site_notifications.html" class="footer-link text-white">
-            <i class="bi bi-bell-fill footer-icon"></i>
-            <span class="badge bg-danger footer-badge">3</span>
-            <div class="footer-text">お知らせ</div>
           </a>
         </div>
         <!-- チャット -->
@@ -66,6 +58,21 @@
             <div class="footer-text">チャット</div>
           </a>
         </div>
+        <!-- お知らせ -->
+        <div class="footer-item position-relative">
+          <a href="site_notifications.html" class="footer-link text-white">
+            <i class="bi bi-bell-fill footer-icon"></i>
+            <span class="badge bg-danger footer-badge">3</span>
+            <div class="footer-text">お知らせ</div>
+          </a>
+        </div>
+        <!-- マイページ -->
+        <div class="footer-item">
+          <a href="site_myprof.html" class="footer-link text-white">
+            <i class="bi bi-person-fill footer-icon"></i>
+            <div class="footer-text" style="font-size: 0.4rem;">山田太郎</div>
+          </a>
+        </div>
         <!-- メニュー -->
         <div class="footer-item dropdown">
           <a href="#" id="footerMenuBtn" class="footer-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,9 +80,12 @@
             <div class="footer-text">メニュー</div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="site_settings.html">設定</a></li>
-            <li><a class="dropdown-item" href="site_terms_of_service.html">利用規約</a></li>
-            <li><a class="dropdown-item" href="site_privacy_policy.html">プライバシーポリシー</a></li>
+            <li><a class="dropdown-item" href="site_project_detail.html">工事進捗</a></li>
+            <li><a class="dropdown-item" href="site_project_detail_report.html">工事日誌</a></li>
+            <li><a class="dropdown-item" href="site_project_detail_schedule.html">スケジュール</a></li>
+            <li><a class="dropdown-item" href="site_project_detail_overview.html">工事概要</a></li>
+            <li><a class="dropdown-item" href="site_project_detail_drawing.html">図面</a></li>
+            <li><a class="dropdown-item" href="site_project_detail_budget.html">予算</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><span class="dropdown-item-text">v.1.0.1</span></li>
             <li><hr class="dropdown-divider"></li>

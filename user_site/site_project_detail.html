@@ -3,1512 +3,349 @@
 <head>
   <meta charset="UTF-8">
   <title>案件管理（概要）</title>
-  <meta name="viewport" content="width=1024, height=1366, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Bootstrap CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- Bootstrap CSS (5系) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+  <!-- Bootstrap Icons CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- カスタムCSS -->
+  <link rel="stylesheet" href="../style.css">
   <style>
-    /* iPadPro 1024×1366向け最適化 */
+    /* iPhone 17 Pro 393×852向け最適化 */
     body, html {
-      width: 1024px;
-      height: 1366px;
+      width: 393px;
+      height: 852px;
       margin: 0;
       padding: 0;
-      overflow: hidden;
-    }
-    .container-fluid {
-      max-width: 1024px;
-      height: calc(100vh - 56px); /* footer 56px */
+      overflow-x: hidden;
       overflow-y: auto;
     }
+    .container-fluid {
+      max-width: 393px;
+      padding-bottom: 70px; /* フッター分のスペース */
+      margin-top: 0.5rem;
+    }
+    .small-text { font-size: 0.7rem; }
+    .project-title { white-space: nowrap; font-size: 0.9rem; }
+    .info-table { font-size: 0.65rem; }
+    .info-table th { background-color: #f8f9fa; width: 100px; }
+    .budget-table { font-size: 0.65rem; }
+    .budget-table th { background-color: #f8f9fa; }
+    .conditions-list { font-size: 0.7rem; }
+    .gantt-container { overflow-x: auto; }
+    .gantt-table { font-size: 0.6rem; min-width: 600px; }
+    .gantt-table th, .gantt-table td { text-align: center; padding: 2px 1px; }
+    .gantt-table .task-name { text-align: left; white-space: nowrap; }
+    .gantt-bar-planned { background-color: #0d6efd; height: 6px; border-radius: 2px; }
+    .gantt-bar-actual { background-color: #198754; height: 6px; border-radius: 2px; margin-top: 2px; }
+    .gantt-cell { position: relative; height: 20px; }
+    .progress-good { color: #198754; font-weight: bold; }
+    .progress-delay { color: #dc3545; font-weight: bold; }
+    .clickable-card { text-decoration: none; color: inherit; display: block; }
+    .clickable-card:hover { text-decoration: none; color: inherit; }
+    .clickable-card .card { transition: box-shadow 0.2s, transform 0.2s; cursor: pointer; }
+    .clickable-card:hover .card { box-shadow: 0 4px 12px rgba(0,0,0,0.15); transform: translateY(-2px); }
     /* Footer fixed */
     #footer-container {
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 1024px;
+      width: 393px;
       z-index: 1000;
+    }
+    #footer-container footer {
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <div class="container-fluid mt-4 px-3">
-    <!-- ヘッダー：会社名＋案件名 & フロー -->
-    <div class="d-flex justify-content-between align-items-center mb-2">
-      <div class="text-start">
-        <h5 class="mb-0">会社名</h5>
-        <h4 class="mb-0 d-inline">案件名 <i class="bi bi-star"></i></h4>
+  <div class="container-fluid px-2">
+    <!-- タイトル -->
+    <h5 class="mb-2 mt-2 project-title fw-bold">国道９号舗装工事 <i class="bi bi-star"></i></h5>
+    
+    <!-- セクション1：工事概要（1カード） -->
+    <div class="card mb-3 clickable-card" onclick="location.href='site_project_detail_overview.html'" style="cursor: pointer;">
+      <div class="card-header py-2">
+        <span class="fw-bold small-text">工事概要</span>
       </div>
-      <div class="text-end">
-        <span class="me-2">案件フロー:</span>
-        <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-          <option value="registration">案件登録済</option>
-          <option value="investigate">現地調査済</option>
-          <option value="design">プラン中</option>
-          <option value="contract">契約完了</option>
-          <option value="complete">他決完了</option>
-        </select>
-        <button class="btn btn-outline-primary btn-sm">変更</button>
-      </div>
-    </div>
-
-    <!-- ワークフローバッジ -->
-    <div class="d-flex justify-content-end mb-3">
-      <span class="badge bg-primary me-2">案件登録済</span>
-      <span class="badge bg-light text-dark me-2">現地調査済</span>
-      <span class="badge bg-light text-dark me-2">プラン中</span>
-      <span class="badge bg-light text-dark me-2">契約完了</span>
-      <span class="badge bg-light text-dark me-2">他決完了</span>
-    </div>
-
-    <!-- メインナビゲーションタブ -->
-    <ul class="nav nav-tabs mb-3">
-      <!-- ... existing primary tabs ... -->
-      <li class="nav-item">
-        <a class="nav-link active" href="#overview" data-bs-toggle="tab">概要</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="site_project_detail_investigate.html">現地調査</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="site_project_detail_designlist.html">プラン一覧</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="site_project_detail_doc.html">お客様資料</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="site_project_detail_chat.html">チャット <span class="badge bg-danger">5</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="site_project_detail_expartner.html">外部協力会社依頼<span class="badge bg-danger">3</span></a>
-      </li>
-      
-    </ul>
-    <div class="tab-content">
-      <!-- 概要タブ -->
-      <div class="tab-pane fade show active" id="overview">
-        <div class="p-3">
-          <h4>概要</h4>
-          <!-- サブタブ -->
-          <ul class="nav nav-tabs mb-3" id="overviewSubTabs" role="tablist">
-            <li class="nav-item" role="presentation">
-              <button class="nav-link active" id="sub-customer-tab" data-bs-toggle="tab" data-bs-target="#sub-customer" type="button" role="tab" aria-controls="sub-customer" aria-selected="true">顧客情報</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="sub-response-tab" data-bs-toggle="tab" data-bs-target="#sub-response" type="button" role="tab" aria-controls="sub-response" aria-selected="false">反響情報</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="sub-plan-tab" data-bs-toggle="tab" data-bs-target="#sub-plan" type="button" role="tab" aria-controls="sub-plan" aria-selected="false">計画内容</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="sub-property-tab" data-bs-toggle="tab" data-bs-target="#sub-property" type="button" role="tab" aria-controls="sub-property" aria-selected="false">物件情報</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="sub-precheck-tab" data-bs-toggle="tab" data-bs-target="#sub-precheck" type="button" role="tab" aria-controls="sub-precheck" aria-selected="false">調査判断</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="sub-staff-tab" data-bs-toggle="tab" data-bs-target="#sub-staff" type="button" role="tab" aria-controls="sub-staff" aria-selected="false">社内担当者</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <!-- タブ名を「関係者情報」に変更 -->
-              <button class="nav-link" id="sub-related-tab" data-bs-toggle="tab" data-bs-target="#sub-related" type="button" role="tab" aria-controls="sub-related" aria-selected="false">外部協力会社</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="sub-officialdocs-tab" data-bs-toggle="tab" data-bs-target="#sub-official-docs" type="button" role="tab" aria-controls="sub-official-docs" aria-selected="false">登記資料</button>
-            </li>
-            <li class="nav-item" role="presentation">
-              <button class="nav-link" id="sub-docs-tab" data-bs-toggle="tab" data-bs-target="#sub-docs" type="button" role="tab" aria-controls="sub-docs" aria-selected="false">既存資料</button>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <!-- 顧客情報 -->
-            <div class="tab-pane fade show active" id="sub-customer" role="tabpanel" aria-labelledby="sub-customer-tab">
-              <form>
-                <div class="card mb-3">
-                  <div class="card-header d-flex justify-content-between">
-                    <span>顧客情報</span>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">編集</button>
-                  </div>
-                  <div class="card-body">
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <label class="form-label">施主ID <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="owner_id" maxlength="255" required placeholder="既存施主IDを入力">
-                    </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客名（施主） <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="owner_name" maxlength="50" required placeholder="顧客名（施主）">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客名（カナ） <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="owner_name_kana" maxlength="50" pattern="[\u30A0-\u30FF\u3000 ]+" required placeholder="カタカナで入力">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客種別 <span class="text-danger">*</span></label>
-                        <select class="form-select" name="owner_type" required>
-                          <option value="">選択してください</option>
-                          <option value="個人">個人</option>
-                          <option value="法人">法人</option>
-                        </select>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客電話番号1 <span class="text-danger">*</span></label>
-                        <input type="tel" class="form-control" name="owner_phone1" maxlength="15" pattern="[0-9\-]+" required placeholder="例: 080-1234-5678">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客電話番号2</label>
-                        <input type="tel" class="form-control" name="owner_phone2" maxlength="15" pattern="[0-9\-]" placeholder="例: 03-1234-5678">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客メールアドレス <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" name="owner_email" maxlength="100" required placeholder="例: example@email.com">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客性別 <span class="text-danger">*</span></label>
-                        <div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="owner_gender" value="男性" required>
-                            <label class="form-check-label">男性</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="owner_gender" value="女性">
-                            <label class="form-check-label">女性</label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="owner_gender" value="その他">
-                            <label class="form-check-label">その他</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客生年月日 <span class="text-danger">*</span></label>
-                        <input type="date" class="form-control" name="owner_birthdate" required placeholder="YYYY-MM-DD">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">顧客郵便番号 <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="owner_postal_code" maxlength="7" pattern="[0-9]{7}" required placeholder="例: 1600022">
-                      </div>
-                      <div class="col-12">
-                        <label class="form-label">顧客住所 <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="owner_address" maxlength="200" required placeholder="郵便番号から自動取得可">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <!-- 反響情報 -->
-            <div class="tab-pane fade" id="sub-response" role="tabpanel" aria-labelledby="sub-response-tab">
-              <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between">
-                  <span>反響情報</span>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">編集</button>
-                </div>
-                <div class="card-body">
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <label class="form-label">営業担当店舗</label>
-                      <input type="text" class="form-control" name="sales_branch" maxlength="255" placeholder="既存支店IDを入力">
-                  </div>
-                    <div class="col-md-6">
-                      <label class="form-label">反響日</label>
-                      <input type="date" class="form-control" name="lead_date" placeholder="YYYY-MM-DD">
-                </div>
-                    <div class="col-md-6">
-                      <label class="form-label">反響種別</label>
-                      <select class="form-select" name="lead_type">
-                        <option value="">選択してください</option>
-                        <option value="来場予約">来場予約</option>
-                        <option value="モデルハウス予約">モデルハウス予約</option>
-                        <option value="資料請求">資料請求</option>
-                        <option value="建売問合せ">建売問合せ</option>
-                        <option value="土地問合せ">土地問合せ</option>
+      <div class="card-body p-2">
+        <div class="row">
+          <!-- 左側：工事種類・責任者・状況 -->
+          <div class="col-12 mb-2">
+            <table class="table table-sm table-bordered info-table mb-0">
+              <tbody>
+                <tr>
+                  <th>工事種類</th>
+                  <td>アスファルト舗装工事</td>
+                </tr>
+                <tr>
+                  <th>責任者（社内）</th>
+                  <td>山田太郎</td>
+                </tr>
+                <tr>
+                  <th>状況</th>
+                  <td>
+                    <div class="d-flex align-items-center gap-2" onclick="event.stopPropagation()">
+                      <select class="form-select form-select-sm" style="width: auto; font-size: 0.65rem;" id="statusSelect">
+                        <option value="registered">案件登録済み</option>
+                        <option value="in_progress" selected>工事中</option>
+                        <option value="completed">工事完了</option>
+                        <option value="inspection_done">出来方完了</option>
                       </select>
+                      <button class="btn btn-primary btn-sm" style="font-size: 0.65rem; padding: 0.2rem 0.4rem;" onclick="saveStatus()">保存</button>
                     </div>
-                    <div class="col-12">
-                      <label class="form-label">反響元</label>
-                      <div class="mb-1">
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_hq_homepage" id="lead_source_hq_homepage">
-                          <label class="form-check-label" for="lead_source_hq_homepage">本部ホームページ</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_own_homepage" id="lead_source_own_homepage">
-                          <label class="form-check-label" for="lead_source_own_homepage">自社ホームページ</label>
-                        </div>
-                      </div>
-                      <div class="mb-1">
-                        <span class="me-2">その他のWEBページ</span>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_web" value="SUUMO" id="web_suumo">
-                          <label class="form-check-label" for="web_suumo">SUUMO</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_web" value="HOME'S" id="web_homes">
-                          <label class="form-check-label" for="web_homes">HOME'S</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_web" value="不動産ナビ" id="web_navi">
-                          <label class="form-check-label" for="web_navi">不動産ナビ</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_web" value="Instagram" id="web_instagram">
-                          <label class="form-check-label" for="web_instagram">Instagram</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_web" value="Facebook" id="web_facebook">
-                          <label class="form-check-label" for="web_facebook">Facebook</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_web" value="LINE" id="web_line">
-                          <label class="form-check-label" for="web_line">LINE</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_web" value="YouTube" id="web_youtube">
-                          <label class="form-check-label" for="web_youtube">YouTube</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_web" value="SNS広告" id="web_snsad">
-                          <label class="form-check-label" for="web_snsad">SNS広告</label>
-                        </div>
-                      </div>
-                      <div class="mb-1">
-                        <span class="me-2">その他の広告</span>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_ad" value="ポスティングチラシ" id="ad_posting">
-                          <label class="form-check-label" for="ad_posting">ポスティングチラシ</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_ad" value="折込チラシ" id="ad_orikomi">
-                          <label class="form-check-label" for="ad_orikomi">折込チラシ</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_ad" value="紙媒体広告" id="ad_paper">
-                          <label class="form-check-label" for="ad_paper">紙媒体広告</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_ad" value="通りすがり" id="ad_street">
-                          <label class="form-check-label" for="ad_street">通りすがり</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_ad" value="近所" id="ad_neighborhood">
-                          <label class="form-check-label" for="ad_neighborhood">近所</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_ad" value="野建て看板" id="ad_sign">
-                          <label class="form-check-label" for="ad_sign">野建て看板</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_ad" value="紹介" id="ad_introduce">
-                          <label class="form-check-label" for="ad_introduce">紹介</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="checkbox" name="lead_source_other_ad" value="不明" id="ad_unknown">
-                          <label class="form-check-label" for="ad_unknown">不明</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">ご主人職業</label>
-                      <select class="form-select" name="husband_occupation">
-                        <option value="">選択してください</option>
-                        <option value="公務員">公務員</option>
-                        <option value="会社員">会社員</option>
-                        <option value="自営業">自営業</option>
-                        <option value="パート">パート</option>
-                        <option value="アルバイト">アルバイト</option>
-                        <option value="無職">無職</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">ご主人会社名</label>
-                      <input type="text" class="form-control" name="husband_company" maxlength="100" placeholder="ご主人会社名">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">奥様職業</label>
-                      <select class="form-select" name="wife_occupation">
-                        <option value="">選択してください</option>
-                        <option value="公務員">公務員</option>
-                        <option value="会社員">会社員</option>
-                        <option value="自営業">自営業</option>
-                        <option value="パート">パート</option>
-                        <option value="アルバイト">アルバイト</option>
-                        <option value="無職">無職</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">奥様会社名</label>
-                      <input type="text" class="form-control" name="wife_company" maxlength="100" placeholder="奥様会社名">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- 計画内容 -->
-            <div class="tab-pane fade" id="sub-plan" role="tabpanel" aria-labelledby="sub-plan-tab">
-              <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between">
-                  <span>計画内容</span>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">編集</button>
-                </div>
-                <div class="card-body">
-                  <div class="row g-3">
-                    <div class="col-md-12">
-                      <label class="form-label">物件住所種別 <span class="text-danger">*</span></label><br>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="property_address_type" value="施主住所と同じ" required>
-                        <label class="form-check-label">施主住所と同じ</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="property_address_type" value="新住所" required>
-                        <label class="form-check-label">新住所</label>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">物件郵便番号</label>
-                      <input type="text" class="form-control" name="property_postal_code" maxlength="7" pattern="[0-9]{7}" placeholder="例: 1600022">
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">物件都道府県</label>
-                      <select class="form-select" name="property_prefecture">
-                        <option value="">選択してください</option>
-                        <option value="北海道">北海道</option>
-                        <option value="青森県">青森県</option>
-                        <option value="岩手県">岩手県</option>
-                        <option value="宮城県">宮城県</option>
-                        <option value="秋田県">秋田県</option>
-                        <option value="山形県">山形県</option>
-                        <option value="福島県">福島県</option>
-                        <option value="茨城県">茨城県</option>
-                        <option value="栃木県">栃木県</option>
-                        <option value="群馬県">群馬県</option>
-                        <option value="埼玉県">埼玉県</option>
-                        <option value="千葉県">千葉県</option>
-                        <option value="東京都">東京都</option>
-                        <option value="神奈川県">神奈川県</option>
-                        <option value="新潟県">新潟県</option>
-                        <option value="富山県">富山県</option>
-                        <option value="石川県">石川県</option>
-                        <option value="福井県">福井県</option>
-                        <option value="山梨県">山梨県</option>
-                        <option value="長野県">長野県</option>
-                        <option value="岐阜県">岐阜県</option>
-                        <option value="静岡県">静岡県</option>
-                        <option value="愛知県">愛知県</option>
-                        <option value="三重県">三重県</option>
-                        <option value="滋賀県">滋賀県</option>
-                        <option value="京都府">京都府</option>
-                        <option value="大阪府">大阪府</option>
-                        <option value="兵庫県">兵庫県</option>
-                        <option value="奈良県">奈良県</option>
-                        <option value="和歌山県">和歌山県</option>
-                        <option value="鳥取県">鳥取県</option>
-                        <option value="島根県">島根県</option>
-                        <option value="岡山県">岡山県</option>
-                        <option value="広島県">広島県</option>
-                        <option value="山口県">山口県</option>
-                        <option value="徳島県">徳島県</option>
-                        <option value="香川県">香川県</option>
-                        <option value="愛媛県">愛媛県</option>
-                        <option value="高知県">高知県</option>
-                        <option value="福岡県">福岡県</option>
-                        <option value="佐賀県">佐賀県</option>
-                        <option value="長崎県">長崎県</option>
-                        <option value="熊本県">熊本県</option>
-                        <option value="大分県">大分県</option>
-                        <option value="宮崎県">宮崎県</option>
-                        <option value="鹿児島県">鹿児島県</option>
-                        <option value="沖縄県">沖縄県</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label">物件住所</label>
-                      <input type="text" class="form-control" name="property_address" maxlength="200" placeholder="郵便番号から自動取得可">
-                    </div>
-                    <div class="col-md-12">
-                      <button type="button" class="btn btn-outline-secondary my-2"><i class="bi bi-geo-alt"></i> 周辺地図をGoogleMapで取得</button>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">工事区分</label>
-                      <select class="form-select" name="construction_type">
-                        <option value="">選択してください</option>
-                        <option value="新築">新築</option>
-                        <option value="既存住宅">既存住宅</option>
-                        <option value="中古住宅購入">中古住宅購入</option>
-                        <option value="既存マンション">既存マンション</option>
-                        <option value="中古マンション購入">中古マンション購入</option>
-                        <option value="賃貸物件">賃貸物件</option>
-                        <option value="その他">その他</option>
-                      </select>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">計画時期</label><br>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="plan_timing" value="１年以内">
-                        <label class="form-check-label">１年以内</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="plan_timing" value="２年以内">
-                        <label class="form-check-label">２年以内</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="plan_timing" value="３年以内">
-                        <label class="form-check-label">３年以内</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="plan_timing" value="未定">
-                        <label class="form-check-label">未定</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="plan_timing" value="不明">
-                        <label class="form-check-label">不明</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- 物件情報 -->
-            <div class="tab-pane fade" id="sub-property" role="tabpanel" aria-labelledby="sub-property-tab">
-              <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between">
-                  <span>物件情報</span>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">編集</button>
-                </div>
-                <div class="card-body">
-                  <form id="property-info-form">
-                    <div class="row g-3">
-                      <div class="col-12">
-                        <h6 class="fw-bold mt-2 mb-2">物件情報</h6>
-                </div>
-                      <div class="col-md-6">
-                        <label class="form-label">物件名 <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="property_name" maxlength="255" required placeholder="案件名と同じ">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">全景写真</label>
-                        <input type="file" class="form-control" name="property_photo" accept="image/*">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">物件種別 <span class="text-danger">*</span></label>
-                        <select class="form-select" name="property_type" id="property_type" required>
-                          <option value="">選択してください</option>
-                          <option value="一戸建て住宅">一戸建て住宅</option>
-                          <option value="一戸建ての店舗併用住宅">一戸建ての店舗併用住宅</option>
-                          <option value="マンション">マンション</option>
-                          <option value="アパート">アパート</option>
-                          <option value="店舗">店舗</option>
-                        </select>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">物件構造</label>
-                        <select class="form-select" name="property_structure" id="property_structure">
-                          <option value="">選択してください</option>
-                          <option value="木造">木造</option>
-                          <option value="鉄筋造">鉄筋造</option>
-                          <option value="鉄筋コンクリート造">鉄筋コンクリート造</option>
-                          <option value="軽量鉄骨造">軽量鉄骨造</option>
-                        </select>
-                      </div>
-                      <!-- 戸建て用項目 -->
-                      <div class="col-md-4" id="house_floors_group" style="display:none;">
-                        <label class="form-label">戸建て階数</label>
-                        <select class="form-select" name="house_floors">
-                          <option value="">選択してください</option>
-                          <option value="１階建て">１階建て</option>
-                          <option value="２階建て">２階建て</option>
-                          <option value="３階建て">３階建て</option>
-                        </select>
-                      </div>
-                      <div class="col-md-4" id="house_basement_group" style="display:none;">
-                        <label class="form-label">地下室有無</label>
-                        <select class="form-select" name="house_basement">
-                          <option value="">選択してください</option>
-                          <option value="地下室あり">地下室あり</option>
-                          <option value="地下室なし">地下室なし</option>
-                        </select>
-                      </div>
-                      <!-- マンション用項目 -->
-                      <div class="col-md-4" id="mansion_total_floors_group" style="display:none;">
-                        <label class="form-label">マンション全体階数</label>
-                        <input type="number" class="form-control" name="mansion_total_floors" min="1" max="99" placeholder="1～99">
-                      </div>
-                      <div class="col-md-4" id="mansion_floor_number_group" style="display:none;">
-                        <label class="form-label">マンション所在階</label>
-                        <input type="number" class="form-control" name="mansion_floor_number" min="1" max="99" placeholder="1～99">
-                      </div>
-                      <!-- アパート用項目 -->
-                      <div class="col-md-4" id="apartment_floors_group" style="display:none;">
-                        <label class="form-label">アパート階数</label>
-                        <select class="form-select" name="apartment_floors">
-                          <option value="">選択してください</option>
-                          <option value="１階建て">１階建て</option>
-                          <option value="２階建て">２階建て</option>
-                          <option value="３階建て">３階建て</option>
-                        </select>
-                      </div>
-                      <div class="col-md-4" id="apartment_units_group" style="display:none;">
-                        <label class="form-label">アパート部屋数</label>
-                        <input type="number" class="form-control" name="apartment_units" min="1" max="99" placeholder="1～99">
-                      </div>
-                      <div class="col-12">
-                        <h6 class="fw-bold mt-4 mb-2">建築用途地域</h6>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">都市計画区域 <span class="text-danger">*</span></label>
-                        <select class="form-select" name="city_planning_zone" id="city_planning_zone" required>
-                          <option value="">選択してください</option>
-                          <option value="市街化区域">市街化区域</option>
-                          <option value="市街化調整区域">市街化調整区域</option>
-                          <option value="非線引き区域">非線引き区域</option>
-                        </select>
-                      </div>
-                      <div class="col-md-6" id="zoning_type_group" style="display:none;">
-                        <label class="form-label">用途地域 <span class="text-danger" id="zoning_type_req" style="display:none;">*</span></label>
-                        <select class="form-select" name="zoning_type" id="zoning_type">
-                          <option value="">選択してください</option>
-                          <option>第一種低層住居専用地域</option>
-                          <option>第二種低層住居専用地域</option>
-                          <option>第一種中高層住居専用地域</option>
-                          <option>第二種中高層住居専用地域</option>
-                          <option>第一種住居地域</option>
-                          <option>第二種住居地域</option>
-                          <option>準住居地域</option>
-                          <option>田園住居地域</option>
-                          <option>近隣商業地域</option>
-                          <option>商業地域</option>
-                          <option>準工業地域</option>
-                          <option>工業地域</option>
-                          <option>工業専用地域</option>
-                        </select>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">防火区域</label>
-                        <select class="form-select" name="fire_protection_zone">
-                          <option value="">選択してください</option>
-                          <option>防火地域</option>
-                          <option>準防火地域</option>
-                          <option>第22条区域</option>
-                          <option>指定なし</option>
-                        </select>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="form-label">敷地面線</label>
-                        <input type="text" class="form-control" name="site_boundary_line" maxlength="255" placeholder="例：北側 6m、南側 4m接道">
-                      </div>
-                      <div class="col-md-4">
-                        <label class="form-label">建築面積（㎡）</label>
-                        <input type="number" class="form-control" name="building_area" step="0.01" min="0" placeholder="例：135.25">
-                      </div>
-                      <div class="col-md-4">
-                        <label class="form-label">延べ面積（㎡）</label>
-                        <input type="number" class="form-control" name="total_floor_area" step="0.01" min="0" placeholder="例：256.88">
-                      </div>
-                      <div class="col-md-2">
-                        <label class="form-label">建ぺい率</label>
-                        <input type="text" class="form-control" name="building_coverage_ratio" maxlength="10" placeholder="例：60%">
-                      </div>
-                      <div class="col-md-2">
-                        <label class="form-label">容積率</label>
-                        <input type="text" class="form-control" name="floor_area_ratio" maxlength="10" placeholder="例：200%">
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <!-- 調査判断 -->
-            <div class="tab-pane fade" id="sub-precheck" role="tabpanel" aria-labelledby="sub-precheck-tab">
-              <!-- 建築確認手続の要否判断 -->
-              <div class="card mb-3">
-                <div class="card-header">建築確認手続の要否判断</div>
-                <div class="card-body">
-                  <form id="precheck-form">
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label class="form-label">1. 主要構造部を改修しますか？
-                      <button type="button" class="btn btn-link p-0 ms-1" data-bs-toggle="modal" data-bs-target="#mainStructureModal">
-                        <i class="bi bi-question-circle"></i>
-                      </button>
-                    </label>
-                    <div>
-                      <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q1" id="q1_yes" value="はい">
-                            <label class="form-check-label" for="q1_yes">はい</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q1" id="q1_no" value="いいえ">
-                            <label class="form-check-label" for="q1_no">いいえ</label>
-                      </div>
-                    </div>
-                  </div>
-                      <div class="col-md-6 mb-3">
-                        <label class="form-label">2. 改修部分が過半となる
-                      <button type="button" class="btn btn-link p-0 ms-1" data-bs-toggle="modal" data-bs-target="#overHalfModal">
-                        <i class="bi bi-question-circle"></i>
-                      </button>
-                    </label>
-                    <div>
-                      <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q2" id="q2_yes" value="はい">
-                            <label class="form-check-label" for="q2_yes">はい</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q2" id="q2_no" value="いいえ">
-                            <label class="form-check-label" for="q2_no">いいえ</label>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                    <div class="row">
-                      <div class="col-md-6 mb-3">
-                        <label class="form-label">3. 10m2以上の増築がある</label>
-                        <div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q3" id="q3_yes" value="はい">
-                            <label class="form-check-label" for="q3_yes">はい</label>
-                </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q3" id="q3_no" value="いいえ">
-                            <label class="form-check-label" for="q3_no">いいえ</label>
-              </div>
-                    </div>
-                    </div>
-                      <div class="col-md-6 mb-3">
-                        <label class="form-label">4. 防火地域、準防火地域の増築をする</label>
-                        <div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q4" id="q4_yes" value="はい">
-                            <label class="form-check-label" for="q4_yes">はい</label>
-                  </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="q4" id="q4_no" value="いいえ">
-                            <label class="form-check-label" for="q4_no">いいえ</label>
-                </div>
-              </div>
-                    </div>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">5. お客様が通常検査を希望</label>
-                      <div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="q5" id="q5_yes" value="はい">
-                          <label class="form-check-label" for="q5_yes">はい</label>
-                  </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="q5" id="q5_no" value="いいえ">
-                          <label class="form-check-label" for="q5_no">いいえ</label>
-                </div>
-              </div>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">建築確認手続きの要否</label>
-                      <div id="confirmation_required_result" class="fw-bold fs-1"></div>
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">必要な検査区分</label>
-                      <div id="inspection_type_result" class="fw-bold fs-1"></div>
-                    </div>
-                    <div class="mb-2">
-                      <a href="https://www.mlit.go.jp/common/001766698.pdf" target="_blank">参照（国土交通省PDF）</a>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <!-- 建築等の工事に係る登記簿謄本の交付 -->
-              <div class="card mb-3">
-                <div class="card-header">建築等の工事に係る登記簿謄本の交付</div>
-                <div class="card-body">
-                  <form id="inspection-form">
-                  <div class="mb-3">
-                      <label class="form-label">直近の建築等の工事に係る登記簿謄本の交付の有無</label>
-                    <div>
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="reg_cert" id="reg_cert_yes" value="あり">
-                          <label class="form-check-label" for="reg_cert_yes">あり</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="reg_cert" id="reg_cert_no" value="なし">
-                          <label class="form-check-label" for="reg_cert_no">なし</label>
-                      </div>
-                      </div>
-                      <div class="mt-2" id="reg_cert_date_group" style="display:none;">
-                        <label class="form-label">【新築】登記年月日（登記簿謄本）</label>
-                        <input type="date" class="form-control" name="reg_cert_date">
-                      </div>
-                      </div>
-                    <div class="row mb-3">
-                      <div class="col-md-6">
-                        <label class="form-label">直近の建築等の工事に係る確認済証の交付の有無</label>
-                        <div>
-                      <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="conf_cert" id="conf_cert_yes" value="あり">
-                            <label class="form-check-label" for="conf_cert_yes">あり</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="conf_cert" id="conf_cert_no" value="なし">
-                            <label class="form-check-label" for="conf_cert_no">なし</label>
-                      </div>
-                    </div>
-                        <div class="mt-2" id="conf_cert_date_group" style="display:none;">
-                          <label class="form-label">【新築】確認済証交付年月日（確認済証）</label>
-                          <input type="date" class="form-control" name="conf_cert_date">
-                  </div>
-                      </div>
-                      <div class="col-md-6">
-                    <label class="form-label">直近の建築等の工事に係る検査済証の交付の有無</label>
-                    <div>
-                      <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="insp_cert" id="insp_cert_yes" value="あり">
-                            <label class="form-check-label" for="insp_cert_yes">あり</label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="insp_cert" id="insp_cert_no" value="なし">
-                            <label class="form-check-label" for="insp_cert_no">なし</label>
-                      </div>
-                    </div>
-                        <div class="mt-2" id="insp_cert_date_group" style="display:none;">
-                          <label class="form-label">【新築】検査済年月日（検査済証）</label>
-                          <input type="date" class="form-control" name="insp_cert_date">
-                  </div>
-                  </div>
-                </div>
-                    <div class="mb-3">
-                      <label class="form-label">増築の有無</label>
-                      <div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="extension" id="extension_yes" value="あり">
-                          <label class="form-check-label" for="extension_yes">あり</label>
-              </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="extension" id="extension_no" value="なし">
-                          <label class="form-check-label" for="extension_no">なし</label>
-            </div>
-                </div>
-                    </div>
-                    <div class="mb-3" id="extension_detail_group" style="display:none;">
-                      <label class="form-label">確認申請が必要となる増築</label>
-                      <div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="extension_conf" id="extension_conf_yes" value="はい">
-                          <label class="form-check-label" for="extension_conf_yes">はい</label>
-                    </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="extension_conf" id="extension_conf_no" value="いいえ">
-                          <label class="form-check-label" for="extension_conf_no">いいえ</label>
-                    </div>
-                      </div>
-                      <div class="mt-2" id="extension_conf_detail_group" style="display:none;">
-                        <label class="form-label">直近の建築等の工事に係る確認済証・検査済証の交付の有無</label>
-                        <div class="mb-2">
-                          <label class="form-label">【増築】登記年月日（登記簿謄本）</label>
-                          <input type="date" class="form-control" name="extension_reg_cert_date">
-                    </div>
-                        <div class="mb-2">
-                          <label class="form-label">【増築】確認済証交付年月日（確認済証）</label>
-                          <input type="date" class="form-control" name="extension_conf_cert_date">
-                      </div>
-                        <div class="mb-2">
-                          <label class="form-label">【増築】検査済年月日（検査済証）</label>
-                          <input type="date" class="form-control" name="extension_insp_cert_date">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mb-2">
-                      <div class="mb-1">以下のリンクより既存不適格である可能性の確認をお願いいたします。</div>
-                      <a href="https://www.mlit.go.jp/jutakukentiku/content/001847401.pdf" target="_blank">参照（国土交通省PDF）</a>
-                    </div>
-                  </form>
-                  </div>
-              </div>
-            </div>
-            <!-- 担当者情報 -->
-            <div class="tab-pane fade" id="sub-staff" role="tabpanel" aria-labelledby="sub-staff-tab">
-              <div class="card m-3">
-                <div class="card-header">
-                  <span>社内担当者</span>
-                </div>
-                <div class="col">
-                  <!-- 新規追加ボタン（テーブル右上） -->
-                  <div class="d-flex justify-content-end m-3">
-                    <button 
-                      type="button" 
-                      class="btn btn-primary btn-sm" 
-                      data-bs-toggle="modal" 
-                      data-bs-target="#addStaffModal"
-                    >
-                      新規追加
-                    </button>
-                  </div>
-                  <!-- テーブル（上下左右にマージン） -->
-                  <div class="table-responsive m-3">
-                    <table class="table table-hover table-bordered small-text">
-                      <thead class="table-light">
-                        <tr>
-                          <th>支店名</th>
-                          <th>名前</th>
-                          <th>職種</th>
-                          <th>権限</th>
-                          <th>メール</th>
-                          <th>電話番号</th>
-                          <th style="font-size:0.5rem;" >案件管理者のみ</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- 営業 -->
-                        <tr>
-                          <td>東京支店</td>
-                          <td>佐藤 花子</td>
-                          <td>営業</td>
-                          <td>案件管理者</td>
-                          <td>hanako.sato@example.com</td>
-                          <td>090-1111-1111</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <!-- 現場監督 -->
-                        <tr>
-                          <td>東京支店</td>
-                          <td>鈴木 次郎</td>
-                          <td>現場監督</td>
-                          <td>管理職</td>
-                          <td>jiro.suzuki@example.com</td>
-                          <td>090-2222-2222</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <!-- 設計 -->
-                        <tr>
-                          <td>東京支店</td>
-                          <td>高橋 三郎</td>
-                          <td>設計</td>
-                          <td>システム管理者</td>
-                          <td>sabu.takahashi@example.com</td>
-                          <td>090-3333-3333</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <!-- インテリアコーディネーター -->
-                        <tr>
-                          <td>東京支店</td>
-                          <td>田中 美咲</td>
-                          <td>インテリアコーディネーター</td>
-                          <td>一般</td>
-                          <td>misaki.tanaka@example.com</td>
-                          <td>090-4444-4444</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <!-- 職人 -->
-                        <tr>
-                          <td>東京支店</td>
-                          <td>伊藤 翔</td>
-                          <td>職人</td>
-                          <td>一般</td>
-                          <td>sho.ito@example.com</td>
-                          <td>090-5555-5555</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <!-- 管理職 -->
-                        <tr>
-                          <td>東京支店</td>
-                          <td>渡辺 智子</td>
-                          <td>管理職</td>
-                          <td>管理職</td>
-                          <td>tomoko.watanabe@example.com</td>
-                          <td>090-6666-6666</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <!-- 事務 -->
-                        <tr>
-                          <td>東京支店</td>
-                          <td>中村 健</td>
-                          <td>事務</td>
-                          <td>一般</td>
-                          <td>ken.nakamura@example.com</td>
-                          <td>090-7777-7777</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <!-- 積算 -->
-                        <tr>
-                          <td>東京支店</td>
-                          <td>小林 愛</td>
-                          <td>積算</td>
-                          <td>一般</td>
-                          <td>ai.kobayashi@example.com</td>
-                          <td>090-8888-8888</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 新規追加モーダル -->
-              <div 
-                class="modal fade" 
-                id="addStaffModal" 
-                tabindex="-1" 
-                aria-labelledby="addStaffModalLabel" 
-                aria-hidden="true"
-              >
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="addStaffModalLabel">社内担当者 追加</h5>
-                      <button 
-                        type="button" 
-                        class="btn-close" 
-                        data-bs-dismiss="modal" 
-                        aria-label="閉じる"
-                      ></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="mb-3">
-                        <label class="form-label">支店名</label>
-                        <select class="form-select">
-                          <option>東京支店</option>
-                          <option>大阪支店</option>
-                          <option>名古屋支店</option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">職種</label>
-                        <select class="form-select">
-                          <option>営業</option>
-                          <option>現場監督</option>
-                          <option>設計</option>
-                          <option>インテリアコーディネーター</option>
-                          <option>職人</option>
-                          <option>管理職</option>
-                          <option>事務</option>
-                          <option>積算</option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">名前</label>
-                        <select class="form-select">
-                          <option>佐藤 花子</option>
-                          <option>鈴木 次郎</option>
-                          <option>高橋 三郎</option>
-                          <option>田中 美咲</option>
-                          <option>伊藤 翔</option>
-                          <option>渡辺 智子</option>
-                          <option>中村 健</option>
-                          <option>小林 愛</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary">新規追加</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 関係者情報 -->
-            <div class="tab-pane fade" id="sub-related" role="tabpanel" aria-labelledby="sub-related-tab">
-              <!-- カード1：協力業者 -->
-              <div class="card m-3">
-                <div class="card-header">
-                  <span>協力業者</span>
-                </div>
-                <div class="card-body">
-                  <!-- 新規追加ボタン（テーブルの上、右寄せ） -->
-                  <div class="d-flex justify-content-end m-3">
-                    <button 
-                      type="button" 
-                      class="btn btn-primary btn-sm" 
-                      data-bs-toggle="modal" 
-                      data-bs-target="#addRelatedModal"
-                    >
-                      新規追加
-                    </button>
-                  </div>
-                  <!-- テーブル（上下左右にマージン） -->
-                  <div class="table-responsive m-3">
-                    <table class="table table-hover table-bordered small-text">
-                      <thead class="table-light">
-                        <tr>
-                          <th>会社名</th>
-                          <th>名前</th>
-                          <th>名前（カナ）</th>
-                          <th>職種</th>
-                          <th>権限</th>
-                          <th>メール</th>
-                          <th>電話番号</th>
-                          <th style="font-size:0.5rem;" >案件管理者のみ</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>株式会社協力一</td>
-                          <td>佐藤 健</td>
-                          <td>サトウ ケン</td>
-                          <td>積算</td>
-                          <td>一般</td>
-                          <td>ken.sato@example.com</td>
-                          <td>090-1234-0001</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>株式会社協力二</td>
-                          <td>鈴木 彩</td>
-                          <td>スズキ アヤ</td>
-                          <td>事務</td>
-                          <td>一般</td>
-                          <td>aya.suzuki@example.com</td>
-                          <td>090-1234-0002</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>株式会社協力三</td>
-                          <td>高橋 大輔</td>
-                          <td>タカハシ ダイスケ</td>
-                          <td>管理職</td>
-                          <td>一般</td>
-                          <td>daisuke.takahashi@example.com</td>
-                          <td>090-1234-0003</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>株式会社協力四</td>
-                          <td>田中 礼子</td>
-                          <td>タナカ レイコ</td>
-                          <td>職人</td>
-                          <td>一般</td>
-                          <td>reiko.tanaka@example.com</td>
-                          <td>090-1234-0004</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>株式会社協力五</td>
-                          <td>伊藤 翔太</td>
-                          <td>イトウ ショウタ</td>
-                          <td>営業</td>
-                          <td>一般</td>
-                          <td>shota.ito@example.com</td>
-                          <td>090-1234-0005</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>株式会社協力六</td>
-                          <td>山本 浩</td>
-                          <td>ヤマモト ヒロシ</td>
-                          <td>代表者</td>
-                          <td>一般</td>
-                          <td>hiroshi.yamamoto@example.com</td>
-                          <td>090-1234-0006</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-
-              <!-- カード2：外部専門家 -->
-              <div class="card m-3">
-                <div class="card-header">
-                  <span>外部専門家</span>
-                </div>
-                <div class="card-body">
-                  <!-- 新規追加ボタン（テーブルの上、右寄せ） -->
-                  <div class="d-flex justify-content-end mb-3">
-                    <button type="button" class="btn btn-primary btn-sm">新規追加</button>
-                  </div>
-                  <!-- テーブル（上下左右にマージン） -->
-                  <div class="table-responsive m-3">
-                    <table class="table table-hover table-bordered small-text">
-                      <thead class="table-light">
-                        <tr>
-                          <th>会社名</th>
-                          <th>名前</th>
-                          <th>名前（カナ）</th>
-                          <th>職種</th>
-                          <th>権限</th>
-                          <th>メール</th>
-                          <th>電話番号</th>
-                          <th style="font-size:0.5rem;" >案件管理者のみ</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>株式会社専門一</td>
-                          <td>松本 桜</td>
-                          <td>マツモト サクラ</td>
-                          <td>家屋調査士</td>
-                          <td>一般</td>
-                          <td>sakura.matsumoto@example.com</td>
-                          <td>090-2345-0001</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>株式会社専門二</td>
-                          <td>小川 翔</td>
-                          <td>オガワ ショウ</td>
-                          <td>司法書士</td>
-                          <td>一般</td>
-                          <td>sho.ogawa@example.com</td>
-                          <td>090-2345-0002</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>株式会社専門三</td>
-                          <td>中山 理恵</td>
-                          <td>ナカヤマ リエ</td>
-                          <td>建築士</td>
-                          <td>一般</td>
-                          <td>rie.nakayama@example.com</td>
-                          <td>090-2345-0003</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>株式会社専門四</td>
-                          <td>橋本 健太</td>
-                          <td>ハシモト ケンタ</td>
-                          <td>インテリアコーディネーター</td>
-                          <td>一般</td>
-                          <td>kenta.hashimoto@example.com</td>
-                          <td>090-2345-0004</td>
-                          <td>
-                            <button class="btn btn-danger btn-sm">削除</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 協力業者追加モーダル -->
-            <div 
-            class="modal fade" 
-            id="addRelatedModal" 
-            tabindex="-1" 
-            aria-labelledby="addRelatedModalLabel" 
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="addRelatedModalLabel">協力業者追加 追加</h5>
-                  <button 
-                    type="button" 
-                    class="btn-close" 
-                    data-bs-dismiss="modal" 
-                    aria-label="閉じる"
-                  ></button>
-                </div>
-                <div class="modal-body">
-                  <div class="mb-3">
-                    <label class="form-label">会社名</label>
-                    <select class="form-select">
-                      <option>ABC工務店</option>
-                      <option>EFG設計会社</option>
-                      <option>HIJ建設</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">職種</label>
-                    <select class="form-select">
-                      <option>営業</option>
-                      <option>現場監督</option>
-                      <option>設計</option>
-                      <option>インテリアコーディネーター</option>
-                      <option>職人</option>
-                      <option>管理職</option>
-                      <option>事務</option>
-                      <option>積算</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label">名前</label>
-                    <select class="form-select">
-                      <option>佐藤 花子</option>
-                      <option>鈴木 次郎</option>
-                      <option>高橋 三郎</option>
-                      <option>田中 美咲</option>
-                      <option>伊藤 翔</option>
-                      <option>渡辺 智子</option>
-                      <option>中村 健</option>
-                      <option>小林 愛</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">新規追加</button>
-                </div>
-              </div>
-            </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-        </div>
-            <!-- 登記資料 -->
-            <div class="tab-pane fade" id="sub-official-docs" role="tabpanel" aria-labelledby="sub-officialdocs-tab">
-              <div class="card mb-3">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <span>登記資料</span>
-                  <button class="btn btn-sm btn-outline-secondary">編集</button>
-                </div>
-                <div class="card-body">
-                  <!-- 表示方法＆検索 -->
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                      <span class="me-2">表示方法：</span>
-                      <button class="btn btn-outline-primary me-2"><i class="bi bi-folder"></i></button>
-                      <button class="btn btn-outline-secondary me-4"><i class="bi bi-list"></i></button>
-                      <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-                        <option value="created">作成日順</option>
-                      </select>
-                    </div>
-                    <div class="input-group" style="width:300px;">
-                      <input type="text" class="form-control" placeholder="キーワードを入力">
-                      <button class="btn btn-outline-secondary" type="button">検索</button>
-                    </div>
-                  </div>
-                  <!-- 登記資料テーブル -->
-                  <div class="card">
-                    <div class="card-body p-0">
-                      <table class="table table-hover table-bordered mb-0">
-                        <thead class="table-light">
-                          <tr>
-                            <th>資料名称</th>
-                            <th>購読数</th>
-                            <th>公開設定</th>
-                            <th>取得日時</th>
-                            <th>アクション</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>公図</td>
-                            <td><a href="#">10</a></td>
-                            <td>公開</td>
-                            <td>2025/05/01 09:00</td>
-                            <td><button class="btn btn-sm btn-outline-primary">取得済みダウンロード</button></td>
-                          </tr>
-                          <tr>
-                            <td>地籍測量図</td>
-                            <td><a href="#">5</a></td>
-                            <td>限定公開</td>
-                            <td>2025/05/02 10:00</td>
-                            <td><button class="btn btn-sm btn-outline-primary">APIで取得</button></td>
-                          </tr>
-                          <tr>
-                            <td>登記簿謄本（土地）</td>
-                            <td><a href="#">8</a></td>
-                            <td>非公開</td>
-                            <td>2025/05/03 11:00</td>
-                            <td><button class="btn btn-sm btn-outline-primary">取得済みダウンロード</button></td>
-                          </tr>
-                          <tr>
-                            <td>登記簿謄本（建物）</td>
-                            <td><a href="#">7</a></td>
-                            <td>公開</td>
-                            <td>2025/05/04 12:00</td>
-                            <td><button class="btn btn-sm btn-outline-primary">APIで取得</button></td>
-                          </tr>
-                          <tr>
-                            <td>前面道路要約書</td>
-                            <td><a href="#">4</a></td>
-                            <td>限定公開</td>
-                            <td>2025/05/05 13:00</td>
-                            <td><button class="btn btn-sm btn-outline-primary">APIで取得</button></td>
-                          </tr>
-                          <tr>
-                            <td>建物図面</td>
-                            <td><a href="#">6</a></td>
-                            <td>非公開</td>
-                            <td>2025/05/06 14:00</td>
-                            <td><button class="btn btn-sm btn-outline-primary">取得済みダウンロード</button></td>
-                          </tr>
-                      
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- 資料 -->
-            <div class="tab-pane fade" id="sub-docs" role="tabpanel" aria-labelledby="sub-docs-tab">
-              <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <span>既存資料</span>
-                  <button class="btn btn-sm btn-outline-secondary">編集</button>
-                </div>
-                <div class="card-body">
-                  <!-- 表示方法＆検索 -->
-                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                      <span class="me-2">表示方法：</span>
-                      <button class="btn btn-outline-primary me-2">
-                        <i class="bi bi-folder"></i>
-                      </button>
-                      <button class="btn btn-outline-secondary me-4">
-                        <i class="bi bi-list"></i>
-                      </button>
-                      <select class="form-select form-select-sm me-2" style="width:auto; display:inline-block;">
-                        <option value="created">作成日順</option>
-                      </select>
-                    </div>
-                    <div class="input-group" style="width:300px;">
-                      <input type="text" class="form-control" placeholder="キーワードを入力">
-                      <button class="btn btn-outline-secondary" type="button">検索</button>
-                    </div>
-                  </div>
-                  <!-- 資料テーブル -->
-                  <div class="table-responsive">
-                    <table class="table table-hover table-bordered mb-0">
-                      <thead class="table-light">
-                        <tr>
-                          <th>資料名称</th>
-                          <th>購読数</th>
-                          <th>公開設定</th>
-                          <th>取得日時</th>
-                          <th>アクション</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>平面図</td>
-                          <td><a href="#">12</a></td>
-                          <td>公開</td>
-                          <td>2025/05/04 12:00</td>
-                          <td>
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                              アップロード
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>立面図</td>
-                          <td><a href="#">9</a></td>
-                          <td>限定公開</td>
-                          <td>2025/05/05 13:00</td>
-                          <td>
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                              アップロード
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>敷地図</td>
-                          <td><a href="#">6</a></td>
-                          <td>非公開</td>
-                          <td>2025/05/06 14:00</td>
-                          <td>
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                              アップロード
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>確認通知書</td>
-                          <td><a href="#">3</a></td>
-                          <td>公開</td>
-                          <td>2025/05/07 15:00</td>
-                          <td>
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                              アップロード
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>不動産売買契約書</td>
-                          <td><a href="#">5</a></td>
-                          <td>限定公開</td>
-                          <td>2025/05/08 16:00</td>
-                          <td>
-                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-                              アップロード
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colspan="5" class="text-center">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                              新規登録
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- サブタブここまで -->
+          <!-- 右側：協力業者リスト -->
+          <div class="col-12">
+            <h6 class="mb-2" style="font-size: 0.7rem;">協力業者リスト</h6>
+            <table class="table table-sm table-bordered info-table mb-0">
+              <thead>
+                <tr>
+                  <th>業者名</th>
+                  <th>担当工種</th>
+                  <th>責任者</th>
+                  <th>電話番号</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>東京舗装(株)</td>
+                  <td>アスファルト舗装工</td>
+                  <td>佐藤一郎</td>
+                  <td>03-1234-5678</td>
+                </tr>
+                <tr>
+                  <td>(株)関東建設</td>
+                  <td>撤去工事</td>
+                  <td>鈴木健二</td>
+                  <td>03-2345-6789</td>
+                </tr>
+                <tr>
+                  <td>首都圏道路(株)</td>
+                  <td>区画線工</td>
+                  <td>田中三郎</td>
+                  <td>03-3456-7890</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-      <!-- 他のメインタブ用コンテンツ... -->
     </div>
-  </div>
 
-  <!-- アップロード用モーダル -->
-  <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="uploadModalLabel">資料アップロード</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="form-label">資料名</label>
-              <input type="text" class="form-control" placeholder="資料名を入力">
+    <!-- セクション2：予算・工事日誌（1カラム） -->
+    <div class="mb-3">
+      <!-- 予算 -->
+      <div class="mb-2">
+        <a href="site_project_detail_budget.html" class="clickable-card">
+        <div class="card">
+          <div class="card-header py-1">
+            <span class="fw-bold small-text">予算・実績</span>
+          </div>
+          <div class="card-body p-2">
+            <table class="table table-sm table-bordered budget-table mb-2">
+              <thead>
+                <tr>
+                  <th>項目</th>
+                  <th>予算</th>
+                  <th>実績</th>
+                  <th>進捗率</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-secondary">
+                  <td class="fw-bold">直接工事費</td>
+                  <td class="text-end">45,000,000</td>
+                  <td class="text-end">20,250,000</td>
+                  <td class="text-center">45%</td>
+                </tr>
+                <tr>
+                  <td class="ps-2">アスファルト舗装工</td>
+                  <td class="text-end">28,000,000</td>
+                  <td class="text-end">12,600,000</td>
+                  <td class="text-center">45%</td>
+                </tr>
+                <tr>
+                  <td class="ps-2">撤去工事</td>
+                  <td class="text-end">8,000,000</td>
+                  <td class="text-end">8,000,000</td>
+                  <td class="text-center">100%</td>
+                </tr>
+                <tr>
+                  <td class="ps-2">区画線工</td>
+                  <td class="text-end">9,000,000</td>
+                  <td class="text-end">0</td>
+                  <td class="text-center">0%</td>
+                </tr>
+                <tr class="table-secondary">
+                  <td class="fw-bold">経費</td>
+                  <td class="text-end">5,000,000</td>
+                  <td class="text-end">2,000,000</td>
+                  <td class="text-center">40%</td>
+                </tr>
+                <tr class="table-primary fw-bold">
+                  <td>合計</td>
+                  <td class="text-end">50,000,000</td>
+                  <td class="text-end">22,250,000</td>
+                  <td class="text-center">45%</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="progress" style="height: 15px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">45%</div>
             </div>
-            <div class="mb-3">
-              <label class="form-label">ファイル選択</label>
-              <input type="file" class="form-control">
-            </div>
-          </form>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">アップロード</button>
+        </a>
+      </div>
+
+      <!-- 工事日誌 -->
+      <div>
+        <div class="card h-100">
+          <div class="card-header py-1">
+            <span class="fw-bold small-text">工事日誌（直近2日間）</span>
+          </div>
+          <div class="card-body p-2">
+            <!-- 工事日誌新規作成ボタン -->
+            <a href="site_project_detail_report_create.html" class="btn w-100 mb-2" style="font-size: 0.75rem; padding: 0.5rem; background: linear-gradient(135deg, #198754 0%, #20c997 100%); border: none; color: white; font-weight: bold; box-shadow: 0 4px 8px rgba(25, 135, 84, 0.3);">
+              <i class="bi bi-plus-circle me-1"></i>工事日誌新規作成
+            </a>
+            <div onclick="location.href='site_project_detail_report.html'" style="cursor: pointer;">
+            <!-- 3/14（最新日） -->
+            <h6 class="mb-1" style="font-size: 0.65rem; border-bottom: 1px solid #dee2e6; padding-bottom: 2px;">
+              <i class="bi bi-calendar-event me-1"></i>2026/03/14（土）
+            </h6>
+            <table class="table table-sm table-bordered budget-table mb-2">
+              <thead>
+                <tr>
+                  <th>業者</th>
+                  <th>工種</th>
+                  <th>予算</th>
+                  <th>当日実績</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>東京舗装(株)</td>
+                  <td>アスファルト舗装工</td>
+                  <td class="text-end">28,000,000</td>
+                  <td class="text-end">850,000</td>
+                </tr>
+                <tr class="table-light">
+                  <td colspan="2" class="fw-bold">経費</td>
+                  <td class="text-end">5,000,000</td>
+                  <td class="text-end">45,000</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- 3/13（前日） -->
+            <h6 class="mb-1" style="font-size: 0.65rem; border-bottom: 1px solid #dee2e6; padding-bottom: 2px;">
+              <i class="bi bi-calendar-event me-1"></i>2026/03/13（金）
+            </h6>
+            <table class="table table-sm table-bordered budget-table mb-0">
+              <thead>
+                <tr>
+                  <th>業者</th>
+                  <th>工種</th>
+                  <th>予算</th>
+                  <th>当日実績</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>東京舗装(株)</td>
+                  <td>アスファルト舗装工</td>
+                  <td class="text-end">28,000,000</td>
+                  <td class="text-end">920,000</td>
+                </tr>
+                <tr class="table-light">
+                  <td colspan="2" class="fw-bold">経費</td>
+                  <td class="text-end">5,000,000</td>
+                  <td class="text-end">38,000</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
+    <!-- セクション3：ガントチャート -->
+    <a href="site_project_detail_schedule.html" class="clickable-card">
+    <div class="card mb-3">
+      <div class="card-header py-1">
+        <span class="fw-bold small-text">スケジュール（2026年3月）</span>
+      </div>
+      <div class="card-body p-2 gantt-container">
+        <table class="table table-bordered gantt-table mb-0">
+          <thead>
+            <tr>
+              <th rowspan="2" style="width: 80px;">作業項目</th>
+              <th rowspan="2" style="width: 30px;">区分</th>
+              <th colspan="31">3月</th>
+            </tr>
+            <tr>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th>
+              <th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th>
+              <th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th><th>31</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 撤去工事 -->
+            <tr>
+              <td rowspan="2" class="task-name align-middle">撤去工事</td>
+              <td class="bg-light">予定</td>
+              <td colspan="5" class="p-0"><div class="gantt-bar-planned mx-1 mt-2"></div></td>
+              <td colspan="26"></td>
+            </tr>
+            <tr>
+              <td class="bg-light">実績</td>
+              <td colspan="5" class="p-0"><div class="gantt-bar-actual mx-1 mt-2"></div></td>
+              <td colspan="26"></td>
+            </tr>
+            <!-- アスファルト舗装工 -->
+            <tr>
+              <td rowspan="2" class="task-name align-middle">アスファルト舗装工</td>
+              <td class="bg-light">予定</td>
+              <td colspan="5"></td>
+              <td colspan="15" class="p-0"><div class="gantt-bar-planned mx-1 mt-2"></div></td>
+              <td colspan="11"></td>
+            </tr>
+            <tr>
+              <td class="bg-light">実績</td>
+              <td colspan="5"></td>
+              <td colspan="9" class="p-0"><div class="gantt-bar-actual mx-1 mt-2"></div></td>
+              <td colspan="17"></td>
+            </tr>
+            <!-- 区画線工 -->
+            <tr>
+              <td rowspan="2" class="task-name align-middle">区画線工</td>
+              <td class="bg-light">予定</td>
+              <td colspan="20"></td>
+              <td colspan="8" class="p-0"><div class="gantt-bar-planned mx-1 mt-2"></div></td>
+              <td colspan="3"></td>
+            </tr>
+            <tr>
+              <td class="bg-light">実績</td>
+              <td colspan="31"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="mt-2 d-flex gap-3 small" style="font-size: 0.6rem;">
+          <span><span class="d-inline-block" style="width:15px; height:8px; background-color:#0d6efd; border-radius:2px;"></span> 予定</span>
+          <span><span class="d-inline-block" style="width:15px; height:8px; background-color:#198754; border-radius:2px;"></span> 実績</span>
+        </div>
+      </div>
+    </div>
+    </a>
+  </div>
+  
   <!-- フッター -->
   <div id="footer-container"></div>
 
@@ -1517,79 +354,34 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- カスタムスクリプト -->
   <script src="../style.js"></script>
-  <!-- フッター読み込み -->
   <script>
     fetch('site_footer.html')
-      .then(r => r.text())
-      .then(html => { document.getElementById('footer-container').innerHTML = html; });
-  </script>
-  <!-- 用途地域の表示・必須制御 -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const cityPlanningZone = document.getElementById('city_planning_zone');
-      const zoningTypeGroup = document.getElementById('zoning_type_group');
-      const zoningType = document.getElementById('zoning_type');
-      const zoningTypeReq = document.getElementById('zoning_type_req');
-      function updateZoningTypeVisibility() {
-        if (cityPlanningZone && zoningTypeGroup && zoningType && zoningTypeReq) {
-          if (cityPlanningZone.value === '市街化区域') {
-            zoningTypeGroup.style.display = '';
-            zoningType.setAttribute('required', 'required');
-            zoningTypeReq.style.display = '';
-        } else {
-            zoningTypeGroup.style.display = 'none';
-            zoningType.removeAttribute('required');
-            zoningTypeReq.style.display = 'none';
-            zoningType.value = '';
-          }
-        }
-      }
-      if (cityPlanningZone) {
-        cityPlanningZone.addEventListener('change', updateZoningTypeVisibility);
-        updateZoningTypeVisibility();
-      }
-    });
-  </script>
-  <!-- 物件種別による動的表示制御 -->
-  <script>
-    // 物件種別による動的表示制御
-    document.addEventListener('DOMContentLoaded', function() {
-      const propertyType = document.getElementById('property_type');
-      const houseFloorsGroup = document.getElementById('house_floors_group');
-      const houseBasementGroup = document.getElementById('house_basement_group');
-      const mansionTotalFloorsGroup = document.getElementById('mansion_total_floors_group');
-      const mansionFloorNumberGroup = document.getElementById('mansion_floor_number_group');
-      const apartmentFloorsGroup = document.getElementById('apartment_floors_group');
-      const apartmentUnitsGroup = document.getElementById('apartment_units_group');
-      function updatePropertyTypeVisibility() {
-        // すべて非表示
-        if(houseFloorsGroup) houseFloorsGroup.style.display = 'none';
-        if(houseBasementGroup) houseBasementGroup.style.display = 'none';
-        if(mansionTotalFloorsGroup) mansionTotalFloorsGroup.style.display = 'none';
-        if(mansionFloorNumberGroup) mansionFloorNumberGroup.style.display = 'none';
-        if(apartmentFloorsGroup) apartmentFloorsGroup.style.display = 'none';
-        if(apartmentUnitsGroup) apartmentUnitsGroup.style.display = 'none';
-        // 戸建て
-        if (propertyType && (propertyType.value === '一戸建て住宅' || propertyType.value === '一戸建ての店舗併用住宅')) {
-          if(houseFloorsGroup) houseFloorsGroup.style.display = '';
-          if(houseBasementGroup) houseBasementGroup.style.display = '';
-      }
-        // マンション
-        if (propertyType && propertyType.value === 'マンション') {
-          if(mansionTotalFloorsGroup) mansionTotalFloorsGroup.style.display = '';
-          if(mansionFloorNumberGroup) mansionFloorNumberGroup.style.display = '';
-        }
-        // アパート
-        if (propertyType && propertyType.value === 'アパート') {
-          if(apartmentFloorsGroup) apartmentFloorsGroup.style.display = '';
-          if(apartmentUnitsGroup) apartmentUnitsGroup.style.display = '';
-        }
-      }
-      if (propertyType) {
-        propertyType.addEventListener('change', updatePropertyTypeVisibility);
-        updatePropertyTypeVisibility();
-      }
-    });
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('footer-container').innerHTML = html;
+        // 案件トップのリンクを削除（このページのみ）
+        setTimeout(() => {
+          const footerItems = document.querySelectorAll('#footer-container .footer-item');
+          footerItems.forEach(item => {
+            const link = item.querySelector('a[href="site_project_detail.html"]');
+            if (link && link.querySelector('.bi-house-fill')) {
+              item.remove();
+            }
+          });
+        }, 100);
+      });
+
+    // 状況保存
+    function saveStatus() {
+      const status = document.getElementById('statusSelect').value;
+      const statusLabels = {
+        'registered': '案件登録済み',
+        'in_progress': '工事中',
+        'completed': '工事完了',
+        'inspection_done': '出来方完了'
+      };
+      alert('状況を「' + statusLabels[status] + '」に保存しました。');
+    }
   </script>
 </body>
 </html>
