@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>社内担当者設定（システム管理者）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS (5系) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- カスタムCSS -->
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .small-text { font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <div id="header-container"></div>
+
+  <div class="container-fluid mt-4 px-4">
+    <h3 class="mb-3">社内担当者設定（システム管理者）</h3>
+    
+    <div class="p-3">
+      <div class="card m-3">
+        <div class="card-header">
+          <span>社内担当者</span>
+        </div>
+        <div class="col">
+          <!-- 新規追加ボタン（テーブル右上） -->
+          <div class="d-flex justify-content-end m-3">
+            <button 
+              type="button" 
+              class="btn btn-primary btn-sm" 
+              data-bs-toggle="modal" 
+              data-bs-target="#addStaffModal"
+            >
+              新規追加
+            </button>
+          </div>
+          <!-- テーブル（上下左右にマージン） -->
+          <div class="table-responsive m-3">
+            <table class="table table-hover table-bordered small-text">
+              <thead class="table-light">
+                <tr>
+                  <th>支店名</th>
+                  <th>名前</th>
+                  <th>職種</th>
+                  <th>権限</th>
+                  <th>メール</th>
+                  <th>電話番号</th>
+                  <th style="font-size:0.5rem;">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- 営業 -->
+                <tr>
+                  <td>東京支店</td>
+                  <td>佐藤 花子</td>
+                  <td>営業</td>
+                  <td>案件管理者</td>
+                  <td>hanako.sato@example.com</td>
+                  <td>090-1111-1111</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm">削除</button>
+                  </td>
+                </tr>
+                <!-- 現場監督 -->
+                <tr>
+                  <td>東京支店</td>
+                  <td>鈴木 次郎</td>
+                  <td>現場監督</td>
+                  <td>管理職</td>
+                  <td>jiro.suzuki@example.com</td>
+                  <td>090-2222-2222</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm">削除</button>
+                  </td>
+                </tr>
+                <!-- 設計 -->
+                <tr>
+                  <td>東京支店</td>
+                  <td>高橋 三郎</td>
+                  <td>設計</td>
+                  <td>システム管理者</td>
+                  <td>sabu.takahashi@example.com</td>
+                  <td>090-3333-3333</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm">削除</button>
+                  </td>
+                </tr>
+                <!-- インテリアコーディネーター -->
+                <tr>
+                  <td>東京支店</td>
+                  <td>田中 美咲</td>
+                  <td>インテリアコーディネーター</td>
+                  <td>一般</td>
+                  <td>misaki.tanaka@example.com</td>
+                  <td>090-4444-4444</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm">削除</button>
+                  </td>
+                </tr>
+                <!-- 職人 -->
+                <tr>
+                  <td>東京支店</td>
+                  <td>伊藤 翔</td>
+                  <td>職人</td>
+                  <td>一般</td>
+                  <td>sho.ito@example.com</td>
+                  <td>090-5555-5555</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm">削除</button>
+                  </td>
+                </tr>
+                <!-- 管理職 -->
+                <tr>
+                  <td>東京支店</td>
+                  <td>渡辺 智子</td>
+                  <td>管理職</td>
+                  <td>管理職</td>
+                  <td>tomoko.watanabe@example.com</td>
+                  <td>090-6666-6666</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm">削除</button>
+                  </td>
+                </tr>
+                <!-- 事務 -->
+                <tr>
+                  <td>東京支店</td>
+                  <td>中村 健</td>
+                  <td>事務</td>
+                  <td>一般</td>
+                  <td>ken.nakamura@example.com</td>
+                  <td>090-7777-7777</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm">削除</button>
+                  </td>
+                </tr>
+                <!-- 積算 -->
+                <tr>
+                  <td>東京支店</td>
+                  <td>小林 愛</td>
+                  <td>積算</td>
+                  <td>一般</td>
+                  <td>ai.kobayashi@example.com</td>
+                  <td>090-8888-8888</td>
+                  <td>
+                    <button class="btn btn-danger btn-sm">削除</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 新規追加モーダル -->
+    <div 
+      class="modal fade" 
+      id="addStaffModal" 
+      tabindex="-1" 
+      aria-labelledby="addStaffModalLabel" 
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addStaffModalLabel">社内担当者 追加</h5>
+            <button 
+              type="button" 
+              class="btn-close" 
+              data-bs-dismiss="modal" 
+              aria-label="閉じる"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="staffBranch" class="form-label">支店名</label>
+                <input type="text" class="form-control" id="staffBranch" required>
+              </div>
+              <div class="mb-3">
+                <label for="staffName" class="form-label">名前</label>
+                <input type="text" class="form-control" id="staffName" required>
+              </div>
+              <div class="mb-3">
+                <label for="staffPosition" class="form-label">職種</label>
+                <select class="form-select" id="staffPosition" required>
+                  <option value="">選択してください</option>
+                  <option value="営業">営業</option>
+                  <option value="現場監督">現場監督</option>
+                  <option value="設計">設計</option>
+                  <option value="インテリアコーディネーター">インテリアコーディネーター</option>
+                  <option value="職人">職人</option>
+                  <option value="管理職">管理職</option>
+                  <option value="事務">事務</option>
+                  <option value="積算">積算</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="staffPermission" class="form-label">権限</label>
+                <select class="form-select" id="staffPermission" required>
+                  <option value="">選択してください</option>
+                  <option value="システム管理者">システム管理者</option>
+                  <option value="案件管理者">案件管理者</option>
+                  <option value="管理職">管理職</option>
+                  <option value="一般">一般</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="staffEmail" class="form-label">メール</label>
+                <input type="email" class="form-control" id="staffEmail" required>
+              </div>
+              <div class="mb-3">
+                <label for="staffPhone" class="form-label">電話番号</label>
+                <input type="tel" class="form-control" id="staffPhone" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+            <button type="button" class="btn btn-primary">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../style.js"></script>
+  <script>
+    fetch('user_header.html')
+      .then(r => r.text())
+      .then(html => document.getElementById('header-container').innerHTML = html);
+  </script>
+</body>
+</html>

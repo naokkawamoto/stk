@@ -21,18 +21,41 @@
 <body id="index-page">
     <!-- ヘッダー -->
     <header class="text-center">
-        user_project_detail.html   <h1><img src="../images/houscan_logo.webp" alt="HOUSCAN Logo" width="45" height="45" class="d-inline-block align-text-top mx-2">
-        Welcome to MOC SKT</h1>
+        <h1>Welcome to MOC SKT</h1>
     </header>
 
     <!-- コンテンツ -->
     <div class="container text-center">
-        <div class="d-flex justify-content-center mb-3">
-            <a href="system_provider_cms/provider_login.html" class="btn btn-primary btn-lg mx-2">SYSTEM PROVIDER(ONETECH)
+        <div class="row justify-content-center mb-5">
+            <!-- SYSTEM USER（管理画面） -->
+            <div class="col-md-5 mb-4">
+                <a href="system_user_cms/user_project_list.html" class="btn btn-primary btn-lg w-100 mb-3" style="background-color: black; font-size: 1.2rem; padding: 1.5rem;">
+                    SYSTEM USER（管理画面）
+                </a>
+                <div class="d-flex gap-2 justify-content-center">
+                    <a href="system_user_cms/requirements_specification.html" target="_blank" class="btn btn-outline-secondary" style="font-size: 1rem; padding: 0.75rem 1.5rem;">
+                        <i class="bi bi-file-earmark-text"></i> HTML表示
+                    </a>
+                    <a href="system_user_cms/requirements_specification.csv" download class="btn btn-outline-secondary" style="font-size: 1rem; padding: 0.75rem 1.5rem;">
+                        <i class="bi bi-download"></i> CSVダウンロード
+                    </a>
+                </div>
+            </div>
             
-            </a>
-            <a href="system_user_cms/user_project_list.html" class="btn btn-primary mx-2" style="background-color: black;">SYSTEM USER(CLIENT)</a>
-            <a href="user_site/site_project_list.html" class="btn btn-primary mx-2" style="background-color:darkgreen">USER SITE(inspector)</a>
+            <!-- USER SITE（現場監督アプリ） -->
+            <div class="col-md-5 mb-4">
+                <a href="user_site/site_project_list.html" class="btn btn-primary btn-lg w-100 mb-3" style="background-color: darkgreen; font-size: 1.2rem; padding: 1.5rem;">
+                    USER SITE（現場監督アプリ）
+                </a>
+                <div class="d-flex gap-2 justify-content-center">
+                    <a href="user_site/requirements_specification.html" target="_blank" class="btn btn-outline-secondary" style="font-size: 1rem; padding: 0.75rem 1.5rem;">
+                        <i class="bi bi-file-earmark-text"></i> HTML表示
+                    </a>
+                    <a href="user_site/requirements_specification.csv" download class="btn btn-outline-secondary" style="font-size: 1rem; padding: 0.75rem 1.5rem;">
+                        <i class="bi bi-download"></i> CSVダウンロード
+                    </a>
+                </div>
+            </div>
         </div>
         
 
