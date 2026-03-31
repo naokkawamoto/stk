@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>記事作成</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body, html {
+      width: 393px;
+      height: 852px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    .container-fluid {
+      max-width: 393px;
+      padding-bottom: 80px;
+      padding-top: 70px;
+      margin-top: 0;
+    }
+    .project-header-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 393px;
+      height: 70px;
+      background: black;
+      color: white;
+      z-index: 1100;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 6px;
+    }
+    .project-header-item { flex: 1; text-align: center; min-width: 0; }
+    .project-header-link {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .project-header-icon { font-size: 1.45rem; line-height: 1; display: block; }
+    .project-header-label { font-size: 0.42rem; margin-top: 0.14rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .project-header-nav .dropdown-menu { max-width: 220px; }
+    .project-top-title {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin: 0.18rem 0 0.45rem;
+      line-height: 1.2;
+      color: #212529;
+    }
+    .date-weather-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 0.5rem;
+    }
+    .detail-date {
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .detail-weather {
+      text-align: right;
+      font-size: 0.6rem;
+      font-weight: 400;
+      color: #495057;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.25rem;
+    }
+    .detail-weather i { font-size: 0.9rem; color: #f0ad4e; line-height: 1; }
+    .page-heading {
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin: 0.6rem 0 0.85rem;
+      color: #212529;
+    }
+    .article-card {
+      border: 1px solid #dee2e6;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+      background: #fff;
+    }
+    .article-card-header {
+      background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      padding: 0.5rem 0.65rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.4rem;
+      min-height: 2.5rem;
+    }
+    .article-card-header-main {
+      flex: 1;
+      min-width: 0;
+    }
+    .article-card-header-main .content-label { margin-bottom: 0.2rem; }
+    .article-timestamp {
+      font-size: 0.58rem;
+      color: #6c757d;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+    .article-card-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: #212529;
+    }
+    .article-card-body { padding: 0.65rem 0.75rem; }
+    .content-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.3rem;
+    }
+    .article-content-text {
+      font-size: 0.72rem;
+      line-height: 1.45;
+      color: #212529;
+      margin-bottom: 0.65rem;
+      white-space: pre-wrap;
+    }
+    .attach-row {
+      display: flex;
+      gap: 0.85rem;
+      align-items: center;
+    }
+    .attach-doc-btn {
+      padding: 0.2rem;
+      border: none;
+      background: none;
+      color: #0d6efd;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .attach-doc-btn i { font-size: 1.4rem; vertical-align: middle; }
+    .attach-doc-btn:hover { color: #0a58ca; }
+    .bottom-quick-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 393px;
+      height: 70px;
+      background: black;
+      color: white;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 6px;
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
+    .bottom-quick-nav a {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      min-width: 0;
+    }
+    .bottom-quick-nav a i { font-size: 1.45rem; line-height: 1; }
+    .bottom-quick-nav .bottom-nav-label {
+      font-size: 0.42rem;
+      font-weight: 500;
+      margin-top: 0.14rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header class="project-header-nav" aria-label="ページヘッダメニュー">
+    <div class="project-header-item">
+      <a href="sm_project_list.html" class="project-header-link">
+        <i class="bi bi-list-ul project-header-icon"></i>
+        <div class="project-header-label">案件一覧</div>
+      </a>
+    </div>
+    <div class="project-header-item">
+      <a href="sm_chat_list.html" class="project-header-link">
+        <i class="bi bi-chat-dots-fill project-header-icon"></i>
+        <div class="project-header-label">チャット</div>
+      </a>
+    </div>
+    <div class="project-header-item">
+      <a href="sm_notifications.html" class="project-header-link">
+        <i class="bi bi-bell-fill project-header-icon"></i>
+        <div class="project-header-label">お知らせ</div>
+      </a>
+    </div>
+    <div class="project-header-item dropdown">
+      <a href="#" class="project-header-link" data-bs-toggle="dropdown" aria-expanded="false" id="headerMenuBtn">
+        <i class="bi bi-three-dots-vertical project-header-icon"></i>
+        <div class="project-header-label">メニュー</div>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="headerMenuBtn">
+        <li><a class="dropdown-item" href="sm_myprof.html"><i class="bi bi-person-fill me-2"></i>山田太郎</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="login.html">ログアウト</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="container-fluid px-2">
+    <div class="project-top-title">国道９号線舗装工事</div>
+    <div class="date-weather-row">
+      <div class="detail-date">2026/03/14（土）</div>
+      <div class="detail-weather">
+        <i class="bi bi-sun-fill"></i>
+        <span>18°C / 7°C</span>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center mb-2">
+      <a href="sm_project_detail.html" class="btn btn-outline-secondary btn-sm" style="font-size: 0.75rem; padding: 0.55rem 0.7rem;">
+        <i class="bi bi-arrow-left me-1"></i>本日の作業予定へ戻る
+      </a>
+    </div>
+
+    <h1 class="page-heading">記事作成</h1>
+
+    <div id="articleCards">
+      <!-- ダミーカード1 -->
+      <div class="article-card" data-article-index="0">
+        <div class="article-card-header">
+          <div class="article-card-header-main">
+            <div class="article-timestamp">08:15</div>
+            <div class="content-label">タイトル</div>
+            <div class="article-card-title">急雨で未舗装区間に泥水流入、清掃と再転圧の可否を監理と協議</div>
+          </div>
+          <button type="button" class="btn btn-link p-0 text-secondary flex-shrink-0" aria-label="編集" title="編集">
+            <i class="bi bi-pencil-square" style="font-size: 1.1rem;"></i>
+          </button>
+        </div>
+        <div class="article-card-body">
+          <div class="content-label">内容</div>
+          <div class="article-content-text">現場南側で排水が追いつかず、仮排水ホースを増設して作業を再開。写真は事務所へ送付済み。</div>
+          <div class="attach-row">
+            <input type="file" class="d-none article-file" accept="image/*" capture="environment" id="article0file0">
+            <button type="button" class="attach-doc-btn" aria-label="書類を添付1" title="添付" onclick="document.getElementById('article0file0').click()">
+              <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+            </button>
+            <input type="file" class="d-none article-file" accept="image/*" capture="environment" id="article0file1">
+            <button type="button" class="attach-doc-btn" aria-label="書類を添付2" title="添付" onclick="document.getElementById('article0file1').click()">
+              <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ダミーカード2 -->
+      <div class="article-card" data-article-index="1">
+        <div class="article-card-header">
+          <div class="article-card-header-main">
+            <div class="article-timestamp">10:40</div>
+            <div class="content-label">タイトル</div>
+            <div class="article-card-title">搬入車の誘導で縁石に接触、所有者へ謝罪と補修手配を約束</div>
+          </div>
+          <button type="button" class="btn btn-link p-0 text-secondary flex-shrink-0" aria-label="編集" title="編集">
+            <i class="bi bi-pencil-square" style="font-size: 1.1rem;"></i>
+          </button>
+        </div>
+        <div class="article-card-body">
+          <div class="content-label">内容</div>
+          <div class="article-content-text">縁石の欠けを確認し、業者に補修見積を依頼。当面は養生テープで保護し、翌営業日に補修予定。</div>
+          <div class="attach-row">
+            <input type="file" class="d-none article-file" accept="image/*" capture="environment" id="article1file0">
+            <button type="button" class="attach-doc-btn" aria-label="書類を添付1" title="添付" onclick="document.getElementById('article1file0').click()">
+              <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+            </button>
+            <input type="file" class="d-none article-file" accept="image/*" capture="environment" id="article1file1">
+            <button type="button" class="attach-doc-btn" aria-label="書類を添付2" title="添付" onclick="document.getElementById('article1file1').click()">
+              <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-outline-primary w-100 mb-3" id="btnAddArticle" style="font-size: 0.8rem;">
+      <i class="bi bi-plus-circle me-1"></i>追加する
+    </button>
+  </div>
+
+  <nav class="bottom-quick-nav" aria-label="ページ内メニュー">
+    <a href="sm_project_detail_overview.html">
+      <i class="bi bi-card-text"></i>
+      <div class="bottom-nav-label">工事概要</div>
+    </a>
+    <a href="sm_project_detail_budget_summary.html">
+      <i class="bi bi-bar-chart-line"></i>
+      <div class="bottom-nav-label">予算実績</div>
+    </a>
+    <a href="sm_project_detail_report.html">
+      <i class="bi bi-journal-text"></i>
+      <div class="bottom-nav-label">日誌一覧</div>
+    </a>
+    <a href="sm_project_detail_schedule_summary.html">
+      <i class="bi bi-calendar3"></i>
+      <div class="bottom-nav-label">スケジュール</div>
+    </a>
+    <a href="sm_project_detail_drawing.html">
+      <i class="bi bi-file-earmark-image"></i>
+      <div class="bottom-nav-label">図面</div>
+    </a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../style.js"></script>
+  <script>
+    (function () {
+      var nextIndex = 2;
+
+      document.getElementById('btnAddArticle').addEventListener('click', function () {
+        var wrap = document.getElementById('articleCards');
+        var n = nextIndex++;
+        var now = new Date();
+        var hh = String(now.getHours()).padStart(2, '0');
+        var mm = String(now.getMinutes()).padStart(2, '0');
+        var card = document.createElement('div');
+        card.className = 'article-card';
+        card.setAttribute('data-article-index', String(n));
+        card.innerHTML = [
+          '<div class="article-card-header">',
+          '<div class="article-card-header-main">',
+          '<div class="article-timestamp">', hh, ':', mm, '</div>',
+          '<div class="content-label">タイトル</div>',
+          '<div class="article-card-title">（メモのタイトルを追加）</div>',
+          '</div>',
+          '<button type="button" class="btn btn-link p-0 text-secondary flex-shrink-0" aria-label="編集" title="編集">',
+          '<i class="bi bi-pencil-square" style="font-size: 1.1rem;"></i></button></div>',
+          '<div class="article-card-body">',
+          '<div class="content-label">内容</div>',
+          '<div class="article-content-text">（メモの本文を追加）</div>',
+          '<div class="attach-row">',
+          '<input type="file" class="d-none article-file" accept="image/*" capture="environment" id="article', n, 'file0">',
+          '<button type="button" class="attach-doc-btn" aria-label="書類を添付1" title="添付" data-pick="article', n, 'file0">',
+          '<i class="bi bi-file-earmark-text" aria-hidden="true"></i></button>',
+          '<input type="file" class="d-none article-file" accept="image/*" capture="environment" id="article', n, 'file1">',
+          '<button type="button" class="attach-doc-btn" aria-label="書類を添付2" title="添付" data-pick="article', n, 'file1">',
+          '<i class="bi bi-file-earmark-text" aria-hidden="true"></i></button>',
+          '</div></div>'
+        ].join('');
+        wrap.appendChild(card);
+        card.querySelectorAll('.attach-doc-btn[data-pick]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var id = btn.getAttribute('data-pick');
+            var inp = document.getElementById(id);
+            if (inp) { inp.value = ''; inp.click(); }
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

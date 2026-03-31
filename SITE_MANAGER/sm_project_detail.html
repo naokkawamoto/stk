@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>案件管理（概要）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body, html { width: 393px; height: 852px; margin: 0; padding: 0; overflow-x: hidden; overflow-y: auto; }
+    .container-fluid { max-width: 393px; padding-bottom: 70px; padding-top: 70px; margin-top: 0; }
+    .project-title { white-space: nowrap; font-size: 0.95rem; }
+    .header-project-card { margin-bottom: 0.8rem; }
+    .project-top-title {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin: 0.18rem 0 0.45rem;
+      line-height: 1.2;
+      color: #212529;
+    }
+    .card-project {
+      font-size: 0.72rem;
+      min-height: 52px;
+      border: 1px solid #dee2e6;
+      border-radius: 0.5rem;
+      box-shadow: none;
+      background: #f8f9fa;
+    }
+    .card-project .card-body { padding: 0.35rem 0.5rem; }
+    .project-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .card-image {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 0.2rem;
+      flex: 0 0 36px;
+    }
+    .project-name {
+      font-weight: 600;
+      font-size: 1.2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.1;
+    }
+    .project-type {
+      font-size: 0.66rem;
+      color: #555;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.1;
+    }
+    .header-label {
+      font-size: 0.62rem;
+      color: #6c757d;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.02em;
+    }
+    .date-weather-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 0.68rem;
+    }
+    .detail-date {
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .detail-weather {
+      text-align: right;
+      font-size: 0.6rem;
+      font-weight: 400;
+      color: #495057;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.25rem;
+    }
+    .detail-weather i {
+      font-size: 0.9rem;
+      color: #f0ad4e; /* 色付きアイコン */
+      line-height: 1;
+    }
+    .menu-btn {
+      display: block;
+      width: 75%;
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 0.95rem 0.9rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.6rem;
+      margin-left: auto;
+      margin-right: auto;
+      text-decoration: none;
+      border: 1px solid #dee2e6;
+      background: #fff;
+      color: #212529;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .menu-btn:hover { color: #212529; background: #f8f9fa; }
+    .menu-btn i { margin-right: 0.4rem; }
+    .menu-main { font-size: 1.2rem; font-weight: 700; line-height: 1.2; }
+    .menu-sub { font-size: 0.7rem; color: #6c757d; line-height: 1.1; margin-top: 0.15rem; }
+    .section-card { border: 1px solid #dee2e6; border-radius: 0.5rem; margin-bottom: 0.7rem; overflow: hidden; }
+    .section-title { background: #f8f9fa; border-bottom: 1px solid #dee2e6; padding: 0.5rem 0.7rem; font-size: 0.85rem; font-weight: 700; }
+    .section-content { min-height: 68px; padding: 0.7rem; background: #fff; display: none; }
+    .toggle-title { cursor: pointer; user-select: none; }
+    .section-title-centered {
+      text-align: center;
+      position: relative;
+      padding-left: 1.8rem;  /* 左寄せアイコン分の余白 */
+      padding-right: 1.8rem; /* 右寄せアイコン分の余白 */
+    }
+    .toggle-chevron {
+      font-size: 0.95rem;
+      transition: transform 0.2s ease;
+      position: absolute;
+      right: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .toggle-chevron.open {
+      transform: translateY(-50%) rotate(180deg);
+    }
+    .doc-icon {
+      font-size: 0.8rem;
+      vertical-align: middle;
+      margin-left: 0.15rem;
+    }
+    .gyosha-check-icon {
+      position: absolute;
+      left: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 0;
+    }
+    .section-check-icon {
+      position: absolute;
+      left: 0.6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 0 !important; /* doc-icon側の余白を相殺 */
+    }
+    .right-doc-group {
+      position: absolute;
+      right: 1.6rem; /* chevron の右余白と干渉しない位置 */
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 0.1rem;
+      pointer-events: none; /* タップ領域をタイトルに譲る */
+    }
+    .right-doc-group .doc-icon {
+      margin-left: 0;
+    }
+    .right-doc-group .doc-badge {
+      margin-left: 0;
+      transform: translateY(-0.05rem);
+    }
+    .doc-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0.75rem;
+      height: 0.55rem;
+      padding: 0 0.15rem;
+      border-radius: 999px;
+      background: #dc3545;
+      color: #fff;
+      font-size: 0.38rem;
+      font-weight: 700;
+      vertical-align: middle;
+      margin-left: 0.15rem;
+      transform: translateY(-0.05rem);
+      line-height: 1;
+    }
+    .work-table { font-size: 0.72rem; margin-bottom: 0.6rem; }
+    .work-table th { width: 34%; background-color: #f8f9fa; }
+    .work-table td, .work-table th { padding: 0.35rem 0.45rem; }
+    .menu-btn-overview {
+      width: 18.75%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      line-height: 1.1;
+    }
+    .menu-btn-overview i {
+      margin-right: 0;
+      font-size: 0.95rem;
+    }
+    .menu-btn-overview .overview-text {
+      font-size: 0.6rem;
+      font-weight: 500;
+    }
+    .menu-row {
+      width: 100%;
+      margin: 0 auto 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.35rem;
+    }
+    .menu-row-five .menu-btn-overview {
+      width: calc((100% - 1.4rem) / 5);
+      margin: 0;
+    }
+    .menu-btn-highlight {
+      background: linear-gradient(135deg, #e8f5e9 0%, #d4edda 100%);
+      border: 1px solid #a3d9b1;
+    }
+    .menu-btn-highlight:hover { background: linear-gradient(135deg, #dff0e2 0%, #cde8d4 100%); }
+    /* 固定フッタ（工事概要〜図面） */
+    .bottom-quick-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 393px;
+      height: 70px;
+      background: black;
+      color: white;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 6px;
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
+    .bottom-quick-nav a {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      min-width: 0;
+    }
+    .bottom-quick-nav a i {
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+    .bottom-quick-nav .bottom-nav-label {
+      font-size: 0.42rem;
+      font-weight: 500;
+      margin-top: 0.14rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    /* 本日の作業予定（タイトル表示） */
+    .work-content-title {
+      width: 100%;
+      margin: 0.2rem 0 0.6rem;
+      text-align: center;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      background: transparent;
+      color: #212529;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: none;
+      display: block;
+      line-height: 1.2;
+    }
+    .square-action-row {
+      width: 75%;
+      display: flex;
+      gap: 0.5rem;
+      margin: 0.2rem auto 0.6rem;
+    }
+    .square-menu-btn {
+      width: calc((100% - 0.5rem) / 2);
+      margin: 0;
+      padding: 0;
+      aspect-ratio: 1 / 1;
+      position: relative;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+    }
+    .square-check-empty {
+      position: absolute;
+      top: 0.35rem;
+      left: 0.35rem;
+      font-size: 0.95rem;
+      line-height: 1;
+      color: #212529;
+      pointer-events: none;
+    }
+    .square-doc-group {
+      position: absolute;
+      top: 0.35rem;
+      right: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      pointer-events: none;
+      color: #212529;
+    }
+    .square-doc-group i {
+      font-size: 0.85rem;
+      line-height: 1;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .square-doc-badge {
+      min-width: 0.75rem;
+      height: 0.55rem;
+      padding: 0 0.15rem;
+      border-radius: 999px;
+      background: #dc3545;
+      color: #fff;
+      font-size: 0.38rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    /* menu-btn 用：左上チェックボックス（空） */
+    .menu-btn-check-empty {
+      position: relative;
+      padding-left: 1.7rem;
+      padding-right: 0.9rem;
+    }
+    .menu-btn-check-empty-icon {
+      position: absolute;
+      top: 0.35rem;
+      left: 0.35rem;
+      font-size: 0.95rem;
+      line-height: 1;
+      color: #212529;
+      pointer-events: none;
+    }
+    .status-badge-small {
+      position: absolute;
+      top: 0.22rem;
+      right: 0.35rem;
+      padding: 0 0.22rem;
+      border-radius: 999px;
+      background: #198754;
+      color: #fff;
+      font-size: 0.38rem;
+      font-weight: 700;
+      height: 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .square-menu-btn .menu-main {
+      font-size: 0.95rem;
+      line-height: 1.2;
+      padding: 0 0.25rem;
+    }
+    /* ヘッダ（案件一覧/チャット/お知らせ/メニュー） */
+    .project-header-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 393px;
+      height: 70px;
+      background: black;
+      color: white;
+      z-index: 1100;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 6px;
+    }
+    .project-header-item {
+      flex: 1;
+      text-align: center;
+      min-width: 0;
+    }
+    .project-header-link {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .project-header-icon {
+      font-size: 1.45rem;
+      line-height: 1;
+      display: block;
+    }
+    .project-header-label {
+      font-size: 0.42rem;
+      margin-top: 0.14rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .project-header-nav .dropdown-menu {
+      max-width: 220px;
+    }
+  </style>
+</head>
+<body>
+  <header class="project-header-nav" aria-label="ページヘッダメニュー">
+    <div class="project-header-item">
+      <a href="sm_project_list.html" class="project-header-link">
+        <i class="bi bi-list-ul project-header-icon"></i>
+        <div class="project-header-label">案件一覧</div>
+      </a>
+    </div>
+    <div class="project-header-item">
+      <a href="sm_chat_list.html" class="project-header-link">
+        <i class="bi bi-chat-dots-fill project-header-icon"></i>
+        <div class="project-header-label">チャット</div>
+      </a>
+    </div>
+    <div class="project-header-item">
+      <a href="sm_notifications.html" class="project-header-link">
+        <i class="bi bi-bell-fill project-header-icon"></i>
+        <div class="project-header-label">お知らせ</div>
+      </a>
+    </div>
+    <div class="project-header-item dropdown">
+      <a href="#" class="project-header-link" data-bs-toggle="dropdown" aria-expanded="false" id="headerMenuBtn">
+        <i class="bi bi-three-dots-vertical project-header-icon"></i>
+        <div class="project-header-label">メニュー</div>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="headerMenuBtn">
+        <li><a class="dropdown-item" href="sm_myprof.html"><i class="bi bi-person-fill me-2"></i>山田太郎</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="login.html">ログアウト</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <div class="container-fluid px-2">
+    <div class="project-top-title">国道９号線舗装工事</div>
+
+    <div class="date-weather-row">
+      <div class="detail-date">2026/03/14（土）</div>
+      <div class="detail-weather">
+        <i class="bi bi-sun-fill"></i>
+        <span>18°C / 7°C</span>
+      </div>
+    </div>
+
+    <div class="work-content-title">
+      本日の作業予定
+    </div>
+    <div class="section-card">
+      <div class="section-title toggle-title section-title-centered" onclick="toggleKoshuContent()">
+        <i class="bi bi-check-square doc-icon section-check-icon" aria-hidden="true"></i>
+        工種 <i id="koshuToggleIcon" class="bi bi-chevron-down toggle-chevron"></i>
+      </div>
+      <div class="section-content" id="koshuContent">
+        <div class="d-flex justify-content-end mb-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="修正">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </div>
+
+        <table class="table table-bordered work-table">
+          <tbody>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" checked aria-label="選択">
+              </td>
+              <th>工種名</th>
+              <td>片付け</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>作業内容</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>作業箇所</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>予算</th>
+              <td>120㎡（ダミー）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table class="table table-bordered work-table mb-0">
+          <tbody>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>工種名</th>
+              <td>置き場整地</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>作業内容</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>作業箇所</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>予算</th>
+              <td>95㎡（ダミー）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-start mt-2">
+          <button type="button" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-plus-circle me-1"></i>追加
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title toggle-title section-title-centered" onclick="toggleKikiContent()">
+        <i class="bi bi-check-square doc-icon section-check-icon" aria-hidden="true"></i>
+        使用機器名 <i id="kikiToggleIcon" class="bi bi-chevron-down toggle-chevron"></i>
+      </div>
+      <div class="section-content" id="kikiContent">
+        <div class="d-flex justify-content-end mb-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="修正">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </div>
+
+        <table class="table table-bordered work-table mb-0">
+          <thead>
+            <tr>
+              <th style="width:34px;"></th>
+              <th>メーカー名</th>
+              <th>機種名</th>
+              <th>使用台数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">
+                <input type="checkbox" checked aria-label="選択">
+              </td>
+              <td>コマツ</td>
+              <td>油圧ショベル PC78US</td>
+              <td>1台</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>日立建機</td>
+              <td>ホイールローダ ZW30</td>
+              <td>1台</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>酒井重工業</td>
+              <td>ロードローラ SV512</td>
+              <td>2台</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-start mt-2">
+          <button type="button" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-plus-circle me-1"></i>追加
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title toggle-title section-title-centered" onclick="toggleGyoshaContent()">
+        <i class="bi bi-check-square doc-icon gyosha-check-icon" aria-hidden="true"></i>
+        業者
+        <span class="right-doc-group" aria-hidden="true">
+          <i class="bi bi-file-earmark-text doc-icon"></i>
+          <span class="doc-badge">6</span>
+        </span>
+        <i id="gyoshaToggleIcon" class="bi bi-chevron-down toggle-chevron"></i>
+      </div>
+      <div class="section-content" id="gyoshaContent">
+        <div class="d-flex justify-content-end mb-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="修正">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </div>
+        <table class="table table-bordered work-table mb-0">
+          <thead>
+            <tr>
+              <th style="width:34px;"></th>
+              <th>業者名</th>
+              <th>人数</th>
+              <th>書類</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">
+                <input type="checkbox" checked aria-label="選択">
+              </td>
+              <td>東京舗装(株)</td>
+              <td>5名</td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center gap-1">
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(1)">書類1</button>
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(2)">書類2</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <td>(株)関東建設</td>
+              <td>3名</td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center gap-1">
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(1)">書類1</button>
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(2)">書類2</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <td>首都圏道路(株)</td>
+              <td>4名</td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center gap-1">
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(1)">書類1</button>
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(2)">書類2</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-start mt-2">
+          <button type="button" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-plus-circle me-1"></i>追加
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title toggle-title section-title-centered" onclick="toggleMaterialContent()">
+        <i class="bi bi-check-square doc-icon section-check-icon" aria-hidden="true"></i>
+        受け入れ材料
+        <span class="right-doc-group" aria-hidden="true">
+          <i class="bi bi-file-earmark-text doc-icon"></i>
+          <span class="doc-badge">2</span>
+        </span>
+        <i id="materialToggleIcon" class="bi bi-chevron-down toggle-chevron"></i>
+      </div>
+      <div class="section-content" id="materialContent">
+        <div class="d-flex justify-content-end mb-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="修正">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div class="small fw-bold">受け入れ材料1</div>
+          <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(1)" aria-label="納品書（受け入れ材料1）">
+            <i class="bi bi-file-earmark-text me-1"></i>納品書
+          </button>
+        </div>
+        <table class="table table-bordered work-table">
+          <tbody>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" checked aria-label="選択">
+              </td>
+              <th>材料名</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>規格・寸法</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>業者名</th>
+              <td>東京舗装(株)</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>数量</th>
+              <td>ダミー</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div class="small fw-bold">受け入れ材料2</div>
+          <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(2)" aria-label="納品書（受け入れ材料2）">
+            <i class="bi bi-file-earmark-text me-1"></i>納品書
+          </button>
+        </div>
+        <table class="table table-bordered work-table mb-0">
+          <tbody>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>材料名</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>規格・寸法</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>業者名</th>
+              <td>(株)関東建設</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>数量</th>
+              <td>ダミー</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-start mt-2">
+          <button type="button" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-plus-circle me-1"></i>追加
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title toggle-title section-title-centered" onclick="toggleShizaiContent()">
+        <i class="bi bi-check-square doc-icon section-check-icon" aria-hidden="true"></i>
+        受け入れ資材
+        <span class="right-doc-group" aria-hidden="true">
+          <i class="bi bi-file-earmark-text doc-icon"></i>
+          <span class="doc-badge">2</span>
+        </span>
+        <i id="shizaiToggleIcon" class="bi bi-chevron-down toggle-chevron"></i>
+      </div>
+      <div class="section-content" id="shizaiContent">
+        <div class="d-flex justify-content-end mb-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" aria-label="修正">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div class="small fw-bold">受け入れ資材1</div>
+          <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(1)" aria-label="納品書（受け入れ資材1）">
+            <i class="bi bi-file-earmark-text me-1"></i>納品書
+          </button>
+        </div>
+        <table class="table table-bordered work-table">
+          <tbody>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" checked aria-label="選択">
+              </td>
+              <th>材料名</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>規格・寸法</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>業者名</th>
+              <td>東京舗装(株)</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>数量</th>
+              <td>ダミー</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div class="small fw-bold">受け入れ資材2</div>
+          <button type="button" class="btn btn-sm btn-outline-primary" onclick="openDocCamera(2)" aria-label="納品書（受け入れ資材2）">
+            <i class="bi bi-file-earmark-text me-1"></i>納品書
+          </button>
+        </div>
+        <table class="table table-bordered work-table mb-0">
+          <tbody>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>材料名</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>規格・寸法</th>
+              <td>ダミー</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>業者名</th>
+              <td>(株)関東建設</td>
+            </tr>
+            <tr>
+              <td class="text-center" style="width:34px;">
+                <input type="checkbox" aria-label="選択">
+              </td>
+              <th>数量</th>
+              <td>ダミー</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex justify-content-start mt-2">
+          <button type="button" class="btn btn-sm btn-outline-primary">
+            <i class="bi bi-plus-circle me-1"></i>追加
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="square-action-row">
+      <a href="sm_project_detail_output_register.html" class="menu-btn text-decoration-none text-dark d-block square-menu-btn">
+        <i class="bi bi-square square-check-empty" aria-hidden="true"></i>
+        <span class="square-doc-group" aria-hidden="true">
+          <i class="bi bi-file-earmark-text"></i>
+          <span class="square-doc-badge">1</span>
+        </span>
+        <div class="menu-main">出来高登録</div>
+      </a>
+
+      <a href="sm_project_detail_article_create.html" class="menu-btn text-decoration-none text-dark d-block square-menu-btn">
+        <i class="bi bi-square square-check-empty" aria-hidden="true"></i>
+        <div class="menu-main">記事作成</div>
+      </a>
+    </div>
+
+    <a href="sm_project_detail_report_create.html" class="menu-btn text-decoration-none text-dark d-block menu-btn-check-empty">
+      <i class="bi bi-square menu-btn-check-empty-icon" aria-hidden="true"></i>
+      <span class="status-badge-small">提出済み</span>
+      <div class="menu-main">日誌提出</div>
+    </a>
+
+    <a href="sm_project_detail_report_create_tomorrow.html" class="menu-btn menu-btn-check-empty">
+      <i class="bi bi-square menu-btn-check-empty-icon" aria-hidden="true"></i>
+      <i class="bi bi-calendar-event"></i>明日の作業予定<br>
+      <span style="font-size:0.6rem; font-weight:400;">
+        2026/03/15（日）
+        <i class="bi bi-cloud-rain-fill" style="color:#7b61ff;"></i>
+        12°C / 6°C
+      </span>
+    </a>
+
+  </div>
+
+  <!-- ダミー用：書類撮影（iOSは capture によりカメラ起動） -->
+  <input id="docCameraInput1" type="file" accept="image/*" capture="environment" style="display:none;">
+  <input id="docCameraInput2" type="file" accept="image/*" capture="environment" style="display:none;">
+
+  <nav class="bottom-quick-nav" aria-label="ページ内メニュー">
+    <a href="sm_project_detail_overview.html">
+      <i class="bi bi-card-text"></i>
+      <div class="bottom-nav-label">工事概要</div>
+    </a>
+    <a href="sm_project_detail_budget_summary.html">
+      <i class="bi bi-bar-chart-line"></i>
+      <div class="bottom-nav-label">予算実績</div>
+    </a>
+    <a href="sm_project_detail_report.html">
+      <i class="bi bi-journal-text"></i>
+      <div class="bottom-nav-label">日誌一覧</div>
+    </a>
+    <a href="sm_project_detail_schedule_summary.html">
+      <i class="bi bi-calendar3"></i>
+      <div class="bottom-nav-label">スケジュール</div>
+    </a>
+    <a href="sm_project_detail_drawing.html">
+      <i class="bi bi-file-earmark-image"></i>
+      <div class="bottom-nav-label">図面</div>
+    </a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../style.js"></script>
+  <script>
+    // 折りたたみカード（CSSで非表示 → クリックで表示切替）
+    function openDocCamera(type) {
+      const input = document.getElementById(type === 1 ? 'docCameraInput1' : 'docCameraInput2');
+      if (!input) return;
+      // 同じ入力でも連続クリックできるように値をクリア
+      input.value = '';
+      input.click();
+    }
+
+    function toggleKoshuContent() {
+      const content = document.getElementById('koshuContent');
+      if (!content) return;
+      const isHidden = window.getComputedStyle(content).display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      const icon = document.getElementById('koshuToggleIcon');
+      if (icon) icon.classList.toggle('open', isHidden);
+    }
+
+    function toggleKikiContent() {
+      const content = document.getElementById('kikiContent');
+      if (!content) return;
+      const isHidden = window.getComputedStyle(content).display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      const icon = document.getElementById('kikiToggleIcon');
+      if (icon) icon.classList.toggle('open', isHidden);
+    }
+
+    function toggleGyoshaContent() {
+      const content = document.getElementById('gyoshaContent');
+      if (!content) return;
+      const isHidden = window.getComputedStyle(content).display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      const icon = document.getElementById('gyoshaToggleIcon');
+      if (icon) icon.classList.toggle('open', isHidden);
+    }
+
+    function toggleMaterialContent() {
+      const content = document.getElementById('materialContent');
+      if (!content) return;
+      const isHidden = window.getComputedStyle(content).display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      const icon = document.getElementById('materialToggleIcon');
+      if (icon) icon.classList.toggle('open', isHidden);
+    }
+
+    function toggleShizaiContent() {
+      const content = document.getElementById('shizaiContent');
+      if (!content) return;
+      const isHidden = window.getComputedStyle(content).display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      const icon = document.getElementById('shizaiToggleIcon');
+      if (icon) icon.classList.toggle('open', isHidden);
+    }
+  </script>
+</body>
+</html>

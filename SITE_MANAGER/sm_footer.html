@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Site Footer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- カスタムCSS -->
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .footer-item {
+      flex: 1;
+      text-align: center;
+    }
+    .footer-icon {
+      font-size: 1.5rem;
+      display: block;
+      margin: 0 auto;
+    }
+    .footer-text {
+      font-size: 0.5rem;
+      margin-top: 0.2rem;
+    }
+    .footer-badge {
+      position: absolute;
+      top: 0.2rem;
+      right: 1.2rem;
+      font-size: 0.6rem;
+    }
+  </style>
+</head>
+<body>
+  <footer class="text-center text-lg-start" style="background-color: black; color: white;">
+    <div class="container py-2">
+      <div class="d-flex justify-content-around align-items-center">
+        <!-- 案件一覧 -->
+        <div class="footer-item">
+          <a href="sm_project_list.html" class="footer-link text-white">
+            <i class="bi bi-list-ul footer-icon"></i>
+            <div class="footer-text" style="font-size: 0.4rem;">案件一覧</div>
+          </a>
+        </div>
+        <!-- 案件トップ -->
+        <div class="footer-item">
+          <a href="sm_project_detail.html" class="footer-link text-white">
+            <i class="bi bi-house-fill footer-icon"></i>
+            <div class="footer-text" style="font-size: 0.4rem;">案件トップ</div>
+          </a>
+        </div>
+        <!-- チャット -->
+        <div class="footer-item position-relative">
+          <a href="sm_chat_list.html" class="footer-link text-white">
+            <i class="bi bi-chat-dots-fill footer-icon"></i>
+            <span class="badge bg-danger footer-badge">5</span>
+            <div class="footer-text">チャット</div>
+          </a>
+        </div>
+        <!-- お知らせ -->
+        <div class="footer-item position-relative">
+          <a href="sm_notifications.html" class="footer-link text-white">
+            <i class="bi bi-bell-fill footer-icon"></i>
+            <span class="badge bg-danger footer-badge">3</span>
+            <div class="footer-text">お知らせ</div>
+          </a>
+        </div>
+        <!-- メニュー -->
+        <div class="footer-item dropdown">
+          <a href="#" id="footerMenuBtn" class="footer-link text-white" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-three-dots-vertical footer-icon"></i>
+            <div class="footer-text">メニュー</div>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="sm_project_detail_overview.html"><i class="bi bi-card-text me-2"></i>工事概要</a></li>
+            <li><a class="dropdown-item" href="sm_project_detail_budget_summary.html"><i class="bi bi-bar-chart-line me-2"></i>予算実績</a></li>
+            <li><a class="dropdown-item" href="sm_project_detail_report.html"><i class="bi bi-journal-text me-2"></i>日誌一覧</a></li>
+            <li><a class="dropdown-item" href="sm_project_detail_schedule_summary.html"><i class="bi bi-calendar3 me-2"></i>スケジュール</a></li>
+            <li><a class="dropdown-item" href="sm_project_detail_drawing.html"><i class="bi bi-file-earmark-image me-2"></i>図面</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="sm_myprof.html"><i class="bi bi-person-fill me-2"></i>山田太郎</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><span class="dropdown-item-text">v.1.0.1</span></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" onclick="logout()">ログアウト</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function logout() {
+      // TODO: ログアウト処理を実装
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>
