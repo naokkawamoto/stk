@@ -137,6 +137,7 @@
       display: flex;
       gap: 0.85rem;
       align-items: center;
+      justify-content: center;
     }
     .point-cloud-action {
       display: flex;
@@ -153,6 +154,40 @@
     }
     .doc-btn i { font-size: 1.4rem; vertical-align: middle; }
     .doc-btn:hover { color: #0a58ca; }
+    .point-cloud-thumb-btn {
+      padding: 0;
+      border: none;
+      background: none;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .point-cloud-thumb-btn img {
+      width: 180px;
+      max-width: 100%;
+      border-radius: 0.5rem;
+      border: 1px solid #dee2e6;
+      display: block;
+      margin: 0 auto;
+    }
+    .point-cloud-steps {
+      margin-top: 0.55rem;
+      text-align: left;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      color: #212529;
+    }
+    .point-cloud-gallery {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .point-cloud-gallery img {
+      width: 100%;
+      border-radius: 0.5rem;
+      border: 1px solid #dee2e6;
+      display: block;
+    }
     .bottom-quick-nav {
       position: fixed;
       bottom: 0;
@@ -267,11 +302,11 @@
               </tr>
             </tbody>
           </table>
-          <div class="label-mini">添付ファイル</div>
+          <div class="label-mini text-center">点群</div>
           <div class="doc-row">
             <input type="file" class="d-none output-file" accept="image/*" capture="environment" id="output0file0">
-            <button type="button" class="doc-btn" aria-label="点群ビューを表示" title="点群ビュー表示" onclick="showPointCloudView()">
-              <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+            <button type="button" class="point-cloud-thumb-btn" aria-label="点群ビューを表示" title="点群ビュー表示" onclick="showPointCloudView()">
+              <img src="assets/pc_thumb.png" alt="点群サムネイル">
             </button>
           </div>
         </div>
@@ -323,7 +358,17 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
         </div>
         <div class="modal-body text-center" style="font-size: 0.78rem;">
-          点群のビューが表示されます
+          <div><strong>全体点群ビューが表示されます。</strong></div>
+          <div class="point-cloud-steps">
+            <div><strong>複数写真閲覧可、測量可、メモ可</strong></div>
+            <div><strong>STEP1：前日の出来高が反映される（マーカー）→前日との差分を手動で測定→出来高自動取得</strong></div>
+            <div><strong>STEP2：自動で本日の出来高自動取得</strong></div>
+          </div>
+          <div class="point-cloud-gallery">
+            <img src="assets/view_pc1.png" alt="view_pc1">
+            <img src="assets/view_pc2.png" alt="view_pc2">
+            <img src="assets/view_pc3.png" alt="view_pc3">
+          </div>
         </div>
       </div>
     </div>
@@ -337,7 +382,15 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
         </div>
         <div class="modal-body text-center" style="font-size: 0.78rem;">
-          点群取得開始します。
+          <div>点群取得開始します。</div>
+          <div class="point-cloud-steps">
+            <div>取得後ビューモードに変わります。</div>
+            <div>STEP1：前日の出来高が反映される（マーカー）→前日との差分を手動で測定→出来高自動取得</div>
+            <div>STEP2：自動で本日の出来高自動取得</div>
+          </div>
+          <div class="point-cloud-gallery">
+            <img src="assets/start_scan.png" alt="start_scan">
+          </div>
         </div>
       </div>
     </div>

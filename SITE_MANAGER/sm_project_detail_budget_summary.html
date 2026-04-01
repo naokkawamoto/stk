@@ -127,6 +127,47 @@
       margin: 0.6rem 0 0.85rem;
       color: #212529;
     }
+    .budget-tabs {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .budget-tabs .nav-link {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #495057;
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid #dee2e6;
+      background: #fff;
+    }
+    .budget-tabs .nav-link.active {
+      color: #fff;
+      background: #0d6efd;
+      border-color: #0d6efd;
+    }
+    .daily-budget-card {
+      border: 1px solid #dee2e6;
+      border-radius: 0.5rem;
+      background: #fff;
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+    }
+    .daily-budget-card-header {
+      background: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+      padding: 0.55rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #212529;
+    }
+    .daily-budget-card-body {
+      padding: 0.55rem 0.7rem;
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+      color: #495057;
+    }
   </style>
 </head>
 <body>
@@ -180,21 +221,69 @@
 
     <h1 class="page-heading">予算・実績</h1>
 
-    <div class="card">
-      <div class="card-header py-2"><span class="fw-bold small-text">予算・実績</span></div>
-      <div class="card-body p-2">
-        <table class="table table-sm table-bordered budget-table mb-2">
-          <thead>
-            <tr><th>項目</th><th>予算</th><th>実績</th><th>進捗率</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>直接工事費</td><td class="text-end">45,000,000</td><td class="text-end">20,250,000</td><td class="text-center">45%</td></tr>
-            <tr><td>経費</td><td class="text-end">5,000,000</td><td class="text-end">2,000,000</td><td class="text-center">40%</td></tr>
-            <tr class="table-primary fw-bold"><td>合計</td><td class="text-end">50,000,000</td><td class="text-end">22,250,000</td><td class="text-center">45%</td></tr>
-          </tbody>
-        </table>
-        <div class="progress" style="height: 15px;">
-          <div class="progress-bar bg-success" role="progressbar" style="width: 45%;">45%</div>
+    <ul class="nav budget-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary-pane" type="button" role="tab" aria-controls="summary-pane" aria-selected="true">予算・実績</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="daily-tab" data-bs-toggle="tab" data-bs-target="#daily-pane" type="button" role="tab" aria-controls="daily-pane" aria-selected="false">日次予算</button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="summary-pane" role="tabpanel" aria-labelledby="summary-tab" tabindex="0">
+        <div class="card">
+          <div class="card-header py-2"><span class="fw-bold small-text">予算・実績</span></div>
+          <div class="card-body p-2">
+            <table class="table table-sm table-bordered budget-table mb-2">
+              <thead>
+                <tr><th>項目</th><th>予算</th><th>実績</th><th>進捗率</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>直接工事費</td><td class="text-end">45,000,000</td><td class="text-end">20,250,000</td><td class="text-center">45%</td></tr>
+                <tr><td>経費</td><td class="text-end">5,000,000</td><td class="text-end">2,000,000</td><td class="text-center">40%</td></tr>
+                <tr class="table-primary fw-bold"><td>合計</td><td class="text-end">50,000,000</td><td class="text-end">22,250,000</td><td class="text-center">45%</td></tr>
+              </tbody>
+            </table>
+            <div class="progress" style="height: 15px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 45%;">45%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="daily-pane" role="tabpanel" aria-labelledby="daily-tab" tabindex="0">
+        <div class="daily-budget-card">
+          <div class="daily-budget-card-header">2026/03/14（土）</div>
+          <div class="daily-budget-card-body">
+            <div>直接工事</div>
+            <div>経費</div>
+            <div>合計</div>
+          </div>
+        </div>
+        <div class="daily-budget-card">
+          <div class="daily-budget-card-header">2026/03/13（金）</div>
+          <div class="daily-budget-card-body">
+            <div>直接工事</div>
+            <div>経費</div>
+            <div>合計</div>
+          </div>
+        </div>
+        <div class="daily-budget-card">
+          <div class="daily-budget-card-header">2026/03/12（木）</div>
+          <div class="daily-budget-card-body">
+            <div>直接工事</div>
+            <div>経費</div>
+            <div>合計</div>
+          </div>
+        </div>
+        <div class="daily-budget-card">
+          <div class="daily-budget-card-header">2026/03/11（水）</div>
+          <div class="daily-budget-card-body">
+            <div>直接工事</div>
+            <div>経費</div>
+            <div>合計</div>
+          </div>
         </div>
       </div>
     </div>
