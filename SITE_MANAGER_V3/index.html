@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>現場監督アプリ シンプル版</title>
+<style>
+  :root{
+    --navy:#1e2a5a; --green:#1a7a4a; --green-lt:#e8f5ee;
+    --ink:#222; --sub:#777; --line:#e5e5e5; --bg:#f6f7f9; --amber:#b45309;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{background:#dfe3e8}
+  body{font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.5;max-width:430px;margin:0 auto;min-height:100vh;box-shadow:0 0 24px rgba(0,0,0,.15)}
+
+  /* ヘッダー */
+  header{background:var(--navy);color:#fff;padding:12px 16px;position:sticky;top:0;z-index:20}
+  header .site{font-size:17px;font-weight:700}
+  header .meta{font-size:13px;opacity:.85;margin-top:2px}
+
+  /* 3ステップ進捗（本日の作業のみ） */
+  .steps{display:none;background:#fff;border-bottom:1px solid var(--line)}
+  .steps.visible{display:flex}
+  .steps .st{flex:1;text-align:center;padding:10px 4px;font-size:13px;color:var(--sub);border-bottom:3px solid transparent}
+  .steps .st .n{display:inline-flex;width:22px;height:22px;border-radius:50%;background:#ddd;color:#fff;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin-right:4px}
+  .steps .st.active{color:var(--navy);font-weight:700;border-bottom-color:var(--green)}
+  .steps .st.active .n{background:var(--green)}
+  .steps .st.done{color:var(--green)}
+  .steps .st.done .n{background:var(--green)}
+
+  main{padding:16px 14px 190px}
+  .screen{display:none}
+  .screen.active{display:block}
+
+  h2{font-size:15px;color:var(--sub);font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:6px}
+  h2:first-child{margin-top:0}
+
+  /* 工事リスト */
+  .plist .pcard{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:10px}
+  .plist .pcard .txt{flex:1}
+  .plist .pcard .t{font-size:17px;font-weight:700}
+  .plist .pcard .s{font-size:13px;color:var(--sub);margin-top:2px}
+  .chip{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+  .chip.now{background:var(--green-lt);color:var(--green)}
+  .chip.soon{background:#fef3c7;color:var(--amber)}
+  .chip.plan{background:#f3f4f6;color:var(--sub)}
+  .chip.apr{background:var(--green-lt);color:var(--green)}
+  .chip.wait{background:#fef3c7;color:var(--amber)}
+  .plist .arrow{color:#bbb;font-size:20px}
+
+  /* 行カード */
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .rowwrap{border-bottom:1px solid var(--line)}
+  .rowwrap:last-child{border-bottom:none}
+  .row{display:flex;align-items:center;gap:10px;padding:14px;min-height:56px}
+  .row .txt{flex:1}
+  .row .txt .t{font-size:16px;font-weight:600;display:flex;align-items:center;gap:6px}
+  .row .txt .s{font-size:13px;color:var(--sub);margin-top:1px}
+  .row .val{font-size:16px;font-weight:700;color:var(--navy);white-space:nowrap}
+  .row .ok{width:28px;height:28px;border-radius:50%;border:2px solid #ccc;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px}
+  .rowwrap.checked .ok{background:var(--green);border-color:var(--green)}
+  .rowwrap.checked .ok::after{content:"✓"}
+
+  /* 詳細アイコン + 詳細パネル */
+  .info{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--navy);color:var(--navy);background:#fff;font-size:13px;font-weight:700;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;font-style:normal}
+  .detail{display:none;background:#f2f6fb;border-top:1px dashed var(--line);padding:12px 14px;font-size:14px}
+  .detail.open{display:block}
+  .detail dt{color:var(--sub);font-size:12px;margin-top:8px}
+  .detail dt:first-child{margin-top:0}
+  .detail dd{margin:0}
+
+  /* 添付ボタン */
+  .attach{display:flex;gap:8px;padding:0 14px 12px}
+  .abtn{flex:1;padding:10px 6px;border-radius:8px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);font-size:14px;font-weight:600}
+  .abtn.done{border-color:var(--green);color:var(--green);background:var(--green-lt)}
+
+  /* 出来高カード */
+  .dekicard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+  .dekicard .head{display:flex;justify-content:space-between;align-items:center}
+  .dekicard .head .name{font-size:17px;font-weight:700}
+  .badge{font-size:12px;font-weight:700;padding:3px 8px;border-radius:999px}
+  .badge.auto{background:var(--green-lt);color:var(--green)}
+  .dekicard .place{font-size:13px;color:var(--sub);margin-top:2px}
+  .dekicard .value{display:flex;align-items:baseline;gap:6px;margin:12px 0 4px}
+  .dekicard .value .num{font-size:34px;font-weight:800;color:var(--navy);border-bottom:2px dashed #bbb}
+  .dekicard .value .unit{font-size:18px;font-weight:700;color:var(--navy)}
+  .dekicard .value .diff{font-size:13px;color:var(--sub)}
+  .dekicard .pc{width:100%;border-radius:8px;margin-top:8px;display:block}
+  .hint{font-size:13px;color:var(--sub);margin:8px 2px 0}
+
+  /* スキャンボタン */
+  .scanbtn{width:100%;padding:18px;border-radius:12px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+  .scanning{text-align:center;padding:14px;color:var(--sub);font-size:15px;display:none}
+
+  /* 現場写真 */
+  .photos{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .photos .ph{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#fff}
+  .photos .ph img{width:100%;height:110px;object-fit:cover;display:block}
+  .photos .ph .cap{position:absolute;left:0;right:0;bottom:0;background:rgba(20,25,40,.65);color:#fff;font-size:11px;padding:2px 8px}
+  .photos .add{border:2px dashed #bbb;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:110px;color:var(--sub);font-size:13px;font-weight:600;background:#fff}
+
+  /* 日誌プレビュー・情報テーブル */
+  .nisshi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+  .nisshi table{width:100%;border-collapse:collapse;font-size:15px}
+  .nisshi th{font-weight:600;color:var(--sub);text-align:left;padding:8px 8px 8px 0;width:92px;vertical-align:top;border-bottom:1px solid var(--line)}
+  .nisshi td{padding:8px 0;border-bottom:1px solid var(--line)}
+  .nisshi tr:last-child th,.nisshi tr:last-child td{border-bottom:none}
+  textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:16px;font-family:inherit;min-height:72px}
+  .voice{margin-top:8px;padding:12px;width:100%;border-radius:8px;border:1px solid var(--navy);color:var(--navy);background:#fff;font-size:15px;font-weight:600}
+
+  /* 進捗バー */
+  .pbar{height:10px;background:#e9ecef;border-radius:5px;overflow:hidden;margin-top:6px}
+  .pbar i{display:block;height:100%;background:var(--green);border-radius:5px}
+  .prow{padding:13px 14px;border-bottom:1px solid var(--line)}
+  .prow:last-child{border-bottom:none}
+  .prow .l1{display:flex;justify-content:space-between;align-items:baseline}
+  .prow .l1 .nm{font-size:15px;font-weight:600}
+  .prow .l1 .pc2{font-size:15px;font-weight:800;color:var(--navy)}
+  .prow .l2{font-size:12px;color:var(--sub);margin-top:2px}
+
+  /* サマリーカード */
+  .sumwrap{display:flex;gap:10px}
+  .sumcard{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .sumcard .k{font-size:12px;color:var(--sub)}
+  .sumcard .v{font-size:26px;font-weight:800;color:var(--navy);margin-top:2px}
+  .sumcard .v small{font-size:13px}
+
+  /* 大ボタン（画面内） */
+  .bigbtn{width:100%;padding:17px;border:none;border-radius:14px;background:var(--green);color:#fff;font-size:18px;font-weight:700;box-shadow:0 4px 14px rgba(26,122,74,.35);margin-top:14px}
+
+  /* 図面 */
+  .dwg .row .t{gap:8px}
+  .dwg .dimg{display:none;padding:0 14px 14px}
+  .dwg .dimg.open{display:block}
+  .dwg .dimg img{width:100%;border:1px solid var(--line);border-radius:8px;background:#fff}
+
+  /* 下部の主ボタン（フッターの上） */
+  .cta{position:fixed;left:50%;transform:translateX(-50%);width:100%;max-width:430px;bottom:calc(64px + env(safe-area-inset-bottom));padding:12px 16px;background:linear-gradient(transparent,var(--bg) 35%);display:none;z-index:15}
+  .cta.visible{display:block}
+  .cta button{width:100%;padding:16px;border:none;border-radius:14px;background:var(--green);color:#fff;font-size:18px;font-weight:700;box-shadow:0 4px 14px rgba(26,122,74,.35)}
+  .cta button:disabled{background:#c7cdd6;box-shadow:none}
+  .cta .note{text-align:center;font-size:12px;color:var(--sub);margin-top:5px}
+
+  /* フッターメニュー */
+  .foot{position:fixed;left:50%;transform:translateX(-50%);width:100%;max-width:430px;bottom:0;height:calc(64px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);background:#fff;border-top:1px solid var(--line);display:flex;z-index:16}
+  .foot button{flex:1;border:none;background:none;color:#8a8f98;font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-family:inherit}
+  .foot button .ic{font-size:20px;line-height:1}
+  .foot button.active{color:var(--green)}
+  .foot button:not(.active) .ic{filter:grayscale(1);opacity:.6}
+
+  .homebtn{margin-top:20px;width:100%;padding:14px;border-radius:12px;border:1.5px solid var(--navy);background:#fff;color:var(--navy);font-size:16px;font-weight:700}
+
+  /* 完了画面 */
+  .donebox{text-align:center;padding:36px 0 18px}
+  .donebox .big{font-size:56px}
+  .donebox .msg{font-size:20px;font-weight:700;margin-top:8px}
+  .donebox .sub{font-size:14px;color:var(--sub);margin-top:4px}
+  .tomorrow{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:20px;text-align:left}
+  .tomorrow h3{font-size:15px;color:var(--sub);margin-bottom:8px}
+  .tomorrow .item{display:flex;justify-content:space-between;padding:7px 0;font-size:15px;border-bottom:1px dashed var(--line)}
+  .tomorrow .item:last-child{border-bottom:none}
+
+  .back{background:none;border:none;color:var(--sub);font-size:14px;padding:8px 0;margin-bottom:4px}
+
+  /* 日誌プレビュー（紙様式オーバーレイ） */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(20,25,40,.55);z-index:40;overflow-y:auto;padding:14px}
+  .overlay.open{display:block}
+  .paper{background:#fff;border-radius:10px;padding:18px 16px;max-width:560px;margin:0 auto 90px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+  .paper .ptitle{text-align:center;font-size:20px;font-weight:800;letter-spacing:8px;border:2px solid var(--ink);padding:6px;margin-bottom:12px}
+  .paper .stamps{display:flex;justify-content:flex-end;margin-bottom:12px}
+  .paper .stamps div{width:64px;border:1px solid #999;text-align:center;font-size:11px;color:var(--sub)}
+  .paper .stamps div b{display:block;font-size:15px;color:var(--ink);padding:10px 0;font-weight:600}
+  .paper table.doc{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:10px}
+  .paper table.doc th,.paper table.doc td{border:1px solid #999;padding:6px 8px;text-align:left;vertical-align:top}
+  .paper table.doc th{background:#f1f3f6;font-weight:600;white-space:nowrap;width:82px}
+  .paper table.doc td.num{text-align:right;white-space:nowrap}
+  .paper .sec{font-size:12px;color:var(--sub);margin:10px 0 4px;font-weight:700}
+  .paper .kiji{border:1px solid #999;padding:8px;font-size:13px;min-height:56px;white-space:pre-wrap}
+  .paper .autotag{font-size:10px;color:var(--green);border:1px solid var(--green);border-radius:3px;padding:0 3px;margin-left:4px;white-space:nowrap}
+  .ovclose{position:fixed;left:50%;transform:translateX(-50%);width:100%;max-width:430px;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));display:flex;gap:10px;background:linear-gradient(transparent,rgba(20,25,40,.7));z-index:41}
+  .ovclose button{flex:1;padding:15px;border-radius:12px;font-size:16px;font-weight:700;border:none}
+  .ovclose .cls{background:#fff;color:var(--navy)}
+  .ovclose .sbm{background:var(--green);color:#fff}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="site" id="hTitle">現場監督アプリ</div>
+  <div class="meta" id="hMeta">2026/03/14（土）　☀ 18°C / 8°C</div>
+</header>
+
+<div class="steps" id="steps">
+  <div class="st active" data-step="1"><span class="n">1</span>予定OK</div>
+  <div class="st" data-step="2"><span class="n">2</span>出来高</div>
+  <div class="st" data-step="3"><span class="n">3</span>日誌提出</div>
+</div>
+
+<main>
+
+  <!-- 工事一覧 -->
+  <section class="screen active plist" id="s0">
+    <h2>担当工事（5件）</h2>
+    <div class="pcard" onclick="openProject('国道９号線舗装工事')">
+      <div class="txt"><div class="t">国道９号線舗装工事</div><div class="s">アスファルト舗装工事｜3/1〜3/31</div></div>
+      <span class="chip now">本日作業</span><span class="arrow">›</span>
+    </div>
+    <div class="pcard" onclick="openProject('本社駐車場舗装工事')">
+      <div class="txt"><div class="t">本社駐車場舗装工事</div><div class="s">駐車場舗装工事｜3/10〜4/8</div></div>
+      <span class="chip now">本日作業</span><span class="arrow">›</span>
+    </div>
+    <div class="pcard" onclick="openProject('市道拡幅工事')">
+      <div class="txt"><div class="t">市道拡幅工事</div><div class="s">道路拡幅工事｜3/12〜5/15</div></div>
+      <span class="chip soon">準備中</span><span class="arrow">›</span>
+    </div>
+    <div class="pcard" onclick="openProject('側溝改修工事')">
+      <div class="txt"><div class="t">側溝改修工事</div><div class="s">側溝工事｜4/1〜4/20</div></div>
+      <span class="chip plan">未着手</span><span class="arrow">›</span>
+    </div>
+    <div class="pcard" onclick="openProject('アスファルト補修工事')">
+      <div class="txt"><div class="t">アスファルト補修工事</div><div class="s">道路補修工事｜4/6〜4/10</div></div>
+      <span class="chip plan">未着手</span><span class="arrow">›</span>
+    </div>
+    <p class="hint">工事をタップすると本日の作業に進みます。</p>
+  </section>
+
+  <!-- STEP 1: 本日の予定 -->
+  <section class="screen" id="s1">
+    <h2>工種（本日 2件）</h2>
+    <div class="card">
+      <div class="rowwrap">
+        <div class="row" onclick="tickRow(this)">
+          <div class="txt"><div class="t">表層工 <button class="info" onclick="toggleDetail(event,this)">i</button></div><div class="s">アスファルト混合物敷均し・転圧仕上げ｜上り線 KP12.4</div></div>
+          <div class="val">450 ㎡</div><div class="ok"></div>
+        </div>
+        <div class="detail"><dl>
+          <dt>使用材料</dt><dd>密粒度As（13）t=50mm</dd>
+          <dt>施工条件</dt><dd>敷均し温度 110℃以上／転圧: マカダム→タイヤ</dd>
+          <dt>出来形基準</dt><dd>厚さ -9mm／幅 -25mm 以内</dd>
+          <dt>参照図面</dt><dd>舗装構成図・舗装展開図</dd>
+        </dl></div>
+      </div>
+      <div class="rowwrap">
+        <div class="row" onclick="tickRow(this)">
+          <div class="txt"><div class="t">路盤工 <button class="info" onclick="toggleDetail(event,this)">i</button></div><div class="s">粒度調整砕石敷均し・不陸整正｜下り線 交差点流入部</div></div>
+          <div class="val">320 ㎡</div><div class="ok"></div>
+        </div>
+        <div class="detail"><dl>
+          <dt>使用材料</dt><dd>RC-40 再生クラッシャラン t=150mm</dd>
+          <dt>施工条件</dt><dd>プルーフローリングで支持力確認</dd>
+          <dt>出来形基準</dt><dd>基準高 ±40mm／厚さ -30mm 以内</dd>
+          <dt>参照図面</dt><dd>断面図（横断面）</dd>
+        </dl></div>
+      </div>
+    </div>
+
+    <h2>使用機械</h2>
+    <div class="card">
+      <div class="rowwrap"><div class="row" onclick="tickRow(this)"><div class="txt"><div class="t">アスファルトフィニッシャ</div><div class="s">住友建機 HA60C-8</div></div><div class="val">1台</div><div class="ok"></div></div></div>
+      <div class="rowwrap"><div class="row" onclick="tickRow(this)"><div class="txt"><div class="t">マカダムローラ</div><div class="s">酒井重工業 R2-4</div></div><div class="val">1台</div><div class="ok"></div></div></div>
+      <div class="rowwrap"><div class="row" onclick="tickRow(this)"><div class="txt"><div class="t">タイヤローラ</div><div class="s">酒井重工業 TS200</div></div><div class="val">1台</div><div class="ok"></div></div></div>
+    </div>
+
+    <h2>業者・人員</h2>
+    <div class="card">
+      <div class="rowwrap">
+        <div class="row" onclick="tickRow(this)"><div class="txt"><div class="t">東京舗装（株）</div><div class="s">舗装工</div></div><div class="val">6名</div><div class="ok"></div></div>
+        <div class="attach">
+          <button class="abtn" onclick="attachDoc(event,this,'作業指示書')">📄 作業指示書</button>
+          <button class="abtn" onclick="attachDoc(event,this,'KY記録')">📄 KY記録</button>
+        </div>
+      </div>
+      <div class="rowwrap">
+        <div class="row" onclick="tickRow(this)"><div class="txt"><div class="t">（株）関東建設</div><div class="s">撤去工</div></div><div class="val">3名</div><div class="ok"></div></div>
+        <div class="attach">
+          <button class="abtn" onclick="attachDoc(event,this,'作業指示書')">📄 作業指示書</button>
+          <button class="abtn" onclick="attachDoc(event,this,'KY記録')">📄 KY記録</button>
+        </div>
+      </div>
+    </div>
+
+    <h2>受け入れ材料</h2>
+    <div class="card">
+      <div class="rowwrap">
+        <div class="row" onclick="tickRow(this)">
+          <div class="txt"><div class="t">As混合物（密粒 t=50） <button class="info" onclick="toggleDetail(event,this)">i</button></div><div class="s">搬入 8:30〜 随時</div></div>
+          <div class="val">45 t</div><div class="ok"></div>
+        </div>
+        <div class="detail"><dl>
+          <dt>規格</dt><dd>密粒度アスコン（13）</dd>
+          <dt>出荷プラント</dt><dd>東京合材センター 川崎工場</dd>
+          <dt>設計数量</dt><dd>45 t（10t車 ×5台予定）</dd>
+          <dt>伝票</dt><dd>No.1024〜｜電子帳簿保存法対応で自動保存</dd>
+        </dl></div>
+        <div class="attach"><button class="abtn" onclick="attachDoc(event,this,'納品書')">📷 納品書を撮る</button></div>
+      </div>
+      <div class="rowwrap">
+        <div class="row" onclick="tickRow(this)">
+          <div class="txt"><div class="t">RC-40 再生砕石 <button class="info" onclick="toggleDetail(event,this)">i</button></div><div class="s">搬入 9:00〜</div></div>
+          <div class="val">62 t</div><div class="ok"></div>
+        </div>
+        <div class="detail"><dl>
+          <dt>規格</dt><dd>再生クラッシャラン RC-40</dd>
+          <dt>納入業者</dt><dd>関東砕石（株）</dd>
+          <dt>設計数量</dt><dd>62 t</dd>
+        </dl></div>
+        <div class="attach"><button class="abtn" onclick="attachDoc(event,this,'納品書')">📷 納品書を撮る</button></div>
+      </div>
+    </div>
+
+    <h2>受け入れ資材</h2>
+    <div class="card">
+      <div class="rowwrap">
+        <div class="row" onclick="tickRow(this)">
+          <div class="txt"><div class="t">プライムコート乳剤 PK-3 <button class="info" onclick="toggleDetail(event,this)">i</button></div><div class="s">路盤養生用</div></div>
+          <div class="val">200 L</div><div class="ok"></div>
+        </div>
+        <div class="detail"><dl>
+          <dt>規格</dt><dd>石油アスファルト乳剤 PK-3（JIS K 2208）</dd>
+          <dt>納入業者</dt><dd>ニチレキ（株）</dd>
+          <dt>数量</dt><dd>200L ドラム ×1本</dd>
+        </dl></div>
+        <div class="attach"><button class="abtn" onclick="attachDoc(event,this,'納品書')">📷 納品書を撮る</button></div>
+      </div>
+      <div class="rowwrap">
+        <div class="row" onclick="tickRow(this)">
+          <div class="txt"><div class="t">縁石ブロック <button class="info" onclick="toggleDetail(event,this)">i</button></div><div class="s">交差点部 布設用</div></div>
+          <div class="val">30 個</div><div class="ok"></div>
+        </div>
+        <div class="detail"><dl>
+          <dt>規格</dt><dd>歩車道境界ブロック A種（JIS A 5371）</dd>
+          <dt>納入業者</dt><dd>太平洋プレコン（株）</dd>
+          <dt>数量</dt><dd>30 個（パレット ×2）</dd>
+        </dl></div>
+        <div class="attach"><button class="abtn" onclick="attachDoc(event,this,'納品書')">📷 納品書を撮る</button></div>
+      </div>
+    </div>
+    <p class="hint">ⓘ で詳細、📄📷 で書類添付。内容が違う行だけタップで修正。問題なければ下のボタンひとつでOK。</p>
+  </section>
+
+  <!-- STEP 2: 出来高 -->
+  <section class="screen" id="s2">
+    <button class="back" onclick="goStep(1)">← 予定に戻る</button>
+
+    <button class="scanbtn" id="scanBtn" onclick="startScan()">📱 現場をスキャンする（10分）</button>
+    <div class="scanning" id="scanning">解析中… 前日の点群と比較しています</div>
+
+    <div id="dekiResults" style="display:none;margin-top:14px">
+      <div class="dekicard">
+        <div class="head"><span class="name">表層工</span><span class="badge auto">自動算出</span></div>
+        <div class="place">上り線 KP12.4付近｜面積（前日差分）</div>
+        <div class="value"><span class="num" onclick="editNum(this)">448</span><span class="unit">㎡</span><span class="diff">予定 450㎡</span></div>
+        <img class="pc" src="../SITE_MANAGER/assets/pc_thumb.png" alt="点群差分">
+      </div>
+      <div class="dekicard">
+        <div class="head"><span class="name">路盤工</span><span class="badge auto">自動算出</span></div>
+        <div class="place">下り線 交差点流入部｜面積（前日差分）</div>
+        <div class="value"><span class="num" onclick="editNum(this)">320</span><span class="unit">㎡</span><span class="diff">予定 320㎡</span></div>
+      </div>
+      <p class="hint">数字が違うときはタップして直すだけ。修正はAIの学習に使われます。</p>
+    </div>
+
+    <h2 style="margin-top:18px">現場写真（本日 4枚）　<span style="font-weight:400">撮影と同時に自動分類</span></h2>
+    <div class="photos">
+      <div class="ph"><img src="../images/improveroad.webp" alt="路盤整正"><div class="cap">9:12 路盤工｜路盤整正</div></div>
+      <div class="ph"><img src="../images/night.webp" alt="舗設状況"><div class="cap">13:45 表層工｜As舗設状況</div></div>
+      <div class="ph"><img src="../images/parking.webp" alt="転圧完了"><div class="cap">15:20 表層工｜転圧完了</div></div>
+      <div class="ph"><img src="../images/Vgatasokou.webp" alt="側溝際仕上げ"><div class="cap">15:48 表層工｜側溝際仕上げ</div></div>
+    </div>
+    <button class="photos add" style="width:100%;margin-top:8px;min-height:52px;flex-direction:row;gap:8px" onclick="this.textContent='✓ 撮影しました（自動で工種にひも付け）'">📷 写真を追加する</button>
+  </section>
+
+  <!-- STEP 3: 日誌 -->
+  <section class="screen" id="s3">
+    <button class="back" onclick="goStep(2)">← 出来高に戻る</button>
+
+    <div class="nisshi">
+      <table>
+        <tr><th>工事名</th><td>国道９号線舗装工事</td></tr>
+        <tr><th>日時</th><td>2026/03/14（土） 8:00〜17:00　☀ 晴れ 18°C/8°C</td></tr>
+        <tr><th>出来高</th><td>表層工 448㎡ ／ 路盤工 320㎡ <span class="badge auto">自動</span></td></tr>
+        <tr><th>使用機械</th><td>フィニッシャ1・マカダム1・タイヤ1</td></tr>
+        <tr><th>人員</th><td>東京舗装6名・関東建設3名</td></tr>
+        <tr><th>受入材料</th><td>As混合物45t・RC-40 62t <span class="badge auto">伝票読取</span></td></tr>
+        <tr><th>受入資材</th><td>PK-3乳剤 200L・縁石ブロック30個</td></tr>
+        <tr><th>現場写真</th><td>4枚（工種別に自動分類） <span class="badge auto">自動</span></td></tr>
+        <tr><th>添付書類</th><td>作業指示書2・KY記録2・納品書4 <span class="badge auto">自動整理</span></td></tr>
+      </table>
+    </div>
+
+    <h2>記事欄（特記事項）</h2>
+    <textarea placeholder="例: 交差点部の転圧に時間を要した。明日は区画線工の準備。"></textarea>
+    <button class="voice" onclick="voiceInput(this)">🎙 話して入力する</button>
+    <button class="voice" style="margin-top:10px" onclick="openPreview()">📄 提出前に日誌をプレビュー</button>
+    <p class="hint">記事欄以外はすべて自動で入っています。確認して提出するだけです。</p>
+  </section>
+
+  <!-- 完了 + 明日の予定 -->
+  <section class="screen" id="s4">
+    <div class="donebox">
+      <div class="big">🎉</div>
+      <div class="msg">日誌を提出しました</div>
+      <div class="sub">所長に通知されました。今日は直帰できます。</div>
+    </div>
+    <div class="tomorrow">
+      <h3>明日 3/15（日）の予定（ST-ABLEから取得済み）</h3>
+      <div class="item"><span>表層工つづき（KP12.6〜）</span><b>500 ㎡</b></div>
+      <div class="item"><span>As混合物 搬入</span><b>50 t</b></div>
+      <div class="item"><span>東京舗装（株）</span><b>6名</b></div>
+    </div>
+    <button class="homebtn" onclick="navTo('s0')">工事一覧へ戻る</button>
+  </section>
+
+  <!-- 工事概要 -->
+  <section class="screen" id="s5">
+    <div class="sumwrap">
+      <div class="sumcard"><div class="k">全体進捗</div><div class="v">73<small>%</small></div></div>
+      <div class="sumcard"><div class="k">工期残り</div><div class="v">17<small>日</small></div></div>
+      <div class="sumcard"><div class="k">本日の日誌</div><div class="v" style="font-size:16px;padding-top:6px" id="ovNisshi">未提出</div></div>
+    </div>
+
+    <button class="bigbtn" onclick="goStep(1)">▶ 本日の作業をはじめる</button>
+
+    <h2>工事情報</h2>
+    <div class="nisshi">
+      <table>
+        <tr><th>工事名</th><td>国道９号線舗装工事</td></tr>
+        <tr><th>工期</th><td>2026/03/01 〜 2026/03/31</td></tr>
+        <tr><th>発注者</th><td>国土交通省 ○○国道事務所</td></tr>
+        <tr><th>施工場所</th><td>国道9号 KP12.0〜KP13.0</td></tr>
+        <tr><th>現場代理人</th><td>佐藤 一郎</td></tr>
+        <tr><th>主な工種</th><td>撤去工・路盤工・基層工・表層工・区画線工</td></tr>
+        <tr><th>連絡先</th><td>現場事務所 03-XXXX-XXXX</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 予算実績 -->
+  <section class="screen" id="s6">
+    <div class="sumwrap">
+      <div class="sumcard"><div class="k">出来高（累計）</div><div class="v">73<small>%</small></div></div>
+      <div class="sumcard"><div class="k">予算に対する支出</div><div class="v">71<small>%</small></div></div>
+    </div>
+    <p class="hint" style="margin-top:10px">💡 出来高より支出が2pt下回っています（順調）。本日の出来高 表層工448㎡は反映済み。</p>
+
+    <h2>工種別の進み具合（予算数量に対して）</h2>
+    <div class="card">
+      <div class="prow">
+        <div class="l1"><span class="nm">舗装版撤去</span><span class="pc2">100%</span></div>
+        <div class="l2">1,450 / 1,450 ㎡</div>
+        <div class="pbar"><i style="width:100%"></i></div>
+      </div>
+      <div class="prow">
+        <div class="l1"><span class="nm">路盤工（RC-40）</span><span class="pc2">100%</span></div>
+        <div class="l2">1,450 / 1,450 ㎡</div>
+        <div class="pbar"><i style="width:100%"></i></div>
+      </div>
+      <div class="prow">
+        <div class="l1"><span class="nm">基層工（粗粒）</span><span class="pc2">100%</span></div>
+        <div class="l2">1,450 / 1,450 ㎡</div>
+        <div class="pbar"><i style="width:100%"></i></div>
+      </div>
+      <div class="prow">
+        <div class="l1"><span class="nm">表層工（密粒）</span><span class="pc2">31%</span></div>
+        <div class="l2">448 / 1,450 ㎡　<span class="badge auto">本日 +448㎡</span></div>
+        <div class="pbar"><i style="width:31%"></i></div>
+      </div>
+      <div class="prow">
+        <div class="l1"><span class="nm">区画線工</span><span class="pc2">0%</span></div>
+        <div class="l2">0 / 200 m</div>
+        <div class="pbar"><i style="width:0%"></i></div>
+      </div>
+    </div>
+    <p class="hint">詳しい金額の対比表（Excel）は事務所PCで確認できます。</p>
+  </section>
+
+  <!-- 日誌一覧 -->
+  <section class="screen" id="s7">
+    <h2>今日</h2>
+    <div class="card">
+      <div class="rowwrap"><div class="row" onclick="goStep(1)">
+        <div class="txt"><div class="t">3/14（土）</div><div class="s">表層工・路盤工</div></div>
+        <span class="chip wait" id="todayChip">未提出</span><span class="arrow" style="color:#bbb;font-size:20px">›</span>
+      </div></div>
+    </div>
+
+    <h2>今週</h2>
+    <div class="card">
+      <div class="rowwrap"><div class="row">
+        <div class="txt"><div class="t">3/13（金）</div><div class="s">基層工 720㎡</div></div><span class="chip apr">承認済</span>
+      </div></div>
+      <div class="rowwrap"><div class="row">
+        <div class="txt"><div class="t">3/12（木）</div><div class="s">基層工 730㎡</div></div><span class="chip apr">承認済</span>
+      </div></div>
+      <div class="rowwrap"><div class="row">
+        <div class="txt"><div class="t">3/11（水）</div><div class="s">路盤工 800㎡</div></div><span class="chip apr">承認済</span>
+      </div></div>
+      <div class="rowwrap"><div class="row">
+        <div class="txt"><div class="t">3/10（火）</div><div class="s">路盤工 650㎡</div></div><span class="chip wait">承認待ち</span>
+      </div></div>
+    </div>
+    <p class="hint">タップすると日誌を確認できます（過去分は閲覧のみ）。</p>
+  </section>
+
+  <!-- スケジュール -->
+  <section class="screen" id="s8">
+    <div class="sumwrap">
+      <div class="sumcard"><div class="k">全体進捗</div><div class="v">73<small>%</small></div></div>
+      <div class="sumcard"><div class="k">工程</div><div class="v" style="font-size:16px;padding-top:6px">予定どおり</div></div>
+    </div>
+
+    <h2>工種別の進捗</h2>
+    <div class="card">
+      <div class="prow">
+        <div class="l1"><span class="nm">撤去工</span><span class="pc2">100%</span></div>
+        <div class="pbar"><i style="width:100%"></i></div>
+      </div>
+      <div class="prow">
+        <div class="l1"><span class="nm">アスファルト舗装工</span><span class="pc2">77%</span></div>
+        <div class="pbar"><i style="width:77%"></i></div>
+      </div>
+      <div class="prow">
+        <div class="l1"><span class="nm">区画線工</span><span class="pc2">0%</span></div>
+        <div class="pbar"><i style="width:0%"></i></div>
+      </div>
+    </div>
+
+    <h2>今後の予定</h2>
+    <div class="card">
+      <div class="rowwrap"><div class="row"><div class="txt"><div class="t">3/14（土）本日</div><div class="s">表層工 450㎡・路盤工 320㎡</div></div><span class="chip now">作業中</span></div></div>
+      <div class="rowwrap"><div class="row"><div class="txt"><div class="t">3/15（日）</div><div class="s">表層工つづき（KP12.6〜） 500㎡</div></div></div></div>
+      <div class="rowwrap"><div class="row"><div class="txt"><div class="t">3/16（月）</div><div class="s">表層工残り 502㎡・区画線工準備</div></div></div></div>
+      <div class="rowwrap"><div class="row"><div class="txt"><div class="t">3/17（火）</div><div class="s">区画線工 200m</div></div></div></div>
+    </div>
+    <p class="hint">全体のガントチャートは事務所PCで確認できます。</p>
+  </section>
+
+  <!-- 図面 -->
+  <section class="screen dwg" id="s9">
+    <h2>図面（タップで開く）</h2>
+    <div class="card">
+      <div class="rowwrap">
+        <div class="row" onclick="toggleDwg(this)"><div class="txt"><div class="t">📐 平面図</div><div class="s">道路平面図（国道9号線）</div></div><span class="arrow" style="color:#bbb">›</span></div>
+        <div class="dimg"><img src="../images/heimen.webp" alt="平面図" loading="lazy"></div>
+      </div>
+      <div class="rowwrap">
+        <div class="row" onclick="toggleDwg(this)"><div class="txt"><div class="t">📐 断面図</div><div class="s">道路断面図（横断面）</div></div><span class="arrow" style="color:#bbb">›</span></div>
+        <div class="dimg"><img src="../images/danmen.webp" alt="断面図" loading="lazy"></div>
+      </div>
+      <div class="rowwrap">
+        <div class="row" onclick="toggleDwg(this)"><div class="txt"><div class="t">📐 舗装構成図</div><div class="s">舗装層構成詳細</div></div><span class="arrow" style="color:#bbb">›</span></div>
+        <div class="dimg"><img src="../images/hosoukousei.webp" alt="舗装構成図" loading="lazy"></div>
+      </div>
+      <div class="rowwrap">
+        <div class="row" onclick="toggleDwg(this)"><div class="txt"><div class="t">📐 舗装展開図</div><div class="s">舗装工区画展開図</div></div><span class="arrow" style="color:#bbb">›</span></div>
+        <div class="dimg"><img src="../images/hosoutenkai.webp" alt="舗装展開図" loading="lazy"></div>
+      </div>
+      <div class="rowwrap">
+        <div class="row" onclick="toggleDwg(this)"><div class="txt"><div class="t">📐 区画線図</div><div class="s">区画線施工図</div></div><span class="arrow" style="color:#bbb">›</span></div>
+        <div class="dimg"><img src="../images/kukakusen.webp" alt="区画線図" loading="lazy"></div>
+      </div>
+    </div>
+    <p class="hint">ピンチで拡大できます。最新版は自動で同期されています。</p>
+  </section>
+
+</main>
+
+<!-- 日誌プレビュー（提出される様式そのまま） -->
+<div class="overlay" id="nisshiPreview">
+  <div class="paper">
+    <div class="ptitle">工事日誌</div>
+    <div class="stamps">
+      <div>所長<b>　</b></div>
+      <div>確認<b>山田</b></div>
+      <div>担当<b>佐藤</b></div>
+    </div>
+    <table class="doc">
+      <tr><th>工事名</th><td colspan="3">国道９号線舗装工事</td></tr>
+      <tr><th>作業日</th><td>2026年3月14日（土）</td><th>天候</th><td>晴れ 18°C／8°C</td></tr>
+      <tr><th>作業時間</th><td>8:00 〜 17:00</td><th>担当者</th><td>佐藤 一郎</td></tr>
+    </table>
+
+    <div class="sec">工種・出来高 <span class="autotag">スキャン自動算出</span></div>
+    <table class="doc">
+      <tr><th style="width:auto">表層工</th><td>As混合物敷均し・転圧仕上げ｜上り線 KP12.4</td><td class="num">448 ㎡</td></tr>
+      <tr><th style="width:auto">路盤工</th><td>粒度調整砕石敷均し・不陸整正｜下り線 交差点流入部</td><td class="num">320 ㎡</td></tr>
+    </table>
+
+    <div class="sec">使用機械</div>
+    <table class="doc">
+      <tr><td>アスファルトフィニッシャ（住友建機）1台／マカダムローラ（酒井重工業）1台／タイヤローラ（酒井重工業）1台</td></tr>
+    </table>
+
+    <div class="sec">作業員</div>
+    <table class="doc">
+      <tr><td>東京舗装（株）舗装工 6名／（株）関東建設 撤去工 3名</td><td class="num">計 9名</td></tr>
+    </table>
+
+    <div class="sec">受入材料・資材 <span class="autotag">伝票読取</span></div>
+    <table class="doc">
+      <tr><td>As混合物（密粒 t=50）</td><td class="num">45 t</td></tr>
+      <tr><td>RC-40 再生砕石</td><td class="num">62 t</td></tr>
+      <tr><td>プライムコート乳剤 PK-3</td><td class="num">200 L</td></tr>
+      <tr><td>縁石ブロック</td><td class="num">30 個</td></tr>
+    </table>
+
+    <div class="sec">記事欄（特記事項）</div>
+    <div class="kiji" id="pvKiji">（記入なし）</div>
+
+    <div class="sec">現場写真（4枚） <span class="autotag">工種別に自動分類</span></div>
+    <div class="photos" style="margin-bottom:10px">
+      <div class="ph"><img src="../images/improveroad.webp" alt="路盤整正"><div class="cap">9:12 路盤工｜路盤整正</div></div>
+      <div class="ph"><img src="../images/night.webp" alt="舗設状況"><div class="cap">13:45 表層工｜As舗設状況</div></div>
+      <div class="ph"><img src="../images/parking.webp" alt="転圧完了"><div class="cap">15:20 表層工｜転圧完了</div></div>
+      <div class="ph"><img src="../images/Vgatasokou.webp" alt="側溝際仕上げ"><div class="cap">15:48 表層工｜側溝際仕上げ</div></div>
+    </div>
+
+    <div class="sec">添付書類 <span class="autotag">自動整理</span></div>
+    <table class="doc">
+      <tr><td>作業指示書 2件／KY記録 2件／納品書 4件／点群データ 2件</td></tr>
+    </table>
+  </div>
+  <div class="ovclose">
+    <button class="cls" onclick="closePreview()">閉じて修正する</button>
+    <button class="sbm" onclick="closePreview();goStep(4)">このまま提出する</button>
+  </div>
+</div>
+
+<div class="cta" id="cta">
+  <button id="ctaBtn" onclick="ctaAction()">すべて確認OK</button>
+  <div class="note" id="ctaNote">個別に直したい行だけタップしてください</div>
+</div>
+
+<nav class="foot" id="foot">
+  <button data-nav="s0" onclick="navTo('s0')"><span class="ic">📋</span>工事一覧</button>
+  <button data-nav="s5" onclick="navTo('s5')"><span class="ic">🏗️</span>工事概要</button>
+  <button data-nav="s6" onclick="navTo('s6')"><span class="ic">📊</span>予算実績</button>
+  <button data-nav="s7" onclick="navTo('s7')"><span class="ic">📓</span>日誌一覧</button>
+  <button data-nav="s8" onclick="navTo('s8')"><span class="ic">📅</span>工程</button>
+  <button data-nav="s9" onclick="navTo('s9')"><span class="ic">📐</span>図面</button>
+</nav>
+
+<script>
+let step = 0;
+let projectOpen = false;
+
+const PROJECT_META = '2026/03/14（土）　☀ 18°C / 8°C　担当: 佐藤一郎';
+
+function setHeader(title, meta){
+  document.getElementById('hTitle').textContent = title;
+  document.getElementById('hMeta').textContent = meta;
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function setFootActive(id){
+  document.querySelectorAll('.foot button').forEach(b=>b.classList.toggle('active', b.dataset.nav===id));
+}
+
+function openProject(name){
+  projectOpen = true;
+  setHeader(name, PROJECT_META);
+  goStep(1);
+}
+
+/* フッターからのページ切替（本日の作業フロー以外） */
+function navTo(id){
+  if(id!=='s0' && !projectOpen){ openProjectContext(); }
+  if(id==='s0'){
+    projectOpen = false;
+    setHeader('現場監督アプリ','2026/03/14（土）　☀ 18°C / 8°C');
+  }
+  step = 0;
+  document.getElementById('steps').classList.remove('visible');
+  document.getElementById('cta').classList.remove('visible');
+  showScreen(id);
+  setFootActive(id);
+}
+
+function openProjectContext(){
+  projectOpen = true;
+  setHeader('国道９号線舗装工事', PROJECT_META);
+}
+
+/* 本日の作業 3ステップフロー */
+function goStep(n){
+  step = n;
+  if(!projectOpen) openProjectContext();
+  showScreen('s'+n);
+  setFootActive(null);
+  document.getElementById('steps').classList.add('visible');
+  document.querySelectorAll('#steps .st').forEach(el=>{
+    const s = +el.dataset.step;
+    el.classList.toggle('active', s===n);
+    el.classList.toggle('done', s<n);
+  });
+  const btn = document.getElementById('ctaBtn'), note = document.getElementById('ctaNote');
+  const cta = document.getElementById('cta');
+  cta.classList.add('visible');
+  if(n===1){ note.textContent='個別に直したい行だけタップしてください'; btn.disabled=false; updateCta(); }
+  if(n===2){ btn.textContent='日誌の確認へ進む'; note.textContent='スキャンすると出来高が自動で入ります'; btn.disabled = !scanned; }
+  if(n===3){ btn.textContent='日誌を提出する'; note.textContent='提出後も修正できます'; btn.disabled=false; }
+  if(n===4){
+    cta.classList.remove('visible');
+    /* 提出済みステータスを全ページに反映 */
+    document.getElementById('ovNisshi').textContent = '提出済 ✓';
+    const tc = document.getElementById('todayChip');
+    tc.className = 'chip apr'; tc.textContent = '提出済';
+  }
+}
+
+function tickRow(r){ r.closest('.rowwrap').classList.toggle('checked'); updateCta(); }
+
+function toggleDetail(ev, btn){
+  ev.stopPropagation();
+  btn.closest('.rowwrap').querySelector('.detail').classList.toggle('open');
+}
+
+function toggleDwg(row){
+  row.closest('.rowwrap').querySelector('.dimg').classList.toggle('open');
+}
+
+function attachDoc(ev, btn, label){
+  ev.stopPropagation();
+  if(btn.classList.contains('done')) return;
+  btn.classList.add('done');
+  btn.textContent = '✓ ' + label + ' 添付済み';
+}
+
+function updateCta(){
+  const btn = document.getElementById('ctaBtn');
+  if(step===1){
+    const left = document.querySelectorAll('#s1 .rowwrap:not(.checked) .row').length;
+    btn.textContent = left===0 ? '出来高の登録へ進む' : `すべて確認OK（残り${left}件）`;
+  }
+}
+
+function ctaAction(){
+  if(step===1){
+    document.querySelectorAll('#s1 .rowwrap').forEach(r=>r.classList.add('checked'));
+    setTimeout(()=>goStep(2), 250);
+  } else if(step===2){ goStep(3); }
+  else if(step===3){ goStep(4); }
+}
+
+let scanned = false;
+function startScan(){
+  const b = document.getElementById('scanBtn');
+  b.disabled = true; b.textContent = '📡 スキャン中…';
+  document.getElementById('scanning').style.display='block';
+  setTimeout(()=>{
+    document.getElementById('scanning').style.display='none';
+    b.textContent = '✅ スキャン完了（15:42）— もう一度スキャン';
+    b.disabled = false;
+    document.getElementById('dekiResults').style.display='block';
+    scanned = true;
+    document.getElementById('ctaBtn').disabled = false;
+  }, 1800);
+}
+
+function editNum(el){
+  const v = prompt('出来高を修正', el.textContent);
+  if(v!==null && v.trim()!=='') el.textContent = v.trim();
+}
+
+function openPreview(){
+  const kiji = document.querySelector('#s3 textarea').value.trim();
+  document.getElementById('pvKiji').textContent = kiji || '（記入なし）';
+  const ov = document.getElementById('nisshiPreview');
+  ov.classList.add('open');
+  ov.scrollTop = 0;
+}
+function closePreview(){
+  document.getElementById('nisshiPreview').classList.remove('open');
+}
+
+function voiceInput(btn){
+  if(btn.dataset.rec){
+    document.querySelector('#s3 textarea').value = '交差点部の転圧に時間を要したが予定範囲は完了。明日はKP12.6から表層工を継続、区画線工の準備を並行する。';
+    btn.textContent = '🎙 話して入力する';
+    delete btn.dataset.rec;
+  } else {
+    btn.dataset.rec = '1';
+    btn.textContent = '🎙 録音中…（もう一度タップで文字起こし）';
+  }
+}
+
+navTo('s0');
+</script>
+</body>
+</html>
